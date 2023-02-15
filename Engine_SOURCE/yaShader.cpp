@@ -1,5 +1,6 @@
 #include "yaShader.h"
 #include "yaGraphicDevice_DX11.h"
+#include "yaRenderer.h"
 
 using namespace ya::graphics;
 
@@ -8,6 +9,9 @@ namespace ya
 	Shader::Shader()
 		: Resource(eResourceType::GraphicShader)
 		, mTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+		, mRSType(eRSType::SolidBack)
+		, mDSType(eDSType::Less)
+		, mBSType(eBSType::AlphaBlend)
 	{
 
 	}
@@ -66,6 +70,15 @@ namespace ya
 
 		GetDevice()->BindVertexShader(mVS.Get(), nullptr, 0);
 		GetDevice()->BindPixelShader(mPS.Get(), nullptr, 0);
+
+		Microsoft::WRL::ComPtr<ID3D11RasterizerState> rs = renderer::rasterizerStates[(UINT)mRSType];
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> ds = renderer::depthstencilStates[(UINT)mDSType];
+		Microsoft::WRL::ComPtr<ID3D11BlendState	> bs = renderer::blendStates[(UINT)mBSType];
+
+		GetDevice()->BindRasterizerState(rs.Get());
+		GetDevice()->BindDepthStencilState(ds.Get());
+		GetDevice()->BindBlendState(bs.Get());
+
 	}
 
 }

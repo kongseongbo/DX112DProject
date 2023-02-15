@@ -4,6 +4,7 @@
 
 namespace ya
 {
+	using namespace graphics;
 	class Shader : public Resource
 	{
 	public:
@@ -12,7 +13,7 @@ namespace ya
 
 		virtual HRESULT Load(const std::wstring& path) override;
 
-		void Create(graphics::eShaderStage stage, const std::wstring& file, const std::string& funName);
+		void Create(eShaderStage stage, const std::wstring& file, const std::string& funName);
 		void Binds();
 
 		ID3D11InputLayout* GetInputLayout() { return mInputLayout.Get(); }
@@ -20,6 +21,10 @@ namespace ya
 
 		void* GetVSBlobBufferPointer() { return mVSBlob->GetBufferPointer(); }
 		SIZE_T GetVSBlobBufferSize() { return mVSBlob->GetBufferSize(); }
+
+		void SetRSState(eRSType state) { mRSType = state; }
+		void SetDSState(eDSType state) { mDSType = state; }
+		void SetBSState(eBSType state) { mBSType = state; }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
@@ -38,9 +43,9 @@ namespace ya
 		Microsoft::WRL::ComPtr<ID3D11GeometryShader> mGS;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> mPS;
 
-		//래스터라이저 스테이트
-		//뎁스스텐실 스테이트
-		//알파블랜딩
+		eRSType mRSType;
+		eDSType mDSType;
+		eBSType mBSType;
 
 		Microsoft::WRL::ComPtr<ID3DBlob> mErrorBlob;
 	};
