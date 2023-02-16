@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="yaApplication.h" />
+    <ClInclude Include="yaBaseRenderer.h" />
     <ClInclude Include="yaCamera.h" />
     <ClInclude Include="yaCameraScript.h" />
     <ClInclude Include="yaComponent.h" />
@@ -186,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp" />
+    <ClCompile Include="yaBaseRenderer.cpp" />
     <ClCompile Include="yaCamera.cpp" />
     <ClCompile Include="yaCameraScript.cpp" />
     <ClCompile Include="yaComponent.cpp" />

@@ -142,6 +142,7 @@
     <ClCompile Include="yaSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="yaBaseRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -232,6 +233,7 @@
     <ClInclude Include="yaSpriteRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="yaBaseRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

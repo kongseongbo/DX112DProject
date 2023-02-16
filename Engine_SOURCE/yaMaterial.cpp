@@ -5,6 +5,7 @@ namespace ya::graphics
 {
 	Material::Material()
 		: Resource(eResourceType::Material)
+        , mMode(eRenderingMode::Opaque)
 	{
 	}
 	Material::~Material()

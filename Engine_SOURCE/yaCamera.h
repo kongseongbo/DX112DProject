@@ -6,7 +6,7 @@ namespace ya
 	using namespace math;
 	class Camera : public Component
 	{
-	public :
+	public:
 		enum eProjectionType
 		{
 			Perspective,
@@ -19,15 +19,27 @@ namespace ya
 		Camera();
 		virtual ~Camera();
 
-		virtual void Initalize()  override;
+		virtual void Initalize() override;
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
 		void CreateViewMatrix();
 		void CreateProjectionMatrix();
+		void RegisterCameraInRenderer();
 
-	private :
+		void TurnLayerMask(eLayerType layer, bool enable = true);
+		void EnableLayerMasks() { mLayerMasks.set(); }
+		void DisableLayerMasks() { mLayerMasks.reset(); }
+
+	private:
+		void sortGameObjects();
+		void renderOpaque();
+		void renderCutout();
+		void renderTransparent();
+		void pushGameObjectToRenderingModes(GameObject* gameObj);
+
+	private:
 		static Matrix View;
 		static Matrix Projection;
 
@@ -40,6 +52,10 @@ namespace ya
 		float mNear;
 		float mFar;
 		float mScale;
-	};
 
+		std::bitset<(UINT)eLayerType::End> mLayerMasks;
+		std::vector<GameObject*> mOpaqueGameObjects;
+		std::vector<GameObject*> mCutoutGameObjects;
+		std::vector<GameObject*> mTransparentGameObjects;
+	};
 }

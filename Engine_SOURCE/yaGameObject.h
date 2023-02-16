@@ -1,10 +1,10 @@
 #pragma once
 #include "yaComponent.h"
-
+#include "yaEntity.h"
 
 namespace ya
 {
-	class GameObject
+	class GameObject : public Entity
 	{
 	public:
 		enum eState

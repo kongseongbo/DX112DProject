@@ -28,6 +28,8 @@ namespace ya::renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+	std::vector<Camera*> cameras;
+
 	void SetUpState()
 	{
 #pragma region Input layout
@@ -75,8 +77,6 @@ namespace ya::renderer
 		//D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR = 0x5,
 		//D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT = 0x10,
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
-
-
 		GetDevice()->CreateSamplerState
 		(
 			&samplerDesc
@@ -137,7 +137,7 @@ namespace ya::renderer
 #pragma region Depth Stencil State
 		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
 		dsDesc.DepthEnable = true;
-		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
 		dsDesc.StencilEnable = false;
 
@@ -260,6 +260,7 @@ namespace ya::renderer
 		// Sprite
 		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		spriteMaterial->SetShader(spriteShader);
 		spriteMaterial->SetTexture(spriteTexture);
 		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
@@ -288,6 +289,18 @@ namespace ya::renderer
 		SetUpState();
 		LoadBuffer();
 		LoadMaterial();
+	}
+
+	void Render()
+	{
+		for (Camera* cam : cameras)
+		{
+			if (cam == nullptr)
+				continue;
+
+			cam->Render();
+		}
+		cameras.clear();
 	}
 
 	void Release()

@@ -70,6 +70,13 @@ namespace ya::graphics
 		End,
 	};
 
+	enum class eRenderingMode
+	{
+		Opaque,
+		CutOut,
+		Transparent,
+	};
+
 	struct GpuBuffer
 	{
 		enum class eType
