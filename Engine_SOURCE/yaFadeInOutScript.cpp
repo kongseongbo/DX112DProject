@@ -5,6 +5,8 @@
 #include "yaConstantBuffer.h"
 #include "yaRenderer.h"
 #include "yaTime.h"
+#include "yaInput.h"
+
 
 extern ya::Application application;
 
@@ -13,6 +15,7 @@ namespace ya
 	FadeInOutScript::FadeInOutScript()
 		: Script()
 		, mCamera(nullptr)
+		, mTime(0.0f)
 	{
 	}
 	FadeInOutScript::~FadeInOutScript()
@@ -20,11 +23,11 @@ namespace ya
 	}
 	void FadeInOutScript::Initalize()
 	{
-		mCamera = renderer::cameras[0];
+		//mCamera = renderer::cameras[0];
 	}
 	void FadeInOutScript::Update()
 	{
-		if (mCamera == nullptr)
+		/*if (mCamera == nullptr)
 			return;
 
 		GameObject* gameObj = mCamera->GetOwner();
@@ -33,7 +36,7 @@ namespace ya
 		Vector3 cameraPos = tr->GetPosition();
 		Vector4 position = Vector4(cameraPos.x, cameraPos.y, cameraPos.z, 1.0f);
 
-		float scale = mCamera->GetScale();
+		float scale = mCamera->GetScale();*/
 
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
@@ -45,10 +48,22 @@ namespace ya
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::FadeInOut];
 		renderer::FadeInOutCB data;
 
-		data.fadePosition = position;
-		data.fadeScale = Vector2(scale, scale);
+		if (Input::GetKeyState(eKeyCode::F) == eKeyState::PRESSED)
+		{
+			mTime += 1.0f * Time::DeltaTime();
+			data.onoff = 1;	
+		}
+		else if(Input::GetKeyState(eKeyCode::F) == eKeyState::UP)
+		{
+			mTime = 0.0f;
+			data.onoff = 0;
+		}
+			
+		data.fadePosition = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+		data.fadeTime = mTime;
 		data.fadeResolution = resolution;
 
+		
 		cb->Bind(&data);
 		cb->SetPipline(eShaderStage::VS);
 		cb->SetPipline(eShaderStage::PS);

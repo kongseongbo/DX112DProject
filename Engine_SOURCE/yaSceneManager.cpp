@@ -27,12 +27,6 @@ namespace ya
 		gridMr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
 		gridObject->AddComponent<GridScript>();
 
-		GameObject* fadeObject = object::Instantiate<GameObject>(eLayerType::None);
-		MeshRenderer* fadeMr = fadeObject->AddComponent<MeshRenderer>();
-		fadeMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
-		fadeObject->AddComponent<FadeInOutScript>();
-
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
@@ -103,7 +97,7 @@ namespace ya
 		childMr->SetMesh(mesh);
 
 		// HPBAR
-		GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::Player);
+		GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI);
 		hpBar->SetName(L"HPBAR");
 		Transform* hpBarTR = hpBar->GetComponent<Transform>();
 		hpBarTR->SetPosition(Vector3(-5.0f, 3.0f, 12.0f));
@@ -115,6 +109,15 @@ namespace ya
 		std::shared_ptr<Material> hpspriteMaterial = Resources::Find<Material>(L"UIMaterial");
 		hpsr->SetMesh(hpmesh);
 		hpsr->SetMaterial(hpspriteMaterial);
+
+		// FadeInOut
+		GameObject* fadeObject = object::Instantiate<GameObject>(eLayerType::FadeIn);
+		Transform* fadeTr = fadeObject->GetComponent<Transform>();
+		fadeTr->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
+		MeshRenderer* fadeMr = fadeObject->AddComponent<MeshRenderer>();
+		fadeMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
+		fadeObject->AddComponent<FadeInOutScript>();
 
 		//hpBar->Pause();
 

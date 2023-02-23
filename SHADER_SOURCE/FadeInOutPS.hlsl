@@ -16,23 +16,11 @@ struct VSOut
 
 float4 main(VSOut In) : SV_TARGET
 {
-    float4 Out = float4(1.0f, 0.0f, 1.0f, 1.0f);
-
-    const int width = 100;
-    const int height = 100;
-
-    uint worldX = (int)In.WorldPos.x;
-    uint worldY = (int)In.WorldPos.y;
-
-    // ¼± µÎ²²
-    const float thickness = 10.0f;
-
-    if (abs((worldX + 1) % width) <= thickness)
-        return Out;
-
-    if (abs((worldY + 1) % height) <= thickness)
-        return Out;
+    if (onoff == 1)
+       return float4(1.0f, 0.0f, 0.0f, (1.0f * fadeTime));
+    //else if(onoff == 0)
+    //   return float4(1.0f, 0.0f, 0.0f, (fadeTime / 1.0f));
 
     discard;
-    return float4(1.0f, 0.0f, 0.0f, 1.0f);
+    return float4(0.0f, 0.0f, 0.0f, 0.0f);
 }

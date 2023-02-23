@@ -47,8 +47,10 @@ namespace ya::renderer
 	CBUFFER(FadeInOutCB, CBSLOT_FADEINOUT)
 	{
 		Vector4 fadePosition;
-		Vector2 fadeScale;
+		//Vector2 fadeScale;
 		Vector2 fadeResolution;
+		float fadeTime;
+		int onoff;
 	};
 
 

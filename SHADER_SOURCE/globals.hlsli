@@ -23,13 +23,13 @@ cbuffer Grid : register(b2)
     float2 resolution;
 }
 
-//cbuffer FadeInOut : register(b3)
-//{
-//
-//    float4 cameraPosition;
-//    float2 cameraScale;
-//    float2 resolution;
-//}
+cbuffer FadeInOut : register(b3)
+{
+    float4 fadePosition;
+    float2 fadeResolution;
+    float fadeTime;
+    int onoff;
+}
 
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);

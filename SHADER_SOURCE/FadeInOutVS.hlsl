@@ -18,13 +18,13 @@ struct VSOut
 VSOut main(VSIn In)
 {
     VSOut Out = (VSOut)0.0f;
-
+ 
     float2 worldPos = float2(0.0f, 0.0f);
-    worldPos.x = In.Pos.x * cameraScale.x * resolution.x + cameraPosition.x;
-    worldPos.y = In.Pos.y * cameraScale.y * resolution.y + cameraPosition.y;
+    worldPos.x = In.Pos.x * fadeResolution.x + fadePosition.x;
+    worldPos.y = In.Pos.y * fadeResolution.y + fadePosition.y;
 
-    const float meshScale = 2.0f;
-    Out.Pos = float4(In.Pos.xy * meshScale, 0.999f, 1.0f);
+    const float meshScale = 4.0f;
+    Out.Pos = float4(In.Pos.xy * meshScale, 0.999f, 2.0f);
     Out.UV = In.UV;
     Out.WorldPos = worldPos;
 
