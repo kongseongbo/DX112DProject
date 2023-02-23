@@ -23,6 +23,14 @@ cbuffer Grid : register(b2)
     float2 resolution;
 }
 
+//cbuffer FadeInOut : register(b3)
+//{
+//
+//    float4 cameraPosition;
+//    float2 cameraScale;
+//    float2 resolution;
+//}
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);

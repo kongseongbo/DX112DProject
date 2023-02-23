@@ -44,6 +44,13 @@ namespace ya::renderer
 		Vector2 resolution;
 	};
 
+	CBUFFER(FadeInOutCB, CBSLOT_FADEINOUT)
+	{
+		Vector4 fadePosition;
+		Vector2 fadeScale;
+		Vector2 fadeResolution;
+	};
+
 
 	extern Vertex vertexes[4];
 	extern ConstantBuffer* constantBuffers[];

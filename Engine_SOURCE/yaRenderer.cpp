@@ -65,6 +65,12 @@ namespace ya::renderer
 			, gridShader->GetVSBlobBufferSize()
 			, gridShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> fadeShader = Resources::Find<Shader>(L"FadeShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, fadeShader->GetVSBlobBufferPointer()
+			, fadeShader->GetVSBlobBufferSize()
+			, fadeShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
@@ -225,6 +231,9 @@ namespace ya::renderer
 
 		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
 		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
+
+		constantBuffers[(UINT)eCBType::FadeInOut] = new ConstantBuffer(eCBType::FadeInOut);
+		constantBuffers[(UINT)eCBType::FadeInOut]->Create(sizeof(FadeInOutCB));
 	}
 
 	void LoadShader()
@@ -250,7 +259,7 @@ namespace ya::renderer
 
 		Resources::Insert<Shader>(L"UIShader", uiShader);
 
-		// Grid
+		// Grid Shader
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
 		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -259,6 +268,13 @@ namespace ya::renderer
 		gridShader->SetBSState(eBSType::AlphaBlend);
 
 		Resources::Insert<Shader>(L"GridShader", gridShader);
+
+		// FadeInOut
+		std::shared_ptr<Shader> fadeShader = std::make_shared<Shader>();
+		fadeShader->Create(eShaderStage::VS, L"FadeInOutVS.hlsl", "main");
+		fadeShader->Create(eShaderStage::PS, L"FadeInOutPS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"FadeShader", fadeShader);
 	}
 
 	void LoadTexture()
@@ -312,6 +328,12 @@ namespace ya::renderer
 		std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
 		gridMaterial->SetShader(gridShader);
 		Resources::Insert<Material>(L"GridMaterial", gridMaterial);
+
+		// FadeInOut
+		std::shared_ptr<Shader> fadeShader = Resources::Find<Shader>(L"FadeShader");
+		std::shared_ptr<Material> fadeMaterial = std::make_shared<Material>();
+		fadeMaterial->SetShader(fadeShader);
+		Resources::Insert<Material>(L"FadeMaterial", fadeMaterial);
 	}
 
 	void Initialize()

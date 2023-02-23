@@ -163,6 +163,7 @@
     <ClInclude Include="yaEngine.h" />
     <ClInclude Include="yaEntity.h" />
     <ClInclude Include="yaEnums.h" />
+    <ClInclude Include="yaFadeInOutScript.h" />
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="yaGraphicDevice_DX11.h" />
     <ClInclude Include="yaGraphics.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="yaComponent.cpp" />
     <ClCompile Include="yaConstantBuffer.cpp" />
     <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaFadeInOutScript.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp" />
     <ClCompile Include="yaGridScript.cpp" />

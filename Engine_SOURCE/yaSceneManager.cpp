@@ -10,7 +10,7 @@
 #include "yaSpriteRenderer.h"
 #include "yaGridScript.h"
 #include "yaObject.h"
-
+#include "yaFadeInOutScript.h"
 namespace ya
 {
 	Scene* SceneManager::mActiveScene = nullptr;
@@ -26,6 +26,12 @@ namespace ya
 		gridMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		gridMr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
 		gridObject->AddComponent<GridScript>();
+
+		GameObject* fadeObject = object::Instantiate<GameObject>(eLayerType::None);
+		MeshRenderer* fadeMr = fadeObject->AddComponent<MeshRenderer>();
+		fadeMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
+		fadeObject->AddComponent<FadeInOutScript>();
 
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
