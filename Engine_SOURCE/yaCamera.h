@@ -32,6 +32,10 @@ namespace ya
 		void EnableLayerMasks() { mLayerMasks.set(); }
 		void DisableLayerMasks() { mLayerMasks.reset(); }
 
+		void SetProjectionType(eProjectionType type) { mType = type; }
+
+		float GetScale() { return mScale; }
+
 	private:
 		void sortGameObjects();
 		void renderOpaque();

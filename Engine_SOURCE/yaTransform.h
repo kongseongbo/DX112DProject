@@ -17,6 +17,9 @@ namespace ya
 
 		void SetConstantBuffer();
 
+		void SetParent(Transform* parent) { mParent = parent; }
+		Transform* GetParent() { return mParent; }
+
 		Vector3 GetPosition() { return mPosition; };
 		Vector3 GetRotation() { return mRotation; };
 		Vector3 GetScale() { return mScale; };
@@ -30,6 +33,8 @@ namespace ya
 		Vector3 Up() { return mUp; }
 
 	private:
+		Transform* mParent;
+
 		Vector3 mFoward;
 		Vector3 mRight;
 		Vector3 mUp;

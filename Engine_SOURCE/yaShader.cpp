@@ -26,7 +26,7 @@ namespace ya
 		return E_NOTIMPL;
 	}
 
-	void Shader::Create(graphics::eShaderStage stage, const std::wstring& file, const std::string& funcName)
+	void Shader::Create(eShaderStage stage, const std::wstring& file, const std::string& funcName)
 	{
 		mErrorBlob = nullptr;
 
@@ -44,6 +44,12 @@ namespace ya
 				, mVSBlob.GetAddressOf()
 				, mErrorBlob.GetAddressOf());
 
+			/*if (mErrorBlob)
+			{
+				OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+				mErrorBlob->Release();
+			}*/
+
 			GetDevice()->CreateVertexShader(mVSBlob->GetBufferPointer()
 				, mVSBlob->GetBufferSize()
 				, nullptr
@@ -55,6 +61,12 @@ namespace ya
 				, funcName.c_str(), "ps_5_0", 0, 0
 				, mPSBlob.GetAddressOf()
 				, mErrorBlob.GetAddressOf());
+
+			/*if (mErrorBlob)
+			{
+				OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+				mErrorBlob->Release();
+			}*/
 
 			GetDevice()->CreatePixelShader(mPSBlob->GetBufferPointer()
 				, mPSBlob->GetBufferSize()
@@ -73,12 +85,11 @@ namespace ya
 
 		Microsoft::WRL::ComPtr<ID3D11RasterizerState> rs = renderer::rasterizerStates[(UINT)mRSType];
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> ds = renderer::depthstencilStates[(UINT)mDSType];
-		Microsoft::WRL::ComPtr<ID3D11BlendState	> bs = renderer::blendStates[(UINT)mBSType];
+		Microsoft::WRL::ComPtr<ID3D11BlendState> bs = renderer::blendStates[(UINT)mBSType];
 
 		GetDevice()->BindRasterizerState(rs.Get());
 		GetDevice()->BindDepthStencilState(ds.Get());
 		GetDevice()->BindBlendState(bs.Get());
-
 	}
 
 }

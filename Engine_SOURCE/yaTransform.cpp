@@ -12,6 +12,7 @@ namespace ya
 		, mScale(Vector3::One)
 		, mRotation(Vector3::Zero)
 		, mPosition(Vector3::One)
+		, mParent(nullptr)
 	{
 	}
 
@@ -56,6 +57,11 @@ namespace ya
 		// 카메라 컴포넌트에서 세팅해준다
 		// 뷰행렬 세팅
 		// 프로젝션 행렬 세팅
+
+		if (mParent)
+		{
+			mWorld *= mParent->mWorld;
+		}
 	}
 
 	void Transform::Render()

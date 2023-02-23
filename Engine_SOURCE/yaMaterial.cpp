@@ -45,7 +45,8 @@ namespace ya::graphics
 	}
 	void Material::Bind()
 	{
-        mTexture->BindShader(eShaderStage::PS, 0);
+        if(mTexture)
+            mTexture->BindShader(eShaderStage::PS, 0);
 
         ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Material];
         pCB->Bind(&mCB);

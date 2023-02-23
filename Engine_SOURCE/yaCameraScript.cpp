@@ -27,27 +27,27 @@ namespace ya
 
 		if (Input::GetKeyState(eKeyCode::D) == eKeyState::PRESSED)
 		{
-			pos.x += 3.0f * Time::DeltaTime();
+			pos += 100.0f * tr->Right() * Time::DeltaTime();
 		}
 		else if (Input::GetKeyState(eKeyCode::A) == eKeyState::PRESSED)
 		{
-			pos.x -= 3.0f * Time::DeltaTime();
+			pos += 100.0f * -tr->Right() * Time::DeltaTime();
 		}
 		else if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
 		{
-			pos.z += 3.0f * Time::DeltaTime();
+			pos += 100.0f * tr->Foward() * Time::DeltaTime();
 		}
 		else if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
 		{
-			pos.z -= 3.0f * Time::DeltaTime();
+			pos += 100.0f * -tr->Foward() * Time::DeltaTime();
 		}
 		else if (Input::GetKeyState(eKeyCode::Q) == eKeyState::PRESSED)
 		{
-			pos.y -= 3.0f * Time::DeltaTime();
+			pos += 100.0f * tr->Up() * Time::DeltaTime();
 		}
 		else if (Input::GetKeyState(eKeyCode::E) == eKeyState::PRESSED)
 		{
-			pos.y += 3.0f * Time::DeltaTime();
+			pos += 100.0f * -tr->Up() * Time::DeltaTime();
 		}
 
 		tr->SetPosition(pos);

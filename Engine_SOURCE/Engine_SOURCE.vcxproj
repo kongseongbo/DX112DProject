@@ -166,12 +166,14 @@
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="yaGraphicDevice_DX11.h" />
     <ClInclude Include="yaGraphics.h" />
+    <ClInclude Include="yaGridScript.h" />
     <ClInclude Include="yaInput.h" />
     <ClInclude Include="yaLayer.h" />
     <ClInclude Include="yaMaterial.h" />
     <ClInclude Include="yaMath.h" />
     <ClInclude Include="yaMesh.h" />
     <ClInclude Include="yaMeshRenderer.h" />
+    <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaPlayerScript.h" />
     <ClInclude Include="yaRenderer.h" />
     <ClInclude Include="yaResource.h" />
@@ -195,6 +197,7 @@
     <ClCompile Include="yaEntity.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp" />
+    <ClCompile Include="yaGridScript.cpp" />
     <ClCompile Include="yaInput.cpp" />
     <ClCompile Include="yaLayer.cpp" />
     <ClCompile Include="yaMaterial.cpp" />

@@ -36,6 +36,8 @@ namespace ya
 		{
 			if (obj == nullptr)
 				continue;
+			if (obj->GetState() != GameObject::eState::Active)
+				continue;
 
 			obj->Update();
 		}
@@ -47,6 +49,8 @@ namespace ya
 		{
 			if (obj == nullptr)
 				continue;
+			if (obj->GetState() != GameObject::eState::Active)
+				continue;
 
 			obj->FixedUpdate();
 		}
@@ -57,6 +61,8 @@ namespace ya
 		for (GameObject* obj : mGameObjects)
 		{
 			if (obj == nullptr)
+				continue;
+			if (obj->GetState() != GameObject::eState::Active)
 				continue;
 
 			obj->Render();

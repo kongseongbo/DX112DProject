@@ -8,9 +8,12 @@ namespace ya::enums
 	{
 		None = 0,
 		Camera,
+		Grid,
+		Map,
 		Monster,
 		Player,
 
+		UI,
 		End = 16,
 	};
 
@@ -25,6 +28,8 @@ namespace ya::enums
 		MeshRenerer,
 		SpriteRenderer,
 		UI,
+		//FadeOut,
+		//FadeIn,
 		Script,
 		End,
 	};

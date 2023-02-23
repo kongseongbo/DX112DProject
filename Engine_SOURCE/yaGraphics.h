@@ -14,7 +14,7 @@
 
 #define CBSLOT_TRANSFORM 0
 #define CBSLOT_MATERIAL 1
-
+#define CBSLOT_GRID 2
 
 namespace ya::graphics
 {
@@ -97,6 +97,7 @@ namespace ya::graphics
 	{
 		Transform,
 		Material,
+		Grid,
 		End,
 	};
 

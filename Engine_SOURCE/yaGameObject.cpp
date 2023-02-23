@@ -1,5 +1,5 @@
 #include "yaGameObject.h"
-
+#include "yaTransform.h"
 
 namespace ya
 {
@@ -7,6 +7,7 @@ namespace ya
 		: mState(eState::Active)
 	{
 		mComponents.resize((UINT)eComponentType::End);
+		AddComponent(new Transform());
 	}
 
 	GameObject::~GameObject()

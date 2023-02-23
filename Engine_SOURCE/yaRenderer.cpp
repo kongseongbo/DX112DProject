@@ -2,22 +2,6 @@
 #include "yaResources.h"
 #include "yaMaterial.h"
 
-// 애니메이션
-// Sprite Renderer
-
-// Rasterrizer state
-// Depth Stencil state
-// Blend State
-
-
-
-
-// 셰이더 효과 
-
-// 툴 ( imgui )
-
-// 한달 일찍 게임만들면 // 2 ~ 3달 
-
 
 namespace ya::renderer
 {
@@ -68,6 +52,19 @@ namespace ya::renderer
 			, spriteShader->GetVSBlobBufferPointer()
 			, spriteShader->GetVSBlobBufferSize()
 			, spriteShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, uiShader->GetVSBlobBufferPointer()
+			, uiShader->GetVSBlobBufferSize()
+			, uiShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, gridShader->GetVSBlobBufferPointer()
+			, gridShader->GetVSBlobBufferSize()
+			, gridShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
@@ -225,6 +222,9 @@ namespace ya::renderer
 
 		constantBuffers[(UINT)eCBType::Material] = new ConstantBuffer(eCBType::Material);
 		constantBuffers[(UINT)eCBType::Material]->Create(sizeof(MaterialCB));
+
+		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
+		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
 	}
 
 	void LoadShader()
@@ -242,28 +242,76 @@ namespace ya::renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
+
+		// UI
+		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
+		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"UIShader", uiShader);
+
+		// Grid
+		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
+		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		gridShader->SetRSState(eRSType::SolidNone);
+		gridShader->SetDSState(eDSType::NoWrite);
+		gridShader->SetBSState(eBSType::AlphaBlend);
+
+		Resources::Insert<Shader>(L"GridShader", gridShader);
+	}
+
+	void LoadTexture()
+	{
+		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
+		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
+		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
+
+		// Map
+		Resources::Load<Texture>(L"Mission1", L"Mission1.png");
 	}
 
 	void LoadMaterial()
 	{
-		std::shared_ptr <Texture> texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 
 		// Default
+		std::shared_ptr <Texture> texture = Resources::Find<Texture>(L"SmileTexture");
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(texture);
 		Resources::Insert<Material>(L"RectMaterial", material);
 
+		// Map
+		std::shared_ptr <Texture> mission1Texture = Resources::Find<Texture>(L"Mission1");
+		std::shared_ptr<Material> mission1Material = std::make_shared<Material>();
+		mission1Material->SetShader(shader);
+		mission1Material->SetTexture(mission1Texture);
+		Resources::Insert<Material>(L"Mission1Material", mission1Material);
 
-		std::shared_ptr <Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		// Sprite
+		std::shared_ptr <Texture> spriteTexture = Resources::Find<Texture>(L"DefaultSprite");
 		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		spriteMaterial->SetShader(spriteShader);
 		spriteMaterial->SetTexture(spriteTexture);
 		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
+
+		// UI
+		std::shared_ptr <Texture> uiTexture = Resources::Find<Texture>(L"HPBarTexture");
+		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
+		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
+		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		uiMaterial->SetShader(uiShader);
+		uiMaterial->SetTexture(uiTexture);
+		Resources::Insert<Material>(L"UIMaterial", uiMaterial);
+
+		// Grid
+		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
+		std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
+		gridMaterial->SetShader(gridShader);
+		Resources::Insert<Material>(L"GridMaterial", gridMaterial);
 	}
 
 	void Initialize()
@@ -288,6 +336,7 @@ namespace ya::renderer
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
+		LoadTexture();
 		LoadMaterial();
 	}
 
