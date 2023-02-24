@@ -9,7 +9,7 @@
 
 
 extern ya::Application application;
-
+bool OnOff = false;
 namespace ya
 {
 	FadeInOutScript::FadeInOutScript()
@@ -23,21 +23,10 @@ namespace ya
 	}
 	void FadeInOutScript::Initalize()
 	{
-		//mCamera = renderer::cameras[0];
+	
 	}
 	void FadeInOutScript::Update()
 	{
-		/*if (mCamera == nullptr)
-			return;
-
-		GameObject* gameObj = mCamera->GetOwner();
-		Transform* tr = gameObj->GetComponent<Transform>();
-
-		Vector3 cameraPos = tr->GetPosition();
-		Vector4 position = Vector4(cameraPos.x, cameraPos.y, cameraPos.z, 1.0f);
-
-		float scale = mCamera->GetScale();*/
-
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
 		float width = winRect.right - winRect.left;
@@ -48,17 +37,26 @@ namespace ya
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::FadeInOut];
 		renderer::FadeInOutCB data;
 
-		if (Input::GetKeyState(eKeyCode::F) == eKeyState::PRESSED)
+		
+
+		
+
+		if (Input::GetKeyState(eKeyCode::F) == eKeyState::DOWN)
+		{
+			if (OnOff)
+			{
+				OnOff = false;
+				mTime = 0.0f;
+			}
+			else
+				OnOff = true;
+		}
+		
+		if (OnOff)
 		{
 			mTime += 1.0f * Time::DeltaTime();
-			data.onoff = 1;	
-		}
-		else if(Input::GetKeyState(eKeyCode::F) == eKeyState::UP)
-		{
-			mTime = 0.0f;
-			data.onoff = 0;
-		}
-			
+			data.onoff = 1;
+		}	
 		data.fadePosition = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 		data.fadeTime = mTime;
 		data.fadeResolution = resolution;
