@@ -285,6 +285,7 @@ namespace ya::renderer
 
 		// Map
 		Resources::Load<Texture>(L"Mission1", L"Mission1.png");
+		Resources::Load<Texture>(L"Mission1BG", L"Mission1BG.png");
 	}
 
 	void LoadMaterial()
@@ -304,6 +305,12 @@ namespace ya::renderer
 		mission1Material->SetShader(shader);
 		mission1Material->SetTexture(mission1Texture);
 		Resources::Insert<Material>(L"Mission1Material", mission1Material);
+
+		std::shared_ptr <Texture> mission1BGTexture = Resources::Find<Texture>(L"Mission1BG");
+		std::shared_ptr<Material> mission1BGMaterial = std::make_shared<Material>();
+		mission1BGMaterial->SetShader(shader);
+		mission1BGMaterial->SetTexture(mission1BGTexture);
+		Resources::Insert<Material>(L"Mission1BGMaterial", mission1BGMaterial);
 
 		// Sprite
 		std::shared_ptr <Texture> spriteTexture = Resources::Find<Texture>(L"DefaultSprite");

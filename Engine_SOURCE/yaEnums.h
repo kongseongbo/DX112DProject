@@ -9,6 +9,7 @@ namespace ya::enums
 		None = 0,
 		Camera,
 		Grid,
+		BGMap,
 		Map,
 		Monster,
 		Player,

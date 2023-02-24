@@ -11,6 +11,7 @@
 #include "yaGridScript.h"
 #include "yaObject.h"
 #include "yaFadeInOutScript.h"
+
 namespace ya
 {
 	Scene* SceneManager::mActiveScene = nullptr;
@@ -30,6 +31,7 @@ namespace ya
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
@@ -53,6 +55,18 @@ namespace ya
 		std::shared_ptr<Material> mapMaterial = Resources::Find<Material>(L"Mission1Material");
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
+
+		// MapBG
+		GameObject* mapBGObj = object::Instantiate<GameObject>(eLayerType::BGMap);
+		mapBGObj->SetName(L"Mission1BGMap");
+		Transform* map1BGTr = mapBGObj->GetComponent<Transform>();
+		map1BGTr->SetPosition(Vector3(0.0f, 0.0f, 6.0f));
+		map1BGTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+
+		MeshRenderer* mapBGMr = mapBGObj->AddComponent<MeshRenderer>();
+		std::shared_ptr<Material> mapBGMaterial = Resources::Find<Material>(L"Mission1BGMaterial");
+		mapBGMr->SetMaterial(mapBGMaterial);
+		mapBGMr->SetMesh(mesh);
 		
 
 		// Light Object
