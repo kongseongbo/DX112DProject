@@ -38,10 +38,6 @@ namespace ya
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::FadeInOut];
 		renderer::FadeInOutCB data;
 
-		
-
-		
-
 		if (Input::GetKeyState(eKeyCode::F) == eKeyState::DOWN)
 		{
 			if (OnOff)
