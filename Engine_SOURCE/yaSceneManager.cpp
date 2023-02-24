@@ -33,7 +33,7 @@ namespace ya
 		cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
-
+		
 		// UI Camera
 		GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
@@ -45,8 +45,8 @@ namespace ya
 		GameObject* mapObj = object::Instantiate<GameObject>(eLayerType::Map);
 		mapObj->SetName(L"Mission1Map");
 		Transform* map1Tr = mapObj->GetComponent<Transform>();
-		map1Tr->SetPosition(Vector3(0.0f, 0.0f, 12.0f));
-		map1Tr->SetScale(Vector3(30.0f, 5.0f, 1.0f));
+		map1Tr->SetPosition(Vector3(0.0f, 0.0f, 6.0f));
+		map1Tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 
 		MeshRenderer* mapMr = mapObj->AddComponent<MeshRenderer>();
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -59,7 +59,7 @@ namespace ya
 		GameObject* spriteObj = object::Instantiate<GameObject>(eLayerType::Player);
 		spriteObj->SetName(L"LIGHT");
 		Transform* spriteTr = spriteObj->GetComponent<Transform>();
-		spriteTr->SetPosition(Vector3(0.0f, 0.0f, 11.0f));
+		spriteTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 		spriteTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 
 		SpriteRenderer* sr = spriteObj->AddComponent<SpriteRenderer>();
@@ -73,7 +73,7 @@ namespace ya
 		GameObject* obj = object::Instantiate<GameObject>(eLayerType::Player);
 		obj->SetName(L"SMILE");
 		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(-3.0f, 0.0f, 11.0f));
+		tr->SetPosition(Vector3(-3.0f, 0.0f, 5.0f));
 		tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
@@ -100,7 +100,7 @@ namespace ya
 		GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI);
 		hpBar->SetName(L"HPBAR");
 		Transform* hpBarTR = hpBar->GetComponent<Transform>();
-		hpBarTR->SetPosition(Vector3(-5.0f, 3.0f, 12.0f));
+		hpBarTR->SetPosition(Vector3(-5.0f, 3.0f, 6.0f));
 		hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
 		SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
@@ -113,7 +113,7 @@ namespace ya
 		// FadeInOut
 		GameObject* fadeObject = object::Instantiate<GameObject>(eLayerType::FadeIn);
 		Transform* fadeTr = fadeObject->GetComponent<Transform>();
-		fadeTr->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
+		fadeTr->SetPosition(Vector3(0.0f, 0.0f, 4.0f));
 		MeshRenderer* fadeMr = fadeObject->AddComponent<MeshRenderer>();
 		fadeMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));

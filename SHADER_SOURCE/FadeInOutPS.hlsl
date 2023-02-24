@@ -19,7 +19,7 @@ float4 main(VSOut In) : SV_TARGET
     if (onoff == 1)
        return float4(1.0f, 0.0f, 0.0f, (1.0f * fadeTime));
     //else if(onoff == 0)
-    //   return float4(1.0f, 0.0f, 0.0f, (fadeTime / 1.0f));
+    //   return float4(1.0f, 0.0f, 0.0f, (fadeTime / 100.0f));
 
     discard;
     return float4(0.0f, 0.0f, 0.0f, 0.0f);

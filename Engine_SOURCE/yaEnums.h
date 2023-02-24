@@ -13,9 +13,8 @@ namespace ya::enums
 		Monster,
 		Player,
 
-		FadeOut,
-		FadeIn,
 		UI,
+		FadeIn,
 		End = 16,
 	};
 

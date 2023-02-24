@@ -9,13 +9,14 @@
 
 
 extern ya::Application application;
-bool OnOff = false;
+
 namespace ya
 {
 	FadeInOutScript::FadeInOutScript()
 		: Script()
 		, mCamera(nullptr)
 		, mTime(0.0f)
+		, OnOff(false)
 	{
 	}
 	FadeInOutScript::~FadeInOutScript()

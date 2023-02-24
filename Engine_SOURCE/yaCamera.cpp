@@ -7,6 +7,7 @@
 #include "yaSceneManager.h"
 #include "yaMaterial.h"
 #include "yaBaseRenderer.h"
+#include "yaFadeInOutScript.h"
 
 extern ya::Application application;
 
