@@ -2,7 +2,12 @@
 
 namespace ya::enums
 {
-
+	enum class eSceneType
+	{
+		Tilte,
+		Play,
+		End,
+	};
 
 	enum class eLayerType
 	{

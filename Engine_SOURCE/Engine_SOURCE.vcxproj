@@ -176,6 +176,7 @@
     <ClInclude Include="yaMeshRenderer.h" />
     <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaPlayerScript.h" />
+    <ClInclude Include="yaPlayScene.h" />
     <ClInclude Include="yaRenderer.h" />
     <ClInclude Include="yaResource.h" />
     <ClInclude Include="yaResources.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="yaSpriteRenderer.h" />
     <ClInclude Include="yaTexture.h" />
     <ClInclude Include="yaTime.h" />
+    <ClInclude Include="yaTitleScene.h" />
     <ClInclude Include="yaTransform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +209,7 @@
     <ClCompile Include="yaMesh.cpp" />
     <ClCompile Include="yaMeshRenderer.cpp" />
     <ClCompile Include="yaPlayerScript.cpp" />
+    <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaRenderer.cpp" />
     <ClCompile Include="yaResource.cpp" />
     <ClCompile Include="yaResources.cpp" />
@@ -217,6 +220,7 @@
     <ClCompile Include="yaSpriteRenderer.cpp" />
     <ClCompile Include="yaTexture.cpp" />
     <ClCompile Include="yaTime.cpp" />
+    <ClCompile Include="yaTitleScene.cpp" />
     <ClCompile Include="yaTransform.cpp" />
   </ItemGroup>
   <ItemGroup>

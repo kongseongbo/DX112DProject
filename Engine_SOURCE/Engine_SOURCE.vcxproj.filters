@@ -64,6 +64,18 @@
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{7f276426-3008-40fa-9275-dcf7a3d92304}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{20409a09-0b29-4d65-8eed-1f1be9c5a111}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{befc162b-1a6d-4cfe-b60d-f2dc951eca29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{fd348f72-8fbb-4714-a4a9-3acf305cfc41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Script">
+      <UniqueIdentifier>{1153f2f7-347f-43b3-a4f7-8958eccb1b4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -93,15 +105,6 @@
     <ClCompile Include="yaGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="yaLayer.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="yaScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="yaSceneManager.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="yaMesh.cpp">
       <Filter>Resource\Mesh</Filter>
     </ClCompile>
@@ -117,7 +120,6 @@
     <ClCompile Include="yaMaterial.cpp">
       <Filter>Resource\Material</Filter>
     </ClCompile>
-    <ClCompile Include="yaConstantBuffer.cpp" />
     <ClCompile Include="yaTexture.cpp">
       <Filter>Resource\Texture</Filter>
     </ClCompile>
@@ -142,12 +144,32 @@
     <ClCompile Include="yaSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="yaBaseRenderer.cpp" />
-    <ClCompile Include="yaGridScript.cpp">
-      <Filter>Component\Script</Filter>
-    </ClCompile>
     <ClCompile Include="yaFadeInOutScript.cpp">
       <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLayer.cpp">
+      <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="yaScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSceneManager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBaseRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="yaConstantBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGridScript.cpp">
+      <Filter>Resource\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,15 +212,6 @@
     <ClInclude Include="yaGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="yaLayer.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="yaScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="yaSceneManager.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="yaMesh.h">
       <Filter>Resource\Mesh</Filter>
     </ClInclude>
@@ -214,7 +227,6 @@
     <ClInclude Include="yaMaterial.h">
       <Filter>Resource\Material</Filter>
     </ClInclude>
-    <ClInclude Include="yaConstantBuffer.h" />
     <ClInclude Include="yaTexture.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
@@ -239,15 +251,35 @@
     <ClInclude Include="yaSpriteRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="yaBaseRenderer.h" />
-    <ClInclude Include="yaGridScript.h">
-      <Filter>Component\Script</Filter>
-    </ClInclude>
     <ClInclude Include="yaObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="yaFadeInOutScript.h">
       <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLayer.h">
+      <Filter>Scene\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="yaScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSceneManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBaseRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="yaConstantBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGridScript.h">
+      <Filter>Resource\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

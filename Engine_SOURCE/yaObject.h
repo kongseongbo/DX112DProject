@@ -67,4 +67,12 @@ namespace ya::object
 	{
 		gameObject->Death();
 	}
+
+	void DontDestroyOnLoad(GameObject* gameObject)
+	{
+		if (gameObject == nullptr)
+			return;
+
+		gameObject->DontDestroy(true);
+	}
 }

@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "44Engine.h"
 #include "yaApplication.h"
-
+#include "yaSceneManager.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib") 
@@ -76,6 +76,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    ya::SceneManager::Release();
     application.Release();
     return (int)msg.wParam;
 }
