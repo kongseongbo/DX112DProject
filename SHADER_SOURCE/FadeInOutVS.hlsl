@@ -14,7 +14,6 @@ struct VSOut
     float2 WorldPos : POSITION;
 };
 
-
 VSOut main(VSIn In)
 {
     VSOut Out = (VSOut)0.0f;
