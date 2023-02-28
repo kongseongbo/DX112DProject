@@ -116,7 +116,7 @@ namespace ya
 			if ((*iter)->IsDontDestroy() == true)
 			{
 				donts.push_back((*iter));
-				mGameObjects.erase(iter);
+				iter = mGameObjects.erase(iter);
 			}
 			else
 			{

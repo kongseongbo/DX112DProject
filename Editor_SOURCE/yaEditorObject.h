@@ -1,15 +1,15 @@
 #pragma once
 #include "..\Engine_SOURCE\yaGameObject.h"
 
+
 namespace ya
 {
-	class DebugObject : public GameObject
+	class EditorObject : public GameObject
 	{
 	public:
 
 
 	private:
-
 
 	};
 }

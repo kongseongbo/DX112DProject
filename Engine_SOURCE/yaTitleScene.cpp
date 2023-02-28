@@ -10,11 +10,13 @@
 #include "yaSpriteRenderer.h"
 #include "yaGridScript.h"
 #include "yaObject.h"
+#include "yaInput.h"
 #include "yaFadeInOutScript.h"
 
 namespace ya
 {
 	TitleScene::TitleScene()
+		: Scene(eSceneType::Tilte)
 	{
 	}
 	TitleScene::~TitleScene()
@@ -25,8 +27,7 @@ namespace ya
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		//cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		cameraComp->RegisterCameraInRenderer();
+		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
 
@@ -98,6 +99,7 @@ namespace ya
 		mr->SetMaterial(mateiral);
 		mr->SetMesh(mesh);
 		obj->AddComponent<PlayerScript>();
+		object::DontDestroyOnLoad(obj); 
 
 		//SMILE RECT CHild
 		GameObject* child = object::Instantiate<GameObject>(eLayerType::Player);
@@ -137,6 +139,11 @@ namespace ya
 	}
 	void TitleScene::Update()
 	{
+		if (Input::GetKeyDown(eKeyCode::N))
+		{
+			SceneManager::LoadScene(eSceneType::Play);
+		}
+
 		Scene::Update();
 	}
 	void TitleScene::FixedUpdate()

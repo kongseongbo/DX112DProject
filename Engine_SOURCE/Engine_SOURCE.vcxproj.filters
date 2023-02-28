@@ -76,6 +76,21 @@
     <Filter Include="Resource\Script">
       <UniqueIdentifier>{1153f2f7-347f-43b3-a4f7-8958eccb1b4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Prefab">
+      <UniqueIdentifier>{77ca9c42-7c53-4406-8ecb-5c809e193df0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{f9372d82-819c-46c2-b832-414ad7a71ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D">
+      <UniqueIdentifier>{c641becf-e227-49f1-910d-cfe18b7c788f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\3D">
+      <UniqueIdentifier>{c0d79fff-63c2-47f5-b2ee-5d8736101f41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\Manager">
+      <UniqueIdentifier>{5fe6431f-4eed-4bc3-9ee7-6dbab6bc9431}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -170,6 +185,21 @@
     </ClCompile>
     <ClCompile Include="yaGridScript.cpp">
       <Filter>Resource\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPrefab.cpp">
+      <Filter>Resource\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollider2D.cpp">
+      <Filter>Component\Collider\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollider3D.cpp">
+      <Filter>Component\Collider\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollisionManager.cpp">
+      <Filter>Component\Collider\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +310,21 @@
     </ClInclude>
     <ClInclude Include="yaGridScript.h">
       <Filter>Resource\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPrefab.h">
+      <Filter>Resource\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollider2D.h">
+      <Filter>Component\Collider\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollider3D.h">
+      <Filter>Component\Collider\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollisionManager.h">
+      <Filter>Component\Collider\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

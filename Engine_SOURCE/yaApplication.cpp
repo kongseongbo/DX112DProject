@@ -55,7 +55,6 @@ namespace ya
 		renderer::Render();
 
 		//graphicDevice->Render();
-		graphicDevice->Present();
 	}
 
 	void Application::Destroy()
@@ -70,6 +69,11 @@ namespace ya
 		Render();
 		Destroy();
 		
+	}
+
+	void Application::Present()
+	{
+		graphicDevice->Present();
 	}
 
 	void Application::Release()

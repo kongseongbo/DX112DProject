@@ -19,6 +19,7 @@ namespace ya
 
 		// Running main engine loop
 		void Run();
+		void Present(); // 최종화면출력
 		void Release();
 
 		void SetWindow(HWND hwnd, UINT width, UINT height);

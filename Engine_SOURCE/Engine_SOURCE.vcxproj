@@ -158,6 +158,10 @@
     <ClInclude Include="yaBaseRenderer.h" />
     <ClInclude Include="yaCamera.h" />
     <ClInclude Include="yaCameraScript.h" />
+    <ClInclude Include="yaCollider.h" />
+    <ClInclude Include="yaCollider2D.h" />
+    <ClInclude Include="yaCollider3D.h" />
+    <ClInclude Include="yaCollisionManager.h" />
     <ClInclude Include="yaComponent.h" />
     <ClInclude Include="yaConstantBuffer.h" />
     <ClInclude Include="yaEngine.h" />
@@ -177,6 +181,7 @@
     <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaPlayerScript.h" />
     <ClInclude Include="yaPlayScene.h" />
+    <ClInclude Include="yaPrefab.h" />
     <ClInclude Include="yaRenderer.h" />
     <ClInclude Include="yaResource.h" />
     <ClInclude Include="yaResources.h" />
@@ -195,6 +200,10 @@
     <ClCompile Include="yaBaseRenderer.cpp" />
     <ClCompile Include="yaCamera.cpp" />
     <ClCompile Include="yaCameraScript.cpp" />
+    <ClCompile Include="yaCollider.cpp" />
+    <ClCompile Include="yaCollider2D.cpp" />
+    <ClCompile Include="yaCollider3D.cpp" />
+    <ClCompile Include="yaCollisionManager.cpp" />
     <ClCompile Include="yaComponent.cpp" />
     <ClCompile Include="yaConstantBuffer.cpp" />
     <ClCompile Include="yaEntity.cpp" />
@@ -210,6 +219,7 @@
     <ClCompile Include="yaMeshRenderer.cpp" />
     <ClCompile Include="yaPlayerScript.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />
+    <ClCompile Include="yaPrefab.cpp" />
     <ClCompile Include="yaRenderer.cpp" />
     <ClCompile Include="yaResource.cpp" />
     <ClCompile Include="yaResources.cpp" />
