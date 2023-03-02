@@ -33,9 +33,9 @@ namespace ya
 	{
 		//렌더링에 사용될 위치값들을 업데이트
 
-			// 월드 행렬 생성
+		// 월드 행렬 생성
 
-			// 크기 변환 행렬
+		// 크기 변환 행렬
 		Matrix scale = Matrix::CreateScale(mScale);
 
 		// 회전 변환 행렬

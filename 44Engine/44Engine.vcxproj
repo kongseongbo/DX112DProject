@@ -138,11 +138,17 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="yaDebugObject.h" />
     <ClInclude Include="yaEditor.h" />
+    <ClInclude Include="yaEditorObject.h" />
+    <ClInclude Include="yaWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="yaDebugObject.cpp" />
     <ClCompile Include="yaEditor.cpp" />
+    <ClCompile Include="yaEditorObject.cpp" />
+    <ClCompile Include="yaWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="44Engine.rc" />

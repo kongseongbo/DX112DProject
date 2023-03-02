@@ -1,7 +1,7 @@
 #pragma once
-#include "..\Editor_SOURCE\yaDebugObject.h"
-#include "..\Editor_SOURCE\yaEditorObject.h"
-#include "..\Editor_SOURCE\yaWidget.h"
+#include "yaDebugObject.h"
+#include "yaEditorObject.h"
+#include "yaWidget.h"
 
 
 namespace ya

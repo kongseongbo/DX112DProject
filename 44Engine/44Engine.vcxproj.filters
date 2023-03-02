@@ -31,6 +31,9 @@
     <ClInclude Include="targetver.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="yaDebugObject.h" />
+    <ClInclude Include="yaEditorObject.h" />
+    <ClInclude Include="yaWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="44Engine.rc">
@@ -52,5 +55,8 @@
     <ClCompile Include="yaEditor.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="yaDebugObject.cpp" />
+    <ClCompile Include="yaEditorObject.cpp" />
+    <ClCompile Include="yaWidget.cpp" />
   </ItemGroup>
 </Project>
