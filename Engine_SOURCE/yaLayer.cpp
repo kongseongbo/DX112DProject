@@ -87,7 +87,7 @@ namespace ya
 			std::set<GameObject*>::iterator deleteIter = deleteObjects.find(*iter);
 
 			if (deleteIter != deleteObjects.end())
-				mGameObjects.erase(iter);
+				iter = mGameObjects.erase(iter);
 			else
 				iter++;
 		}

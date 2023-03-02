@@ -51,7 +51,7 @@ namespace ya
 		mapObj->SetName(L"Mission1Map");
 		Transform* map1Tr = mapObj->GetComponent<Transform>();
 		map1Tr->SetPosition(Vector3(0.0f, 0.0f, 6.0f));
-		map1Tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+		map1Tr->SetScale(Vector3(20.0f, 15.0f, 1.0f));
 
 		MeshRenderer* mapMr = mapObj->AddComponent<MeshRenderer>();
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -64,7 +64,7 @@ namespace ya
 		mapBGObj->SetName(L"Mission1BGMap");
 		Transform* map1BGTr = mapBGObj->GetComponent<Transform>();
 		map1BGTr->SetPosition(Vector3(0.0f, 0.0f, 6.0f));
-		map1BGTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+		map1BGTr->SetScale(Vector3(20.0f, 15.0f, 1.0f));
 
 		MeshRenderer* mapBGMr = mapBGObj->AddComponent<MeshRenderer>();
 		std::shared_ptr<Material> mapBGMaterial = Resources::Find<Material>(L"Mission1BGMaterial");
