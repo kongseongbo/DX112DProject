@@ -55,6 +55,7 @@ namespace ya::renderer
 
 
 	extern Vertex vertexes[4];
+	extern Camera* mainCamera;
 	extern ConstantBuffer* constantBuffers[];
 	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[];
@@ -62,6 +63,7 @@ namespace ya::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
 	extern std::vector<Camera*> cameras[];
+	extern std::vector<DebugMesh> debugMeshes;
 
 	void Initialize();
 	void Render();

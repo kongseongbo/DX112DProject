@@ -13,8 +13,10 @@ namespace ya
 			Orthographic,
 		};
 
-		__forceinline static Matrix& GetViewMatrix() { return View; }
-		__forceinline static Matrix& GetProjectionMatrix() { return Projection; }
+		__forceinline static Matrix& GetGpuViewMatrix() { return View; }
+		__forceinline static Matrix& GetGpuProjectionMatrix() { return Projection; }
+		__forceinline static void SetGpuViewMatrix(Matrix view) { View = view; }
+		__forceinline static void SetGpuProjectionMatrix(Matrix projection) { Projection = projection; }
 
 		Camera();
 		virtual ~Camera();
@@ -35,6 +37,9 @@ namespace ya
 		void SetProjectionType(eProjectionType type) { mType = type; }
 
 		float GetScale() { return mScale; }
+
+		Matrix& GetViewMatrix() { return mView; }
+		Matrix& GetProjectionMatrix() { return mProjection; }
 
 	private:
 		void sortGameObjects();

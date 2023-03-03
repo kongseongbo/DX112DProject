@@ -19,8 +19,8 @@ namespace ya
 		void DebugRender(graphics::DebugMesh& mehs);
 
 	private:
-		std::vector<Widget> mWidgets;
-		std::vector<EditorObject> mEditorObjects;
+		std::vector<Widget*> mWidgets;
+		std::vector<EditorObject*> mEditorObjects;
 		std::vector<DebugObject*> mDebugObjects;
 
 
