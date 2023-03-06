@@ -31,6 +31,10 @@ namespace ya
 			Vector3 rot = tr->GetRotation();
 			rot.z += 10.0f * Time::DeltaTime();
 			tr->SetRotation(rot);
+
+			Vector3 pos = tr->GetPosition();
+			pos.x += 10.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
 		}
 
 

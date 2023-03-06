@@ -51,6 +51,8 @@ namespace ya::renderer
 		indexes.push_back(0);
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
+
+
 		// Circle Mesh
 		std::vector<Vertex> circleVtxes;
 		Vertex center = {};
