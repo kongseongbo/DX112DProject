@@ -19,19 +19,19 @@ namespace ya::renderer
 	void LoadMesh()
 	{
 		//RECT
-		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
 
-		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
 		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
-		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.0f);
+		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.0f, 1.0f);
 		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
 		vertexes[2].uv = Vector2(1.0f, 1.0f);
 
-		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
 		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
@@ -44,19 +44,39 @@ namespace ya::renderer
 		indexes.push_back(0);
 		indexes.push_back(1);
 		indexes.push_back(2);
-
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
 		indexes.push_back(0);
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
+		// 
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, -0.00001f, 1.0f);
+		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
+		vertexes[0].uv = Vector2(0.f, 0.f);
 
+		vertexes[1].pos = Vector4(0.5f, 0.5f, -0.00001, 1.0f);
+		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
+
+		vertexes[2].pos = Vector4(0.5f, -0.5f, -0.00001, 1.0f);
+		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
+
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, -0.00001, 1.0f);
+		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
+
+		// Crate Mesh
+		std::shared_ptr<Mesh> debugmesh = std::make_shared<Mesh>();
+		Resources::Insert<Mesh>(L"DebugRectMesh", debugmesh);
+		debugmesh->CreateVertexBuffer(vertexes, 4);
+		debugmesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
 		// Circle Mesh
 		std::vector<Vertex> circleVtxes;
 		Vertex center = {};
-		center.pos = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+		center.pos = Vector4(0.0f, 0.0f, -0.00001f, 1.0f);
 		center.color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		center.uv = Vector2::Zero;
 
@@ -74,7 +94,7 @@ namespace ya::renderer
 			(
 				fRadius * cosf(fTheta * (float)i)
 				, fRadius * sinf(fTheta * (float)i)
-				, 0.5f, 1.0f
+				, -0.00001f, 1.0f
 			);
 			vtx.color = center.color;
 
@@ -145,6 +165,7 @@ namespace ya::renderer
 			, gridShader->GetVSBlobBufferSize()
 			, gridShader->GetInputLayoutAddressOf());
 
+
 		std::shared_ptr<Shader> debugShader = Resources::Find<Shader>(L"DebugShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, debugShader->GetVSBlobBufferPointer()
@@ -166,6 +187,8 @@ namespace ya::renderer
 		//D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR = 0x5,
 		//D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT = 0x10,
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
+
+
 		GetDevice()->CreateSamplerState
 		(
 			&samplerDesc
@@ -293,22 +316,6 @@ namespace ya::renderer
 
 	void LoadBuffer()
 	{
-		// Crate Mesh
-		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-		Resources::Insert<Mesh>(L"RectMesh", mesh);
-
-		mesh->CreateVertexBuffer(vertexes, 4);
-
-		std::vector<UINT> indexes;
-		indexes.push_back(0);
-		indexes.push_back(1);
-		indexes.push_back(2);
-
-		indexes.push_back(0);
-		indexes.push_back(2);
-		indexes.push_back(3);
-		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
-
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -382,12 +389,10 @@ namespace ya::renderer
 
 		// Map
 		Resources::Load<Texture>(L"Mission1", L"Mission1.png");
-		Resources::Load<Texture>(L"Mission1BG", L"Mission1BG.png");
 	}
 
 	void LoadMaterial()
 	{
-
 		// Default
 		std::shared_ptr <Texture> texture = Resources::Find<Texture>(L"SmileTexture");
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
@@ -395,19 +400,6 @@ namespace ya::renderer
 		material->SetShader(shader);
 		material->SetTexture(texture);
 		Resources::Insert<Material>(L"RectMaterial", material);
-
-		// Map
-		std::shared_ptr <Texture> mission1Texture = Resources::Find<Texture>(L"Mission1");
-		std::shared_ptr<Material> mission1Material = std::make_shared<Material>();
-		mission1Material->SetShader(shader);
-		mission1Material->SetTexture(mission1Texture);
-		Resources::Insert<Material>(L"Mission1Material", mission1Material);
-
-		std::shared_ptr <Texture> mission1BGTexture = Resources::Find<Texture>(L"Mission1BG");
-		std::shared_ptr<Material> mission1BGMaterial = std::make_shared<Material>();
-		mission1BGMaterial->SetShader(shader);
-		mission1BGMaterial->SetTexture(mission1BGTexture);
-		Resources::Insert<Material>(L"Mission1BGMaterial", mission1BGMaterial);
 
 		// Sprite
 		std::shared_ptr <Texture> spriteTexture = Resources::Find<Texture>(L"DefaultSprite");
@@ -445,6 +437,16 @@ namespace ya::renderer
 		std::shared_ptr<Material> fadeMaterial = std::make_shared<Material>();
 		fadeMaterial->SetShader(fadeShader);
 		Resources::Insert<Material>(L"FadeMaterial", fadeMaterial);
+
+		// Map
+		std::shared_ptr <Texture> mapTexture = Resources::Find<Texture>(L"Mission1");
+		std::shared_ptr<Shader> mapShader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> mapMaterial = std::make_shared<Material>();
+		mapMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		mapMaterial->SetShader(mapShader);
+		mapMaterial->SetTexture(mapTexture);
+		Resources::Insert<Material>(L"MapMaterial", mapMaterial);
+
 	}
 
 	void Initialize()
@@ -455,6 +457,15 @@ namespace ya::renderer
 		LoadBuffer();
 		LoadTexture();
 		LoadMaterial();
+	}
+
+	void Release()
+	{
+		for (size_t i = 0; i < (UINT)eCBType::End; i++)
+		{
+			delete constantBuffers[i];
+			constantBuffers[i] = nullptr;
+		}
 	}
 
 	void Render()
@@ -468,15 +479,7 @@ namespace ya::renderer
 
 			cam->Render();
 		}
-		cameras[(UINT)type].clear();
-	}
 
-	void Release()
-	{
-		for (size_t i = 0; i < (UINT)eCBType::End; i++)
-		{
-			delete constantBuffers[i];
-			constantBuffers[i] = nullptr;
-		}
+		cameras[(UINT)type].clear();
 	}
 }

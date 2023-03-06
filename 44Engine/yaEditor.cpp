@@ -7,7 +7,6 @@
 #include "yaGridScript.h"
 #include "yaObject.h"
 
-
 namespace ya
 {
 	void Editor::Initalize()
@@ -15,12 +14,12 @@ namespace ya
 		// 충돌체의 종류 갯수만큼만 있으면 된다.
 		mDebugObjects.resize((UINT)eColliderType::End);
 
-		std::shared_ptr<Mesh> rectMesh = Resources::Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Mesh> rectMesh = Resources::Find<Mesh>(L"DebugRectMesh");
 		std::shared_ptr<Material> material = Resources::Find<Material>(L"DebugMaterial");
 
 		mDebugObjects[(UINT)eColliderType::Rect] = new DebugObject();
-
-		MeshRenderer* renderer = mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<MeshRenderer>();
+		MeshRenderer* renderer
+			= mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<MeshRenderer>();
 
 		renderer->SetMaterial(material);
 		renderer->SetMesh(rectMesh);
@@ -28,12 +27,13 @@ namespace ya
 		std::shared_ptr<Mesh> circleMesh = Resources::Find<Mesh>(L"CircleMesh");
 
 		mDebugObjects[(UINT)eColliderType::Circle] = new DebugObject();
-	
-		renderer = mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<MeshRenderer>();
+		renderer
+			= mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<MeshRenderer>();
 
 		renderer->SetMaterial(material);
 		renderer->SetMesh(circleMesh);
 
+		//그리드 이쪽으로 옮겨줘야 한다.
 		// Grid Object
 		EditorObject* gridObject = new EditorObject();
 		MeshRenderer* gridMr = gridObject->AddComponent<MeshRenderer>();
@@ -43,6 +43,7 @@ namespace ya
 		gridScript->SetCamera(mainCamera);
 
 		mEditorObjects.push_back(gridObject);
+
 	}
 
 	void Editor::Run()
@@ -89,7 +90,6 @@ namespace ya
 			delete obj;
 			obj = nullptr;
 		}
-
 		for (auto obj : mEditorObjects)
 		{
 			delete obj;
@@ -107,6 +107,7 @@ namespace ya
 		Transform* tr = debugObj->GetComponent<Transform>();
 		tr->SetPosition(mesh.position);
 		tr->SetRotation(mesh.rotatation);
+
 
 		if (mesh.type == eColliderType::Rect)
 			tr->SetScale(mesh.scale);

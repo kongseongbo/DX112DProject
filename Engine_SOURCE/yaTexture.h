@@ -19,7 +19,7 @@ namespace ya::graphics
 		Texture();
 		virtual ~Texture();
 
-		virtual HRESULT Load(const std::wstring& name) override;
+		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT slot);
 		void Clear();
 

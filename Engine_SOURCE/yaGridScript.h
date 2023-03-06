@@ -19,6 +19,5 @@ namespace ya
 
 	private:
 		Camera* mCamera;
-
 	};
 }

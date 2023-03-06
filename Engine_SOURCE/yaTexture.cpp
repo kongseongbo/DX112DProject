@@ -61,6 +61,7 @@ namespace ya::graphics
 	{
 		GetDevice()->SetShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
+
 	void Texture::Clear()
 	{
 		ID3D11ShaderResourceView* srv = nullptr;

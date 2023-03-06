@@ -16,7 +16,7 @@ namespace ya
 
 	Application::~Application()
 	{
-	
+
 	}
 
 	void Application::Initalize()
@@ -55,10 +55,14 @@ namespace ya
 		renderer::Render();
 
 		//graphicDevice->Render();
+		//graphicDevice->Present();
+
+
 	}
 
 	void Application::Destroy()
 	{
+
 	}
 
 	// Running main engine loop
@@ -68,7 +72,6 @@ namespace ya
 		FixedUpdate();
 		Render();
 		Destroy();
-		
 	}
 
 	void Application::Present()

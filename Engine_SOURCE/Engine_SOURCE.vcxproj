@@ -178,7 +178,9 @@
     <ClInclude Include="yaMath.h" />
     <ClInclude Include="yaMesh.h" />
     <ClInclude Include="yaMeshRenderer.h" />
+    <ClInclude Include="yaMonster.h" />
     <ClInclude Include="yaObject.h" />
+    <ClInclude Include="yaPlayer.h" />
     <ClInclude Include="yaPlayerScript.h" />
     <ClInclude Include="yaPlayScene.h" />
     <ClInclude Include="yaPrefab.h" />
@@ -217,6 +219,8 @@
     <ClCompile Include="yaMath.cpp" />
     <ClCompile Include="yaMesh.cpp" />
     <ClCompile Include="yaMeshRenderer.cpp" />
+    <ClCompile Include="yaMonster.cpp" />
+    <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaPlayerScript.cpp" />
     <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaPrefab.cpp" />

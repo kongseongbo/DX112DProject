@@ -6,7 +6,9 @@
 #include "yaTexture.h"
 #include "yaPlayerScript.h"
 #include "yaCamera.h"
+#include "yaCameraScript.h"
 #include "yaSpriteRenderer.h"
+#include "yaGridScript.h"
 #include "yaTitleScene.h"
 #include "yaPlayScene.h"
 
@@ -21,7 +23,7 @@ namespace ya
 
 		mScenes[(UINT)eSceneType::Tilte] = new TitleScene();
 		mScenes[(UINT)eSceneType::Play] = new PlayScene();
-		
+
 		mActiveScene = mScenes[(UINT)eSceneType::Tilte];
 
 		for (Scene* scene : mScenes)
@@ -44,10 +46,12 @@ namespace ya
 	{
 		mActiveScene->Render();
 	}
+
 	void SceneManager::Destroy()
 	{
 		mActiveScene->Destroy();
 	}
+
 	void SceneManager::Release()
 	{
 		for (Scene* scene : mScenes)
@@ -56,14 +60,14 @@ namespace ya
 			scene = nullptr;
 		}
 	}
-
 	void SceneManager::LoadScene(eSceneType type)
 	{
 		if (mActiveScene)
 			mActiveScene->OnExit();
 
 		// 바뀔때 dontDestory 오브젝트는 다음씬으로 같이 넘겨줘야한다.
-		std::vector<GameObject*> gameObjs = mActiveScene->GetDontDestroyGameObjects();
+		std::vector<GameObject*> gameObjs
+			= mActiveScene->GetDontDestroyGameObjects();
 		mActiveScene = mScenes[(UINT)type];
 
 		for (GameObject* obj : gameObjs)
@@ -75,5 +79,3 @@ namespace ya
 		mActiveScene->OnEnter();
 	}
 }
-
-

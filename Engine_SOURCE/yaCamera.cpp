@@ -7,7 +7,6 @@
 #include "yaSceneManager.h"
 #include "yaMaterial.h"
 #include "yaBaseRenderer.h"
-#include "yaFadeInOutScript.h"
 #include "yaSceneManager.h"
 
 extern ya::Application application;
@@ -34,12 +33,13 @@ namespace ya
 
 	void Camera::Initalize()
 	{
-		
+
 		RegisterCameraInRenderer();
 	}
 
 	void Camera::Update()
 	{
+
 	}
 
 	void Camera::FixedUpdate()
@@ -185,6 +185,9 @@ namespace ya
 			return;
 
 		std::shared_ptr<Material> material = renderer->GetMaterial();
+		/*if (material == nullptr)
+			return;*/
+
 		eRenderingMode mode = material->GetRenderingMode();
 
 		switch (mode)

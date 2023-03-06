@@ -16,16 +16,27 @@ namespace ya
 	{
 
 	}
+
 	GridScript::~GridScript()
 	{
+
 	}
+
 	void GridScript::Initalize()
 	{
 		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
 		mCamera = renderer::cameras[(UINT)type][0];
 	}
+
 	void GridScript::Update()
 	{
+		//	CBUFFER(GridCB, CBSLOT_GRID)
+		//{
+		//	Vector4 cameraPosition;
+		//	Vector2 cameraScale;
+		//	Vector2 resolution;
+		//};
+
 		if (mCamera == nullptr)
 			return;
 
@@ -62,4 +73,5 @@ namespace ya
 	void GridScript::Render()
 	{
 	}
+
 }

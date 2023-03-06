@@ -22,7 +22,5 @@ namespace ya
 		std::vector<Widget*> mWidgets;
 		std::vector<EditorObject*> mEditorObjects;
 		std::vector<DebugObject*> mDebugObjects;
-
-
 	};
 }

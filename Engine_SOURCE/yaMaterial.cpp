@@ -1,24 +1,29 @@
 #include "yaMaterial.h"
 
-
 namespace ya::graphics
 {
-	Material::Material()
-		: Resource(eResourceType::Material)
+    Material::Material()
+        : Resource(eResourceType::Material)
         , mMode(eRenderingMode::Opaque)
-	{
-	}
-	Material::~Material()
-	{
-	}
-	HRESULT Material::Load(const std::wstring& path)
-	{
+    {
+
+    }
+
+    Material::~Material()
+    {
+
+    }
+
+    HRESULT Material::Load(const std::wstring& path)
+    {
 
 
-		return E_NOTIMPL;
-	}
-	void Material::SetData(eGPUParam param, void* data)
-	{
+
+        return E_NOTIMPL;
+    }
+
+    void Material::SetData(eGPUParam param, void* data)
+    {
         switch (param)
         {
         case ya::graphics::eGPUParam::Int:
@@ -42,10 +47,12 @@ namespace ya::graphics
         default:
             break;
         }
-	}
-	void Material::Bind()
-	{
-        if(mTexture)
+
+    }
+
+    void Material::Bind()
+    {
+        if (mTexture)
             mTexture->BindShader(eShaderStage::PS, 0);
 
         ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Material];
@@ -54,7 +61,8 @@ namespace ya::graphics
         pCB->SetPipline(eShaderStage::PS);
 
         mShader->Binds();
-	}
+    }
+
     void Material::Clear()
     {
         mTexture->Clear();

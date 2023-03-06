@@ -13,6 +13,8 @@
 #include "yaInput.h"
 #include "yaFadeInOutScript.h"
 #include "yaCollider2D.h"
+#include "yaPlayer.h"
+#include "yaMonster.h"
 
 namespace ya
 {
@@ -40,14 +42,6 @@ namespace ya
 		cameraUIComp->DisableLayerMasks();
 		cameraUIComp->TurnLayerMask(eLayerType::UI, true);
 
-		// Grid Object
-		/*GameObject* gridObject = object::Instantiate<GameObject>(eLayerType::None);
-		MeshRenderer* gridMr = gridObject->AddComponent<MeshRenderer>();
-		gridMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		gridMr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-		GridScript* gridScript = gridObject->AddComponent<GridScript>();
-		gridScript->SetCamera(cameraComp);*/
-
 		// Map
 		GameObject* mapObj = object::Instantiate<GameObject>(eLayerType::Map);
 		mapObj->SetName(L"Mission1Map");
@@ -57,22 +51,9 @@ namespace ya
 
 		MeshRenderer* mapMr = mapObj->AddComponent<MeshRenderer>();
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mapMaterial = Resources::Find<Material>(L"Mission1Material");
+		std::shared_ptr<Material> mapMaterial = Resources::Find<Material>(L"MapMaterial");
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
-
-		// MapBG
-		GameObject* mapBGObj = object::Instantiate<GameObject>(eLayerType::BGMap);
-		mapBGObj->SetName(L"Mission1BGMap");
-		Transform* map1BGTr = mapBGObj->GetComponent<Transform>();
-		map1BGTr->SetPosition(Vector3(0.0f, 0.0f, 6.0f));
-		map1BGTr->SetScale(Vector3(20.0f, 15.0f, 1.0f));
-
-		MeshRenderer* mapBGMr = mapBGObj->AddComponent<MeshRenderer>();
-		std::shared_ptr<Material> mapBGMaterial = Resources::Find<Material>(L"Mission1BGMaterial");
-		mapBGMr->SetMaterial(mapBGMaterial);
-		mapBGMr->SetMesh(mesh);
-
 
 		// Light Object
 		//GameObject* spriteObj = object::Instantiate<GameObject>(eLayerType::Player);
@@ -90,7 +71,7 @@ namespace ya
 
 
 		//SMILE RECT
-		GameObject* obj = object::Instantiate<GameObject>(eLayerType::Player);
+		Player* obj = object::Instantiate<Player>(eLayerType::Player);
 		obj->SetName(L"SMILE");
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
@@ -98,11 +79,13 @@ namespace ya
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 		Collider2D* collider = obj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
+		//collider->SetCenter(Vector2(0.2f, 0.2f));
+		//collider->SetSize(Vector2(1.5f, 1.5f));
 
 		MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
 		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
 		mr->SetMaterial(mateiral);
-		//std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+		//std::shared_ptr<Mesh> smileMesh = Resources::Find<Mesh>(L"RectMesh");
 		mr->SetMesh(mesh);
 		obj->AddComponent<PlayerScript>();
 		object::DontDestroyOnLoad(obj); 

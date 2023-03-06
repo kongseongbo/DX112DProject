@@ -14,6 +14,7 @@ namespace ya
 		, mPosition(Vector3::One)
 		, mParent(nullptr)
 	{
+
 	}
 
 	Transform::~Transform()
@@ -22,11 +23,12 @@ namespace ya
 
 	void Transform::Initalize()
 	{
+		//cos(180);
 	}
 
 	void Transform::Update()
 	{
-		// 실제 로직상 캐릭터 이동 처리
+		//실제 로직상 캐릭터이동 처리
 	}
 
 	void Transform::FixedUpdate()
@@ -74,7 +76,6 @@ namespace ya
 		trCb.world = mWorld;
 		trCb.view = Camera::GetGpuViewMatrix();
 		trCb.projection = Camera::GetGpuProjectionMatrix();
-
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
 		cb->Bind(&trCb);

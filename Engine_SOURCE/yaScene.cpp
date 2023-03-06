@@ -10,10 +10,10 @@ namespace ya
 	}
 	Scene::~Scene()
 	{
+
 	}
 	void Scene::Initalize()
 	{
-		
 		for (Layer& layer : mLayers)
 		{
 			layer.Initalize();
@@ -58,6 +58,7 @@ namespace ya
 		mLayers[(UINT)type].AddGameObject(gameObj);
 		gameObj->SetLayerType(type);
 	}
+
 	std::vector<GameObject*> Scene::GetDontDestroyGameObjects()
 	{
 		std::vector<GameObject*> gameObjects;
@@ -71,7 +72,10 @@ namespace ya
 				, dontGameObjs.end());
 		}
 
-
 		return gameObjects;
+	}
+	const std::vector<GameObject*>& Scene::GetGameObjects(const eLayerType type)
+	{
+		return mLayers[(UINT)type].GetGameObjects();
 	}
 }

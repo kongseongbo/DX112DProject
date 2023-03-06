@@ -1,5 +1,5 @@
 #pragma once
-#include "yaResource.h";
+#include "yaResource.h"
 #include "yaShader.h"
 #include "yaTexture.h"
 #include "yaRenderer.h"
