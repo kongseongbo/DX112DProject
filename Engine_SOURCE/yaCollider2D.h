@@ -30,6 +30,8 @@ namespace ya
 
 		UINT GetID() { return mID; }
 		Vector3 GetPosition() { return mPosition; }
+		Vector2 GetSize() { return mSize; }
+		Vector2 GetCenter() { return mCenter; }
 
 	private:
 		static UINT ColliderNumber;

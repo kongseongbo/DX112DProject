@@ -163,45 +163,60 @@ namespace ya
 		Transform* leftTr = left->GetOwner()->GetComponent<Transform>();
 		Transform* rightTr = right->GetOwner()->GetComponent<Transform>();
 
-		Matrix leftMat = leftTr->GetWorldMatrix();
-		Matrix rightMat = rightTr->GetWorldMatrix();
+		//float distance = sqrt(pow(left->GetPosition().x - right->GetPosition().x, 2) + pow(left->GetPosition().y - right->GetPosition().y, 2));
 
-		// ∫–∏Æ√‡ ∫§≈Õ (≈ıøµ ∫§≈Õ)
-		Vector3 Axis[4] = {};
-		Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);
-		Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
-		Axis[2] = Vector3::Transform(arrLocalPos[1], rightMat);
-		Axis[3] = Vector3::Transform(arrLocalPos[3], rightMat);
-
-		Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMat);
-		Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMat);
-		Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
-		Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
-
-		for (size_t i = 0; i < 4; i++)
-		{
-			Axis[i].z = 0.0f;
-		}
 		Vector3 vc = left->GetPosition() - right->GetPosition();
 		vc.z = 0.0f;
-
 		Vector3 centerDir = vc;
-		for (size_t i = 0; i < 4; i++)
+
+		float leftRadi = left->GetSize().x;
+		float rightRadi = right->GetSize().x;
+		float sum = leftRadi + rightRadi;
+
+		if (centerDir.x < sum)
 		{
-			Vector3 vA = Axis[i];
-			vA.Normalize();
-
-			float projDist = 0.0f;
-			for (size_t j = 0; j < 4; j++)
-			{
-				projDist += fabsf(Axis[j].Dot(vA) / 2.0f);
-			}
-
-			if (projDist < fabsf(centerDir.Dot(vA)))
-			{
-				return false;
-			}
+			int a = 0;
 		}
+
+		//Matrix leftMat = leftTr->GetWorldMatrix();
+		//Matrix rightMat = rightTr->GetWorldMatrix();
+
+		//// ∫–∏Æ√‡ ∫§≈Õ (≈ıøµ ∫§≈Õ)
+		//Vector3 Axis[4] = {};
+		//Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);
+		//Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
+		//Axis[2] = Vector3::Transform(arrLocalPos[1], rightMat);
+		//Axis[3] = Vector3::Transform(arrLocalPos[3], rightMat);
+
+		//Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMat);
+		//Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMat);
+		//Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
+		//Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
+
+		//for (size_t i = 0; i < 4; i++)
+		//{
+		//	Axis[i].z = 0.0f;
+		//}
+		//Vector3 vc = left->GetPosition() - right->GetPosition();
+		//vc.z = 0.0f;
+
+		//Vector3 centerDir = vc;
+		//for (size_t i = 0; i < 4; i++)
+		//{
+		//	Vector3 vA = Axis[i];
+		//	vA.Normalize();
+
+		//	float projDist = 0.0f;
+		//	for (size_t j = 0; j < 4; j++)
+		//	{
+		//		projDist += fabsf(Axis[j].Dot(vA) / 2.0f);
+		//	}
+
+		//	if (projDist < fabsf(centerDir.Dot(vA)))
+		//	{
+		//		return false;
+		//	}
+		//}
 
 		// º˜¡¶ Circle vs Cirlce
 

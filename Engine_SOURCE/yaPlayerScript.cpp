@@ -54,13 +54,13 @@ namespace ya
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			Vector3 pos = tr->GetPosition();
-			pos.z += 6.0f * Time::DeltaTime();
+			pos.y -= 6.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		if (Input::GetKey(eKeyCode::UP))
 		{
 			Vector3 pos = tr->GetPosition();
-			pos.z -= 6.0f * Time::DeltaTime();
+			pos.y += 6.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 
