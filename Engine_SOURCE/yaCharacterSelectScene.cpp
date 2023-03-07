@@ -1,4 +1,4 @@
-#include "yaTitleScene.h"
+#include "yaCharacterSelectScene.h"
 #include "yaTransform.h"
 #include "yaMeshRenderer.h"
 #include "yaRenderer.h"
@@ -11,51 +11,47 @@
 #include "yaGridScript.h"
 #include "yaObject.h"
 #include "yaInput.h"
-#include "yaFadeInOutScript.h"
-#include "yaCollider2D.h"
 
 namespace ya
 {
-	TitleScene::TitleScene()
-		: Scene(eSceneType::Tilte)
+	CharacterSelectScene::CharacterSelectScene()
+		: Scene(eSceneType::CharacterSelect)
 	{
 	}
-	TitleScene::~TitleScene()
+	CharacterSelectScene::~CharacterSelectScene()
 	{
 	}
-	void TitleScene::Initalize()
+	void CharacterSelectScene::Initalize()
 	{
-		// Main Camera Game Object
-		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
+		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
-		mainCamera = cameraComp;
+		//mainCamera = cameraComp;
 
 		Scene::Initalize();
 	}
-	void TitleScene::Update()
+	void CharacterSelectScene::Update()
 	{
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::LoadScene(eSceneType::CharacterSelect);
+			SceneManager::LoadScene(eSceneType::Play);
 		}
 
 		Scene::Update();
 	}
-	void TitleScene::FixedUpdate()
+	void CharacterSelectScene::FixedUpdate()
 	{
 		Scene::FixedUpdate();
 	}
-	void TitleScene::Render()
+	void CharacterSelectScene::Render()
 	{
 		Scene::Render();
 	}
-	void TitleScene::OnEnter()
+	void CharacterSelectScene::OnEnter()
 	{
 	}
-	void TitleScene::OnExit()
+	void CharacterSelectScene::OnExit()
 	{
 	}
 }

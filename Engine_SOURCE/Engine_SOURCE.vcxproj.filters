@@ -207,6 +207,9 @@
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Component\Script\Contents</Filter>
     </ClCompile>
+    <ClCompile Include="yaCharacterSelectScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -337,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="yaMonster.h">
       <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCharacterSelectScene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

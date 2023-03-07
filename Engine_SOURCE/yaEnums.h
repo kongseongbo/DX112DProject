@@ -5,6 +5,7 @@ namespace ya::enums
 	enum class eSceneType
 	{
 		Tilte,
+		CharacterSelect,
 		Play,
 		End,
 	};
@@ -14,7 +15,6 @@ namespace ya::enums
 		None = 0,
 		Camera,
 		Grid,
-		BGMap,
 		Map,
 		Monster,
 		Player,
