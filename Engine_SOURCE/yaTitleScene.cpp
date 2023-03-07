@@ -26,7 +26,7 @@ namespace ya
 	void TitleScene::Initalize()
 	{
 		// Main Camera Game Object
-		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
+		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);

@@ -81,8 +81,8 @@ namespace ya
 	{
 		// 두 충돌체 레이어로 구성된 ID 확인
 		ColliderID colliderID;
-		colliderID.left = (UINT)left;
-		colliderID.right = (UINT)right;
+		colliderID.left = (UINT)left->GetID();
+		colliderID.right = (UINT)right->GetID();
 
 		// 이전 충돌 정보를 검색한다.
 		// 만약에 충돌정보가 없는 상태라면
@@ -147,8 +147,63 @@ namespace ya
 
 	bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)
 	{
+		// Rect vs Rect 
+		// 0 --- 1
+		// |     |
+		// 3 --- 2
 
+		static const Vector3 arrLocalPos[4] =
+		{
+			Vector3{-0.5f, 0.5f, 0.0f}
+			,Vector3{0.5f, 0.5f, 0.0f}
+			,Vector3{0.5f, -0.5f, 0.0f}
+			,Vector3{-0.5f, -0.5f, 0.0f}
+		};
 
+		Transform* leftTr = left->GetOwner()->GetComponent<Transform>();
+		Transform* rightTr = right->GetOwner()->GetComponent<Transform>();
+
+		Matrix leftMat = leftTr->GetWorldMatrix();
+		Matrix rightMat = rightTr->GetWorldMatrix();
+
+		// 분리축 벡터 (투영 벡터)
+		Vector3 Axis[4] = {};
+		Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);
+		Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
+		Axis[2] = Vector3::Transform(arrLocalPos[1], rightMat);
+		Axis[3] = Vector3::Transform(arrLocalPos[3], rightMat);
+
+		Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMat);
+		Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMat);
+		Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
+		Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
+
+		for (size_t i = 0; i < 4; i++)
+		{
+			Axis[i].z = 0.0f;
+		}
+		Vector3 vc = left->GetPosition() - right->GetPosition();
+		vc.z = 0.0f;
+
+		Vector3 centerDir = vc;
+		for (size_t i = 0; i < 4; i++)
+		{
+			Vector3 vA = Axis[i];
+			vA.Normalize();
+
+			float projDist = 0.0f;
+			for (size_t j = 0; j < 4; j++)
+			{
+				projDist += fabsf(Axis[j].Dot(vA) / 2.0f);
+			}
+
+			if (projDist < fabsf(centerDir.Dot(vA)))
+			{
+				return false;
+			}
+		}
+
+		// 숙제 Circle vs Cirlce
 
 		return true;
 	}

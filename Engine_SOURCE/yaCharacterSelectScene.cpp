@@ -27,7 +27,7 @@ namespace ya
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
-		//mainCamera = cameraComp;
+		mainCamera = cameraComp;
 
 		Scene::Initalize();
 	}

@@ -28,12 +28,18 @@ namespace ya
 		void SetCenter(Vector2 center) { mCenter = center; }
 		bool IsTriiger() { return mbTrigger; }
 
+		UINT GetID() { return mID; }
+		Vector3 GetPosition() { return mPosition; }
+
 	private:
+		static UINT ColliderNumber;
+		UINT mID;
 		eColliderType mType;
 		Transform* mTransform;
 
 		Vector2 mSize;
 		Vector2 mCenter;
+		Vector3 mPosition;
 		bool mbTrigger;
 	};
 }

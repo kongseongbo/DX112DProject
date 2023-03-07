@@ -25,7 +25,6 @@ namespace ya
 		Time::Initialize();
 		Input::Initialize();
 		CollisionManager::Initialize();
-
 		renderer::Initialize();
 		SceneManager::Initalize();
 	}
@@ -37,16 +36,14 @@ namespace ya
 		Time::Update();
 		Input::Update();
 		CollisionManager::Update();
-
-
 		SceneManager::Update();
 	}
 
 	// GPU update
 	void Application::FixedUpdate()
 	{
-		SceneManager::FixedUpdate();
 		CollisionManager::FixedUpdate();
+		SceneManager::FixedUpdate();
 	}
 
 	void Application::Render()
@@ -58,7 +55,6 @@ namespace ya
 
 		//SceneManager::Render();
 		renderer::Render();
-
 		CollisionManager::Render();
 		//graphicDevice->Render();
 		//graphicDevice->Present();
