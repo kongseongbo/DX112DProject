@@ -48,7 +48,7 @@ namespace ya
 		GameObject* mapObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 		mapObj->SetName(L"Mission1Map");
 		Transform* map1Tr = mapObj->GetComponent<Transform>();
-		map1Tr->SetPosition(Vector3(0.0f, 0.0f, 6.0f));
+		map1Tr->SetPosition(Vector3(1.0f, 1.0f, 6.0f));
 		map1Tr->SetScale(Vector3(20.0f, 15.0f, 1.0f));
 
 		SpriteRenderer* mapMr = mapObj->AddComponent<SpriteRenderer>();

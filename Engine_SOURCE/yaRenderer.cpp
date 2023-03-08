@@ -387,8 +387,11 @@ namespace ya::renderer
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
 
+		Resources::Load<Texture>(L"Title", L"Title\\Title.png");
+		Resources::Load<Texture>(L"CharacterSelect", L"CharacterSelect\\SelectScreen.png");
+
 		// Map
-		Resources::Load<Texture>(L"Mission1", L"Mission1.png");
+		Resources::Load<Texture>(L"Mission1", L"Map\\Mission1.png");
 	}
 
 	void LoadMaterial()
@@ -437,6 +440,24 @@ namespace ya::renderer
 		std::shared_ptr<Material> fadeMaterial = std::make_shared<Material>();
 		fadeMaterial->SetShader(fadeShader);
 		Resources::Insert<Material>(L"FadeMaterial", fadeMaterial);
+
+		// Title
+		std::shared_ptr <Texture> titleTexture = Resources::Find<Texture>(L"Title");
+		std::shared_ptr<Shader> titleShader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> titleMaterial = std::make_shared<Material>();
+		titleMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		titleMaterial->SetShader(titleShader);
+		titleMaterial->SetTexture(titleTexture);
+		Resources::Insert<Material>(L"TitleMaterial", titleMaterial);
+
+		//CharacterSelect
+		std::shared_ptr <Texture> selectTexture = Resources::Find<Texture>(L"CharacterSelect");
+		std::shared_ptr<Shader> selectShader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> selectMaterial = std::make_shared<Material>();
+		selectMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		selectMaterial->SetShader(selectShader);
+		selectMaterial->SetTexture(selectTexture);
+		Resources::Insert<Material>(L"SelectMaterial", selectMaterial);
 
 		// Map
 		std::shared_ptr <Texture> mapTexture = Resources::Find<Texture>(L"Mission1");
