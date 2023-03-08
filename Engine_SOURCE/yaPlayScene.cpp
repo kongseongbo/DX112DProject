@@ -80,7 +80,7 @@ namespace ya
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 		Collider2D* collider = obj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Rect);
+		collider->SetType(eColliderType::Circle);
 		//collider->SetCenter(Vector2(0.2f, 0.2f));
 		//collider->SetSize(Vector2(1.5f, 1.5f));
 
@@ -98,13 +98,12 @@ namespace ya
 		monsterTr->SetPosition(Vector3(3.0f, 0.0f, 5.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		Collider2D* monsterCollider = monsterObj->AddComponent<Collider2D>();
-		monsterCollider->SetType(eColliderType::Rect);
+		monsterCollider->SetType(eColliderType::Circle);
 
 		SpriteRenderer* monsterMr = monsterObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");
 		monsterMr->SetMaterial(monsterMateiral);
 		monsterMr->SetMesh(mesh);
-		object::DontDestroyOnLoad(monsterObj);
 
 		//SMILE RECT CHild
 		/*GameObject* child = object::Instantiate<GameObject>(eLayerType::Player);
