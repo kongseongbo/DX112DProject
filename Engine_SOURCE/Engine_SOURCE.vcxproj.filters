@@ -210,6 +210,8 @@
     <ClCompile Include="yaCharacterSelectScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="yaAnimation.cpp" />
+    <ClCompile Include="yaAnimator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -344,6 +346,8 @@
     <ClInclude Include="yaCharacterSelectScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="yaAnimation.h" />
+    <ClInclude Include="yaAnimator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">
