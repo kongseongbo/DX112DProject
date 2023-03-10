@@ -187,7 +187,6 @@
     <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaPlayer.h" />
     <ClInclude Include="yaPlayerScript.h" />
-    <ClInclude Include="yaStage1BossScene.h" />
     <ClInclude Include="yaStage1Scene.h" />
     <ClInclude Include="yaPrefab.h" />
     <ClInclude Include="yaRenderer.h" />
@@ -198,8 +197,6 @@
     <ClInclude Include="yaScript.h" />
     <ClInclude Include="yaShader.h" />
     <ClInclude Include="yaSpriteRenderer.h" />
-    <ClInclude Include="yaStage2BossScene.h" />
-    <ClInclude Include="yaStage2Scene.h" />
     <ClInclude Include="yaTexture.h" />
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
@@ -233,7 +230,6 @@
     <ClCompile Include="yaMonster.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
     <ClCompile Include="yaPlayerScript.cpp" />
-    <ClCompile Include="yaStage1BossScene.cpp" />
     <ClCompile Include="yaStage1Scene.cpp" />
     <ClCompile Include="yaPrefab.cpp" />
     <ClCompile Include="yaRenderer.cpp" />
@@ -244,8 +240,6 @@
     <ClCompile Include="yaScript.cpp" />
     <ClCompile Include="yaShader.cpp" />
     <ClCompile Include="yaSpriteRenderer.cpp" />
-    <ClCompile Include="yaStage2BossScene.cpp" />
-    <ClCompile Include="yaStage2Scene.cpp" />
     <ClCompile Include="yaTexture.cpp" />
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />

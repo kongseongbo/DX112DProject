@@ -103,9 +103,6 @@
     <Filter Include="Scene\Stage1">
       <UniqueIdentifier>{dcdc3ab3-371c-492e-b78d-7699409574ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Stage2">
-      <UniqueIdentifier>{db90cfe7-b294-4e60-8ebe-e44de35019fd}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -228,17 +225,8 @@
     <ClCompile Include="yaCharacterSelectScene.cpp">
       <Filter>Scene\CharacterSelect</Filter>
     </ClCompile>
-    <ClCompile Include="yaStage1BossScene.cpp">
-      <Filter>Scene\Stage1</Filter>
-    </ClCompile>
     <ClCompile Include="yaStage1Scene.cpp">
       <Filter>Scene\Stage1</Filter>
-    </ClCompile>
-    <ClCompile Include="yaStage2BossScene.cpp">
-      <Filter>Scene\Stage2</Filter>
-    </ClCompile>
-    <ClCompile Include="yaStage2Scene.cpp">
-      <Filter>Scene\Stage2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -377,17 +365,8 @@
     <ClInclude Include="yaCharacterSelectScene.h">
       <Filter>Scene\CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="yaStage1BossScene.h">
-      <Filter>Scene\Stage1</Filter>
-    </ClInclude>
     <ClInclude Include="yaStage1Scene.h">
       <Filter>Scene\Stage1</Filter>
-    </ClInclude>
-    <ClInclude Include="yaStage2BossScene.h">
-      <Filter>Scene\Stage2</Filter>
-    </ClInclude>
-    <ClInclude Include="yaStage2Scene.h">
-      <Filter>Scene\Stage2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
