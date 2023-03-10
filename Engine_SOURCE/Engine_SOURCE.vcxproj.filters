@@ -91,6 +91,21 @@
     <Filter Include="Component\Collider\Manager">
       <UniqueIdentifier>{5fe6431f-4eed-4bc3-9ee7-6dbab6bc9431}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{6f17e43b-ccfb-47e0-865e-c8a4acbc5389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Title">
+      <UniqueIdentifier>{64ecdaff-40d5-4b82-a3f3-49e95ccc46b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\CharacterSelect">
+      <UniqueIdentifier>{0ad8685c-d3ff-4870-80d3-a8ea55892e93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Stage1">
+      <UniqueIdentifier>{dcdc3ab3-371c-492e-b78d-7699409574ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Stage2">
+      <UniqueIdentifier>{db90cfe7-b294-4e60-8ebe-e44de35019fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -162,12 +177,6 @@
     <ClCompile Include="yaFadeInOutScript.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="yaPlayScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="yaTitleScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="yaLayer.cpp">
       <Filter>Scene\Layer</Filter>
     </ClCompile>
@@ -207,11 +216,30 @@
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Component\Script\Contents</Filter>
     </ClCompile>
-    <ClCompile Include="yaCharacterSelectScene.cpp">
-      <Filter>Scene</Filter>
+    <ClCompile Include="yaAnimation.cpp">
+      <Filter>Component\Animator</Filter>
     </ClCompile>
-    <ClCompile Include="yaAnimation.cpp" />
-    <ClCompile Include="yaAnimator.cpp" />
+    <ClCompile Include="yaAnimator.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleScene.cpp">
+      <Filter>Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCharacterSelectScene.cpp">
+      <Filter>Scene\CharacterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStage1BossScene.cpp">
+      <Filter>Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStage1Scene.cpp">
+      <Filter>Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStage2BossScene.cpp">
+      <Filter>Scene\Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStage2Scene.cpp">
+      <Filter>Scene\Stage2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -298,12 +326,6 @@
     <ClInclude Include="yaFadeInOutScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
-    <ClInclude Include="yaTitleScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="yaPlayScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="yaLayer.h">
       <Filter>Scene\Layer</Filter>
     </ClInclude>
@@ -343,11 +365,30 @@
     <ClInclude Include="yaMonster.h">
       <Filter>Component\Script\Contents</Filter>
     </ClInclude>
-    <ClInclude Include="yaCharacterSelectScene.h">
-      <Filter>Scene</Filter>
+    <ClInclude Include="yaAnimator.h">
+      <Filter>Component\Animator</Filter>
     </ClInclude>
-    <ClInclude Include="yaAnimation.h" />
-    <ClInclude Include="yaAnimator.h" />
+    <ClInclude Include="yaAnimation.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTitleScene.h">
+      <Filter>Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCharacterSelectScene.h">
+      <Filter>Scene\CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStage1BossScene.h">
+      <Filter>Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStage1Scene.h">
+      <Filter>Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStage2BossScene.h">
+      <Filter>Scene\Stage2</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStage2Scene.h">
+      <Filter>Scene\Stage2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

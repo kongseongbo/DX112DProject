@@ -1,4 +1,4 @@
-#include "yaPlayScene.h"
+#include "yaStage1Scene.h"
 #include "yaTransform.h"
 #include "yaMeshRenderer.h"
 #include "yaRenderer.h"
@@ -19,17 +19,17 @@
 
 namespace ya
 {
-	PlayScene::PlayScene()
-		: Scene(eSceneType::Play)
+	Stage1Scene::Stage1Scene()
+		: Scene(eSceneType::Stage1)
 	{
 
 	}
 
-	PlayScene::~PlayScene()
+	Stage1Scene::~Stage1Scene()
 	{
 	}
 
-	void PlayScene::Initalize()
+	void Stage1Scene::Initalize()
 	{
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
@@ -146,7 +146,7 @@ namespace ya
 		Scene::Initalize();
 	}
 
-	void PlayScene::Update()
+	void Stage1Scene::Update()
 	{
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
@@ -156,22 +156,22 @@ namespace ya
 		Scene::Update();
 	}
 
-	void PlayScene::FixedUpdate()
+	void Stage1Scene::FixedUpdate()
 	{
 		Scene::FixedUpdate();
 	}
 
-	void PlayScene::Render()
+	void Stage1Scene::Render()
 	{
 		Scene::Render();
 	}
 
-	void PlayScene::OnEnter()
+	void Stage1Scene::OnEnter()
 	{
 
 	}
 
-	void PlayScene::OnExit()
+	void Stage1Scene::OnExit()
 	{
 
 	}

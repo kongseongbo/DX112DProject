@@ -56,7 +56,7 @@ namespace ya
 	{
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::LoadScene(eSceneType::Play);
+			SceneManager::LoadScene(eSceneType::Stage1);
 		}
 
 		Scene::Update();

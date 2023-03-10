@@ -10,7 +10,7 @@
 #include "yaSpriteRenderer.h"
 #include "yaGridScript.h"
 #include "yaTitleScene.h"
-#include "yaPlayScene.h"
+#include "yaStage1Scene.h"
 #include "yaCharacterSelectScene.h"
 
 namespace ya
@@ -24,12 +24,15 @@ namespace ya
 
 		mScenes[(UINT)eSceneType::Tilte] = new TitleScene();
 		mScenes[(UINT)eSceneType::CharacterSelect] = new CharacterSelectScene();
-		mScenes[(UINT)eSceneType::Play] = new PlayScene();
+		mScenes[(UINT)eSceneType::Stage1] = new Stage1Scene();
 
 		mActiveScene = mScenes[(UINT)eSceneType::Tilte];
 
 		for (Scene* scene : mScenes)
 		{
+			if (scene == nullptr)
+				return;
+
 			scene->Initalize();
 		}
 	}

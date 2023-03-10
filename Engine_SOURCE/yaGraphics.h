@@ -16,7 +16,7 @@
 #define CBSLOT_MATERIAL 1
 #define CBSLOT_GRID 2
 #define CBSLOT_FADEINOUT 3
-
+#define CBSLOT_ANIMATION 4
 namespace ya::graphics
 {
 	enum class ValidationMode
@@ -99,6 +99,7 @@ namespace ya::graphics
 		Transform,
 		Material,
 		Grid,
+		Animation,
 		FadeInOut,
 		End,
 	};
@@ -123,4 +124,6 @@ namespace ya::graphics
 		float duration;
 		float time;
 	};
+
+
 }

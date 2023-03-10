@@ -44,6 +44,16 @@ namespace ya::renderer
 		Vector2 resolution;
 	};
 
+	CBUFFER(AnimationCB, CBSLOT_ANIMATION)
+	{
+		Vector2 leftTop;
+		Vector2 size;
+		Vector2 offset;
+		Vector2 atlasSize;
+
+		UINT used;
+	};
+
 	CBUFFER(FadeInOutCB, CBSLOT_FADEINOUT)
 	{
 		Vector4 fadePosition;
@@ -52,7 +62,6 @@ namespace ya::renderer
 		float fadeTime;
 		int onoff;
 	};
-
 
 	extern Vertex vertexes[4];
 	extern Camera* mainCamera;

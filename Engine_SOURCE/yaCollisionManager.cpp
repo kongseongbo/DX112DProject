@@ -182,7 +182,7 @@ namespace ya
 			Matrix leftMat = leftTr->GetWorldMatrix();
 			Matrix rightMat = rightTr->GetWorldMatrix();
 
-			// 분리축 벡터 (투영 벡터)
+			// 분리축 벡터 4개 구하기
 			Vector3 Axis[4] = {};
 			Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);
 			Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);

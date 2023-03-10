@@ -6,7 +6,10 @@ namespace ya::enums
 	{
 		Tilte,
 		CharacterSelect,
-		Play,
+		Stage1,
+		Stage1Boss,
+		Stage2,
+		Stage2Boss,
 		End,
 	};
 
@@ -18,7 +21,7 @@ namespace ya::enums
 		Map,
 		Monster,
 		Player,
-
+		Animator,
 		UI,
 		FadeIn,
 		End = 16,
@@ -34,6 +37,7 @@ namespace ya::enums
 		//Collider2,
 		MeshRenerer,
 		SpriteRenderer,
+		Animator,
 		UI,
 		Script,
 		End,

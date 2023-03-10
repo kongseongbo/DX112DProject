@@ -3,11 +3,11 @@
 
 namespace ya
 {
-	class PlayScene : public Scene
+	class Stage1Scene : public Scene
 	{
 	public:
-		PlayScene();
-		virtual ~PlayScene();
+		Stage1Scene();
+		virtual ~Stage1Scene();
 
 		virtual void Initalize() override;
 		virtual void Update() override;
