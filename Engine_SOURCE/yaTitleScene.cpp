@@ -49,7 +49,7 @@ namespace ya
 		titleObj->SetName(L"Title");
 		Transform* map1Tr = titleObj->GetComponent<Transform>();
 		map1Tr->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
-		map1Tr->SetScale(Vector3(width / 100.0f, height / 100.0f, 1.0f));
+		map1Tr->SetScale(Vector3(width / 50.0f, height / 50.0f, 1.0f));
 
 		SpriteRenderer* titleMr = titleObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");

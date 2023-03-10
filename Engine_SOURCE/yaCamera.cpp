@@ -105,7 +105,7 @@ namespace ya
 		}
 		else
 		{
-			mProjection = Matrix::CreateOrthographicLH(width / 100.0f, height / 100.0f, mNear, mFar);
+			mProjection = Matrix::CreateOrthographicLH(width / 50.0f, height / 50.0f, mNear, mFar);
 		}
 	}
 

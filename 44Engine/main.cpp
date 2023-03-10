@@ -133,7 +133,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         return FALSE;
     }
 
-    application.SetWindow(hWnd, 1600, 900);
+    application.SetWindow(hWnd, 1024, 768);
     application.Initalize();
     editor.Initalize();
     ShowWindow(hWnd, nCmdShow);

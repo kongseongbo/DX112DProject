@@ -391,10 +391,24 @@ namespace ya::renderer
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
 
 		Resources::Load<Texture>(L"Title", L"Title\\Title.png");
+
+		//CharacterSelect
 		Resources::Load<Texture>(L"CharacterSelect", L"CharacterSelect\\SelectScreen.png");
+		Resources::Load<Texture>(L"P1Texture", L"CharacterSelect\\P1Texture.png");
+		Resources::Load<Texture>(L"M2Texture", L"CharacterSelect\\M2.png");
+		Resources::Load<Texture>(L"M3Texture", L"CharacterSelect\\M3.png");
+
+		Resources::Load<Texture>(L"Marco1Texture", L"CharacterSelect\\Marco1.png");
+		Resources::Load<Texture>(L"Marco2Texture", L"CharacterSelect\\Marco2.png");
+		Resources::Load<Texture>(L"Marco3Texture", L"CharacterSelect\\Marco3.png");
+
+		Resources::Load<Texture>(L"Eri1Texture", L"CharacterSelect\\Eri1.png");
+		Resources::Load<Texture>(L"Eri2Texture", L"CharacterSelect\\Eri2.png");
+		Resources::Load<Texture>(L"Eri3Texture", L"CharacterSelect\\Eri3.png");
 
 		// Map
 		Resources::Load<Texture>(L"Mission1", L"Map\\Mission1.png");
+
 	}
 
 	void LoadMaterial()
@@ -461,6 +475,80 @@ namespace ya::renderer
 		selectMaterial->SetShader(selectShader);
 		selectMaterial->SetTexture(selectTexture);
 		Resources::Insert<Material>(L"SelectMaterial", selectMaterial);
+
+		std::shared_ptr <Texture> p1Texture = Resources::Find<Texture>(L"P1Texture");
+		std::shared_ptr<Shader> p1Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> p1Material = std::make_shared<Material>();
+		p1Material->SetRenderingMode(eRenderingMode::Transparent);
+		p1Material->SetShader(p1Shader);
+		p1Material->SetTexture(p1Texture);
+		Resources::Insert<Material>(L"p1Material", p1Material);
+
+		std::shared_ptr <Texture> m2Texture = Resources::Find<Texture>(L"M2Texture");
+		std::shared_ptr<Shader> m2Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> m2Material = std::make_shared<Material>();
+		m2Material->SetRenderingMode(eRenderingMode::Transparent);
+		m2Material->SetShader(m2Shader);
+		m2Material->SetTexture(m2Texture);
+		Resources::Insert<Material>(L"m2Material", m2Material);
+
+		std::shared_ptr <Texture> m3Texture = Resources::Find<Texture>(L"M3Texture");
+		std::shared_ptr<Shader> m3Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> m3Material = std::make_shared<Material>();
+		m3Material->SetRenderingMode(eRenderingMode::Transparent);
+		m3Material->SetShader(m3Shader);
+		m3Material->SetTexture(m3Texture);
+		Resources::Insert<Material>(L"m3Material", m3Material);
+
+		// marco
+		std::shared_ptr <Texture> marco1Texture = Resources::Find<Texture>(L"Marco1Texture");
+		std::shared_ptr<Shader> marco1Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> marco1Material = std::make_shared<Material>();
+		marco1Material->SetRenderingMode(eRenderingMode::Transparent);
+		marco1Material->SetShader(marco1Shader);
+		marco1Material->SetTexture(marco1Texture);
+		Resources::Insert<Material>(L"marco1Material", marco1Material);
+
+		std::shared_ptr <Texture> marco2Texture = Resources::Find<Texture>(L"Marco2Texture");
+		std::shared_ptr<Shader> marco2Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> marco2Material = std::make_shared<Material>();
+		marco2Material->SetRenderingMode(eRenderingMode::Transparent);
+		marco2Material->SetShader(marco2Shader);
+		marco2Material->SetTexture(marco2Texture);
+		Resources::Insert<Material>(L"marco2Material", marco2Material);
+
+		std::shared_ptr <Texture> marco3Texture = Resources::Find<Texture>(L"Marco3Texture");
+		std::shared_ptr<Shader> marco3Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> marco3Material = std::make_shared<Material>();
+		marco3Material->SetRenderingMode(eRenderingMode::Transparent);
+		marco3Material->SetShader(marco3Shader);
+		marco3Material->SetTexture(marco3Texture);
+		Resources::Insert<Material>(L"marco3Material", marco3Material);
+
+		// eri
+		std::shared_ptr<Texture> eri1Texture = Resources::Find<Texture>(L"Eri1Texture");
+		std::shared_ptr<Shader> eri1Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> eri1Material = std::make_shared<Material>();
+		eri1Material->SetRenderingMode(eRenderingMode::Transparent);
+		eri1Material->SetShader(eri1Shader);
+		eri1Material->SetTexture(eri1Texture);
+		Resources::Insert<Material>(L"eri1Material", eri1Material);
+
+		std::shared_ptr<Texture> eri2Texture = Resources::Find<Texture>(L"Eri2Texture");
+		std::shared_ptr<Shader> eri2Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> eri2Material = std::make_shared<Material>();
+		eri2Material->SetRenderingMode(eRenderingMode::Transparent);
+		eri2Material->SetShader(eri2Shader);
+		eri2Material->SetTexture(eri2Texture);
+		Resources::Insert<Material>(L"eri2Material", eri2Material);
+
+		std::shared_ptr<Texture> eri3Texture = Resources::Find<Texture>(L"Eri3Texture");
+		std::shared_ptr<Shader> eri3Shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> eri3Material = std::make_shared<Material>();
+		eri3Material->SetRenderingMode(eRenderingMode::Transparent);
+		eri3Material->SetShader(eri3Shader);
+		eri3Material->SetTexture(eri3Texture);
+		Resources::Insert<Material>(L"eri3Material", eri3Material);
 
 		// Map
 		std::shared_ptr <Texture> mapTexture = Resources::Find<Texture>(L"Mission1");

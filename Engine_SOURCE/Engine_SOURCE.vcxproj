@@ -162,6 +162,7 @@
     <ClInclude Include="yaBaseRenderer.h" />
     <ClInclude Include="yaCamera.h" />
     <ClInclude Include="yaCameraScript.h" />
+    <ClInclude Include="yaCharacterSelect.h" />
     <ClInclude Include="yaCharacterSelectScene.h" />
     <ClInclude Include="yaCollider.h" />
     <ClInclude Include="yaCollider2D.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="yaBaseRenderer.cpp" />
     <ClCompile Include="yaCamera.cpp" />
     <ClCompile Include="yaCameraScript.cpp" />
+    <ClCompile Include="yaCharacterSelect.cpp" />
     <ClCompile Include="yaCharacterSelectScene.cpp" />
     <ClCompile Include="yaCollider.cpp" />
     <ClCompile Include="yaCollider2D.cpp" />
