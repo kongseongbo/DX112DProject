@@ -42,18 +42,57 @@ namespace ya
 
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 
+		// Marco
+		GameObject* marcoObj1 = object::Instantiate<GameObject>(eLayerType::UI, this);
+		marcoObj1->SetName(L"Marco");
+		Transform* marcoTr = marcoObj1->GetComponent<Transform>();
+		marcoTr->SetPosition(Vector3(-5.8f, 0.0f, 1.0f));
+		marcoTr->SetScale(Vector3(4.5f, 9.5f, 1.0f));
+		marcoObj1->AddComponent<CharacterSelect>();
+
+		SpriteRenderer* marcoMr = marcoObj1->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Material> marco1Material = Resources::Find<Material>(L"marco2Material");
+		marcoMr->SetMaterial(marco1Material);
+		marcoMr->SetMesh(mesh);
+
+		// Eri
+		GameObject* eriObj1 = object::Instantiate<GameObject>(eLayerType::UI, this);
+		eriObj1->SetName(L"Eri");
+		Transform* eriTr = eriObj1->GetComponent<Transform>();
+		eriTr->SetPosition(Vector3(-1.3f, 0.0f, 1.0f));
+		eriTr->SetScale(Vector3(4.5f, 9.5f, 1.0f));
+		eriObj1->AddComponent<CharacterSelect>();
+
+		SpriteRenderer* eriMr = eriObj1->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Material> eri1Material = Resources::Find<Material>(L"eri1Material");
+		eriMr->SetMaterial(eri1Material);
+		eriMr->SetMesh(mesh);
+
 		// M2
-		GameObject* m2textureObj = object::Instantiate<GameObject>(eLayerType::UI, this);
-		m2textureObj->SetName(L"M2Texture");
-		Transform* m2textureTr = m2textureObj->GetComponent<Transform>();
+		GameObject* m2Obj = object::Instantiate<GameObject>(eLayerType::UI, this);
+		m2Obj->SetName(L"M2Texture");
+		Transform* m2textureTr = m2Obj->GetComponent<Transform>();
 		m2textureTr->SetPosition(Vector3(-5.8f, 0.0f, 1.0f));
 		m2textureTr->SetScale(Vector3(4.5f, 9.5f, 1.0f));
-		m2textureObj->AddComponent<CharacterSelect>();
+		m2Obj->AddComponent<CharacterSelect>();
 
-		SpriteRenderer* m2Mr = m2textureObj->AddComponent<SpriteRenderer>();
+		SpriteRenderer* m2Mr = m2Obj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> m2Material = Resources::Find<Material>(L"m2Material");
 		m2Mr->SetMaterial(m2Material);
 		m2Mr->SetMesh(mesh);
+
+		// M2
+		GameObject* m2Obj2 = object::Instantiate<GameObject>(eLayerType::UI, this);
+		m2Obj2->SetName(L"M2Texture");
+		Transform* m2Tr2 = m2Obj2->GetComponent<Transform>();
+		m2Tr2->SetPosition(Vector3(-1.3f, 0.0f, 1.0f));
+		m2Tr2->SetScale(Vector3(4.5f, 9.5f, 1.0f));
+		m2Obj2->AddComponent<CharacterSelect>();
+
+		SpriteRenderer* m2Mr2 = m2Obj2->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Material> m2Material2 = Resources::Find<Material>(L"m2Material");
+		m2Mr2->SetMaterial(m2Material2);
+		m2Mr2->SetMesh(mesh);
 
 		// selectBG
 		GameObject* selectObj = object::Instantiate<GameObject>(eLayerType::UI, this);
@@ -71,8 +110,10 @@ namespace ya
 		GameObject* p1textureObj = object::Instantiate<GameObject>(eLayerType::UI, this);
 		p1textureObj->SetName(L"P1Texture");
 		Transform* p1textureTr = p1textureObj->GetComponent<Transform>();
+		p1textureTr->SetName(L"P1Tr");
 		p1textureTr->SetPosition(Vector3(-6.0f, 4.7f, 1.0f));
 		p1textureTr->SetScale(Vector3(1.5f, 1.5f, 1.0f));
+		p1textureObj->AddComponent<CharacterSelect>();
 
 		SpriteRenderer* p1Mr = p1textureObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> p1Material = Resources::Find<Material>(L"p1Material");

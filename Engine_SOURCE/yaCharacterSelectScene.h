@@ -18,5 +18,6 @@ namespace ya
 		virtual void OnExit() override;
 
 	private:
+		
 	};
 }
