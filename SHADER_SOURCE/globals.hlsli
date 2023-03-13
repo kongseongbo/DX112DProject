@@ -38,7 +38,7 @@ cbuffer Animation : register(b3)
     float2 offset;
     float2 atlasSize;
 
-    uint used;
+    uint type;
 }
 
 

@@ -41,11 +41,11 @@ namespace ya
 		void Clear();
 
 		bool IsComplete() { return mbComplete; }
-		std::wstring& AnimationName() { return mName; }
+		std::wstring& AnimationName() { return mAnimationName; }
 
 	private:
 		class Animator* mAnimator;
-		std::wstring mName;
+		std::wstring mAnimationName;
 		std::shared_ptr<Texture> mAtlas;
 		std::vector<Sprite> mSpriteSheet;
 		int mIndex;

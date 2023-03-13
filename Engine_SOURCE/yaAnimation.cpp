@@ -54,6 +54,10 @@ namespace ya
 		, Vector2 leftTop, Vector2 size, Vector2 offset
 		, UINT columnLegth, UINT spriteLegth, float duration)
 	{
+		mAnimationName = name;
+		
+		float width = (float)atlas->GetWidth();
+		float height = (float)atlas->GetHeight();
 	}
 
 	void Animation::BindShader()

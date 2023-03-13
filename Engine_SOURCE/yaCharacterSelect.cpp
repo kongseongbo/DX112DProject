@@ -61,6 +61,7 @@ namespace ya
 			if (tr->GetName() == L"P1Tr")
 				tr->SetPosition(Vector3(pos.x = -1.5f, tr->GetPosition().y, tr->GetPosition().z));
 		}
+
 		if (Input::GetKey(eKeyCode::LEFT))
 		{
 			if (GetOwner()->GetName() == L"Marco")
@@ -71,6 +72,11 @@ namespace ya
 			
 			if (tr->GetName() == L"P1Tr")
 				tr->SetPosition(Vector3(pos.x = -6.0f, tr->GetPosition().y, tr->GetPosition().z));
+		}
+
+		if (Input::GetKey(eKeyCode::ENTER))
+		{
+
 		}
 	}
 

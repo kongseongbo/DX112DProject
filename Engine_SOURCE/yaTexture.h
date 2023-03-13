@@ -23,6 +23,9 @@ namespace ya::graphics
 		void BindShader(eShaderStage stage, UINT slot);
 		void Clear();
 
+		UINT GetHeight() { return mImage.GetMetadata().height; }
+		UINT GetWidth() { return mImage.GetMetadata().width; }
+
 	private:
 		ScratchImage mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
