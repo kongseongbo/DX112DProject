@@ -1,17 +1,16 @@
 #include "yaAnimator.h"
 
 
-
 namespace ya
 {
 	Animator::Animator()
 		: Component(eComponentType::Animator)
-		, mAnimations()
-		, mEvents()
+		, mAnimations{}
+		, mEvents{}
 		, mActiveAnimation(nullptr)
 		, mbLoop(false)
 	{
-		
+
 	}
 	Animator::~Animator()
 	{
@@ -26,7 +25,6 @@ namespace ya
 			delete evt.second;
 			evt.second = nullptr;
 		}
-
 	}
 	void Animator::Initalize()
 	{
@@ -36,7 +34,9 @@ namespace ya
 		if (mActiveAnimation == nullptr)
 			return;
 
-		if (mActiveAnimation->IsComplete() && mbLoop)
+		Events* events = FindEvents(mActiveAnimation->AnimationName());
+
+		if (mActiveAnimation->IsComplete())
 		{
 			Events* events
 				= FindEvents(mActiveAnimation->AnimationName());
@@ -44,8 +44,13 @@ namespace ya
 			if (events)
 				events->mCompleteEvent();
 
-			mActiveAnimation->Reset();
+			if (mbLoop)
+				mActiveAnimation->Reset();
 		}
+
+		UINT spriteIndex = mActiveAnimation->Update();
+		if (spriteIndex != -1 && events->mEvents[spriteIndex].mEvent)
+			events->mEvents[spriteIndex].mEvent();
 
 		mActiveAnimation->Update();
 	}
@@ -55,9 +60,10 @@ namespace ya
 	void Animator::Render()
 	{
 	}
+
 	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
-						, Vector2 leftTop, Vector2 size, Vector2 offset
-						, UINT columnLegth, UINT spriteLegth, float duration)
+		, Vector2 leftTop, Vector2 size, Vector2 offset
+		, UINT spriteLegth, float duration)
 	{
 		if (atlas == nullptr)
 			return false;
@@ -67,17 +73,28 @@ namespace ya
 			return false;
 
 		animation = new Animation();
-		animation->Create(name, atlas, leftTop, size, offset, columnLegth, spriteLegth, duration);
+		animation->Create(name, atlas, leftTop
+			, size, offset
+			, spriteLegth, duration);
+
 
 		mAnimations.insert(std::make_pair(name, animation));
+
+		Events* events = new Events();
+		events->mEvents.resize(spriteLegth);
+		mEvents.insert(std::make_pair(name, events));
 	}
+
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
-		std::map<std::wstring, Animation*>::iterator iter = mAnimations.find(name);
+		std::map<std::wstring, Animation*>::iterator iter
+			= mAnimations.find(name);
 
 		if (iter == mAnimations.end())
+		{
 			return nullptr;
-		
+		}
+
 		return iter->second;
 	}
 	Animator::Events* Animator::FindEvents(const std::wstring& name)
@@ -92,10 +109,12 @@ namespace ya
 
 		return iter->second;
 	}
-	void Animator::Play(std::wstring& name, bool loop)
+	void Animator::Play(const std::wstring& name, bool loop)
 	{
 		Animation* prevAnimation = mActiveAnimation;
-		Events* events = FindEvents(prevAnimation->AnimationName());
+		Events* events = nullptr;
+		if (prevAnimation)
+			events = FindEvents(prevAnimation->AnimationName());
 
 		if (events)
 			events->mEndEvent();
@@ -109,6 +128,7 @@ namespace ya
 		if (events)
 			events->mStartEvent();
 	}
+
 	void Animator::Binds()
 	{
 		if (mActiveAnimation == nullptr)
@@ -116,6 +136,7 @@ namespace ya
 
 		mActiveAnimation->BindShader();
 	}
+
 	void Animator::Clear()
 	{
 		if (mActiveAnimation == nullptr)
@@ -123,6 +144,7 @@ namespace ya
 
 		mActiveAnimation->Clear();
 	}
+
 	std::function<void()>& Animator::GetStartEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
@@ -140,5 +162,11 @@ namespace ya
 		Events* events = FindEvents(name);
 
 		return events->mEndEvent.mEvent;
+	}
+	std::function<void()>& Animator::GetEvent(const std::wstring& name, UINT index)
+	{
+		Events* events = FindEvents(name);
+
+		return events->mEvents[index].mEvent;
 	}
 }

@@ -73,6 +73,8 @@ namespace ya
 				ColliderCollision(left->GetComponent<Collider2D>(), right->GetComponent<Collider2D>());
 			}
 
+			if ((UINT)left == (UINT)right)
+				break;
 		}
 
 	}
@@ -152,7 +154,7 @@ namespace ya
 		// |     |
 		// 3 --- 2
 
-		static const Vector3 arrLocalPos[4] =
+		Vector3 arrLocalPos[4] =
 		{
 			Vector3{-0.5f, 0.5f, 0.0f}
 			,Vector3{0.5f, 0.5f, 0.0f}
@@ -171,9 +173,9 @@ namespace ya
 			float rightRadi = right->GetSize().x;
 			float sum = (leftRadi + rightRadi) / 2;
 
-			if (distance <= sum)
+			if (distance >= sum)
 			{
-				return true;
+				return false;
 			}
 		}
 
@@ -194,18 +196,26 @@ namespace ya
 			Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
 			Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
 
+			Vector3 leftScale = Vector3(left->GetSize().x, left->GetSize().y, 1.0f);
+			Axis[0] = Axis[0] * leftScale;
+			Axis[1] = Axis[1] * leftScale;
+
+			Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.0f);
+			Axis[2] = Axis[2] * rightScale;
+			Axis[3] = Axis[3] * rightScale;
+
 			for (size_t i = 0; i < 4; i++)
 			{
 				Axis[i].z = 0.0f;
 			}
-			Vector3 vc = left->GetPosition() - right->GetPosition();
+			Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
 			vc.z = 0.0f;
 
 			Vector3 centerDir = vc;
 			for (size_t i = 0; i < 4; i++)
 			{
 				Vector3 vA = Axis[i];
-				vA.Normalize();
+				//vA.Normalize();
 
 				float projDist = 0.0f;
 				for (size_t j = 0; j < 4; j++)

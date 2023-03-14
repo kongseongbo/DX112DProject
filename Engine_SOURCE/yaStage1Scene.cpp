@@ -16,6 +16,7 @@
 #include "yaPlayer.h"
 #include "yaMonster.h"
 #include "yaCollisionManager.h"
+#include "yaAnimator.h"
 
 namespace ya
 {
@@ -74,18 +75,24 @@ namespace ya
 
 		//SMILE RECT
 		Player* obj = object::Instantiate<Player>(eLayerType::Player, this);
-		obj->SetName(L"SMILE");
+		obj->SetName(L"Zelda");
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 		Collider2D* collider = obj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Circle);
+		collider->SetType(eColliderType::Rect);
 		//collider->SetCenter(Vector2(0.2f, 0.2f));
 		//collider->SetSize(Vector2(1.5f, 1.5f));
+		Animator* animator = obj->AddComponent<Animator>();
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Zelda.png");
+		animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3, 0.1f);
+		animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
+
+		animator->Play(L"Idle", true);
 
 		SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
+		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
 		mr->SetMaterial(mateiral);
 		mr->SetMesh(mesh);
 		obj->AddComponent<PlayerScript>();
@@ -98,7 +105,7 @@ namespace ya
 		monsterTr->SetPosition(Vector3(3.0f, 0.0f, 5.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		Collider2D* monsterCollider = monsterObj->AddComponent<Collider2D>();
-		monsterCollider->SetType(eColliderType::Circle);
+		monsterCollider->SetType(eColliderType::Rect);
 
 		SpriteRenderer* monsterMr = monsterObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");

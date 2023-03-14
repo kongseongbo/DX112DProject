@@ -23,9 +23,12 @@ namespace ya
 
 				std::function<void()> mEvent;
 			};
+
 			Event mStartEvent;
 			Event mCompleteEvent;
 			Event mEndEvent;
+
+			std::vector<Event> mEvents;
 		};
 
 		Animator();
@@ -36,13 +39,13 @@ namespace ya
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
-		bool Create(const std::wstring& name, std::shared_ptr<Texture>atlas
+		bool Create(const std::wstring& name, std::shared_ptr<Texture> atlas
 			, Vector2 leftTop, Vector2 size, Vector2 offset
-			, UINT columnLegth, UINT spriteLegth, float duration);
+			, UINT spriteLegth, float duration);
 
 		Animation* FindAnimation(const std::wstring& name);
 		Events* FindEvents(const std::wstring& name);
-		void Play(std::wstring& name, bool loop = true);
+		void Play(const std::wstring& name, bool loop = true);
 
 		void Binds();
 		void Clear();
@@ -50,12 +53,13 @@ namespace ya
 		std::function<void()>& GetStartEvent(const std::wstring& name);
 		std::function<void()>& GetCompleteEvent(const std::wstring& name);
 		std::function<void()>& GetEndEvent(const std::wstring& name);
+		std::function<void()>& GetEvent(const std::wstring& name, UINT index);
 
 	private:
+
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		Animation* mActiveAnimation;
 		bool mbLoop;
 	};
-
 }
