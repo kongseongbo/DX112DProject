@@ -3,9 +3,6 @@
 
 namespace ya
 {
-
-
-
 	Player::Player()
 	{
 	}

@@ -23,6 +23,7 @@ namespace ya
 		void End();
 
 	private:
-
+		
+		
 	};
 }

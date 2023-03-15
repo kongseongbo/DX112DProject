@@ -58,38 +58,24 @@ namespace ya
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
 
-		// Light Object
-		//GameObject* spriteObj = object::Instantiate<GameObject>(eLayerType::Player);
-		//spriteObj->SetName(L"LIGHT");
-		//Transform* spriteTr = spriteObj->GetComponent<Transform>();
-		//spriteTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
-		//spriteTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-		//
-
-		//SpriteRenderer* sr = spriteObj->AddComponent<SpriteRenderer>();
-		////std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		//std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
-		//sr->SetMaterial(spriteMaterial);
-		//sr->SetMesh(mesh);
-
-
 		//SMILE RECT
 		Player* obj = object::Instantiate<Player>(eLayerType::Player, this);
 		obj->SetName(L"Zelda");
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+		tr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 		Collider2D* collider = obj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
 		//collider->SetCenter(Vector2(0.2f, 0.2f));
-		//collider->SetSize(Vector2(1.5f, 1.5f));
-		Animator* animator = obj->AddComponent<Animator>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Zelda.png");
-		animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3, 0.1f);
-		animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
-
-		animator->Play(L"Idle", true);
+		collider->SetSize(Vector2(0.2f, 0.2f));
+		obj->AddComponent<Animator>();
+		/*Animator* animator = obj->AddComponent<Animator>();*/
+		//std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
+		//animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 36.0f), Vector2::Zero, 4, 0.3f);
+		////animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
+		//animator->Play(L"HeadIdle", true);
 
 		SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");

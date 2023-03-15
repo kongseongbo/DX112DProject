@@ -1,5 +1,6 @@
 #pragma once
 #include "yaGameObject.h"
+#include "yaAnimator.h"
 
 namespace ya
 {
