@@ -15,6 +15,7 @@ namespace ya::renderer
 	Camera* mainCamera = nullptr;
 	std::vector<Camera*> cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
+	std::vector<LightAttribute> lights;
 
 	void LoadMesh()
 	{

@@ -17,6 +17,8 @@
 #include "yaMonster.h"
 #include "yaCollisionManager.h"
 #include "yaAnimator.h"
+#include "yaHead.h"
+#include "yaBody.h"
 
 namespace ya
 {
@@ -58,31 +60,48 @@ namespace ya
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
 
-		//SMILE RECT
-		Player* obj = object::Instantiate<Player>(eLayerType::Player, this);
-		obj->SetName(L"Zelda");
-		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
-		tr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+		//Player
+		Player* headObj = object::Instantiate<Player>(eLayerType::Player, this);
+		headObj->SetName(L"Head");
+		Transform* headTr = headObj->GetComponent<Transform>();
+		headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+		headTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-		Collider2D* collider = obj->AddComponent<Collider2D>();
+		Collider2D* collider = headObj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
-		//collider->SetCenter(Vector2(0.2f, 0.2f));
+		collider->SetCenter(Vector2(0.0f, -0.1f));
 		collider->SetSize(Vector2(0.2f, 0.2f));
-		obj->AddComponent<Animator>();
-		/*Animator* animator = obj->AddComponent<Animator>();*/
-		//std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
-		//animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 36.0f), Vector2::Zero, 4, 0.3f);
-		////animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
-		//animator->Play(L"HeadIdle", true);
+		headObj->AddComponent<Animator>();
+		headObj->AddComponent<Head>();
 
-		SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
-		mr->SetMaterial(mateiral);
-		mr->SetMesh(mesh);
-		obj->AddComponent<PlayerScript>();
-		object::DontDestroyOnLoad(obj);
+		SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
+		headMr->SetMaterial(headMateiral);
+		headMr->SetMesh(mesh);
+		headObj->AddComponent<PlayerScript>();
+		object::DontDestroyOnLoad(headObj);
+
+		Player* bodyObj = object::Instantiate<Player>(eLayerType::Body, this);
+		bodyObj->SetName(L"Body");
+		Transform* bodyTr = bodyObj->GetComponent<Transform>();
+		bodyTr->SetPosition(Vector3(headTr->GetPosition().x - 0.05f, headTr->GetPosition().y - 0.2f, 5.0f));
+		bodyTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+		bodyObj->AddComponent<Animator>();
+		bodyObj->AddComponent<Body>();
+		/*Animator* animator = obj->AddComponent<Animator>();
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
+		animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 36.0f), Vector2::Zero, 4, 0.3f);
+		animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
+		animator->Play(L"HeadIdle", true);*/
+
+		SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
+		bodyMr->SetMaterial(bodyMateiral);
+		bodyMr->SetMesh(mesh);
+		bodyObj->AddComponent<PlayerScript>();
+
+		object::DontDestroyOnLoad(bodyObj);
 
 		// Monster Object
 		Monster* monsterObj = object::Instantiate<Monster>(eLayerType::Monster, this);

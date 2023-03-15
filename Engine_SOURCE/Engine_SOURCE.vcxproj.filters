@@ -112,6 +112,9 @@
     <Filter Include="Component\Script\CharacterSelect">
       <UniqueIdentifier>{e447bd11-a99f-4e9f-939e-d63af0f2bc44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Light">
+      <UniqueIdentifier>{75880bbd-c371-4a66-b861-ffccfdf99beb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -239,6 +242,16 @@
     </ClCompile>
     <ClCompile Include="yaCharacterSelect.cpp">
       <Filter>Component\Script\CharacterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStructedBuffer.cpp" />
+    <ClCompile Include="yaLight.cpp">
+      <Filter>Component\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHead.cpp">
+      <Filter>Component\Script\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBody.cpp">
+      <Filter>Component\Script\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +395,16 @@
     </ClInclude>
     <ClInclude Include="yaCharacterSelect.h">
       <Filter>Component\Script\CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStructedBuffer.h" />
+    <ClInclude Include="yaLight.h">
+      <Filter>Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHead.h">
+      <Filter>Component\Script\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBody.h">
+      <Filter>Component\Script\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,7 @@ namespace ya::enums
 		Grid,
 		Map,
 		Monster,
+		Body,
 		Player,
 		Animator,
 		UI,
@@ -38,6 +39,9 @@ namespace ya::enums
 		MeshRenerer,
 		SpriteRenderer,
 		Animator,
+		Head,
+		Body,
+		Light,
 		UI,
 		Script,
 		End,
@@ -73,6 +77,14 @@ namespace ya::enums
 		None,
 		SecondDimension,
 		ThirdDimension,
+		End,
+	};
+
+	enum class eLightType
+	{
+		Directional,
+		Point,
+		Spot,
 		End,
 	};
 }

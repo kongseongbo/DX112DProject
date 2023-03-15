@@ -1,28 +1,24 @@
 #pragma once
 #include "yaGameObject.h"
 #include "yaAnimator.h"
-#include "yaHead.h"
-#include "yaBody.h"
-
-
+#include "yaComponent.h"
 
 namespace ya
 {
-	class Head;
-	class Body;
-	class Player : public GameObject
+	
+	class Body : public Component
 	{
 	public:
-		Player();
-		virtual ~Player();
+		Body();
+		virtual ~Body();
 
 		virtual void Initalize();
 		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
 
-		
-
 	private:
+		Animator* mAnimator;
 	};
+
 }

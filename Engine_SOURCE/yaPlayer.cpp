@@ -1,5 +1,5 @@
 #include "yaPlayer.h"
-
+#include "yaResources.h"
 
 namespace ya
 {
@@ -9,6 +9,7 @@ namespace ya
 
 	Player::~Player()
 	{
+
 	}
 
 	void Player::Initalize()

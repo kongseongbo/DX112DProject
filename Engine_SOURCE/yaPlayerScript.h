@@ -1,6 +1,7 @@
 #pragma once
 #include "yaScript.h"
-
+#include "yaGameObject.h"
+#include "yaAnimator.h"
 
 namespace ya
 {
@@ -23,7 +24,7 @@ namespace ya
 		void End();
 
 	private:
-		
+
 		
 	};
 }

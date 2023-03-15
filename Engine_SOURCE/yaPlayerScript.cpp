@@ -13,6 +13,7 @@ namespace ya
 	PlayerScript::PlayerScript()
 		: Script()
 	{
+	
 	}
 
 	PlayerScript::~PlayerScript()
@@ -22,22 +23,25 @@ namespace ya
 
 	void PlayerScript::Initalize()
 	{
-		Animator* animator;
-		animator = GetOwner()->GetComponent<Animator>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
-		animator->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 36.0f), Vector2::Zero, 4, 0.3f);
-		animator->Play(L"HeadIdle", true);
-
-		Animator* BodyAnimator;
-		BodyAnimator = GetOwner()->GetComponent<Animator>();
-		std::shared_ptr<Texture> bodyTexture = Resources::Load<Texture>(L"Zelda1", L"Character\\Marco\\IdleD.png");
-		BodyAnimator->Create(L"BodyIdle", bodyTexture, Vector2(0.0f, 0.0f), Vector2(33.0f, 36.0f), Vector2::Zero, 1, 0.3f);
-		BodyAnimator->Play(L"BodyIdle", true);
-
+		Animator* animator = GetOwner()->GetComponent<Animator>();;
 		//animator->GetStartEvent(L"MoveDown") = std::bind(&PlayerScript::Start, this);
-		//animator->GetCompleteEvent(L"Idle") = std::bind(&PlayerScript::Action, this);
-		//animator->GetEndEvent(L"Idle") = std::bind(&PlayerScript::End, this);
-		//animator->GetEvent(L"Idle", 1) = std::bind(&PlayerScript::End, this);
+
+		if (animator->GetName() == L"HeadIdle")
+		{
+			animator->GetCompleteEvent(L"HeadIdle") = std::bind(&PlayerScript::Action, this);
+			animator->GetEndEvent(L"HeadIdle") = std::bind(&PlayerScript::End, this);
+			animator->GetEvent(L"HeadIdle", 1) = std::bind(&PlayerScript::End, this);
+		}
+
+		if (animator->GetName() == L"BodyIdle")
+		{
+			animator->GetCompleteEvent(L"BodyIdle") = std::bind(&PlayerScript::Action, this);
+			animator->GetEndEvent(L"BodyIdle") = std::bind(&PlayerScript::End, this);
+			animator->GetEvent(L"BodyIdle", 1) = std::bind(&PlayerScript::End, this);
+		}
+		
+		
+
 	}
 
 	void PlayerScript::Update()
