@@ -2,13 +2,12 @@
 #include "yaComponent.h"
 #include "yaTransform.h"
 #include "yaResources.h"
-
+#include "yaPlayerScript.h"
 
 namespace ya
 {
 	Head::Head()
-		: Component(eComponentType::Head)
-		, mAnimator(nullptr)
+		: mAnimator(nullptr)
 	{
 		
 	}
@@ -19,6 +18,7 @@ namespace ya
 
 	void Head::Initalize()
 	{
+		
 		mAnimator = GetOwner()->GetComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
 		mAnimator->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 36.0f), Vector2::Zero, 4, 0.3f);
@@ -29,9 +29,8 @@ namespace ya
 
 	void Head::Update()
 	{
-
-		
-
+		if(PlayerScript::mState !=PlayerScript::State::IDLE)
+			mAnimator->Play(L"HeadIdle", false);
 
 	}
 

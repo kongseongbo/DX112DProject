@@ -6,8 +6,7 @@
 namespace ya
 {
     Body::Body()
-        : Component(eComponentType::Body)
-        , mAnimator(nullptr)
+        : mAnimator(nullptr)
        
     {
        

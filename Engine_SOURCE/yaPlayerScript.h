@@ -8,6 +8,19 @@ namespace ya
 	class PlayerScript : public Script
 	{
 	public:
+		enum class State
+		{
+			IDLE,
+			LEFTMOVE,
+			RIGHTMOVE,
+			JUMP,
+			SITDOWN,
+			ATTACK,
+			HIT,
+			DEATH,
+		};
+		
+
 		PlayerScript();
 		~PlayerScript();
 
@@ -23,8 +36,21 @@ namespace ya
 		void Action();
 		void End();
 
-	private:
+		void Idle();
+		void LeftMove();
+		void RightMove();
+		void Jump();
+		void SitDown();
+		void Attack();
+		void Hit();
+		void Death();
 
+		State GetState() { return mState; }
+		void SetState(State state) { mState = state; }
+
+		static State mState;
+	private:
+		Transform* mTr;
 		
 	};
 }
