@@ -247,12 +247,6 @@
     <ClCompile Include="yaLight.cpp">
       <Filter>Component\Light</Filter>
     </ClCompile>
-    <ClCompile Include="yaHead.cpp">
-      <Filter>Component\Script\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBody.cpp">
-      <Filter>Component\Script\Player</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -399,12 +393,6 @@
     <ClInclude Include="yaStructedBuffer.h" />
     <ClInclude Include="yaLight.h">
       <Filter>Component\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="yaHead.h">
-      <Filter>Component\Script\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBody.h">
-      <Filter>Component\Script\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

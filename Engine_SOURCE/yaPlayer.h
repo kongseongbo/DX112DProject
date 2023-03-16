@@ -1,15 +1,12 @@
 #pragma once
 #include "yaGameObject.h"
 #include "yaAnimator.h"
-#include "yaHead.h"
-#include "yaBody.h"
+
 
 
 
 namespace ya
 {
-	class Head;
-	class Body;
 	class Player : public GameObject
 	{
 	public:

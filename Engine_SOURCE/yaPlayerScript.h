@@ -2,6 +2,8 @@
 #include "yaScript.h"
 #include "yaGameObject.h"
 #include "yaAnimator.h"
+#include "yaPlayer.h"
+
 
 namespace ya
 {
@@ -10,15 +12,16 @@ namespace ya
 	public:
 		enum class State
 		{
+			NONE,
 			IDLE,
-			LEFTMOVE,
-			RIGHTMOVE,
+			MOVE,
 			JUMP,
 			SITDOWN,
 			ATTACK,
 			HIT,
 			DEATH,
 		};
+		static State mState;
 		
 
 		PlayerScript();
@@ -37,8 +40,7 @@ namespace ya
 		void End();
 
 		void Idle();
-		void LeftMove();
-		void RightMove();
+		void Move();
 		void Jump();
 		void SitDown();
 		void Attack();
@@ -48,9 +50,20 @@ namespace ya
 		State GetState() { return mState; }
 		void SetState(State state) { mState = state; }
 
-		static State mState;
+		//void SetingState(State newState);
+
+		void SetHeadAnimator(Animator* ani) { headAni = ani; }
+		void SetBodyAnimator(Animator* ani) { bodyAni = ani; }
+
+		void SetHeadPlayer(Player* player) { mHeadPlayer = player; }
+		void SetBodyPlayer(Player* player) { mBodyPlayer = player; }
+
 	private:
 		Transform* mTr;
-		
+		Animator* headAni;
+		Animator* bodyAni;
+		Player* mHeadPlayer;
+		Player* mBodyPlayer;
+		State prevState;
 	};
 }

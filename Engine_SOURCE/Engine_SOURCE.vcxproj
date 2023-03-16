@@ -156,8 +156,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
-    <ClInclude Include="yaBody.h" />
-    <ClInclude Include="yaHead.h" />
     <ClInclude Include="yaLight.h" />
     <ClInclude Include="yaStructedBuffer.h" />
     <ClInclude Include="yaAnimation.h" />
@@ -208,8 +206,6 @@
     <ClInclude Include="yaTransform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="yaBody.cpp" />
-    <ClCompile Include="yaHead.cpp" />
     <ClCompile Include="yaLight.cpp" />
     <ClCompile Include="yaStructedBuffer.cpp" />
     <ClCompile Include="yaAnimation.cpp" />
