@@ -63,13 +63,13 @@ namespace ya
 		headObj->SetName(L"Head");
 		Transform* headTr = headObj->GetComponent<Transform>();
 		headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
-		headTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+		headTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));		
 		headObj->AddComponent<Animator>();
 		PlayerScript* playerscript = headObj->AddComponent<PlayerScript>();
 		playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
-
+		playerscript->SetHeadPlayer(headObj);
 
 		SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -80,8 +80,8 @@ namespace ya
 		Player* bodyObj = object::Instantiate<Player>(eLayerType::Body, this);
 		bodyObj->SetName(L"Body");
 		Transform* bodyTr = bodyObj->GetComponent<Transform>();
-		bodyTr->SetPosition(Vector3(headTr->GetPosition().x + 0.01f, headTr->GetPosition().y - 0.25f, 5.0f));
-		bodyTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+		bodyTr->SetPosition(Vector3(headTr->GetPosition().x - 0.15f, headTr->GetPosition().y - 1.0f, 5.0f));
+		bodyTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 		bodyObj->AddComponent<Animator>();
 		bodyObj->AddComponent<PlayerScript>();
 		playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());

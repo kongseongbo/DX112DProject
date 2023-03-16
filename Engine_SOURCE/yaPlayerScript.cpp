@@ -152,19 +152,19 @@ namespace ya
 		if (prevState == mState)
 			return;
 
-		if (headAni != nullptr)
-		{
-			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
-			headAni->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 36.0f), Vector2::Zero, 4, 0.3f);
-			headAni->Play(L"HeadIdle", true);
-		}
-
 		if (bodyAni != nullptr)
 		{
 			std::shared_ptr<Texture> bodyTexture = Resources::Load<Texture>(L"Zelda1", L"Character\\Marco\\IdleD.png");
-			bodyAni->Create(L"BodyIdle", bodyTexture, Vector2(0.0f, 0.0f), Vector2(33.0f, 36.0f), Vector2::Zero, 1, 0.3f);
+			bodyAni->Create(L"BodyIdle", bodyTexture, Vector2(0.0f, 0.0f), Vector2(33.0f, 28.0f), Vector2::Zero, 1, 0.3f);
 			bodyAni->Play(L"BodyIdle", true);
 		}
+		if (headAni != nullptr)
+		{
+			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
+			headAni->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 36.0f), Vector2::Zero, 4, 0.3f);
+			headAni->Play(L"HeadIdle", true);
+		}
+
 	}
 
 	void PlayerScript::Move()
@@ -183,21 +183,25 @@ namespace ya
 
 		if (prevState == mState)
 			return;
-		if (headAni != nullptr)
-		{
+		if (headAni != nullptr && bodyAni != nullptr)
+		{  
+			//Transform* headPos = mHeadPlayer->GetComponent<Transform>();
+			//Transform* bodyPos = mHeadPlayer->GetComponent<Transform>();
+			//headPos->SetPosition(Vector3(headPos->GetPosition().x + 1.0f, headPos->GetPosition().y, 1.0f));
 			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MoveRightU", L"Character\\Marco\\MoveU.png");
 			headAni->Create(L"MoveRightU", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
 			headAni->Play(L"MoveRightU", true);
+
+			std::shared_ptr<Texture> bodyTexture = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
+			bodyAni->Create(L"MoveRightD", bodyTexture, Vector2(0.0f, 0.0f), Vector2(35.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+			bodyAni->Play(L"MoveRightD", true);
+
 		}
 
-		if (bodyAni != nullptr)
+		/*if ()
 		{
-			/*Transform* bodyPos = mBodyPlayer->GetComponent<Transform>();
-			bodyPos->SetPosition(Vector3(bodyPos->GetPosition().x, bodyPos->GetPosition().y - 0.5, 1.0f));*/
-			std::shared_ptr<Texture> bodyTexture = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
-			bodyAni->Create(L"MoveRightD", bodyTexture, Vector2(0.0f, 0.0f), Vector2(35.0f, 26.0f), Vector2::Zero, 12, 0.15f);
-			bodyAni->Play(L"MoveRightD", true);
-		}
+			
+		}*/
 	}
 
 	void PlayerScript::Jump()
