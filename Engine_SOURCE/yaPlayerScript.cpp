@@ -10,7 +10,8 @@
 
 namespace ya
 {
-	PlayerScript::State PlayerScript::mState = State::IDLE;
+	PlayerScript::HeadState PlayerScript::mHeadState = HeadState::IDLE;
+	PlayerScript::BodyState PlayerScript::mBodyState = BodyState::IDLE;
 
 	PlayerScript::PlayerScript()
 		: Script()
@@ -31,6 +32,9 @@ namespace ya
 	{
 		mTr = GetOwner()->GetComponent<Transform>();
 
+		if(GetOwner()->GetName() == L"Head")
+			headAni = GetOwner()->GetComponent<Animator>();
+
 		if (headAni != nullptr && bodyAni != nullptr)
 		{
 			std::shared_ptr<Texture> bodyidle = Resources::Load<Texture>(L"bodyidle", L"Character\\Marco\\IdleD.png");
@@ -39,21 +43,27 @@ namespace ya
 			std::shared_ptr<Texture> headIdle = Resources::Load<Texture>(L"headIdle", L"Character\\Marco\\IdleU.png");
 			headAni->Create(L"HeadIdle", headIdle, Vector2(0.0f, 0.0f), Vector2(40.0f, 36.0f), Vector2::Zero, 4, 0.3f);
 
-			std::shared_ptr<Texture> LMoveRightU = Resources::Load<Texture>(L"LMoveRightU", L"Character\\Marco\\LMoveU.png");
-			headAni->Create(L"LMoveRightU", LMoveRightU, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 12, 0.15f);
+			std::shared_ptr<Texture> MoveLeftU = Resources::Load<Texture>(L"MoveLeftU", L"Character\\Marco\\LMoveU.png");
+			headAni->Create(L"MoveLeftU", MoveLeftU, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 12, 0.15f);
 
-			std::shared_ptr<Texture> LMoveRightD = Resources::Load<Texture>(L"LMoveRightD", L"Character\\Marco\\LMoveD.png");
-			bodyAni->Create(L"LMoveRightD", LMoveRightD, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+			std::shared_ptr<Texture> MoveLeftD = Resources::Load<Texture>(L"MoveLeftD", L"Character\\Marco\\LMoveD.png");
+			bodyAni->Create(L"MoveLeftD", MoveLeftD, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
 
 			std::shared_ptr<Texture> MoveRightU = Resources::Load<Texture>(L"MoveRightU", L"Character\\Marco\\MoveU.png");
 			headAni->Create(L"MoveRightU", MoveRightU, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
 
 			std::shared_ptr<Texture> MoveRightD = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
 			bodyAni->Create(L"MoveRightD", MoveRightD, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+
+			std::shared_ptr<Texture> PistolAttackU = Resources::Load<Texture>(L"PistolAttackU", L"Character\\Marco\\PistolAttackU.png");
+			headAni->Create(L"PistolAttackU", PistolAttackU, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.1f);
+
+			std::shared_ptr<Texture> LPistolAttackU = Resources::Load<Texture>(L"LPistolAttackU", L"Character\\Marco\\LPistolAttackU.png");
+			headAni->Create(L"LPistolAttackU", LPistolAttackU, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.1f);
+			
+			headAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&PlayerScript::End, this);
 		}
-		//mState = State::IDLE;
 		           
-		//animator->GetStartEvent(L"MoveDown") = std::bind(&PlayerScript::Start, this);
 		/*if (animator->GetName() == L"HeadIdle")
 		{
 			animator->GetCompleteEvent(L"HeadIdle") = std::bind(&PlayerScript::Action, this);
@@ -73,32 +83,32 @@ namespace ya
 	{
 		
 
-		switch (mState)
+		switch (mHeadState)
 		{
-		case ya::PlayerScript::State::IDLE:
+		case ya::PlayerScript::HeadState::IDLE:
 			
 			Idle();
 			break;
-		case ya::PlayerScript::State::MOVE:
+		case ya::PlayerScript::HeadState::MOVE:
 			Move();
 			break;
-		case ya::PlayerScript::State::HIT:
+		case ya::PlayerScript::HeadState::HIT:
 			Hit();
 			break;
-		case ya::PlayerScript::State::ATTACK:
+		case ya::PlayerScript::HeadState::ATTACK:
 			Attack();
 			break;
-		case ya::PlayerScript::State::SITDOWN:
+		case ya::PlayerScript::HeadState::SITDOWN:
 			SitDown();
 			break;
-		case ya::PlayerScript::State::DEATH:
+		case ya::PlayerScript::HeadState::DEATH:
 			Death();
 			break;
 		default:
 			break;
 		}
-		
-		prevState = mState;
+
+		headState = mHeadState;
 
 		//Transform* mTr = GetOwner()->GetComponent<Transform>();
 		////Vector3 rot = tr->GetRotation();
@@ -146,17 +156,16 @@ namespace ya
 
 	void PlayerScript::End()
 	{
+		headAni->Play(L"HeadIdle", true);
 	}
 
 	void PlayerScript::Idle()
 	{
-		if (Input::GetKey(eKeyCode::RIGHT))
+
+		if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKey(eKeyCode::LEFT))
 		{
-			mState = State::MOVE;
-		}
-		if (Input::GetKey(eKeyCode::LEFT))
-		{
-			mState = State::MOVE;
+			mHeadState = HeadState::MOVE;
+			mBodyState = BodyState::MOVE;
 		}
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
@@ -166,7 +175,12 @@ namespace ya
 		{
 			
 		}
-		if (prevState == mState)
+		if (Input::GetKeyDown(eKeyCode::LCTRL))
+		{
+			mHeadState = HeadState::ATTACK;
+		}
+
+		if (headState == mHeadState)
 			return;
 
 		if (bodyAni != nullptr)
@@ -182,12 +196,14 @@ namespace ya
 
 	void PlayerScript::Move()
 	{
-		
-
 		if (Input::GetKeyUp(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::RIGHT))
-			mState = State::IDLE;
-			
-		
+		{
+			mHeadState = HeadState::IDLE;
+			mBodyState = BodyState::IDLE;
+			return;
+		}
+		mHeadState = HeadState::MOVE;
+		mBodyState = BodyState::MOVE;
 
 		Vector3 pos = mTr->GetPosition();
 		if (Input::GetKey(eKeyCode::LEFT))
@@ -195,7 +211,7 @@ namespace ya
 			pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 
-			if (prevState == mState)
+			if (headState == mHeadState)
 				return;
 
 			if (headAni != nullptr && bodyAni != nullptr)
@@ -205,23 +221,25 @@ namespace ya
 				//bodyPos->SetPosition(Vector3(headPos->GetPosition().x - 1.2f, headPos->GetPosition().y - 1.3f, 5.0f));
 
 				PositionSetting(headPos, bodyPos);
-				headAni->Play(L"LMoveRightU", true);
-				bodyAni->Play(L"LMoveRightD", true);
-
-				
+				headAni->Play(L"MoveLeftU", true);
+				bodyAni->Play(L"MoveLeftD", true);
 			}
 		}
-		
+		if (Input::GetKeyDown(eKeyCode::LCTRL))
+		{
+			//headAni->Play(L"PistolAttackU", false);
+			mHeadState = HeadState::ATTACK;
+		}
 			
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 				
-			if (prevState == mState)
+			if (headState == mHeadState)
 				return;
 
-			if (headAni != nullptr && bodyAni != nullptr)
+			if (headAni != nullptr && bodyAni != nullptr && (mHeadState == HeadState::MOVE))
 			{
 				headAni->Play(L"MoveRightU", true);
 				bodyAni->Play(L"MoveRightD", true);
@@ -239,6 +257,30 @@ namespace ya
 
 	void PlayerScript::Attack()
 	{
+		Vector3 pos = mTr->GetPosition();
+		pos.x += 6.0f * Time::DeltaTime();
+		if (headState == mHeadState)
+			return;
+		
+		
+		if (headAni != nullptr && bodyAni != nullptr)
+		{
+			headAni->Play(L"PistolAttackU", false);
+
+			if (mBodyState == BodyState::IDLE)
+			{
+				bodyAni->Play(L"BodyIdle", true);
+				mHeadState = HeadState::IDLE;
+			}
+				
+			if (mBodyState == BodyState::MOVE)
+			{
+				
+				mTr->SetPosition(pos);
+
+				bodyAni->Play(L"MoveRightD", true);
+			}
+		}
 	}
 
 	void PlayerScript::Hit()

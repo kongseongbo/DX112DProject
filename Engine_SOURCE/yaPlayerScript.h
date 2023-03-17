@@ -10,7 +10,7 @@ namespace ya
 	class PlayerScript : public Script
 	{
 	public:
-		enum class State
+		enum class HeadState
 		{
 			NONE,
 			IDLE,
@@ -21,7 +21,20 @@ namespace ya
 			HIT,
 			DEATH,
 		};
-		static State mState;
+		static HeadState mHeadState;
+
+		enum class BodyState
+		{
+			NONE,
+			IDLE,
+			MOVE,
+			JUMP,
+			SITDOWN,
+			ATTACK,
+			HIT,
+			DEATH,
+		};
+		static BodyState mBodyState;
 		
 
 		PlayerScript();
@@ -47,10 +60,11 @@ namespace ya
 		void Hit();
 		void Death();
 
-		State GetState() { return mState; }
-		void SetState(State state) { mState = state; }
+		HeadState GetHeadState() { return mHeadState; }
+		void SetHeadState(HeadState state) { mHeadState = state; }
 
-		//void SetingState(State newState);
+		BodyState GetBodyState() { return mBodyState; }
+		void SetBodyState(BodyState state) { mBodyState = state; }
 
 		void SetHeadAnimator(Animator* ani) { headAni = ani; }
 		void SetBodyAnimator(Animator* ani) { bodyAni = ani; }
@@ -66,6 +80,6 @@ namespace ya
 		Animator* bodyAni;
 		Player* mHeadPlayer;
 		Player* mBodyPlayer;
-		State prevState;
+		HeadState headState;
 	};
 }

@@ -85,7 +85,7 @@ namespace ya
 		//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 		headObj->AddComponent<Animator>();
 		PlayerScript* playerscript = headObj->AddComponent<PlayerScript>();
-		playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
+		//playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
 		playerscript->SetHeadPlayer(headObj);
 		Collider2D* collider = headObj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
