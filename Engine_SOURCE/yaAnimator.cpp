@@ -113,12 +113,13 @@ namespace ya
 	{
 		Animation* prevAnimation = mActiveAnimation;
 		Events* events = nullptr;
+
 		if (prevAnimation)
 			events = FindEvents(prevAnimation->AnimationName());
 
 		if (events)
 			events->mEndEvent();
-
+		
 		mActiveAnimation = FindAnimation(name);
 		mActiveAnimation->Reset();
 		mbLoop = loop;

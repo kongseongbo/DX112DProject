@@ -1,6 +1,7 @@
 #include "yaAnimation.h"
 #include "yaTime.h"
 #include "yaRenderer.h"
+#include "yaInput.h"
 
 namespace ya
 {
@@ -44,6 +45,7 @@ namespace ya
 
 
 		return -1;
+
 	}
 
 	void Animation::FixedUpdate()
@@ -78,7 +80,6 @@ namespace ya
 
 			mSpriteSheet.push_back(sprite);
 		}
-		
 	}
 
 	void Animation::BindShader()

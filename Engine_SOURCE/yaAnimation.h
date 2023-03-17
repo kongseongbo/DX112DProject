@@ -45,7 +45,6 @@ namespace ya
 
 		bool IsComplete() { return mbComplete; }
 		std::wstring& AnimationName() { return mAnimationName; }
-
 	private:
 		class Animator* mAnimator;
 		std::wstring mAnimationName;

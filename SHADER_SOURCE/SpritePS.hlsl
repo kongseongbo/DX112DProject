@@ -32,9 +32,9 @@ float4 main(VSOut In) : SV_Target
 
         color = atlasTexture.Sample(anisotropicSampler, UV);
     }
-    else
+   else
     {
-        color = defaultTexture.Sample(anisotropicSampler, In.UV);
+        //color = defaultTexture.Sample(anisotropicSampler, In.UV);
     }
 
     

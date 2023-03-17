@@ -58,6 +58,8 @@ namespace ya
 		void SetHeadPlayer(Player* player) { mHeadPlayer = player; }
 		void SetBodyPlayer(Player* player) { mBodyPlayer = player; }
 
+		void PositionSetting(Transform* playerA, Transform* playerB);
+
 	private:
 		Transform* mTr;
 		Animator* headAni;
