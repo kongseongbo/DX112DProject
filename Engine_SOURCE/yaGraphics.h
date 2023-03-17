@@ -17,6 +17,7 @@
 #define CBSLOT_GRID 2
 #define CBSLOT_FADEINOUT 3
 #define CBSLOT_ANIMATION 4
+#define CBSLOT_NUMBEROFLIGHT 5
 
 using namespace ya::math;
 namespace ya::graphics
@@ -101,8 +102,9 @@ namespace ya::graphics
 		Transform,
 		Material,
 		Grid,
-		Animation,
 		FadeInOut,
+		Animation,
+		Light,
 		End,
 	};
 
@@ -138,7 +140,6 @@ namespace ya::graphics
 		Vector4 diffuse;
 		Vector4 specular;
 		Vector4 ambient;
-		Vector4 emissive;
 		Vector4 position;
 		Vector4 direction;
 

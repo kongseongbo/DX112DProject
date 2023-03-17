@@ -160,6 +160,10 @@ namespace ya
 		}
 		if (headAni != nullptr)
 		{
+			/*Transform* headPos = mHeadPlayer->GetComponent<Transform>();
+			Transform* bodyPos = mHeadPlayer->GetComponent<Transform>();
+			headPos->SetPosition(Vector3(headPos->GetPosition().x, headPos->GetPosition().y - 0.2f, 1.0f));*/
+
 			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
 			headAni->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 36.0f), Vector2::Zero, 4, 0.3f);
 			headAni->Play(L"HeadIdle", true);
@@ -185,9 +189,6 @@ namespace ya
 			return;
 		if (headAni != nullptr && bodyAni != nullptr)
 		{  
-			//Transform* headPos = mHeadPlayer->GetComponent<Transform>();
-			//Transform* bodyPos = mHeadPlayer->GetComponent<Transform>();
-			//headPos->SetPosition(Vector3(headPos->GetPosition().x + 1.0f, headPos->GetPosition().y, 1.0f));
 			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MoveRightU", L"Character\\Marco\\MoveU.png");
 			headAni->Create(L"MoveRightU", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
 			headAni->Play(L"MoveRightU", true);

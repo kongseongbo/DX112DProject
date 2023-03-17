@@ -13,7 +13,7 @@
 #include "yaInput.h"
 #include "yaApplication.h"
 #include "yaCharacterSelect.h"
-
+#include "yaLight.h"
 extern ya::Application application;
 
 namespace ya
@@ -128,6 +128,7 @@ namespace ya
 	{
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
+
 			SceneManager::LoadScene(eSceneType::Stage1);
 		}
 

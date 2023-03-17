@@ -16,6 +16,7 @@ namespace ya::renderer
 	std::vector<Camera*> cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
 	std::vector<LightAttribute> lights;
+	StructedBuffer* lightsBuffer = nullptr;
 
 	void LoadMesh()
 	{
@@ -317,6 +318,7 @@ namespace ya::renderer
 
 	void LoadBuffer()
 	{
+		// Constant Buffer
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -331,6 +333,13 @@ namespace ya::renderer
 
 		constantBuffers[(UINT)eCBType::FadeInOut] = new ConstantBuffer(eCBType::FadeInOut);
 		constantBuffers[(UINT)eCBType::FadeInOut]->Create(sizeof(FadeInOutCB));
+
+		constantBuffers[(UINT)eCBType::Light] = new ConstantBuffer(eCBType::Light);
+		constantBuffers[(UINT)eCBType::Light]->Create(sizeof(LightCB));
+
+		//Structed buffer
+		lightsBuffer = new StructedBuffer();
+		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
 	}
 
 	void LoadShader()
@@ -579,11 +588,15 @@ namespace ya::renderer
 			delete constantBuffers[i];
 			constantBuffers[i] = nullptr;
 		}
+
+		delete lightsBuffer;
+		lightsBuffer = nullptr;
 	}
 
 	void Render()
 	{
-		//std::vector<Camera*> cameras[(UINT)eSceneType::End];
+		BindLights();
+
 		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
 		for (Camera* cam : cameras[(UINT)type])
 		{
@@ -594,5 +607,26 @@ namespace ya::renderer
 		}
 
 		cameras[(UINT)type].clear();
+		renderer::lights.clear();
+	}
+
+	void PushLightAttribute(LightAttribute lightAttribute)
+	{
+		lights.push_back(lightAttribute);
+	}
+
+	void BindLights()
+	{
+		lightsBuffer->Bind(lights.data(), lights.size());
+		lightsBuffer->SetPipeline(eShaderStage::VS, 13);
+		lightsBuffer->SetPipeline(eShaderStage::PS, 13);
+
+		renderer::LightCB trCb = {};
+		trCb.numberOfLight = lights.size();
+
+		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Light];
+		cb->Bind(&trCb);
+		cb->SetPipline(eShaderStage::VS);
+		cb->SetPipline(eShaderStage::PS);
 	}
 }

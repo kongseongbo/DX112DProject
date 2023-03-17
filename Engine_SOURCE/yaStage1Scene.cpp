@@ -16,7 +16,7 @@
 #include "yaPlayer.h"
 #include "yaMonster.h"
 #include "yaCollisionManager.h"
-
+#include "yaLight.h"
 
 namespace ya
 {
@@ -32,6 +32,23 @@ namespace ya
 
 	void Stage1Scene::Initalize()
 	{
+		{
+			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, this);
+			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
+			Light* lightComp = directionalLight->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+
+		{
+			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, this);
+			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
+			Light* lightComp = directionalLight->AddComponent<Light>();
+			lightComp->SetType(eLightType::Point);
+			lightComp->SetRadius(5.0f);
+			lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+		}
+
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
@@ -58,7 +75,9 @@ namespace ya
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
 
+
 		//Player
+		
 		Player* headObj = object::Instantiate<Player>(eLayerType::Player, this);
 		headObj->SetName(L"Head");
 		Transform* headTr = headObj->GetComponent<Transform>();
@@ -70,6 +89,10 @@ namespace ya
 		PlayerScript* playerscript = headObj->AddComponent<PlayerScript>();
 		playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
 		playerscript->SetHeadPlayer(headObj);
+		Collider2D* collider = headObj->AddComponent<Collider2D>();
+		collider->SetType(eColliderType::Rect);
+		collider->SetCenter(Vector2(0.0f, -0.6f));
+		collider->SetSize(Vector2(0.2f, 0.2f));
 
 		SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -86,16 +109,11 @@ namespace ya
 		bodyObj->AddComponent<PlayerScript>();
 		playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());
 		playerscript->SetBodyPlayer(bodyObj);
-
-		Collider2D* collider = bodyObj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Rect);
-		collider->SetCenter(Vector2(0.0f, -0.1f));
-		collider->SetSize(Vector2(0.2f, 0.2f));
 		/*Animator* animator = obj->AddComponent<Animator>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
-		animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 36.0f), Vector2::Zero, 4, 0.3f);
-		animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
-		animator->Play(L"HeadIdle", true);*/
+			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
+			animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 36.0f), Vector2::Zero, 4, 0.3f);
+			animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
+			animator->Play(L"HeadIdle", true);*/
 
 		SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -103,7 +121,7 @@ namespace ya
 		bodyMr->SetMesh(mesh);
 
 		object::DontDestroyOnLoad(bodyObj);
-
+		
 		// Monster Object
 		Monster* monsterObj = object::Instantiate<Monster>(eLayerType::Monster, this);
 		monsterObj->SetName(L"Monster");
@@ -114,7 +132,9 @@ namespace ya
 		monsterCollider->SetType(eColliderType::Rect);
 
 		SpriteRenderer* monsterMr = monsterObj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"smile", L"Smile.png");
+		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"SpriteMaterial");
+		monsterMateiral->SetTexture(texture);
 		monsterMr->SetMaterial(monsterMateiral);
 		monsterMr->SetMesh(mesh);
 
@@ -148,8 +168,8 @@ namespace ya
 		// FadeInOut
 		GameObject* fadeObject = object::Instantiate<GameObject>(eLayerType::FadeIn, this);
 		Transform* fadeTr = fadeObject->GetComponent<Transform>();
-		fadeTr->SetPosition(Vector3(0.0f, 0.0f, 4.0f));
-		MeshRenderer* fadeMr = fadeObject->AddComponent<MeshRenderer>();
+		fadeTr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
+		SpriteRenderer* fadeMr = fadeObject->AddComponent<SpriteRenderer>();
 		fadeMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
 		fadeObject->AddComponent<FadeInOutScript>();

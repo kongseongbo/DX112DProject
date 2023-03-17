@@ -23,9 +23,8 @@ namespace ya
 		void SetType(eLightType type) { mAttribute.type = type; }
 		void SetRadius(float radius) { mAttribute.radius = radius; }
 		void SetAngle(float angle) { mAttribute.angle = angle; }
-
 		Vector4 GetDiffuse() { mAttribute.diffuse; }
-		eLightType GetType() { return mAttribute.type; }
+		eLightType GetType() { return (eLightType)mAttribute.type; }
 		float GetRadius() { mAttribute.radius; }
 		float GetAngle() { mAttribute.angle; }
 

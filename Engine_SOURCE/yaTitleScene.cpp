@@ -14,6 +14,7 @@
 #include "yaFadeInOutScript.h"
 #include "yaCollider2D.h"
 #include "yaApplication.h"
+#include "yaLight.h"
 
 extern ya::Application application;
 

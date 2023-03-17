@@ -8,6 +8,7 @@
 #include "yaConstantBuffer.h"
 #include "yaCamera.h"
 #include "yaLight.h"
+#include "yaStructedBuffer.h"
 
 using namespace ya::math;
 using namespace ya::graphics;
@@ -45,6 +46,14 @@ namespace ya::renderer
 		Vector2 resolution;
 	};
 
+	CBUFFER(FadeInOutCB, CBSLOT_FADEINOUT)
+	{
+		Vector4 fadePosition;
+		Vector2 fadeResolution;
+		float fadeTime;
+		int onoff;
+	};
+
 	CBUFFER(AnimationCB, CBSLOT_ANIMATION)
 	{
 		Vector2 leftTop;
@@ -55,13 +64,9 @@ namespace ya::renderer
 		UINT type;
 	};
 
-	CBUFFER(FadeInOutCB, CBSLOT_FADEINOUT)
+	CBUFFER(LightCB, CBSLOT_NUMBEROFLIGHT)
 	{
-		Vector4 fadePosition;
-		//Vector2 fadeScale;
-		Vector2 fadeResolution;
-		float fadeTime;
-		int onoff;
+		UINT numberOfLight;
 	};
 
 	extern Vertex vertexes[4];
@@ -75,9 +80,13 @@ namespace ya::renderer
 	extern std::vector<Camera*> cameras[];
 	extern std::vector<DebugMesh> debugMeshes;
 	extern std::vector<LightAttribute> lights;
+	extern StructedBuffer* lightsBuffer;
 
 	void Initialize();
 	void Render();
 	void Release();
+
+	void PushLightAttribute(LightAttribute lightAttribute);
+	void BindLights();
 }
 
