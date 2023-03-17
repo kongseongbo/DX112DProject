@@ -180,24 +180,48 @@ namespace ya
 
 		Vector3 pos = mTr->GetPosition();
 		if (Input::GetKey(eKeyCode::LEFT))
+		{
 			pos.x -= 6.0f * Time::DeltaTime();
-		if (Input::GetKey(eKeyCode::RIGHT))
-			pos.x += 6.0f * Time::DeltaTime();
-		mTr->SetPosition(pos);
+			mTr->SetPosition(pos);
+			if (prevState == mState)
+				return;
+			if (headAni != nullptr && bodyAni != nullptr)
+			{
+				std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"LMoveRightU", L"Character\\Marco\\LMoveU.png");
+				headAni->Create(L"LMoveRightU", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
+				headAni->Play(L"LMoveRightU", true);
 
-		if (prevState == mState)
-			return;
-		if (headAni != nullptr && bodyAni != nullptr)
-		{  
-			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MoveRightU", L"Character\\Marco\\MoveU.png");
-			headAni->Create(L"MoveRightU", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
-			headAni->Play(L"MoveRightU", true);
+				std::shared_ptr<Texture> bodyTexture = Resources::Load<Texture>(L"LMoveRightD", L"Character\\Marco\\LMoveD.png");
+				bodyAni->Create(L"LMoveRightD", bodyTexture, Vector2(0.0f, 0.0f), Vector2(35.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+				bodyAni->Play(L"LMoveRightD", true);
 
-			std::shared_ptr<Texture> bodyTexture = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
-			bodyAni->Create(L"MoveRightD", bodyTexture, Vector2(0.0f, 0.0f), Vector2(35.0f, 28.0f), Vector2::Zero, 12, 0.15f);
-			bodyAni->Play(L"MoveRightD", true);
-
+			}
+			
 		}
+			
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			pos.x += 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+			if (prevState == mState)
+				return;
+			if (headAni != nullptr && bodyAni != nullptr)
+			{
+				std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MoveRightU", L"Character\\Marco\\MoveU.png");
+				headAni->Create(L"MoveRightU", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
+				headAni->Play(L"MoveRightU", true);
+
+				std::shared_ptr<Texture> bodyTexture = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
+				bodyAni->Create(L"MoveRightD", bodyTexture, Vector2(0.0f, 0.0f), Vector2(35.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+				bodyAni->Play(L"MoveRightD", true);
+
+			}
+			
+		}
+			
+		
+
+		
 
 		/*if ()
 		{

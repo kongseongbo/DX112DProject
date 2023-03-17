@@ -32,6 +32,7 @@ namespace ya
 
 	void Stage1Scene::Initalize()
 	{
+		// Light
 		{
 			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, this);
 			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
@@ -39,7 +40,6 @@ namespace ya
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
-
 		{
 			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, this);
 			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
@@ -75,16 +75,14 @@ namespace ya
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
 
-
-		//Player
 		
+		//Player
 		Player* headObj = object::Instantiate<Player>(eLayerType::Player, this);
 		headObj->SetName(L"Head");
 		Transform* headTr = headObj->GetComponent<Transform>();
 		headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 		headTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
-		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-		//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));		
+		//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 		headObj->AddComponent<Animator>();
 		PlayerScript* playerscript = headObj->AddComponent<PlayerScript>();
 		playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());

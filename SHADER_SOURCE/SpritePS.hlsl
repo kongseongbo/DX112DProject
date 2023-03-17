@@ -23,6 +23,7 @@ float4 main(VSOut In) : SV_Target
     {
         float2 diff = (atlasSize - spriteSize) / 2.0f;
         float2 UV = (leftTop - diff - offset) + (atlasSize * In.UV);
+        //float2 texCoord = float2( 1.0f - UV.x,   UV.y); //ÁÂ¿ì¹ÝÀü
 
         if (UV.x < leftTop.x || UV.y < leftTop.y
             || UV.x > leftTop.x + spriteSize.x
@@ -36,13 +37,15 @@ float4 main(VSOut In) : SV_Target
         color = defaultTexture.Sample(anisotropicSampler, In.UV);
     }
 
+    
+
     LightColor lightColor = (LightColor)0.0f;
     for (int i = 0; i < numberOfLight; i++)
     {
         
         CalculateLight(lightColor, In.WorldPos.xyz, i);
     }
-
+    
     color *= lightColor.diffuse;
     //color = defaultTexture.Sample(anisotropicSampler, In.UV);
     return color;
