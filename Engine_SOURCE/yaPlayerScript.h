@@ -2,7 +2,6 @@
 #include "yaScript.h"
 #include "yaGameObject.h"
 #include "yaAnimator.h"
-#include "yaPlayer.h"
 
 
 namespace ya
@@ -35,8 +34,7 @@ namespace ya
 			DEATH,
 		};
 		static BodyState mBodyState;
-		
-
+	
 		PlayerScript();
 		~PlayerScript();
 
@@ -69,17 +67,14 @@ namespace ya
 		void SetHeadAnimator(Animator* ani) { headAni = ani; }
 		void SetBodyAnimator(Animator* ani) { bodyAni = ani; }
 
-		void SetHeadPlayer(Player* player) { mHeadPlayer = player; }
-		void SetBodyPlayer(Player* player) { mBodyPlayer = player; }
-
-		void PositionSetting(Transform* playerA, Transform* playerB);
-
 	private:
 		Transform* mTr;
 		Animator* headAni;
 		Animator* bodyAni;
-		Player* mHeadPlayer;
-		Player* mBodyPlayer;
+
 		HeadState headState;
+		BodyState bodyState;
+
+		int direction;
 	};
 }
