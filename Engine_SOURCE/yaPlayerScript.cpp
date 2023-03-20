@@ -60,21 +60,29 @@ namespace ya
 			bodyAni->Create(L"MoveRightD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
 
 			texture = Resources::Load<Texture>(L"PistolAttackU", L"Character\\Marco\\PistolAttackU.png");
-			headAni->Create(L"PistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.1f);
+			headAni->Create(L"PistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.05f);
 
 			texture = Resources::Load<Texture>(L"LPistolAttackU", L"Character\\Marco\\LPistolAttackU.png");
-			headAni->Create(L"LPistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2::Zero, 10, 0.1f);
+			headAni->Create(L"LPistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2::Zero, 10, 0.05f);
 
 			texture = Resources::Load<Texture>(L"LookTop", L"Character\\Marco\\LookTop.png");
 			headAni->Create(L"LookTop", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 33.5f), Vector2::Zero, 2, 0.1f);
 			headAni->Create(L"LookTop2", texture, Vector2(0.0f, 33.6f), Vector2(50.0f, 33.5f), Vector2::Zero, 4, 0.1f);
 
+			texture = Resources::Load<Texture>(L"LLookTop", L"Character\\Marco\\LLookTop.png");
+			headAni->Create(L"LLookTop", texture, Vector2(0.0f, 0.0f), Vector2(75.0f, 33.5f), Vector2::Zero, 2, 0.1f);
+			headAni->Create(L"LLookTop2", texture, Vector2(0.0f, 33.6f), Vector2(75.0f, 33.5f), Vector2::Zero, 4, 0.1f);
+
 			texture = Resources::Load<Texture>(L"AttackTop", L"Character\\Marco\\AttackTop.png");
 			headAni->Create(L"AttackTop", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 140.0f), Vector2::Zero, 10, 0.1f);
+
+			texture = Resources::Load<Texture>(L"LAttackTop", L"Character\\Marco\\LAttackTop.png");
+			headAni->Create(L"LAttackTop", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 140.0f), Vector2::Zero, 10, 0.1f);
 			
 			headAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&PlayerScript::End, this);
 			headAni->GetCompleteEvent(L"LPistolAttackU") = std::bind(&PlayerScript::End, this);
 			headAni->GetCompleteEvent(L"LookTop") = std::bind(&PlayerScript::End, this);
+			headAni->GetCompleteEvent(L"LLookTop") = std::bind(&PlayerScript::End, this);
 		}
 		           
 		/*if (animator->GetName() == L"HeadIdle")
@@ -184,10 +192,19 @@ namespace ya
 		}
 		if (Input::GetKey(eKeyCode::UP))
 		{
-			if (headAni != nullptr)
+			if (direction == 1)
 			{
-				headAni->Play(L"LookTop2", false);
-			
+				if (headAni != nullptr)
+				{
+					headAni->Play(L"LLookTop2", false);
+				}
+			}
+			else
+			{
+				if (headAni != nullptr)
+				{
+					headAni->Play(L"LookTop2", false);
+				}
 			}
 		}
 	}
@@ -202,8 +219,16 @@ namespace ya
 		}
 		if (Input::GetKeyDown(eKeyCode::UP))
 		{
-			if(headAni != nullptr)
-				headAni->Play(L"LookTop", false);
+			if (direction == 1)
+			{
+				if (headAni != nullptr)
+					headAni->Play(L"LLookTop", false);
+			}
+			else
+			{
+				if (headAni != nullptr)
+					headAni->Play(L"LookTop", false);
+			}
 		}
 		
 		if (Input::GetKey(eKeyCode::DOWN))
@@ -327,13 +352,16 @@ namespace ya
 		{
 			if (direction == 1)
 			{
-				headAni->Play(L"LPistolAttackU", false);
-
+				if (Input::GetKey(eKeyCode::UP))
+					headAni->Play(L"LAttackTop", false);
+				else
+					headAni->Play(L"LPistolAttackU", false);
 			}
 			else
 			{
 				if (Input::GetKey(eKeyCode::UP))
 					headAni->Play(L"AttackTop", false);
+				
 				else
 					headAni->Play(L"PistolAttackU", false);
 
