@@ -51,19 +51,20 @@ namespace ya
 		}
 
 		// Main Camera
-		mCameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
-		Camera* cameraComp = mCameraObj->AddComponent<Camera>();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		CameraScript* cameraScript = mCameraObj->AddComponent<CameraScript>();
-		mainCamera = cameraComp;
+		{
+			mCameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
+			Camera* cameraComp = mCameraObj->AddComponent<Camera>();
+			cameraComp->TurnLayerMask(eLayerType::UI, false);
+			CameraScript* cameraScript = mCameraObj->AddComponent<CameraScript>();
+			mainCamera = cameraComp;
 
-		// UI Camera
-		GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
-		Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
-		cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		cameraUIComp->DisableLayerMasks();
-		cameraUIComp->TurnLayerMask(eLayerType::UI, true);
-
+			GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
+			Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
+			cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+			cameraUIComp->DisableLayerMasks();
+			cameraUIComp->TurnLayerMask(eLayerType::UI, true);
+		}
+		
 		// Map
 		GameObject* mapObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 		mapObj->SetName(L"Mission1Map");

@@ -30,9 +30,6 @@ namespace ya
 	{
 		mTr = GetOwner()->GetComponent<Transform>();
 
-		/*if(GetOwner()->GetName() == L"Head")
-			headAni = GetOwner()->GetComponent<Animator>();*/
-
 		if (headAni != nullptr && bodyAni != nullptr)
 		{
 			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"bodyidle", L"Character\\Marco\\IdleD.png");
@@ -103,7 +100,12 @@ namespace ya
 	void PlayerScript::Update()
 	{
 		
+		/*if (GetOwner()->GetName() == L"Head")
+			headAni->GetOwner()->GetComponent<Animator>();
+		else if (GetOwner()->GetName() == L"Body")
+			bodyAni->GetOwner()->GetComponent<Animator>();*/
 
+		
 		switch (mHeadState)
 		{
 		case ya::PlayerScript::HeadState::IDLE:
