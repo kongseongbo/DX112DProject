@@ -13,7 +13,6 @@
 #include "yaInput.h"
 #include "yaFadeInOutScript.h"
 #include "yaCollider2D.h"
-#include "yaPlayer.h"
 #include "yaMonster.h"
 #include "yaCollisionManager.h"
 #include "yaLight.h"
@@ -22,6 +21,8 @@ namespace ya
 {
 	Stage1Scene::Stage1Scene()
 		: Scene(eSceneType::Stage1)
+		, mHeadObj(nullptr)
+		, mCameraObj(nullptr)
 	{
 
 	}
@@ -49,10 +50,11 @@ namespace ya
 			lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 		}
 
-		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
-		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		// Main Camera
+		mCameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
+		Camera* cameraComp = mCameraObj->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraObj->AddComponent<CameraScript>();
+		CameraScript* cameraScript = mCameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
 
 		// UI Camera
@@ -77,26 +79,26 @@ namespace ya
 
 		
 		//Player Head
-		Player* headObj = object::Instantiate<Player>(eLayerType::Player, this);
-		headObj->SetName(L"Head");
-		Transform* headTr = headObj->GetComponent<Transform>();
+		mHeadObj = object::Instantiate<Player>(eLayerType::Player, this);
+		mHeadObj->SetName(L"Head");
+		Transform* headTr = mHeadObj->GetComponent<Transform>();
 		headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 		headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 		//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
-		headObj->AddComponent<Animator>();
-		PlayerScript* playerscript = headObj->AddComponent<PlayerScript>();
-		playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
+		mHeadObj->AddComponent<Animator>();
+		PlayerScript* playerscript = mHeadObj->AddComponent<PlayerScript>();
+		playerscript->SetHeadAnimator(mHeadObj->GetComponent<Animator>());
 
-		Collider2D* collider = headObj->AddComponent<Collider2D>();
+		Collider2D* collider = mHeadObj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
 		collider->SetCenter(Vector2(0.0f, -0.6f));
 		collider->SetSize(Vector2(0.2f, 0.2f));
 
-		SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
+		SpriteRenderer* headMr = mHeadObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
 		headMr->SetMaterial(headMateiral);
 		headMr->SetMesh(mesh);
-		object::DontDestroyOnLoad(headObj);
+		object::DontDestroyOnLoad(mHeadObj);
 
 		//Player Body
 		Player* bodyObj = object::Instantiate<Player>(eLayerType::Body, this);
@@ -112,9 +114,9 @@ namespace ya
 		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
 		bodyMr->SetMaterial(bodyMateiral);
 		bodyMr->SetMesh(mesh);
-
 		object::DontDestroyOnLoad(bodyObj);
 		
+
 		// Monster Object
 		Monster* monsterObj = object::Instantiate<Monster>(eLayerType::Monster, this);
 		monsterObj->SetName(L"Monster");
@@ -154,6 +156,8 @@ namespace ya
 		fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
 		fadeObject->AddComponent<FadeInOutScript>();
 
+		
+
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 
 		Scene::Initalize();
@@ -161,6 +165,12 @@ namespace ya
 
 	void Stage1Scene::Update()
 	{
+		CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
+		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
+		Transform* headTr = mHeadObj->GetComponent<Transform>();
+		Vector3 headPos = headTr->GetPosition();
+		cameraTr->SetPosition(headPos);
+
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(eSceneType::Tilte);

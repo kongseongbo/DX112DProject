@@ -1,9 +1,9 @@
 #include "yaCameraScript.h"
-#include "yaTransform.h"
 #include "yaGameObject.h"
 #include "yaInput.h"
 #include "yaTime.h"
-
+#include "yaSceneManager.h"
+#include "yaScene.h"
 namespace ya
 {
 	CameraScript::CameraScript()
@@ -22,7 +22,6 @@ namespace ya
 	void CameraScript::Update()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-
 		Vector3 pos = tr->GetPosition();
 
 		if (Input::GetKeyState(eKeyCode::D) == eKeyState::PRESSED)

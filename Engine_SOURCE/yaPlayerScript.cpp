@@ -35,38 +35,46 @@ namespace ya
 
 		if (headAni != nullptr && bodyAni != nullptr)
 		{
-			std::shared_ptr<Texture> bodyidle = Resources::Load<Texture>(L"bodyidle", L"Character\\Marco\\IdleD.png");
-			bodyAni->Create(L"BodyIdle", bodyidle, Vector2(0.0f, 0.0f), Vector2(33.0f, 28.0f), Vector2::Zero, 1, 0.3f);
+			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"bodyidle", L"Character\\Marco\\IdleD.png");
+			bodyAni->Create(L"BodyIdle", texture, Vector2(0.0f, 0.0f), Vector2(33.0f, 28.0f), Vector2::Zero, 1, 0.3f);
 
-			std::shared_ptr<Texture> headIdle = Resources::Load<Texture>(L"headIdle", L"Character\\Marco\\IdleU.png");
-			headAni->Create(L"HeadIdle", headIdle, Vector2(0.0f, 0.0f), Vector2(40.0f, 36.0f), Vector2::Zero, 4, 0.3f);
+			texture = Resources::Load<Texture>(L"headIdle", L"Character\\Marco\\IdleU.png");
+			headAni->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 36.0f), Vector2::Zero, 4, 0.3f);
 
-			std::shared_ptr<Texture> Lbodyidle = Resources::Load<Texture>(L"Lbodyidle", L"Character\\Marco\\LIdleD.png");
-			bodyAni->Create(L"LBodyIdle", Lbodyidle, Vector2(0.0f, 0.0f), Vector2(33.0f, 28.0f), Vector2::Zero, 1, 0.3f);
+			texture = Resources::Load<Texture>(L"Lbodyidle", L"Character\\Marco\\LIdleD.png");
+			bodyAni->Create(L"LBodyIdle", texture, Vector2(0.0f, 0.0f), Vector2(33.0f, 28.0f), Vector2::Zero, 1, 0.3f);
 
-			std::shared_ptr<Texture> LheadIdle = Resources::Load<Texture>(L"LheadIdle", L"Character\\Marco\\LIdleU.png");
-			headAni->Create(L"LHeadIdle", LheadIdle, Vector2(0.0f, 0.0f), Vector2(60.0f, 36.0f), Vector2::Zero, 4, 0.3f);
+			texture = Resources::Load<Texture>(L"LheadIdle", L"Character\\Marco\\LIdleU.png");
+			headAni->Create(L"LHeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 36.0f), Vector2::Zero, 4, 0.3f);
 
-			std::shared_ptr<Texture> MoveLeftU = Resources::Load<Texture>(L"MoveLeftU", L"Character\\Marco\\LMoveU.png");
-			headAni->Create(L"MoveLeftU", MoveLeftU, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 12, 0.15f);
+			texture = Resources::Load<Texture>(L"MoveLeftU", L"Character\\Marco\\LMoveU.png");
+			headAni->Create(L"MoveLeftU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 12, 0.15f);
 
-			std::shared_ptr<Texture> MoveLeftD = Resources::Load<Texture>(L"MoveLeftD", L"Character\\Marco\\LMoveD.png");
-			bodyAni->Create(L"MoveLeftD", MoveLeftD, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+			texture = Resources::Load<Texture>(L"MoveLeftD", L"Character\\Marco\\LMoveD.png");
+			bodyAni->Create(L"MoveLeftD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
 
-			std::shared_ptr<Texture> MoveRightU = Resources::Load<Texture>(L"MoveRightU", L"Character\\Marco\\MoveU.png");
-			headAni->Create(L"MoveRightU", MoveRightU, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
+			texture = Resources::Load<Texture>(L"MoveRightU", L"Character\\Marco\\MoveU.png");
+			headAni->Create(L"MoveRightU", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
 
-			std::shared_ptr<Texture> MoveRightD = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
-			bodyAni->Create(L"MoveRightD", MoveRightD, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+			texture = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
+			bodyAni->Create(L"MoveRightD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
 
-			std::shared_ptr<Texture> PistolAttackU = Resources::Load<Texture>(L"PistolAttackU", L"Character\\Marco\\PistolAttackU.png");
-			headAni->Create(L"PistolAttackU", PistolAttackU, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.1f);
+			texture = Resources::Load<Texture>(L"PistolAttackU", L"Character\\Marco\\PistolAttackU.png");
+			headAni->Create(L"PistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.1f);
 
-			std::shared_ptr<Texture> LPistolAttackU = Resources::Load<Texture>(L"LPistolAttackU", L"Character\\Marco\\LPistolAttackU.png");
-			headAni->Create(L"LPistolAttackU", LPistolAttackU, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2::Zero, 10, 0.1f);
+			texture = Resources::Load<Texture>(L"LPistolAttackU", L"Character\\Marco\\LPistolAttackU.png");
+			headAni->Create(L"LPistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2::Zero, 10, 0.1f);
+
+			texture = Resources::Load<Texture>(L"LookTop", L"Character\\Marco\\LookTop.png");
+			headAni->Create(L"LookTop", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 33.5f), Vector2::Zero, 2, 0.1f);
+			headAni->Create(L"LookTop2", texture, Vector2(0.0f, 33.6f), Vector2(50.0f, 33.5f), Vector2::Zero, 4, 0.1f);
+
+			texture = Resources::Load<Texture>(L"AttackTop", L"Character\\Marco\\AttackTop.png");
+			headAni->Create(L"AttackTop", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 140.0f), Vector2::Zero, 10, 0.1f);
 			
 			headAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&PlayerScript::End, this);
 			headAni->GetCompleteEvent(L"LPistolAttackU") = std::bind(&PlayerScript::End, this);
+			headAni->GetCompleteEvent(L"LookTop") = std::bind(&PlayerScript::End, this);
 		}
 		           
 		/*if (animator->GetName() == L"HeadIdle")
@@ -174,7 +182,14 @@ namespace ya
 			bodyAni->Play(L"MoveRightD", true);
 			mHeadState = HeadState::MOVE;
 		}
-		
+		if (Input::GetKey(eKeyCode::UP))
+		{
+			if (headAni != nullptr)
+			{
+				headAni->Play(L"LookTop2", false);
+			
+			}
+		}
 	}
 
 	void PlayerScript::Idle()
@@ -185,6 +200,12 @@ namespace ya
 			mHeadState = HeadState::MOVE;
 			mBodyState = BodyState::MOVE;
 		}
+		if (Input::GetKeyDown(eKeyCode::UP))
+		{
+			if(headAni != nullptr)
+				headAni->Play(L"LookTop", false);
+		}
+		
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			
@@ -195,6 +216,7 @@ namespace ya
 		}
 		if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
+
 			mHeadState = HeadState::ATTACK;
 		}
 
@@ -213,9 +235,7 @@ namespace ya
 				bodyAni->Play(L"BodyIdle", true);
 				headAni->Play(L"HeadIdle", true);
 			}
-			
 		}
-	
 	}
 
 	void PlayerScript::Move()
@@ -270,8 +290,6 @@ namespace ya
 				bodyAni->Play(L"MoveRightD", true);
 			}
 		}
-
-		
 	}
 
 	void PlayerScript::Jump()
@@ -308,9 +326,18 @@ namespace ya
 		if (headAni != nullptr && bodyAni != nullptr)
 		{
 			if (direction == 1)
+			{
 				headAni->Play(L"LPistolAttackU", false);
+
+			}
 			else
-				headAni->Play(L"PistolAttackU", false);
+			{
+				if (Input::GetKey(eKeyCode::UP))
+					headAni->Play(L"AttackTop", false);
+				else
+					headAni->Play(L"PistolAttackU", false);
+
+			}
 
 			if (mBodyState == BodyState::IDLE)
 			{
