@@ -26,16 +26,13 @@ namespace ya::graphics
 		void BindShader(eShaderStage stage, UINT slot);
 		void Clear();
 
-		/*UINT GetHeight() { return mImage.GetMetadata().height; }
-		UINT GetWidth() { return mImage.GetMetadata().width; }*/
-
 		size_t GetHeight() { return mImage.GetMetadata().height; }
 		size_t GetWidth() { return mImage.GetMetadata().width; }
 
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> GetTexture() { return mTexture; }
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDSV() { return mDSV; }
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetRTV() { return mRTV; }
-		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> GetUAV() {return mUAV; }
+		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> GetUAV() { return mUAV; }
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> GetSRV() { return mSRV; }
 
 	private:
