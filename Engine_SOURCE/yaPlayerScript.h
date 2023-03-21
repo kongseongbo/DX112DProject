@@ -16,6 +16,8 @@ namespace ya
 			MOVE,
 			JUMP,
 			SITDOWN,
+			SITDOWNMOVE,
+			SITDOWNATTACK,
 			ATTACK,
 			HIT,
 			DEATH,
@@ -54,6 +56,8 @@ namespace ya
 		void Move();
 		void Jump();
 		void SitDown();
+		void SitDownMove();
+		void SitDownAttack();
 		void Attack();
 		void Hit();
 		void Death();

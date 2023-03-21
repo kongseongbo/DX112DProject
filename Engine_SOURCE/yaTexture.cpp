@@ -28,6 +28,13 @@ namespace ya::graphics
 		GetDevice()->SetShaderResource(eShaderStage::PS, startSlot, &srv);
 	}
 	
+	bool Texture::Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag)
+	{
+
+
+		return false;
+	}
+
 	HRESULT Texture::Load(const std::wstring& name)
 	{
 		std::filesystem::path parentPath = std::filesystem::current_path().parent_path();

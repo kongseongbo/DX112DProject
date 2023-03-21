@@ -77,8 +77,8 @@ namespace ya
 			headAni->Create(L"LAttackTop", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 140.0f), Vector2::Zero, 10, 0.1f);
 
 			texture = Resources::Load<Texture>(L"Down", L"Character\\Marco\\Down.png");
-			headAni->Create(L"DownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2::Zero, 3, 0.1f);
-			headAni->Create(L"DownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2::Zero, 4, 0.1f);
+			headAni->Create(L"DownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(0.01f,0.07f), 3, 0.1f);
+			headAni->Create(L"DownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 4, 0.3f);
 			headAni->Create(L"DownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2::Zero, 7, 0.1f);
 
 			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
@@ -88,6 +88,7 @@ namespace ya
 			headAni->GetCompleteEvent(L"LPistolAttackU") = std::bind(&PlayerScript::End, this);
 			headAni->GetCompleteEvent(L"LookTop") = std::bind(&PlayerScript::End, this);
 			headAni->GetCompleteEvent(L"LLookTop") = std::bind(&PlayerScript::End, this);
+			headAni->GetCompleteEvent(L"DownMotion") = std::bind(&PlayerScript::End, this);
 		}
 		           
 		/*if (animator->GetName() == L"HeadIdle")
@@ -130,6 +131,12 @@ namespace ya
 			break;
 		case ya::PlayerScript::HeadState::SITDOWN:
 			SitDown();
+			break;
+		case ya::PlayerScript::HeadState::SITDOWNMOVE:
+			SitDownMove();
+			break;
+		case ya::PlayerScript::HeadState::SITDOWNATTACK:
+			SitDownAttack();
 			break;
 		case ya::PlayerScript::HeadState::DEATH:
 			Death();
@@ -217,6 +224,11 @@ namespace ya
 				}
 			}
 		}
+		if (mHeadState == HeadState::SITDOWN && mBodyState == BodyState::SITDOWN)
+		{
+			headAni->Play(L"DownIdle", true);
+		}
+
 	}
 
 	void PlayerScript::Idle()
@@ -306,8 +318,16 @@ namespace ya
 
 			if (headAni != nullptr && bodyAni != nullptr)
 			{
-				headAni->Play(L"MoveLeftU", true);
-				bodyAni->Play(L"MoveLeftD", true);
+				if (mHeadState == HeadState::SITDOWN)
+				{
+					headAni->Play(L"DownMove", true);
+				}
+				else
+				{
+					headAni->Play(L"MoveLeftU", true);
+					bodyAni->Play(L"MoveLeftD", true);
+
+				}
 			}
 		}
 		
@@ -340,13 +360,18 @@ namespace ya
 		{
 			if (mHeadState == HeadState::SITDOWN)
 			{
-				//Player* player = dynamic_cast<Player*>(bodyAni->GetOwner());
-				//player->SetLayerType(eLayerType::End);
-
 				bodyAni->Play(L"def", false);
 				headAni->Play(L"DownMotion", false);
 			}
 		}
+	}
+
+	void PlayerScript::SitDownMove()
+	{
+	}
+
+	void PlayerScript::SitDownAttack()
+	{
 	}
 
 	void PlayerScript::Attack()
