@@ -3,7 +3,7 @@
 #include "yaTime.h"
 #include "yaTransform.h"
 #include "yaResources.h"
-
+#include "yaPlayer.h"
 
 
 namespace ya
@@ -75,6 +75,14 @@ namespace ya
 
 			texture = Resources::Load<Texture>(L"LAttackTop", L"Character\\Marco\\LAttackTop.png");
 			headAni->Create(L"LAttackTop", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 140.0f), Vector2::Zero, 10, 0.1f);
+
+			texture = Resources::Load<Texture>(L"Down", L"Character\\Marco\\Down.png");
+			headAni->Create(L"DownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2::Zero, 3, 0.1f);
+			headAni->Create(L"DownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2::Zero, 4, 0.1f);
+			headAni->Create(L"DownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2::Zero, 7, 0.1f);
+
+			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
+			bodyAni->Create(L"def", texture, Vector2(0.0f, 50.f), Vector2(50.0f, 50.0f), Vector2::Zero, 1, 0.1f);
 			
 			headAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&PlayerScript::End, this);
 			headAni->GetCompleteEvent(L"LPistolAttackU") = std::bind(&PlayerScript::End, this);
@@ -232,9 +240,10 @@ namespace ya
 					headAni->Play(L"LookTop", false);
 			}
 		}
-		
-		if (Input::GetKey(eKeyCode::DOWN))
+		if (Input::GetKeyDown(eKeyCode::DOWN))
 		{
+			mHeadState = HeadState::SITDOWN;
+			mBodyState = BodyState::SITDOWN;
 			
 		}
 		if (Input::GetKey(eKeyCode::SPACE))
@@ -325,6 +334,19 @@ namespace ya
 
 	void PlayerScript::SitDown()
 	{
+		if (headState == mHeadState && bodyState == mBodyState)
+			return;
+		if (bodyAni != nullptr && headAni != nullptr)
+		{
+			if (mHeadState == HeadState::SITDOWN)
+			{
+				//Player* player = dynamic_cast<Player*>(bodyAni->GetOwner());
+				//player->SetLayerType(eLayerType::End);
+
+				bodyAni->Play(L"def", false);
+				headAni->Play(L"DownMotion", false);
+			}
+		}
 	}
 
 	void PlayerScript::Attack()
