@@ -45,7 +45,7 @@ namespace ya
 			headAni->Create(L"LHeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 36.0f), Vector2::Zero, 4, 0.3f);
 
 			texture = Resources::Load<Texture>(L"MoveLeftU", L"Character\\Marco\\LMoveU.png");
-			headAni->Create(L"MoveLeftU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 12, 0.15f);
+			headAni->Create(L"MoveLeftU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(-0.001f, 0.0f), 12, 0.15f);
 
 			texture = Resources::Load<Texture>(L"MoveLeftD", L"Character\\Marco\\LMoveD.png");
 			bodyAni->Create(L"MoveLeftD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
@@ -80,6 +80,11 @@ namespace ya
 			headAni->Create(L"DownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(0.01f,0.07f), 3, 0.1f);
 			headAni->Create(L"DownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 4, 0.3f);
 			headAni->Create(L"DownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2::Zero, 7, 0.1f);
+
+			texture = Resources::Load<Texture>(L"LeftDown", L"Character\\Marco\\LeftDown.png");
+			headAni->Create(L"LDownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 3, 0.1f);
+			headAni->Create(L"LDownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 4, 0.3f);
+			headAni->Create(L"LDownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2::Zero, 7, 0.1f);
 
 			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
 			bodyAni->Create(L"def", texture, Vector2(0.0f, 50.f), Vector2(50.0f, 50.0f), Vector2::Zero, 1, 0.1f);
@@ -264,7 +269,6 @@ namespace ya
 		}
 		if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
-
 			mHeadState = HeadState::ATTACK;
 		}
 
@@ -321,8 +325,6 @@ namespace ya
 
 				headAni->Play(L"MoveLeftU", true);
 				bodyAni->Play(L"MoveLeftD", true);
-
-				
 			}
 		}
 		
@@ -349,12 +351,11 @@ namespace ya
 
 	void PlayerScript::SitDown()
 	{
+		if (Input::GetKeyUp(eKeyCode::DOWN))
+			mHeadState = HeadState::IDLE;
 
 		if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKey(eKeyCode::LEFT))
-		{
 			mHeadState = HeadState::SITDOWNMOVE;
-			//mBodyState = BodyState::SITDOWNMOVE;
-		}
 
 		if (headState == mHeadState && bodyState == mBodyState)
 			return;
@@ -362,8 +363,17 @@ namespace ya
 		{
 			if (mHeadState == HeadState::SITDOWN)
 			{
-				bodyAni->Play(L"def", false);
-				headAni->Play(L"DownMotion", false);
+				if (mBodyState == BodyState::SITDOWN)
+				{
+					bodyAni->Play(L"def", false);
+					headAni->Play(L"DownIdle", false);
+				}
+				else
+				{
+					bodyAni->Play(L"def", false);
+					headAni->Play(L"DownMotion", false);
+				}
+				
 			}
 		}
 	}
@@ -372,12 +382,19 @@ namespace ya
 	{
 		if (Input::GetKeyUp(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::RIGHT))
 		{
-			mHeadState = HeadState::SITDOWN;
-			mBodyState = BodyState::SITDOWN;
+			if (Input::GetKey(eKeyCode::DOWN))
+			{
+				mHeadState = HeadState::SITDOWN;
+				mBodyState = BodyState::SITDOWN;
+			}
+			else
+			{
+				mHeadState = HeadState::IDLE;
+				mBodyState = BodyState::IDLE;
+			}
+			
 			return;
 		}
-		//mHeadState = HeadState::SITDOWNMOVE;
-		//mBodyState = BodyState::MOVE;
 
 		if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
@@ -388,38 +405,29 @@ namespace ya
 		}
 
 		Vector3 pos = mTr->GetPosition();
-		if (Input::GetKey(eKeyCode::LEFT))
+		if (Input::GetKey(eKeyCode::RIGHT))
 		{
-			pos.x -= 6.0f * Time::DeltaTime();
+			pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
-
-			direction = 1;
 
 			if (headState == mHeadState)
 				return;
 
 			if (headAni != nullptr && bodyAni != nullptr)
-			{
 				headAni->Play(L"DownMove", true);
-
-			}
 		}
 
-		//if (Input::GetKey(eKeyCode::RIGHT))
-		//{
-		//	pos.x += 6.0f * Time::DeltaTime();
-		//	mTr->SetPosition(pos);
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			pos.x -= 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+			direction = 1;
+			if (headState == mHeadState)
+				return;
 
-		//	direction = 0;
-		//	if (headState == mHeadState)
-		//		return;
-
-		//	if (headAni != nullptr && bodyAni != nullptr && (mHeadState == HeadState::MOVE))
-		//	{
-		//		headAni->Play(L"MoveRightU", true);
-		//		bodyAni->Play(L"MoveRightD", true);
-		//	}
-		//}
+			if (headAni != nullptr && bodyAni != nullptr)
+				headAni->Play(L"LDownMove", true);
+		}
 	}
 
 	void PlayerScript::SitDownAttack()
