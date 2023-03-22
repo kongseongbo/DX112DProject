@@ -318,16 +318,11 @@ namespace ya
 
 			if (headAni != nullptr && bodyAni != nullptr)
 			{
-				if (mHeadState == HeadState::SITDOWN)
-				{
-					headAni->Play(L"DownMove", true);
-				}
-				else
-				{
-					headAni->Play(L"MoveLeftU", true);
-					bodyAni->Play(L"MoveLeftD", true);
 
-				}
+				headAni->Play(L"MoveLeftU", true);
+				bodyAni->Play(L"MoveLeftD", true);
+
+				
 			}
 		}
 		
@@ -354,6 +349,13 @@ namespace ya
 
 	void PlayerScript::SitDown()
 	{
+
+		if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKey(eKeyCode::LEFT))
+		{
+			mHeadState = HeadState::SITDOWNMOVE;
+			//mBodyState = BodyState::SITDOWNMOVE;
+		}
+
 		if (headState == mHeadState && bodyState == mBodyState)
 			return;
 		if (bodyAni != nullptr && headAni != nullptr)
@@ -368,6 +370,56 @@ namespace ya
 
 	void PlayerScript::SitDownMove()
 	{
+		if (Input::GetKeyUp(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::RIGHT))
+		{
+			mHeadState = HeadState::SITDOWN;
+			mBodyState = BodyState::SITDOWN;
+			return;
+		}
+		//mHeadState = HeadState::SITDOWNMOVE;
+		//mBodyState = BodyState::MOVE;
+
+		if (Input::GetKeyDown(eKeyCode::LCTRL))
+		{
+			if (Input::GetKey(eKeyCode::LEFT))
+				direction = 1;
+
+			mHeadState = HeadState::ATTACK;
+		}
+
+		Vector3 pos = mTr->GetPosition();
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			pos.x -= 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+
+			direction = 1;
+
+			if (headState == mHeadState)
+				return;
+
+			if (headAni != nullptr && bodyAni != nullptr)
+			{
+				headAni->Play(L"DownMove", true);
+
+			}
+		}
+
+		//if (Input::GetKey(eKeyCode::RIGHT))
+		//{
+		//	pos.x += 6.0f * Time::DeltaTime();
+		//	mTr->SetPosition(pos);
+
+		//	direction = 0;
+		//	if (headState == mHeadState)
+		//		return;
+
+		//	if (headAni != nullptr && bodyAni != nullptr && (mHeadState == HeadState::MOVE))
+		//	{
+		//		headAni->Play(L"MoveRightU", true);
+		//		bodyAni->Play(L"MoveRightD", true);
+		//	}
+		//}
 	}
 
 	void PlayerScript::SitDownAttack()

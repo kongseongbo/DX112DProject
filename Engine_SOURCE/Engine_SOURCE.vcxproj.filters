@@ -247,6 +247,8 @@
     <ClCompile Include="yaLight.cpp">
       <Filter>Component\Light</Filter>
     </ClCompile>
+    <ClCompile Include="yaPaintShader.cpp" />
+    <ClCompile Include="yaComputeShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -394,6 +396,8 @@
     <ClInclude Include="yaLight.h">
       <Filter>Component\Light</Filter>
     </ClInclude>
+    <ClInclude Include="yaPaintShader.h" />
+    <ClInclude Include="yaComputeShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

@@ -22,8 +22,12 @@ namespace ya::graphics
 		static void Clear(UINT startSlot);
 
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
+		bool Create(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture);
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT slot);
+		void BindUnorderedAccessView(UINT startSlot);
+		void ClearUnorderedAccessView(UINT startSlot);
+
 		void Clear();
 
 		size_t GetHeight() { return mImage.GetMetadata().height; }
@@ -34,6 +38,8 @@ namespace ya::graphics
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetRTV() { return mRTV; }
 		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> GetUAV() { return mUAV; }
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> GetSRV() { return mSRV; }
+
+		//void SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture) { mTexture = texture; }
 
 	private:
 		ScratchImage mImage;
