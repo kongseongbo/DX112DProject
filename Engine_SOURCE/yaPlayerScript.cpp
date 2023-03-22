@@ -79,12 +79,12 @@ namespace ya
 			texture = Resources::Load<Texture>(L"Down", L"Character\\Marco\\Down.png");
 			headAni->Create(L"DownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(0.01f,0.07f), 3, 0.1f);
 			headAni->Create(L"DownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 4, 0.3f);
-			headAni->Create(L"DownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2::Zero, 7, 0.1f);
+			headAni->Create(L"DownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 7, 0.07f);
 
 			texture = Resources::Load<Texture>(L"LeftDown", L"Character\\Marco\\LeftDown.png");
-			headAni->Create(L"LDownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 3, 0.1f);
-			headAni->Create(L"LDownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 4, 0.3f);
-			headAni->Create(L"LDownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2::Zero, 7, 0.1f);
+			headAni->Create(L"LDownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(-0.01f, 0.07f), 3, 0.1f);
+			headAni->Create(L"LDownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(-0.01f, 0.07f), 4, 0.3f);
+			headAni->Create(L"LDownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2(-0.01f, 0.07f), 7, 0.07f);
 
 			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
 			bodyAni->Create(L"def", texture, Vector2(0.0f, 50.f), Vector2(50.0f, 50.0f), Vector2::Zero, 1, 0.1f);
@@ -113,13 +113,6 @@ namespace ya
 
 	void PlayerScript::Update()
 	{
-		
-		/*if (GetOwner()->GetName() == L"Head")
-			headAni->GetOwner()->GetComponent<Animator>();
-		else if (GetOwner()->GetName() == L"Body")
-			bodyAni->GetOwner()->GetComponent<Animator>();*/
-
-		
 		switch (mHeadState)
 		{
 		case ya::PlayerScript::HeadState::IDLE:
@@ -301,6 +294,12 @@ namespace ya
 		mHeadState = HeadState::MOVE;
 		mBodyState = BodyState::MOVE;
 
+		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			mHeadState = HeadState::SITDOWNMOVE;
+			mBodyState = BodyState::SITDOWN;
+		}
+
 		if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
 			if (Input::GetKey(eKeyCode::LEFT))
@@ -363,17 +362,32 @@ namespace ya
 		{
 			if (mHeadState == HeadState::SITDOWN)
 			{
-				if (mBodyState == BodyState::SITDOWN)
+				if (direction == 1)
 				{
-					bodyAni->Play(L"def", false);
-					headAni->Play(L"DownIdle", false);
+					if (mBodyState == BodyState::SITDOWN)
+					{
+						bodyAni->Play(L"def", false);
+						headAni->Play(L"LDownIdle", false);
+					}
+					else
+					{
+						bodyAni->Play(L"def", false);
+						headAni->Play(L"LDownMotion", false);
+					}
 				}
 				else
 				{
-					bodyAni->Play(L"def", false);
-					headAni->Play(L"DownMotion", false);
+					if (mBodyState == BodyState::SITDOWN)
+					{
+						bodyAni->Play(L"def", false);
+						headAni->Play(L"DownIdle", false);
+					}
+					else
+					{
+						bodyAni->Play(L"def", false);
+						headAni->Play(L"DownMotion", false);
+					}
 				}
-				
 			}
 		}
 	}
@@ -396,6 +410,14 @@ namespace ya
 			return;
 		}
 
+		if (Input::GetKeyUp(eKeyCode::DOWN))
+		{
+			mHeadState = HeadState::MOVE;
+			mBodyState = BodyState::MOVE;
+
+			return;
+		}
+
 		if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
 			if (Input::GetKey(eKeyCode::LEFT))
@@ -409,12 +431,16 @@ namespace ya
 		{
 			pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
-
+			direction = 0;
 			if (headState == mHeadState)
 				return;
 
 			if (headAni != nullptr && bodyAni != nullptr)
+			{
+				bodyAni->Play(L"def", false);
 				headAni->Play(L"DownMove", true);
+			}
+			
 		}
 
 		if (Input::GetKey(eKeyCode::LEFT))
@@ -426,7 +452,10 @@ namespace ya
 				return;
 
 			if (headAni != nullptr && bodyAni != nullptr)
+			{
 				headAni->Play(L"LDownMove", true);
+				bodyAni->Play(L"def", false);
+			}				
 		}
 	}
 
