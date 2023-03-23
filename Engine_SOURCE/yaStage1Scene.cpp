@@ -16,6 +16,7 @@
 #include "yaMonster.h"
 #include "yaCollisionManager.h"
 #include "yaLight.h"
+#include "yaRigidbody.h"
 
 namespace ya
 {
@@ -87,6 +88,7 @@ namespace ya
 		headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 		//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 		mHeadObj->AddComponent<Animator>();
+		mHeadObj->AddComponent<Rigidbody>();
 		PlayerScript* playerscript = mHeadObj->AddComponent<PlayerScript>();
 		playerscript->SetHeadAnimator(mHeadObj->GetComponent<Animator>());
 
@@ -109,6 +111,7 @@ namespace ya
 		bodyTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 		bodyObj->AddComponent<Animator>();
 		bodyObj->AddComponent<PlayerScript>();
+		bodyObj->AddComponent<Rigidbody>();
 		playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());
 
 		SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();

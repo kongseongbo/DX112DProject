@@ -115,6 +115,9 @@
     <Filter Include="Component\Light">
       <UniqueIdentifier>{75880bbd-c371-4a66-b861-ffccfdf99beb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Rigidbody">
+      <UniqueIdentifier>{da5d8b05-77fd-4075-bd84-ec39235f6701}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -249,6 +252,9 @@
     </ClCompile>
     <ClCompile Include="yaPaintShader.cpp" />
     <ClCompile Include="yaComputeShader.cpp" />
+    <ClCompile Include="yaRigidbody.cpp">
+      <Filter>Component\Rigidbody</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -398,6 +404,9 @@
     </ClInclude>
     <ClInclude Include="yaPaintShader.h" />
     <ClInclude Include="yaComputeShader.h" />
+    <ClInclude Include="yaRigidbody.h">
+      <Filter>Component\Rigidbody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

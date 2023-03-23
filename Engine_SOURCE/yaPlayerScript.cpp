@@ -4,6 +4,7 @@
 #include "yaTransform.h"
 #include "yaResources.h"
 #include "yaPlayer.h"
+#include "yaRigidbody.h"
 
 
 namespace ya
@@ -86,6 +87,14 @@ namespace ya
 			headAni->Create(L"LDownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(-0.01f, 0.07f), 4, 0.3f);
 			headAni->Create(L"LDownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2(-0.01f, 0.07f), 7, 0.07f);
 
+			texture = Resources::Load<Texture>(L"StiDownAttack", L"Character\\Marco\\StiDownAttack.png");
+			headAni->Create(L"StiDownAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 31.0f), Vector2(0.02f, 0.55f), 10, 0.1f);
+
+			texture = Resources::Load<Texture>(L"LStiDownAttack", L"Character\\Marco\\LStiDownAttack.png");
+			headAni->Create(L"LStiDownAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 31.0f), Vector2(-0.04f, 0.55f), 10, 0.1f);
+
+
+			// 투명이미지
 			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
 			bodyAni->Create(L"def", texture, Vector2(0.0f, 50.f), Vector2(50.0f, 50.0f), Vector2::Zero, 1, 0.1f);
 			
@@ -120,6 +129,9 @@ namespace ya
 			break;
 		case ya::PlayerScript::HeadState::MOVE:
 			Move();
+			break;
+		case ya::PlayerScript::HeadState::JUMP:
+			Jump();
 			break;
 		case ya::PlayerScript::HeadState::HIT:
 			Hit();
@@ -258,7 +270,15 @@ namespace ya
 		}
 		if (Input::GetKey(eKeyCode::SPACE))
 		{
-			
+			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
+			Vector2 velocity = rigidbody->GetVelocity();
+
+			velocity.y = 10.0f;
+			rigidbody->SetGround(false);
+			rigidbody->SetVelocity(velocity);
+
+			/*mHeadState = HeadState::JUMP;
+			mBodyState = BodyState::JUMP;*/
 		}
 		if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
@@ -346,6 +366,9 @@ namespace ya
 
 	void PlayerScript::Jump()
 	{
+		
+
+
 	}
 
 	void PlayerScript::SitDown()
@@ -355,6 +378,16 @@ namespace ya
 
 		if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKey(eKeyCode::LEFT))
 			mHeadState = HeadState::SITDOWNMOVE;
+
+		if (Input::GetKeyDown(eKeyCode::LCTRL))
+		{
+			/*if (Input::GetKey(eKeyCode::LEFT))
+				direction = 1;
+			else
+				direction = 0;*/
+
+			mHeadState = HeadState::SITDOWNATTACK;
+		}
 
 		if (headState == mHeadState && bodyState == mBodyState)
 			return;
@@ -406,7 +439,6 @@ namespace ya
 				mHeadState = HeadState::IDLE;
 				mBodyState = BodyState::IDLE;
 			}
-			
 			return;
 		}
 
@@ -422,8 +454,10 @@ namespace ya
 		{
 			if (Input::GetKey(eKeyCode::LEFT))
 				direction = 1;
+			else
+				direction = 0;
 
-			mHeadState = HeadState::ATTACK;
+			mHeadState = HeadState::SITDOWNATTACK;
 		}
 
 		Vector3 pos = mTr->GetPosition();
@@ -461,6 +495,16 @@ namespace ya
 
 	void PlayerScript::SitDownAttack()
 	{
+		if (headState == mHeadState)
+			return;
+
+		if (headAni != nullptr)
+		{
+			if (direction == 1)
+				headAni->Play(L"LStiDownAttack", false);
+			else
+				headAni->Play(L"StiDownAttack", false);
+		}
 	}
 
 	void PlayerScript::Attack()

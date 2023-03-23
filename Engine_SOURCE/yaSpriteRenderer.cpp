@@ -15,6 +15,7 @@ namespace ya
 
 	void SpriteRenderer::Initalize()
 	{
+		int a = 0;
 	}
 
 	void SpriteRenderer::Update()
