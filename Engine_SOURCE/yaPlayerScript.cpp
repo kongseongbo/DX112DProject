@@ -268,12 +268,12 @@ namespace ya
 			mBodyState = BodyState::SITDOWN;
 			
 		}
-		if (Input::GetKey(eKeyCode::SPACE))
+		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
 
-			velocity.y = 10.0f;
+			velocity.y = 30.0f;
 			rigidbody->SetGround(false);
 			rigidbody->SetVelocity(velocity);
 

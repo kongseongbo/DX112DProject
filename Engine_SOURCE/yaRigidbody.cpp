@@ -9,10 +9,10 @@ namespace ya
 		, mMass(1.0f)
 		, mFriction(100.0f)
 	{
-		mLimitVelocity.x = 20.f;
-		mLimitVelocity.y = 100.f;
-		mbGround = true;
-		mGravity = Vector2(0.0f, 80.0f);
+		mLimitVelocity.x = 200.f;
+		mLimitVelocity.y = 1000.f;
+		mbGround = false;
+		mGravity = Vector2(0.0f, 110.0f);
 	}
 
 	Rigidbody::~Rigidbody()
@@ -38,7 +38,7 @@ namespace ya
 			Vector2 gravity = mGravity;
 			gravity.Normalize();
 			float dot = (gravity.x * mVelocity.x) + (gravity.y * mVelocity.y);
-			mVelocity += Vector2(gravity.x * dot, gravity.y * dot);
+			mVelocity -= Vector2(gravity.x * dot, gravity.y * dot);
 		}
 		else
 		{
