@@ -11,7 +11,7 @@ namespace ya
 	{
 		mLimitVelocity.x = 20.f;
 		mLimitVelocity.y = 100.f;
-		mbGround = false;
+		mbGround = true;
 		mGravity = Vector2(0.0f, 80.0f);
 	}
 

@@ -118,6 +118,9 @@
     <Filter Include="Component\Rigidbody">
       <UniqueIdentifier>{da5d8b05-77fd-4075-bd84-ec39235f6701}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Buffer">
+      <UniqueIdentifier>{c7f25cf2-3e2d-464c-8aae-40c5835e0e1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -198,9 +201,6 @@
     <ClCompile Include="yaBaseRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="yaConstantBuffer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="yaGridScript.cpp">
       <Filter>Resource\Script</Filter>
     </ClCompile>
@@ -246,7 +246,6 @@
     <ClCompile Include="yaCharacterSelect.cpp">
       <Filter>Component\Script\CharacterSelect</Filter>
     </ClCompile>
-    <ClCompile Include="yaStructedBuffer.cpp" />
     <ClCompile Include="yaLight.cpp">
       <Filter>Component\Light</Filter>
     </ClCompile>
@@ -254,6 +253,12 @@
     <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaRigidbody.cpp">
       <Filter>Component\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="yaConstantBuffer.cpp">
+      <Filter>Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="yaStructedBuffer.cpp">
+      <Filter>Graphics\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -350,9 +355,6 @@
     <ClInclude Include="yaBaseRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="yaConstantBuffer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="yaGridScript.h">
       <Filter>Resource\Script</Filter>
     </ClInclude>
@@ -398,7 +400,6 @@
     <ClInclude Include="yaCharacterSelect.h">
       <Filter>Component\Script\CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="yaStructedBuffer.h" />
     <ClInclude Include="yaLight.h">
       <Filter>Component\Light</Filter>
     </ClInclude>
@@ -406,6 +407,12 @@
     <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaRigidbody.h">
       <Filter>Component\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="yaConstantBuffer.h">
+      <Filter>Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="yaStructedBuffer.h">
+      <Filter>Graphics\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

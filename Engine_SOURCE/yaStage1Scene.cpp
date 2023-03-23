@@ -17,6 +17,7 @@
 #include "yaCollisionManager.h"
 #include "yaLight.h"
 #include "yaRigidbody.h"
+#include "yaPaintShader.h"
 
 namespace ya
 {
@@ -34,6 +35,13 @@ namespace ya
 
 	void Stage1Scene::Initalize()
 	{
+		//paint shader
+		std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+		//L"SmileTexture"
+		std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
+		paintShader->SetTarget(paintTex);
+		paintShader->OnExcute();
+
 		// Light
 		{
 			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, this);
@@ -131,9 +139,7 @@ namespace ya
 		monsterCollider->SetType(eColliderType::Rect);
 
 		SpriteRenderer* monsterMr = monsterObj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"smile", L"Smile.png");
-		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"SpriteMaterial");
-		monsterMateiral->SetTexture(texture);
+		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");
 		monsterMr->SetMaterial(monsterMateiral);
 		monsterMr->SetMesh(mesh);
 
