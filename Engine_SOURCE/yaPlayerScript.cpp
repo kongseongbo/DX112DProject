@@ -122,6 +122,21 @@ namespace ya
 
 	void PlayerScript::Update()
 	{
+		if (GetOwner()->GetName() == L"Head")
+			Head = dynamic_cast<Player*> (GetOwner());
+
+		if (GetOwner()->GetName() == L"Body")
+			Body = dynamic_cast<Player*> (GetOwner());
+
+		if (Head != nullptr && Body != nullptr)
+		{
+			Transform* headTr = Head->GetComponent<Transform>();
+			Transform* bodyTr = Body->GetComponent<Transform>();
+			Vector3 headPos = headTr->GetPosition();
+			bodyTr->SetPosition(headPos);
+		}
+		
+
 		switch (mHeadState)
 		{
 		case ya::PlayerScript::HeadState::IDLE:
@@ -183,7 +198,13 @@ namespace ya
 	}
 
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
-	{
+ 	{
+		Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
+		Vector2 velocity = rigidbody->GetVelocity();
+
+		//velocity.y = 30.0f;
+		rigidbody->SetGround(true);
+		//rigidbody->SetVelocity(velocity);
 	}
 
 	void PlayerScript::OnCollisionStay(Collider2D* collider)

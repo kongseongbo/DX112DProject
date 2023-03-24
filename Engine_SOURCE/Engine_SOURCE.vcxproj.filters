@@ -121,6 +121,9 @@
     <Filter Include="Graphics\Buffer">
       <UniqueIdentifier>{c7f25cf2-3e2d-464c-8aae-40c5835e0e1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Map">
+      <UniqueIdentifier>{e3a64ed8-c910-4bdd-925c-6049528defbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -259,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="yaStructedBuffer.cpp">
       <Filter>Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMapScript.cpp">
+      <Filter>Component\Script\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -413,6 +419,9 @@
     </ClInclude>
     <ClInclude Include="yaStructedBuffer.h">
       <Filter>Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMapScript.h">
+      <Filter>Component\Script\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

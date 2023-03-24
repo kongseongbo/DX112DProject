@@ -23,6 +23,7 @@ namespace ya::enums
 		Body,
 		Player,
 		Animator,
+		Collider,
 		UI,
 		FadeIn,
 		End = 16,

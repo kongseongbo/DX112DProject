@@ -6,6 +6,7 @@
 
 namespace ya
 {
+	class Player;
 	class PlayerScript : public Script
 	{
 	public:
@@ -75,6 +76,9 @@ namespace ya
 		Transform* mTr;
 		Animator* headAni;
 		Animator* bodyAni;
+
+		Player* Head;
+		Player* Body;
 
 		HeadState headState;
 		BodyState bodyState;

@@ -71,6 +71,8 @@ namespace ya
 
 	void Collider2D::OnCollisionEnter(Collider2D* collider)
 	{
+		
+
 		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
 		for (Script* script : scripts)
 		{

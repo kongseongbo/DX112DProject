@@ -25,6 +25,7 @@ namespace ya
 
 		void SetType(eColliderType type) { mType = type; }
 		void SetSize(Vector2 size) { mSize = size; }
+		void SetPos(Vector3 pos) { mPosition = pos; }
 		void SetCenter(Vector2 center) { mCenter = center; }
 		void SetRadius(float radius) { mRadius = radius; }
 		bool IsTriiger() { return mbTrigger; }

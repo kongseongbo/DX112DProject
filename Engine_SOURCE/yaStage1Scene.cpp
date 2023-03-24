@@ -18,6 +18,8 @@
 #include "yaLight.h"
 #include "yaRigidbody.h"
 #include "yaPaintShader.h"
+#include "yaMapScript.h"
+
 
 namespace ya
 {
@@ -80,14 +82,25 @@ namespace ya
 		Transform* map1Tr = mapObj->GetComponent<Transform>();
 		map1Tr->SetPosition(Vector3(1.0f, 1.0f, 10.0f));
 		map1Tr->SetScale(Vector3(100.0f, 15.0f, 1.0f));
-
+		
 		SpriteRenderer* mapMr = mapObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		std::shared_ptr<Material> mapMaterial = Resources::Find<Material>(L"MapMaterial");
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
 
-		
+		// Map Collider
+		GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+		mapcolliderObj->SetName(L"CollMap");
+		Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+		mapcolliderTr->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
+		mapcolliderTr->SetScale(Vector3(100.0f, 15.0f, 1.0f));
+		MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+		Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+		mapCollider->SetType(eColliderType::Rect);
+		mapCollider->SetCenter(Vector2(0.0f, -5.0f));
+		mapCollider->SetSize(Vector2(50.f, 0.1f));
+
 		//Player Head
 		mHeadObj = object::Instantiate<Player>(eLayerType::Player, this);
 		mHeadObj->SetName(L"Head");
@@ -169,6 +182,7 @@ namespace ya
 		
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);
 
 		Scene::Initalize();
 	}
@@ -197,7 +211,7 @@ namespace ya
 	void Stage1Scene::Render()
 	{
 		Scene::Render();
-	}
+	} 
 
 	void Stage1Scene::OnEnter()
 	{

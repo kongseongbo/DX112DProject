@@ -429,6 +429,7 @@ namespace ya::renderer
 
 		// Map
 		Resources::Load<Texture>(L"Mission1", L"Map\\Mission1.png");
+		Resources::Load<Texture>(L"PixelMission1", L"Map\\PixelMission1.png");
 
 	}
 
@@ -579,6 +580,14 @@ namespace ya::renderer
 		mapMaterial->SetShader(mapShader);
 		mapMaterial->SetTexture(mapTexture);
 		Resources::Insert<Material>(L"MapMaterial", mapMaterial);
+
+		// Pixel
+		std::shared_ptr <Texture> pixelTexture = Resources::Find<Texture>(L"PixelMission1");
+		std::shared_ptr<Material> pixelMaterial = std::make_shared<Material>();
+		pixelMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		pixelMaterial->SetShader(mapShader);
+		pixelMaterial->SetTexture(mapTexture);
+		Resources::Insert<Material>(L"pixelTexture", pixelMaterial);
 
 	}
 
