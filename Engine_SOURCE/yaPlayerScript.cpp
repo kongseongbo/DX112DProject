@@ -5,6 +5,7 @@
 #include "yaResources.h"
 #include "yaPlayer.h"
 #include "yaRigidbody.h"
+#include "yaBody.h"
 
 
 namespace ya
@@ -122,19 +123,7 @@ namespace ya
 
 	void PlayerScript::Update()
 	{
-		if (GetOwner()->GetName() == L"Head")
-			Head = dynamic_cast<Player*> (GetOwner());
-
-		if (GetOwner()->GetName() == L"Body")
-			Body = dynamic_cast<Player*> (GetOwner());
-
-		if (Head != nullptr && Body != nullptr)
-		{
-			Transform* headTr = Head->GetComponent<Transform>();
-			Transform* bodyTr = Body->GetComponent<Transform>();
-			Vector3 headPos = headTr->GetPosition();
-			bodyTr->SetPosition(headPos);
-		}
+		
 		
 
 		switch (mHeadState)
@@ -170,6 +159,7 @@ namespace ya
 			break;
 		}
 
+
 		headState = mHeadState;
 		bodyState = mBodyState;
 
@@ -199,7 +189,11 @@ namespace ya
 
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
  	{
+
 		Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
+		if (rigidbody == nullptr)
+			return;
+
 		Vector2 velocity = rigidbody->GetVelocity();
 
 		//velocity.y = 30.0f;
@@ -291,7 +285,11 @@ namespace ya
 		}
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
+
+
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
+			if (rigidbody == nullptr)
+				return;
 			Vector2 velocity = rigidbody->GetVelocity();
 
 			velocity.y = 30.0f;

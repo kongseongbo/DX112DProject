@@ -7,25 +7,9 @@
 namespace ya
 {
 	class Player;
-	class Body;
-	class PlayerScript : public Script
+	class BodyScript : public Script
 	{
 	public:
-		enum class HeadState
-		{
-			NONE,
-			IDLE,
-			MOVE,
-			JUMP,
-			SITDOWN,
-			SITDOWNMOVE,
-			SITDOWNATTACK,
-			ATTACK,
-			HIT,
-			DEATH,
-		};
-		static HeadState mHeadState;
-
 		enum class BodyState
 		{
 			NONE,
@@ -38,9 +22,9 @@ namespace ya
 			DEATH,
 		};
 		static BodyState mBodyState;
-	
-		PlayerScript();
-		~PlayerScript();
+
+		BodyScript();
+		~BodyScript();
 
 		virtual void Initalize() override;
 		virtual void Update() override;
@@ -64,21 +48,17 @@ namespace ya
 		void Hit();
 		void Death();
 
-		HeadState GetHeadState() { return mHeadState; }
-		void SetHeadState(HeadState state) { mHeadState = state; }
-
 		BodyState GetBodyState() { return mBodyState; }
 		void SetBodyState(BodyState state) { mBodyState = state; }
 
-		void SetHeadAnimator(Animator* ani) { headAni = ani; }
 		void SetBodyAnimator(Animator* ani) { bodyAni = ani; }
+
+		Player* mHead;
 
 	private:
 		Transform* mTr;
-		Animator* headAni;
 		Animator* bodyAni;
 
-		HeadState headState;
 		BodyState bodyState;
 
 		int direction;

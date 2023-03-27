@@ -19,13 +19,16 @@
 #include "yaRigidbody.h"
 #include "yaPaintShader.h"
 #include "yaMapScript.h"
+#include "yaBody.h"
+#include "yaPlayer.h"
+#include "yaHeadScript.h"
+#include "yaBodyScript.h"
 
 
 namespace ya
 {
 	Stage1Scene::Stage1Scene()
 		: Scene(eSceneType::Stage1)
-		, mHeadObj(nullptr)
 		, mCameraObj(nullptr)
 	{
 
@@ -102,37 +105,38 @@ namespace ya
 		mapCollider->SetSize(Vector2(50.f, 0.1f));
 
 		//Player Head
-		mHeadObj = object::Instantiate<Player>(eLayerType::Player, this);
-		mHeadObj->SetName(L"Head");
-		Transform* headTr = mHeadObj->GetComponent<Transform>();
+		Player* headObj = object::Instantiate<Player>(eLayerType::Player, this);
+		headObj->SetName(L"Head");
+		Transform* headTr = headObj->GetComponent<Transform>();
 		headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
 		headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 		//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
-		mHeadObj->AddComponent<Animator>();
-		mHeadObj->AddComponent<Rigidbody>();
-		PlayerScript* playerscript = mHeadObj->AddComponent<PlayerScript>();
-		playerscript->SetHeadAnimator(mHeadObj->GetComponent<Animator>());
+		headObj->AddComponent<Animator>();
+		headObj->AddComponent<Rigidbody>();
+		HeadScript* playerscript = headObj->AddComponent<HeadScript>();
+		playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
 
-		Collider2D* collider = mHeadObj->AddComponent<Collider2D>();
+		Collider2D* collider = headObj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
 		collider->SetCenter(Vector2(0.0f, -0.6f));
 		collider->SetSize(Vector2(0.2f, 0.2f));
 
-		SpriteRenderer* headMr = mHeadObj->AddComponent<SpriteRenderer>();
+		SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
 		headMr->SetMaterial(headMateiral);
 		headMr->SetMesh(mesh);
-		object::DontDestroyOnLoad(mHeadObj);
+		object::DontDestroyOnLoad(headObj);
 
 		//Player Body
-		Player* bodyObj = object::Instantiate<Player>(eLayerType::Body, this);
+		Body* bodyObj = object::Instantiate<Body>(eLayerType::Body, this);
 		bodyObj->SetName(L"Body");
 		Transform* bodyTr = bodyObj->GetComponent<Transform>();
 		bodyTr->SetPosition(Vector3(headTr->GetPosition().x - 0.2f, headTr->GetPosition().y - 1.3f, 5.0f));
 		bodyTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 		bodyObj->AddComponent<Animator>();
-		bodyObj->AddComponent<PlayerScript>();
-		bodyObj->AddComponent<Rigidbody>();
+		BodyScript* bodyScript = bodyObj->AddComponent<BodyScript>();
+		bodyScript->mHead = headObj;
+		//bodyObj->AddComponent<Rigidbody>();
 		playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());
 
 		SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();
@@ -189,11 +193,11 @@ namespace ya
 
 	void Stage1Scene::Update()
 	{
-		CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
+	/*	CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
 		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
-		Transform* headTr = mHeadObj->GetComponent<Transform>();
+		Transform* headTr = headObj->GetComponent<Transform>();
 		Vector3 headPos = headTr->GetPosition();
-		cameraTr->SetPosition(headPos);
+		cameraTr->SetPosition(headPos);*/
 
 		if (Input::GetKeyDown(eKeyCode::N))
 		{

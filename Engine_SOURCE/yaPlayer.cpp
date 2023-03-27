@@ -1,6 +1,7 @@
 #include "yaPlayer.h"
 #include "yaResources.h"
 
+
 namespace ya
 {
 	Player::Player()

@@ -1,6 +1,6 @@
 #pragma once
 #include "yaScene.h"
-#include "yaPlayer.h"
+
 namespace ya
 {
 	class Stage1Scene : public Scene
@@ -19,6 +19,6 @@ namespace ya
 
 	private:
 		GameObject* mCameraObj;
-		Player* mHeadObj;
+		
 	};
 }

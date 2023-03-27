@@ -266,6 +266,15 @@
     <ClCompile Include="yaMapScript.cpp">
       <Filter>Component\Script\Map</Filter>
     </ClCompile>
+    <ClCompile Include="yaBody.cpp">
+      <Filter>Component\Script\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBodyScript.cpp">
+      <Filter>Component\Script\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHeadScript.cpp">
+      <Filter>Component\Script\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -422,6 +431,15 @@
     </ClInclude>
     <ClInclude Include="yaMapScript.h">
       <Filter>Component\Script\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBody.h">
+      <Filter>Component\Script\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBodyScript.h">
+      <Filter>Component\Script\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHeadScript.h">
+      <Filter>Component\Script\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

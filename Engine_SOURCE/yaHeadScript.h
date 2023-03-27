@@ -6,15 +6,14 @@
 
 namespace ya
 {
-	class Player;
-	class Body;
-	class PlayerScript : public Script
+	class HeadScript : public Script
 	{
 	public:
 		enum class HeadState
 		{
 			NONE,
 			IDLE,
+			UPIDLE,
 			MOVE,
 			JUMP,
 			SITDOWN,
@@ -26,21 +25,8 @@ namespace ya
 		};
 		static HeadState mHeadState;
 
-		enum class BodyState
-		{
-			NONE,
-			IDLE,
-			MOVE,
-			JUMP,
-			SITDOWN,
-			ATTACK,
-			HIT,
-			DEATH,
-		};
-		static BodyState mBodyState;
-	
-		PlayerScript();
-		~PlayerScript();
+		HeadScript();
+		~HeadScript();
 
 		virtual void Initalize() override;
 		virtual void Update() override;
@@ -55,6 +41,7 @@ namespace ya
 		void End();
 
 		void Idle();
+		void UpIdle();
 		void Move();
 		void Jump();
 		void SitDown();
@@ -67,8 +54,6 @@ namespace ya
 		HeadState GetHeadState() { return mHeadState; }
 		void SetHeadState(HeadState state) { mHeadState = state; }
 
-		BodyState GetBodyState() { return mBodyState; }
-		void SetBodyState(BodyState state) { mBodyState = state; }
 
 		void SetHeadAnimator(Animator* ani) { headAni = ani; }
 		void SetBodyAnimator(Animator* ani) { bodyAni = ani; }
@@ -79,7 +64,6 @@ namespace ya
 		Animator* bodyAni;
 
 		HeadState headState;
-		BodyState bodyState;
 
 		int direction;
 	};

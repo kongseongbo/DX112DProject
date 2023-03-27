@@ -156,7 +156,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="yaBody.h" />
+    <ClInclude Include="yaBodyScript.h" />
     <ClInclude Include="yaComputeShader.h" />
+    <ClInclude Include="yaHeadScript.h" />
     <ClInclude Include="yaLight.h" />
     <ClInclude Include="yaMapScript.h" />
     <ClInclude Include="yaPaintShader.h" />
@@ -210,7 +213,10 @@
     <ClInclude Include="yaTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaBody.cpp" />
+    <ClCompile Include="yaBodyScript.cpp" />
     <ClCompile Include="yaComputeShader.cpp" />
+    <ClCompile Include="yaHeadScript.cpp" />
     <ClCompile Include="yaLight.cpp" />
     <ClCompile Include="yaMapScript.cpp" />
     <ClCompile Include="yaPaintShader.cpp" />

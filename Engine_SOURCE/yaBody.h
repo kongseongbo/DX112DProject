@@ -1,12 +1,13 @@
 #pragma once
-#include "yaComponent.h"
+#include "yaGameObject.h"
 #include "yaAnimator.h"
+
+
 
 
 namespace ya
 {
-	
-	class Body : public Component
+	class Body : public GameObject
 	{
 	public:
 		Body();
@@ -17,10 +18,8 @@ namespace ya
 		virtual void FixedUpdate();
 		virtual void Render();
 
-	
+
 
 	private:
-		Animator* mAnimator;
 	};
-
 }
