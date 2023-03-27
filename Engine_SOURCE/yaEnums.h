@@ -18,14 +18,16 @@ namespace ya::enums
 		None = 0,
 		Camera,
 		Grid,
+		FadeIn,
 		Map,
 		Monster,
 		Body,
 		Player,
 		Animator,
 		Collider,
+
+		Particle,
 		UI,
-		FadeIn,
 		End = 16,
 	};
 
@@ -41,6 +43,7 @@ namespace ya::enums
 		SpriteRenderer,
 		Animator,
 		Rigidbody,
+		ParticleSystem,
 		Light,
 		UI,
 		Script,

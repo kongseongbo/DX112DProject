@@ -18,6 +18,7 @@
 #define CBSLOT_FADEINOUT 3
 #define CBSLOT_ANIMATION 4
 #define CBSLOT_NUMBEROFLIGHT 5
+#define CBSLOT_PARTICLESYSTEM 6
 
 using namespace ya::math;
 namespace ya::graphics
@@ -105,6 +106,7 @@ namespace ya::graphics
 		FadeInOut,
 		Animation,
 		Light,
+		ParticleSystem,
 		End,
 	};
 
@@ -147,5 +149,16 @@ namespace ya::graphics
 		float radius;
 		float angle;
 		int padding;
+	};
+
+	struct Particle
+	{
+		Vector4 position;
+		Vector4 direction;
+
+		float lifeTime;
+		float time;
+		float speed;
+		UINT active;
 	};
 }

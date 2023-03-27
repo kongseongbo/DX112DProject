@@ -4,6 +4,7 @@
 #include "yaConstantBuffer.h"
 #include "yaMesh.h"
 #include "yaTexture.h"
+#include "yaResources.h"
 
 extern ya::Application application;
 
@@ -58,13 +59,12 @@ namespace ya::graphics
 			return;
 
 		mRenderTargetTexture = std::make_shared<Texture>();
+		//Resources::Insert<Texture>(L"RenderTarget", mRenderTargetTexture);
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> renderTarget;
 		// Get rendertarget for swapchain
 		hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)renderTarget.GetAddressOf());
-		//mRenderTargetTexture->SetTexture(renderTarget);
 		mRenderTargetTexture->Create(renderTarget);
-		// Create Rendertarget View
-		//hr = mDevice->CreateRenderTargetView(mRenderTargetTexture.Get(), nullptr, mRenderTargetView.GetAddressOf());
+
 
 
 
@@ -86,15 +86,6 @@ namespace ya::graphics
 
 		mDepthStencilBufferTexture = std::make_shared<Texture>();
 		mDepthStencilBufferTexture->Create(1600, 900, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL);
-
-		// Depth Stencil Buffer
-		if (!CreateTexture(&depthBuffer, mDepthStencilBufferTexture->GetTexture().GetAddressOf()))
-			return;
-
-		// Depth Stencil Buffer View
-		if (FAILED(mDevice->CreateDepthStencilView
-		(mDepthStencilBufferTexture->GetTexture().Get(), nullptr, mDepthStencilBufferTexture->GetDSV().GetAddressOf())))
-			return;
 
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
@@ -438,7 +429,15 @@ namespace ya::graphics
 	void GraphicDevice_DX11::DrawIndexed(UINT indexCount, UINT StartIndexLocation, UINT BaseVertexLocation)
 	{
 		mContext->DrawIndexed(indexCount, StartIndexLocation, BaseVertexLocation);
+
 	}
+
+	void GraphicDevice_DX11::DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation)
+	{
+		mContext->DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
+	}
+
+
 
 	void GraphicDevice_DX11::Present()
 	{

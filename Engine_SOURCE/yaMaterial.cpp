@@ -56,9 +56,9 @@ namespace ya::graphics
             mTexture->BindShader(eShaderStage::PS, 0);
 
         ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Material];
-        pCB->Bind(&mCB);
-        pCB->SetPipline(eShaderStage::VS);
-        pCB->SetPipline(eShaderStage::PS);
+        pCB->SetData(&mCB);
+        pCB->Bind(eShaderStage::VS);
+        pCB->Bind(eShaderStage::PS);
 
         mShader->Binds();
     }

@@ -59,9 +59,9 @@ namespace ya
 		data.fadeResolution = resolution;
 
 		
-		cb->Bind(&data);
-		cb->SetPipline(eShaderStage::VS);
-		cb->SetPipline(eShaderStage::PS);
+		cb->SetData(&data);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS);
 	}
 	void FadeInOutScript::FixedUpdate()
 	{

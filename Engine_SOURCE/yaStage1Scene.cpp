@@ -20,9 +20,9 @@
 #include "yaPaintShader.h"
 #include "yaMapScript.h"
 #include "yaBody.h"
-#include "yaPlayer.h"
 #include "yaHeadScript.h"
 #include "yaBodyScript.h"
+#include "yaParticleSystem.h"
 
 
 namespace ya
@@ -30,6 +30,7 @@ namespace ya
 	Stage1Scene::Stage1Scene()
 		: Scene(eSceneType::Stage1)
 		, mCameraObj(nullptr)
+		, headObj(nullptr)
 	{
 
 	}
@@ -105,7 +106,7 @@ namespace ya
 		mapCollider->SetSize(Vector2(50.f, 0.1f));
 
 		//Player Head
-		Player* headObj = object::Instantiate<Player>(eLayerType::Player, this);
+		headObj = object::Instantiate<Player>(eLayerType::Player, this);
 		headObj->SetName(L"Head");
 		Transform* headTr = headObj->GetComponent<Transform>();
 		headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
@@ -136,7 +137,6 @@ namespace ya
 		bodyObj->AddComponent<Animator>();
 		BodyScript* bodyScript = bodyObj->AddComponent<BodyScript>();
 		bodyScript->mHead = headObj;
-		//bodyObj->AddComponent<Rigidbody>();
 		playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());
 
 		SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();
@@ -183,7 +183,14 @@ namespace ya
 		fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
 		fadeObject->AddComponent<FadeInOutScript>();
 
-		
+		//Particle
+		{
+			Player* obj = object::Instantiate<Player>(eLayerType::Particle);
+			obj->SetName(L"PARTICLE");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
+			obj->AddComponent<ParticleSystem>();
+		}
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);
@@ -193,11 +200,11 @@ namespace ya
 
 	void Stage1Scene::Update()
 	{
-	/*	CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
+		CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
 		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
 		Transform* headTr = headObj->GetComponent<Transform>();
 		Vector3 headPos = headTr->GetPosition();
-		cameraTr->SetPosition(headPos);*/
+		cameraTr->SetPosition(headPos);
 
 		if (Input::GetKeyDown(eKeyCode::N))
 		{

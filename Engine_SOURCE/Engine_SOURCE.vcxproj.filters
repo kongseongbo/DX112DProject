@@ -275,6 +275,7 @@
     <ClCompile Include="yaHeadScript.cpp">
       <Filter>Component\Script\Player</Filter>
     </ClCompile>
+    <ClCompile Include="yaParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -441,6 +442,7 @@
     <ClInclude Include="yaHeadScript.h">
       <Filter>Component\Script\Player</Filter>
     </ClInclude>
+    <ClInclude Include="yaParticleSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

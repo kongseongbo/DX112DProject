@@ -1,7 +1,6 @@
 #include "yaAnimation.h"
 #include "yaTime.h"
 #include "yaRenderer.h"
-#include "yaInput.h"
 
 namespace ya
 {
@@ -13,7 +12,7 @@ namespace ya
 		, mTime(0.0f)
 		, mbComplete(false)
 	{
-		
+
 	}
 
 	Animation::~Animation()
@@ -33,7 +32,6 @@ namespace ya
 		{
 			mTime = 0.0f;
 			++mIndex;
-
 			if (mSpriteSheet.size() <= mIndex)
 			{
 				mbComplete = true;
@@ -42,12 +40,13 @@ namespace ya
 
 			return mIndex;
 		}
-		return -1;
 
+		return -1;
 	}
 
 	void Animation::FixedUpdate()
 	{
+
 	}
 
 	void Animation::Render()
@@ -60,14 +59,14 @@ namespace ya
 		, UINT spriteLegth, float duration)
 	{
 		mAnimationName = name;
-		
+
 		mAtlas = atlas;
 		float width = (float)atlas->GetWidth();
 		float height = (float)atlas->GetHeight();
 
 		for (size_t i = 0; i < spriteLegth; i++)
 		{
-			// API와는 다르게 0~1 사이의 비율좌표로 위치를 표현해야한다.
+			// API 와는 다르게 0~1 사이의 비율좌표로 위치를 표현해야한다.
 			Sprite sprite = {};
 			sprite.leftTop = Vector2((leftTop.x + (size.x * (float)i)) / width
 				, (leftTop.y) / height);
@@ -78,6 +77,7 @@ namespace ya
 
 			mSpriteSheet.push_back(sprite);
 		}
+
 	}
 
 	void Animation::BindShader()
@@ -93,8 +93,8 @@ namespace ya
 		info.size = mSpriteSheet[mIndex].size;
 		info.atlasSize = mSpriteSheet[mIndex].atlasSize;
 
-		cb->Bind(&info);
-		cb->SetPipline(eShaderStage::PS);
+		cb->SetData(&info);
+		cb->Bind(eShaderStage::PS);
 	}
 
 	void Animation::Reset()
@@ -106,14 +106,15 @@ namespace ya
 
 	void Animation::Clear()
 	{
+		//Texture clear
 		Texture::Clear(12);
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Animation];
 		renderer::AnimationCB info = {};
 		info.type = (UINT)eAnimationType::None;
 
-		cb->Bind(&info);
-		cb->SetPipline(eShaderStage::PS);
+		cb->SetData(&info);
+		cb->Bind(eShaderStage::PS);
 	}
 
 }
