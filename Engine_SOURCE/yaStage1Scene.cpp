@@ -97,54 +97,56 @@ namespace ya
 		GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
 		mapcolliderObj->SetName(L"CollMap");
 		Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-		mapcolliderTr->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
-		mapcolliderTr->SetScale(Vector3(100.0f, 15.0f, 1.0f));
+		mapcolliderTr->SetPosition(Vector3(1.0f, -4.0f, 1.0f));
+		mapcolliderTr->SetScale(Vector3(100.0f, 1.5f, 1.0f));
 		MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+		
 		Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 		mapCollider->SetType(eColliderType::Rect);
-		mapCollider->SetCenter(Vector2(0.0f, -5.0f));
-		mapCollider->SetSize(Vector2(50.f, 0.1f));
-
-		//Player Head
-		headObj = object::Instantiate<Player>(eLayerType::Player, this);
-		headObj->SetName(L"Head");
-		Transform* headTr = headObj->GetComponent<Transform>();
-		headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
-		headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
-		//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
-		headObj->AddComponent<Animator>();
-		headObj->AddComponent<Rigidbody>();
-		HeadScript* playerscript = headObj->AddComponent<HeadScript>();
-		playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
-
-		Collider2D* collider = headObj->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Rect);
-		collider->SetCenter(Vector2(0.0f, -0.6f));
-		collider->SetSize(Vector2(0.2f, 0.2f));
-
-		SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
-		headMr->SetMaterial(headMateiral);
-		headMr->SetMesh(mesh);
-		object::DontDestroyOnLoad(headObj);
-
-		//Player Body
-		Body* bodyObj = object::Instantiate<Body>(eLayerType::Body, this);
-		bodyObj->SetName(L"Body");
-		Transform* bodyTr = bodyObj->GetComponent<Transform>();
-		bodyTr->SetPosition(Vector3(headTr->GetPosition().x - 0.2f, headTr->GetPosition().y - 1.3f, 5.0f));
-		bodyTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
-		bodyObj->AddComponent<Animator>();
-		BodyScript* bodyScript = bodyObj->AddComponent<BodyScript>();
-		bodyScript->mHead = headObj;
-		playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());
-
-		SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
-		bodyMr->SetMaterial(bodyMateiral);
-		bodyMr->SetMesh(mesh);
-		object::DontDestroyOnLoad(bodyObj);
+		//mapCollider->SetCenter(Vector2(0.0f, -10.0f));
+		//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		
+		//Player Head
+		{
+			headObj = object::Instantiate<Player>(eLayerType::Player, this);
+			headObj->SetName(L"Head");
+			Transform* headTr = headObj->GetComponent<Transform>();
+			headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
+			headObj->AddComponent<Animator>();
+			headObj->AddComponent<Rigidbody>();
+			HeadScript* playerscript = headObj->AddComponent<HeadScript>();
+			playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
+
+			Collider2D* collider = headObj->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Rect);
+			collider->SetCenter(Vector2(0.0f, -0.6f));
+			collider->SetSize(Vector2(0.2f, 0.2f));
+
+			SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
+			headMr->SetMaterial(headMateiral);
+			headMr->SetMesh(mesh);
+			object::DontDestroyOnLoad(headObj);
+		
+		//Player Body
+			Body* bodyObj = object::Instantiate<Body>(eLayerType::Body, this);
+			bodyObj->SetName(L"Body");
+			Transform* bodyTr = bodyObj->GetComponent<Transform>();
+			bodyTr->SetPosition(Vector3(headTr->GetPosition().x - 0.2f, headTr->GetPosition().y - 1.3f, 5.0f));
+			bodyTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			bodyObj->AddComponent<Animator>();
+			BodyScript* bodyScript = bodyObj->AddComponent<BodyScript>();
+			bodyScript->mHead = headObj;
+			playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());
+
+			SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
+			bodyMr->SetMaterial(bodyMateiral);
+			bodyMr->SetMesh(mesh);
+			object::DontDestroyOnLoad(bodyObj);
+		}
 
 		// Monster Object
 		Monster* monsterObj = object::Instantiate<Monster>(eLayerType::Monster, this);

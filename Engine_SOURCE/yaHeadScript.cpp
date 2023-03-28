@@ -91,7 +91,11 @@ namespace ya
 			headAni->GetCompleteEvent(L"LookTop") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"LLookTop") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"AttackTop") = std::bind(&HeadScript::End, this);
+			headAni->GetCompleteEvent(L"LAttackTop") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"DownMotion") = std::bind(&HeadScript::End, this);
+			headAni->GetCompleteEvent(L"LDownMotion") = std::bind(&HeadScript::End, this);
+			headAni->GetCompleteEvent(L"StiDownAttack") = std::bind(&HeadScript::End, this);
+			headAni->GetCompleteEvent(L"LStiDownAttack") = std::bind(&HeadScript::End, this);
 		}
 
 		/*if (animator->GetName() == L"HeadIdle")
@@ -124,6 +128,9 @@ namespace ya
 		case ya::HeadScript::HeadState::MOVE:
 			Move();
 			break;
+		case ya::HeadScript::HeadState::UPMOVE:
+			UpMove();
+			break;
 		case ya::HeadScript::HeadState::JUMP:
 			Jump();
 			break;
@@ -148,10 +155,6 @@ namespace ya
 		default:
 			break;
 		}
-
-
-		headState = mHeadState;
-
 	}
 
 	void HeadScript::Render()
@@ -163,9 +166,9 @@ namespace ya
 		Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 		Vector2 velocity = rigidbody->GetVelocity();
 
-		//velocity.y = 30.0f;
+		velocity.y = 30.0f;
 		rigidbody->SetGround(true);
-		//rigidbody->SetVelocity(velocity);
+		rigidbody->SetVelocity(velocity);
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)
@@ -200,12 +203,38 @@ namespace ya
 		if (Input::GetKey(eKeyCode::UP) && direction == 0)
 		{
 			headAni->Play(L"LLookTop2", false);
-			mHeadState = HeadState::UPIDLE;
+			if (Input::GetKey(eKeyCode::LEFT))
+				mHeadState = HeadState::UPMOVE;
+			else
+				mHeadState = HeadState::UPIDLE;
 		}
 		else if (Input::GetKey(eKeyCode::UP) && direction == 1)
 		{
 			headAni->Play(L"LookTop2", false);
-			mHeadState = HeadState::UPIDLE;
+			if (Input::GetKey(eKeyCode::RIGHT))
+				mHeadState = HeadState::UPMOVE;
+			else
+				mHeadState = HeadState::UPIDLE;
+		}
+
+		if (mHeadState == HeadState::SITDOWN && direction == 1)
+		{
+			headAni->Play(L"DownIdle", true);
+		}
+		else if (mHeadState == HeadState::SITDOWN && direction == 0)
+		{
+			headAni->Play(L"LDownIdle", true);
+		}
+
+		if (mHeadState == HeadState::SITDOWNATTACK && direction == 1)
+		{
+			headAni->Play(L"DownIdle", true);
+			mHeadState = HeadState::SITDOWN;
+		}
+		if (mHeadState == HeadState::SITDOWNATTACK && direction == 0)
+		{
+			headAni->Play(L"LDownIdle", true);
+			mHeadState = HeadState::SITDOWN;
 		}
 
 		//if (mHeadState == HeadState::ATTACK && direction == 1)
@@ -250,6 +279,27 @@ namespace ya
 		{
 			headAni->Play(L"LookTop", false);
 		}		
+
+		if (Input::GetKey(eKeyCode::DOWN) && direction == 0)
+		{
+			headAni->Play(L"LDownMotion", false);
+			mHeadState = HeadState::SITDOWN;
+		}
+		if (Input::GetKey(eKeyCode::DOWN) && direction == 1)
+		{
+			headAni->Play(L"DownMotion", false);
+			mHeadState = HeadState::SITDOWN;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE))
+		{
+			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
+			Vector2 velocity = rigidbody->GetVelocity();
+
+			velocity.y = 30.0f;
+			rigidbody->SetGround(false);
+			rigidbody->SetVelocity(velocity);
+		}
 	}
 
 	void HeadScript::UpIdle()
@@ -274,6 +324,15 @@ namespace ya
 		{
 			headAni->Play(L"LAttackTop", false);
 			mHeadState = HeadState::ATTACK;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::RIGHT) && direction == 1)
+		{
+			mHeadState = HeadState::UPMOVE;
+		}
+		else if (Input::GetKeyDown(eKeyCode::LEFT) && direction == 0)
+		{
+			mHeadState = HeadState::UPMOVE;
 		}
 	}
 
@@ -300,6 +359,17 @@ namespace ya
 			headAni->Play(L"LPistolAttackU", true);
 			mHeadState = HeadState::ATTACK;
 		}
+
+		if (Input::GetKey(eKeyCode::UP) && direction == 0)
+		{
+			headAni->Play(L"LLookTop", false);
+			mHeadState = HeadState::UPMOVE;
+		}
+		else if (Input::GetKey(eKeyCode::UP) && direction == 1)
+		{
+			headAni->Play(L"LookTop", false);
+			mHeadState = HeadState::UPMOVE;
+		}
 	
 		if (direction == 0)
 		{
@@ -313,30 +383,45 @@ namespace ya
 			pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
-		
+	}
 
+	void HeadScript::UpMove()
+	{
+		if (Input::GetKeyUp(eKeyCode::UP) && direction == 1)
+		{
+			headAni->Play(L"HeadIdle", true);
+			mHeadState = HeadState::IDLE;
+		}
+		else if (Input::GetKeyUp(eKeyCode::UP) && direction == 0)
+		{
+			headAni->Play(L"LHeadIdle", true);
+			mHeadState = HeadState::IDLE;
+		}
+
+		if (Input::GetKeyUp(eKeyCode::RIGHT) && direction == 1)
+			mHeadState = HeadState::UPIDLE;
+		else if (Input::GetKeyUp(eKeyCode::LEFT) && direction == 0)
+			mHeadState = HeadState::UPIDLE;
+		
+		
+		if (Input::GetKey(eKeyCode::LEFT) && direction == 0)
+		{
+			Vector3 pos = mTr->GetPosition();
+			pos.x -= 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+		}
+		else if (Input::GetKey(eKeyCode::RIGHT) && direction == 1)
+		{
+			Vector3 pos = mTr->GetPosition();
+			pos.x += 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+		}
 	}
 
 	void HeadScript::Jump()
 	{
 
 
-
-	}
-
-	void HeadScript::SitDown()
-	{
-
-
-	}
-
-	void HeadScript::SitDownMove()
-	{
-
-	}
-
-	void HeadScript::SitDownAttack()
-	{
 
 	}
 
@@ -365,8 +450,94 @@ namespace ya
 			headAni->Play(L"LHeadIdle", true);
 			mHeadState = HeadState::IDLE;
 		}
-			
+
 	}
+
+	void HeadScript::SitDown()
+	{
+		if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 1)
+		{
+			headAni->Play(L"HeadIdle", true);
+			mHeadState = HeadState::IDLE;
+		}
+		else if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 0)
+		{
+			headAni->Play(L"LHeadIdle", true);
+			mHeadState = HeadState::IDLE;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::RIGHT))
+		{
+			direction = 1;
+			headAni->Play(L"DownMove", true);
+			mHeadState = HeadState::SITDOWNMOVE;
+		}
+		else if (Input::GetKeyDown(eKeyCode::LEFT))
+		{
+			direction = 0;
+			headAni->Play(L"LDownMove", true);
+			mHeadState = HeadState::SITDOWNMOVE;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
+		{	
+			headAni->Play(L"StiDownAttack", false);
+			mHeadState = HeadState::SITDOWNATTACK;
+		}
+		else if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
+		{
+			headAni->Play(L"LStiDownAttack", false);
+			mHeadState = HeadState::SITDOWNATTACK;
+		}
+
+	}
+
+	void HeadScript::SitDownMove()
+	{
+		if (Input::GetKeyUp(eKeyCode::RIGHT) )
+		{
+			headAni->Play(L"DownIdle", true);
+			mHeadState = HeadState::SITDOWN;
+		}
+		else if (Input::GetKeyUp(eKeyCode::LEFT))
+		{
+			headAni->Play(L"LDownIdle", true);
+			mHeadState = HeadState::SITDOWN;
+		}
+
+		if (Input::GetKeyUp(eKeyCode::DOWN))
+		{
+			if (direction == 0)
+				headAni->Play(L"MoveLeftU", true);
+			else if (direction == 1)
+				headAni->Play(L"MoveRightU", true);
+				
+			mHeadState = HeadState::MOVE;
+		}
+
+
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			direction = 0;
+			Vector3 pos = mTr->GetPosition();
+			pos.x -= 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+		}
+		else if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			direction = 1;
+			Vector3 pos = mTr->GetPosition();
+			pos.x += 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+		}
+	}
+
+	void HeadScript::SitDownAttack()
+	{
+
+	}
+
+
 
 	void HeadScript::Hit()
 	{

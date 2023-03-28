@@ -15,6 +15,7 @@ namespace ya
 			IDLE,
 			UPIDLE,
 			MOVE,
+			UPMOVE,
 			JUMP,
 			SITDOWN,
 			SITDOWNMOVE,
@@ -43,11 +44,12 @@ namespace ya
 		void Idle();
 		void UpIdle();
 		void Move();
+		void UpMove();
 		void Jump();
+		void Attack();
 		void SitDown();
 		void SitDownMove();
 		void SitDownAttack();
-		void Attack();
 		void Hit();
 		void Death();
 

@@ -288,8 +288,6 @@ namespace ya
 
 
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
-			if (rigidbody == nullptr)
-				return;
 			Vector2 velocity = rigidbody->GetVelocity();
 
 			velocity.y = 30.0f;

@@ -93,7 +93,7 @@ namespace ya
 			break;
 		}
 
-		bodyState = mBodyState;
+
 
 	}
 
@@ -131,25 +131,36 @@ namespace ya
 	{
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
+			direction = 0;
 			bodyAni->Play(L"MoveRightD", true);
 			mBodyState = BodyState::MOVE;
 		}
-		if (Input::GetKey(eKeyCode::LEFT))
+		else if (Input::GetKey(eKeyCode::LEFT))
 		{
+			direction = 1;
 			bodyAni->Play(L"MoveLeftD", true);
 			mBodyState = BodyState::MOVE;
 		}
+
+		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			bodyAni->Play(L"def", true);
+			mBodyState = BodyState::SITDOWN;
+		}
+
 	}
 
 	void BodyScript::Move()
 	{
 		if (Input::GetKeyUp(eKeyCode::RIGHT))
 		{
+			direction = 0;
 			bodyAni->Play(L"BodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
-		if (Input::GetKeyUp(eKeyCode::LEFT))
+		else if (Input::GetKeyUp(eKeyCode::LEFT))
 		{
+			direction = 1;
 			bodyAni->Play(L"LBodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
@@ -166,7 +177,16 @@ namespace ya
 
 	void BodyScript::SitDown()
 	{
-
+		if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 0)
+		{
+			bodyAni->Play(L"BodyIdle", true);
+			mBodyState = BodyState::IDLE;
+		}
+		else if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 1)
+		{
+			bodyAni->Play(L"LBodyIdle", true);
+			mBodyState = BodyState::IDLE;
+		}
 	}
 
 	void BodyScript::SitDownMove()
