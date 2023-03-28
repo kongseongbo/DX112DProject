@@ -5,6 +5,7 @@
 #include "yaStructedBuffer.h"
 #include "yaTransform.h"
 #include "yaGameObject.h"
+#include "yaTexture.h"
 
 namespace ya
 {
@@ -17,12 +18,15 @@ namespace ya
 		, mEndColor(Vector4::Zero)
 		, mStartLifeTime(0.0f)
 	{
-		std::shared_ptr<Mesh> rect = Resources::Find<Mesh>(L"RectMesh");
-		SetMesh(rect);
+		std::shared_ptr<Mesh> point = Resources::Find<Mesh>(L"PointMesh");
+		SetMesh(point);
 
 		// Material ¼¼ÆÃ
 		std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial");
 		SetMaterial(material);
+
+		std::shared_ptr<Texture> tex = Resources::Find<Texture>(L"CartoonSmoke");
+		material->SetTexture(eTextureSlot::T0, tex);
 
 		Particle particles[1000] = {};
 		Vector4 startPos = Vector4(-800.0f, -450.0f, 0.0f, 0.0f);
@@ -32,6 +36,8 @@ namespace ya
 			{
 				particles[16 * y + x].position = startPos
 					+ Vector4(x * 100.0f, y * 100.0f, 0.0f, 0.0f);
+
+				particles[16 * y + x].active = 1;
 			}
 		}
 
@@ -64,6 +70,7 @@ namespace ya
 	{
 		GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 		mBuffer->Bind(eShaderStage::VS, 15);
+		mBuffer->Bind(eShaderStage::GS, 15);
 		mBuffer->Bind(eShaderStage::PS, 15);
 
 		GetMaterial()->Bind();
