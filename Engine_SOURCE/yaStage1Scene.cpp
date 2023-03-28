@@ -85,7 +85,7 @@ namespace ya
 		mapObj->SetName(L"Mission1Map");
 		Transform* map1Tr = mapObj->GetComponent<Transform>();
 		map1Tr->SetPosition(Vector3(1.0f, 1.0f, 10.0f));
-		map1Tr->SetScale(Vector3(100.0f, 15.0f, 1.0f));
+		map1Tr->SetScale(Vector3(180.0f, 18.0f, 1.0f));
 		
 		SpriteRenderer* mapMr = mapObj->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -97,8 +97,8 @@ namespace ya
 		GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
 		mapcolliderObj->SetName(L"CollMap");
 		Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-		mapcolliderTr->SetPosition(Vector3(1.0f, -4.0f, 1.0f));
-		mapcolliderTr->SetScale(Vector3(100.0f, 1.5f, 1.0f));
+		mapcolliderTr->SetPosition(Vector3(1.0f, -5.0f, 1.0f));
+		mapcolliderTr->SetScale(Vector3(180.0f, 1.5f, 1.0f));
 		MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 		
 		Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
@@ -206,7 +206,7 @@ namespace ya
 		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
 		Transform* headTr = headObj->GetComponent<Transform>();
 		Vector3 headPos = headTr->GetPosition();
-		cameraTr->SetPosition(headPos);
+		cameraTr->SetPosition(Vector3(headPos.x, headPos.y + 3.0f, headPos.z));
 
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
