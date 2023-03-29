@@ -46,10 +46,12 @@ namespace ya
 			bodyAni->Create(L"MoveRightD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
 
 			texture = Resources::Load<Texture>(L"JumpD", L"Character\\Marco\\JumpD.png");
-			bodyAni->Create(L"JumpD", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 30.0f), Vector2(-0.01f, 0.25f), 6, 0.1f);
+			bodyAni->Create(L"JumpD", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 30.0f), Vector2(-0.01f, 0.19f), 6, 0.1f);
+			bodyAni->Create(L"LJumpD", texture, Vector2(0.0f, 30.0f), Vector2(30.0f, 30.0f), Vector2(-0.028f, 0.19f), 6, 0.1f);
 
 			texture = Resources::Load<Texture>(L"JumpMoveD", L"Character\\Marco\\JumpMoveD.png");
-			bodyAni->Create(L"JumpMoveD", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 24.0f), Vector2(-0.01f, 0.0f), 6, 0.1f);
+			bodyAni->Create(L"JumpMoveD", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 24.0f), Vector2(-0.04f, 0.0f), 6, 0.1f);
+			bodyAni->Create(L"LJumpMoveD", texture, Vector2(0.0f, 24.0f), Vector2(40.0f, 24.0f), Vector2(-0.01f, 0.0f), 6, 0.1f);
 
 			// 투명이미지
 			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
@@ -117,6 +119,11 @@ namespace ya
 			bodyAni->Play(L"BodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
+		else if (mBodyState == BodyState::JUMP && direction == 1)
+		{
+			bodyAni->Play(L"LBodyIdle", true);
+			mBodyState = BodyState::IDLE;
+		}
 		
 	}
 
@@ -162,12 +169,16 @@ namespace ya
 			mBodyState = BodyState::SITDOWN;
 		}
 
-		if (Input::GetKey(eKeyCode::SPACE))
+		if (Input::GetKey(eKeyCode::SPACE) && direction == 0)
 		{
 			bodyAni->Play(L"JumpD", false);
 			mBodyState = BodyState::JUMP;
 		}
-
+		else if (Input::GetKey(eKeyCode::SPACE) && direction == 1)
+		{
+			bodyAni->Play(L"LJumpD", false);
+			mBodyState = BodyState::JUMP;
+		}
 	}
 
 	void BodyScript::Move()
@@ -185,9 +196,14 @@ namespace ya
 			mBodyState = BodyState::IDLE;
 		}
 
-		if (Input::GetKey(eKeyCode::SPACE))
+		if (Input::GetKey(eKeyCode::SPACE) && direction == 0)
 		{
 			bodyAni->Play(L"JumpMoveD", false);
+			mBodyState = BodyState::JUMP;
+		}
+		else if (Input::GetKey(eKeyCode::SPACE) && direction == 1)
+		{
+			bodyAni->Play(L"LJumpMoveD", false);
 			mBodyState = BodyState::JUMP;
 		}
 

@@ -86,9 +86,11 @@ namespace ya
 
 			texture = Resources::Load<Texture>(L"Jump", L"Character\\Marco\\JumpU.png");
 			headAni->Create(L"Jump", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 32.0f), Vector2(-0.04f, 0.05f), 6, 0.1f);
+			headAni->Create(L"LJump", texture, Vector2(0.0f, 32.0f), Vector2(35.0f, 32.0f), Vector2(-0.04f, 0.05f), 6, 0.1f);
 
 			texture = Resources::Load<Texture>(L"JumpMoveU", L"Character\\Marco\\JumpMoveU.png");
-			headAni->Create(L"JumpMoveU", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 40.0f), Vector2(-0.015f, 0.03f), 6, 0.1f);
+			headAni->Create(L"JumpMoveU", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 40.0f), Vector2(-0.04f, 0.03f), 6, 0.1f);
+			headAni->Create(L"LJumpMoveU", texture, Vector2(0.0f, 40.0f), Vector2(35.0f, 40.0f), Vector2(-0.05f, 0.03f), 6, 0.1f);
 			
 
 			headAni->Play(L"HeadIdle", true);
@@ -170,15 +172,25 @@ namespace ya
 
 	void HeadScript::OnCollisionEnter(Collider2D* collider)
 	{
-		Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
-		Vector2 velocity = rigidbody->GetVelocity();
+		if (collider->GetID() == 0)
+		{
+			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
+			Vector2 velocity = rigidbody->GetVelocity();
 
-		velocity.y = 30.0f;
-		rigidbody->SetGround(true);
-		rigidbody->SetVelocity(velocity);
-
-		headAni->Play(L"HeadIdle", true);
-		mHeadState = HeadState::IDLE;
+			velocity.y = 30.0f;
+			rigidbody->SetGround(true);
+			rigidbody->SetVelocity(velocity);
+			if (mHeadState == HeadState::JUMP && direction == 1)
+			{
+				headAni->Play(L"HeadIdle", true);
+				mHeadState = HeadState::IDLE;
+			}
+			else if (mHeadState == HeadState::JUMP && direction == 0)
+			{
+				headAni->Play(L"LHeadIdle", true);
+				mHeadState = HeadState::IDLE;
+			}
+		}
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)
@@ -319,7 +331,7 @@ namespace ya
 			else if (direction == 0)
 			{
 				//mTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
-				headAni->Play(L"Jump", false);
+				headAni->Play(L"LJump", false);
 				mHeadState = HeadState::JUMP;
 			}
 		}
@@ -407,17 +419,18 @@ namespace ya
 			mTr->SetPosition(pos);
 		}
 
-		if (Input::GetKeyDown(eKeyCode::SPACE))
+		if (Input::GetKeyDown(eKeyCode::SPACE) && direction == 0)
 		{
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
-
 			velocity.y = 30.0f;
 			rigidbody->SetGround(false);
 			rigidbody->SetVelocity(velocity);
-		}
 
-		if (Input::GetKeyDown(eKeyCode::SPACE))
+			headAni->Play(L"LJumpMoveU", false);
+			mHeadState = HeadState::JUMP;
+		}
+		else if (Input::GetKeyDown(eKeyCode::SPACE) && direction == 1)
 		{
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();

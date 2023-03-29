@@ -127,6 +127,15 @@
     <Filter Include="Graphics\API">
       <UniqueIdentifier>{827ef6d9-7b0a-4949-9025-1cf5f8c3145d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Bullet">
+      <UniqueIdentifier>{cf5d5b92-0309-4d29-b244-f4059f86744f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Player\Body">
+      <UniqueIdentifier>{1a56fa4f-0352-4a79-b401-e67efee68591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Player\Head">
+      <UniqueIdentifier>{4ac7cc98-2a86-43d5-9fe8-6ba5c4b23c62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -237,12 +246,6 @@
     <ClCompile Include="yaStage1Scene.cpp">
       <Filter>Scene\Stage1</Filter>
     </ClCompile>
-    <ClCompile Include="yaPlayer.cpp">
-      <Filter>Component\Script\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="yaPlayerScript.cpp">
-      <Filter>Component\Script\Player</Filter>
-    </ClCompile>
     <ClCompile Include="yaMonster.cpp">
       <Filter>Component\Script\Monster</Filter>
     </ClCompile>
@@ -266,20 +269,29 @@
     <ClCompile Include="yaMapScript.cpp">
       <Filter>Component\Script\Map</Filter>
     </ClCompile>
-    <ClCompile Include="yaBody.cpp">
-      <Filter>Component\Script\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBodyScript.cpp">
-      <Filter>Component\Script\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="yaHeadScript.cpp">
-      <Filter>Component\Script\Player</Filter>
-    </ClCompile>
     <ClCompile Include="yaParticleSystem.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp">
       <Filter>Graphics\API</Filter>
     </ClCompile>
     <ClCompile Include="yaParticleShader.cpp" />
+    <ClCompile Include="yaBullet.cpp">
+      <Filter>Component\Script\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBody.cpp">
+      <Filter>Component\Script\Player\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBodyScript.cpp">
+      <Filter>Component\Script\Player\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHeadScript.cpp">
+      <Filter>Component\Script\Player\Head</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>Component\Script\Player\Head</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBulletScript.cpp">
+      <Filter>Component\Script\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -405,12 +417,6 @@
     <ClInclude Include="yaStage1Scene.h">
       <Filter>Scene\Stage1</Filter>
     </ClInclude>
-    <ClInclude Include="yaPlayerScript.h">
-      <Filter>Component\Script\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="yaPlayer.h">
-      <Filter>Component\Script\Player</Filter>
-    </ClInclude>
     <ClInclude Include="yaMonster.h">
       <Filter>Component\Script\Monster</Filter>
     </ClInclude>
@@ -434,20 +440,29 @@
     <ClInclude Include="yaMapScript.h">
       <Filter>Component\Script\Map</Filter>
     </ClInclude>
-    <ClInclude Include="yaBody.h">
-      <Filter>Component\Script\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBodyScript.h">
-      <Filter>Component\Script\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="yaHeadScript.h">
-      <Filter>Component\Script\Player</Filter>
-    </ClInclude>
     <ClInclude Include="yaParticleSystem.h" />
     <ClInclude Include="yaGraphicDevice_DX11.h">
       <Filter>Graphics\API</Filter>
     </ClInclude>
     <ClInclude Include="yaParticleShader.h" />
+    <ClInclude Include="yaBullet.h">
+      <Filter>Component\Script\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBody.h">
+      <Filter>Component\Script\Player\Body</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBodyScript.h">
+      <Filter>Component\Script\Player\Body</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHeadScript.h">
+      <Filter>Component\Script\Player\Head</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayer.h">
+      <Filter>Component\Script\Player\Head</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBulletScript.h">
+      <Filter>Component\Script\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

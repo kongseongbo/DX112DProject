@@ -1,17 +1,12 @@
-#pragma once
 #include "yaGameObject.h"
-#include "yaAnimator.h"
-
-
-
 
 namespace ya
 {
-	class Player : public GameObject
+	class Bullet : public GameObject
 	{
 	public:
-		Player();
-		virtual ~Player();
+		Bullet();
+		virtual ~Bullet();
 
 		virtual void Initalize();
 		virtual void Update();
@@ -19,5 +14,7 @@ namespace ya
 		virtual void Render();
 
 	private:
+	
+
 	};
 }
