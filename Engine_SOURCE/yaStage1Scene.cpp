@@ -103,7 +103,7 @@ namespace ya
 		
 		Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 		mapCollider->SetType(eColliderType::Rect);
-		//mapCollider->SetCenter(Vector2(0.0f, -10.0f));
+		mapCollider->SetCenter(Vector2(0.0f, -0.7f));
 		//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		
 		//Player Head
@@ -121,8 +121,8 @@ namespace ya
 
 			Collider2D* collider = headObj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
-			collider->SetCenter(Vector2(0.0f, -0.6f));
-			collider->SetSize(Vector2(0.2f, 0.2f));
+			collider->SetCenter(Vector2(-0.7f, -0.7f));
+			collider->SetSize(Vector2(0.1f, 0.2f));
 
 			SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -140,6 +140,11 @@ namespace ya
 			BodyScript* bodyScript = bodyObj->AddComponent<BodyScript>();
 			bodyScript->mHead = headObj;
 			playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());
+
+			Collider2D* bodyCollider = bodyObj->AddComponent<Collider2D>();
+			bodyCollider->SetType(eColliderType::Rect);
+			bodyCollider->SetCenter(Vector2(-0.5f, -1.0f));
+			bodyCollider->SetSize(Vector2(0.1f, 0.05f));
 
 			SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -196,6 +201,7 @@ namespace ya
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Collider, true);
 
 		Scene::Initalize();
 	}

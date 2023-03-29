@@ -7,6 +7,7 @@
 #include "yaRigidbody.h"
 #include "yaBody.h"
 #include "yaHead.h"
+#include "yaCollider2D.h"
 
 namespace ya
 {
@@ -43,6 +44,12 @@ namespace ya
 
 			texture = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
 			bodyAni->Create(L"MoveRightD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+
+			texture = Resources::Load<Texture>(L"JumpD", L"Character\\Marco\\JumpD.png");
+			bodyAni->Create(L"JumpD", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 30.0f), Vector2(-0.01f, 0.25f), 6, 0.1f);
+
+			texture = Resources::Load<Texture>(L"JumpMoveD", L"Character\\Marco\\JumpMoveD.png");
+			bodyAni->Create(L"JumpMoveD", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 24.0f), Vector2(-0.01f, 0.0f), 6, 0.1f);
 
 			// 투명이미지
 			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
@@ -103,7 +110,14 @@ namespace ya
 
 	void BodyScript::OnCollisionEnter(Collider2D* collider)
 	{
+		
 
+		if (mBodyState == BodyState::JUMP&& direction == 0)
+		{
+			bodyAni->Play(L"BodyIdle", true);
+			mBodyState = BodyState::IDLE;
+		}
+		
 	}
 
 	void BodyScript::OnCollisionStay(Collider2D* collider)
@@ -148,6 +162,12 @@ namespace ya
 			mBodyState = BodyState::SITDOWN;
 		}
 
+		if (Input::GetKey(eKeyCode::SPACE))
+		{
+			bodyAni->Play(L"JumpD", false);
+			mBodyState = BodyState::JUMP;
+		}
+
 	}
 
 	void BodyScript::Move()
@@ -165,6 +185,11 @@ namespace ya
 			mBodyState = BodyState::IDLE;
 		}
 
+		if (Input::GetKey(eKeyCode::SPACE))
+		{
+			bodyAni->Play(L"JumpMoveD", false);
+			mBodyState = BodyState::JUMP;
+		}
 
 	}
 

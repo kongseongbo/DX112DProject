@@ -87,6 +87,10 @@ namespace ya
 			texture = Resources::Load<Texture>(L"Jump", L"Character\\Marco\\JumpU.png");
 			headAni->Create(L"Jump", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 32.0f), Vector2(-0.04f, 0.05f), 6, 0.1f);
 
+			texture = Resources::Load<Texture>(L"JumpMoveU", L"Character\\Marco\\JumpMoveU.png");
+			headAni->Create(L"JumpMoveU", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 40.0f), Vector2(-0.015f, 0.03f), 6, 0.1f);
+			
+
 			headAni->Play(L"HeadIdle", true);
 
 			headAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&HeadScript::End, this);
@@ -172,6 +176,9 @@ namespace ya
 		velocity.y = 30.0f;
 		rigidbody->SetGround(true);
 		rigidbody->SetVelocity(velocity);
+
+		headAni->Play(L"HeadIdle", true);
+		mHeadState = HeadState::IDLE;
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)
@@ -398,6 +405,18 @@ namespace ya
 			rigidbody->SetGround(false);
 			rigidbody->SetVelocity(velocity);
 		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE))
+		{
+			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
+			Vector2 velocity = rigidbody->GetVelocity();
+			velocity.y = 30.0f;
+			rigidbody->SetGround(false);
+			rigidbody->SetVelocity(velocity);
+
+			headAni->Play(L"JumpMoveU", false);
+			mHeadState = HeadState::JUMP;
+		}
 	}
 
 	void HeadScript::UpMove()
@@ -445,9 +464,18 @@ namespace ya
 
 	void HeadScript::Jump()
 	{
-
-
-
+		if (Input::GetKey(eKeyCode::LEFT) && direction == 0)
+		{
+			Vector3 pos = mTr->GetPosition();
+			pos.x -= 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+		}
+		else if (Input::GetKey(eKeyCode::RIGHT) && direction == 1)
+		{
+			Vector3 pos = mTr->GetPosition();
+			pos.x += 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+		}
 	}
 
 	void HeadScript::Attack()
