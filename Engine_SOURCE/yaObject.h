@@ -14,6 +14,8 @@ namespace ya::object
 		Scene* scene = SceneManager::GetActiveScene();
 		Layer& layer = scene->GetLayer(type);
 		layer.AddGameObject(gameObj);
+		gameObj->Initalize();
+
 
 		return gameObj;
 	}
@@ -78,7 +80,7 @@ namespace ya::object
 		gameObject->Death();
 	}
 
-	static void DontDestroyOnLoad(GameObject* gameObject)
+	static void DontDestroyOnLoad(GameObject* gameObject)   //씬 이동시 이 오브젝트는 삭제하지 않는다
 	{
 		if (gameObject == nullptr)
 			return;

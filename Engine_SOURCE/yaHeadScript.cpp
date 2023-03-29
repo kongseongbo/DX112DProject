@@ -31,7 +31,7 @@ namespace ya
 	void HeadScript::Initalize()
 	{
 		mTr = GetOwner()->GetComponent<Transform>();
-
+		headAni = GetOwner()->GetComponent<Animator>();
 		if (headAni != nullptr )
 		{
 			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"headIdle", L"Character\\Marco\\IdleU.png");
@@ -303,14 +303,25 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
+			mTr = GetOwner()->GetComponent<Transform>();
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
 			velocity.y = 30.0f;
 			rigidbody->SetGround(false);
 			rigidbody->SetVelocity(velocity);
 
-			headAni->Play(L"Jump", false);
-			mHeadState = HeadState::JUMP;
+			if (direction == 1)
+			{
+				//mTr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+				headAni->Play(L"Jump", false);
+				mHeadState = HeadState::JUMP;
+			}
+			else if (direction == 0)
+			{
+				//mTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+				headAni->Play(L"Jump", false);
+				mHeadState = HeadState::JUMP;
+			}
 		}
 	}
 

@@ -124,13 +124,13 @@
     <Filter Include="Component\Script\Map">
       <UniqueIdentifier>{e3a64ed8-c910-4bdd-925c-6049528defbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\API">
+      <UniqueIdentifier>{827ef6d9-7b0a-4949-9025-1cf5f8c3145d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
       <Filter>High Level Interface</Filter>
-    </ClCompile>
-    <ClCompile Include="yaGraphicDevice_DX11.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="yaMath.cpp">
       <Filter>Common\Math</Filter>
@@ -276,6 +276,10 @@
       <Filter>Component\Script\Player</Filter>
     </ClCompile>
     <ClCompile Include="yaParticleSystem.cpp" />
+    <ClCompile Include="yaGraphicDevice_DX11.cpp">
+      <Filter>Graphics\API</Filter>
+    </ClCompile>
+    <ClCompile Include="yaParticleShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -283,9 +287,6 @@
     </ClInclude>
     <ClInclude Include="yaApplication.h">
       <Filter>High Level Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="yaGraphicDevice_DX11.h">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="yaMath.h">
       <Filter>Common\Math</Filter>
@@ -443,6 +444,10 @@
       <Filter>Component\Script\Player</Filter>
     </ClInclude>
     <ClInclude Include="yaParticleSystem.h" />
+    <ClInclude Include="yaGraphicDevice_DX11.h">
+      <Filter>Graphics\API</Filter>
+    </ClInclude>
+    <ClInclude Include="yaParticleShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

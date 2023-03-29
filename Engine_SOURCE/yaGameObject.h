@@ -40,6 +40,8 @@ namespace ya
 				comp->SetOwner(this);
 			}
 
+			comp->Initalize();
+
 			return comp;
 		}
 		void AddComponent(Component* comp);
@@ -58,7 +60,6 @@ namespace ya
 
 			return nullptr;
 		}
-
 		template <typename T>
 		std::vector<T*> GetComponents()
 		{
@@ -75,6 +76,7 @@ namespace ya
 
 			return components;
 		}
+
 
 		const std::vector<Script*>& GetScripts() { return mScripts; }
 

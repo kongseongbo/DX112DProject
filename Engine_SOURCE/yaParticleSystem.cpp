@@ -18,6 +18,17 @@ namespace ya
 		, mEndColor(Vector4::Zero)
 		, mStartLifeTime(0.0f)
 	{
+
+	}
+
+	ParticleSystem::~ParticleSystem()
+	{
+		delete mBuffer;
+		mBuffer = nullptr;
+	}
+
+	void ParticleSystem::Initalize()
+	{
 		std::shared_ptr<Mesh> point = Resources::Find<Mesh>(L"PointMesh");
 		SetMesh(point);
 
@@ -43,19 +54,7 @@ namespace ya
 
 		mCount = 144;
 		mBuffer = new StructedBuffer();
-		mBuffer->Create(sizeof(Particle), mCount, eSRVType::None, particles);
-
-	}
-
-	ParticleSystem::~ParticleSystem()
-	{
-		delete mBuffer;
-		mBuffer = nullptr;
-	}
-
-	void ParticleSystem::Initalize()
-	{
-
+		mBuffer->Create(sizeof(Particle), mCount, eSRVType::SRV, particles);
 	}
 
 	void ParticleSystem::Update()
@@ -69,9 +68,9 @@ namespace ya
 	void ParticleSystem::Render()
 	{
 		GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
-		mBuffer->Bind(eShaderStage::VS, 15);
-		mBuffer->Bind(eShaderStage::GS, 15);
-		mBuffer->Bind(eShaderStage::PS, 15);
+		mBuffer->BindSRV(eShaderStage::VS, 15);
+		mBuffer->BindSRV(eShaderStage::GS, 15);
+		mBuffer->BindSRV(eShaderStage::PS, 15);
 
 		GetMaterial()->Bind();
 		GetMesh()->RenderInstanced(mCount);

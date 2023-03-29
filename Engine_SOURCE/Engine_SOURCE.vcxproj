@@ -163,6 +163,7 @@
     <ClInclude Include="yaLight.h" />
     <ClInclude Include="yaMapScript.h" />
     <ClInclude Include="yaPaintShader.h" />
+    <ClInclude Include="yaParticleShader.h" />
     <ClInclude Include="yaParticleSystem.h" />
     <ClInclude Include="yaRigidbody.h" />
     <ClInclude Include="yaStructedBuffer.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="yaLight.cpp" />
     <ClCompile Include="yaMapScript.cpp" />
     <ClCompile Include="yaPaintShader.cpp" />
+    <ClCompile Include="yaParticleShader.cpp" />
     <ClCompile Include="yaParticleSystem.cpp" />
     <ClCompile Include="yaRigidbody.cpp" />
     <ClCompile Include="yaStructedBuffer.cpp" />
