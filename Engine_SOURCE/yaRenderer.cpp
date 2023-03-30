@@ -3,6 +3,8 @@
 #include "yaMaterial.h"
 #include "yaSceneManager.h"
 #include "yaPaintShader.h"
+#include "yaParticleShader.h"
+
 namespace ya::renderer
 {
 	Vertex vertexes[4] = {};
@@ -192,6 +194,10 @@ namespace ya::renderer
 		particleShader->SetBSState(eBSType::AlphaBlend);
 		particleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 		Resources::Insert<Shader>(L"ParticleShader", particleShader);
+
+		std::shared_ptr<ParticleShader> particleCS = std::make_shared<ParticleShader>();
+		Resources::Insert<ParticleShader>(L"ParticleCS", particleCS);
+		particleCS->Create(L"ParticleCS.hlsl", "main");
 #pragma endregion
 	}
 

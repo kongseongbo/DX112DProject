@@ -8,8 +8,8 @@ namespace ya::graphics
 		, mType(eSRVType::SRV)
 		, mSize(0)
 		, mStride(0)
-		, mSRVSlot(-1)
-		, mUAVSlot(-1)
+		, mSRVSlot(0)
+		, mUAVSlot(0)
 	{
 
 	}
@@ -88,11 +88,14 @@ namespace ya::graphics
 
 	void StructedBuffer::BindSRV(eShaderStage stage, UINT slot)
 	{
+		mSRVSlot = slot;
+
 		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
 
 	void StructedBuffer::BindUAV(eShaderStage stage, UINT slot)
 	{
+		mUAVSlot = slot;
 		UINT i = -1;
 		GetDevice()->BindUnorderdAccessView(slot, 1, mUAV.GetAddressOf(), &i);
 	}
