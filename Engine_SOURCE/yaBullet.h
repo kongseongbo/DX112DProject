@@ -2,16 +2,16 @@
 
 namespace ya
 {
-	class Bullet : public GameObject
+	class Bullet/* : public GameObject*/
 	{
 	public:
 		Bullet();
-		virtual ~Bullet();
+		 ~Bullet();
 
-		virtual void Initalize();
-		virtual void Update();
-		virtual void FixedUpdate();
-		virtual void Render();
+		void Initalize();
+		void Update();
+		void FixedUpdate();
+		void Render();
 
 	private:
 	

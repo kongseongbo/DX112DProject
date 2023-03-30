@@ -2,7 +2,8 @@
 #include "yaScript.h"
 #include "yaGameObject.h"
 #include "yaAnimator.h"
-
+#include "yaBullet.h"
+#include "yaObjectPool.h"
 
 namespace ya
 {
@@ -68,5 +69,7 @@ namespace ya
 		HeadState headState;
 
 		int direction;
+		ObjectPool< Bullet, 10 > s;
+
 	};
 }

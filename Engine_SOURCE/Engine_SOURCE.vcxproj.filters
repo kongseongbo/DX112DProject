@@ -292,6 +292,7 @@
     <ClCompile Include="yaBulletScript.cpp">
       <Filter>Component\Script\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="yaObjectPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -463,6 +464,7 @@
     <ClInclude Include="yaBulletScript.h">
       <Filter>Component\Script\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="yaObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">

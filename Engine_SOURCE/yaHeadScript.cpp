@@ -1,12 +1,13 @@
 #include "yaHeadScript.h"
 #include "yaInput.h"
 #include "yaTime.h"
-#include "yaTransform.h"
 #include "yaResources.h"
+#include "yaTransform.h"
 #include "yaPlayer.h"
 #include "yaRigidbody.h"
 #include "yaBodyScript.h"
 
+//#include "yaBullet.h"
 
 namespace ya
 {
@@ -107,19 +108,12 @@ namespace ya
 			headAni->GetCompleteEvent(L"LStiDownAttack") = std::bind(&HeadScript::End, this);
 		}
 
-		/*if (animator->GetName() == L"HeadIdle")
-		{
-			animator->GetCompleteEvent(L"HeadIdle") = std::bind(&PlayerScript::Action, this);
-			animator->GetEndEvent(L"HeadIdle") = std::bind(&PlayerScript::End, this);
-			animator->GetEvent(L"HeadIdle", 1) = std::bind(&PlayerScript::End, this);
-		}
+		
 
-		if (animator->GetName() == L"BodyIdle")
-		{
-			animator->GetCompleteEvent(L"BodyIdle") = std::bind(&PlayerScript::Action, this);
-			animator->GetEndEvent(L"BodyIdle") = std::bind(&PlayerScript::End, this);
-			animator->GetEvent(L"BodyIdle", 1) = std::bind(&PlayerScript::End, this);
-		}*/
+		auto a = s.allocate();
+
+		a->Initalize();
+
 	}
 
 	void HeadScript::Update()
@@ -331,6 +325,7 @@ namespace ya
 			else if (direction == 0)
 			{
 				//mTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+			
 				headAni->Play(L"LJump", false);
 				mHeadState = HeadState::JUMP;
 			}
