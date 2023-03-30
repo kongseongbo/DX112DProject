@@ -6,6 +6,7 @@
 #include "yaPlayer.h"
 #include "yaRigidbody.h"
 #include "yaBodyScript.h"
+#include "yaSceneManager.h"
 
 //#include "yaBullet.h"
 
@@ -110,9 +111,7 @@ namespace ya
 
 		
 
-		auto a = s.allocate();
-
-		a->Initalize();
+		
 
 	}
 
@@ -278,6 +277,13 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
+			auto a = s.allocate();
+			Scene* playScene = SceneManager::GetActiveScene();
+			playScene->AddGameObject(a, eLayerType::Bullet);
+			a->SetName(L"Bullet");
+			a->SetPlayer(GetOwner());
+			a->Attack();
+
 			headAni->Play(L"LPistolAttackU", false);
 			mHeadState = HeadState::ATTACK;
 		}

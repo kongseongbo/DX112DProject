@@ -4,20 +4,6 @@
 
 namespace ya
 {
-	// z값 정렬 작성중
-	//static bool CompareGameObjectByZAxis(GameObject* a, GameObject* b)
-	//{
-	//	Transform* aTr = a->GetComponent<Transform>();
-	//	Transform* bTr = b->GetComponent<Transform>();
-
-	//	if (aTr->GetPosition().z <= bTr->GetPosition().z)
-	//	{
-	//		return true;
-	//	}
-
-	//	return false;
-	//}
-
 	Layer::Layer()
 	{
 	}
@@ -27,6 +13,9 @@ namespace ya
 		for (GameObject* obj : mGameObjects)
 		{
 			if (obj == nullptr)
+				continue;
+
+			if (obj->GetName() == L"Bullet")
 				continue;
 
 			delete obj;

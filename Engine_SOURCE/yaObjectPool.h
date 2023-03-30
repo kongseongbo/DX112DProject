@@ -5,7 +5,6 @@
 
 namespace ya
 {
-
     template <typename T, size_t pool_size>
     class ObjectPool
     {
@@ -39,17 +38,4 @@ namespace ya
         std::list<T*> available_list;
     };
 }
-//class Object
-//{
-//public:
-//    Object()
-//    {
-//        cout << "오브젝트 생성자!\n";
-//    }
-//    ~Object()
-//    {
-//        cout << "오브젝트 소멸자!\n";
-//    }
-//    int woon2[100];
-//    int world[100];
-//};
+

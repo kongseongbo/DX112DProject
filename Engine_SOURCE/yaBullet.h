@@ -1,8 +1,10 @@
 #include "yaGameObject.h"
 
+
+
 namespace ya
 {
-	class Bullet/* : public GameObject*/
+	class Bullet : public GameObject
 	{
 	public:
 		Bullet();
@@ -13,8 +15,12 @@ namespace ya
 		void FixedUpdate();
 		void Render();
 
+		void Attack();
+
+		void SetPlayer(GameObject* player) { mPlayer = player; }
+
 	private:
-	
+		GameObject* mPlayer;
 
 	};
 }

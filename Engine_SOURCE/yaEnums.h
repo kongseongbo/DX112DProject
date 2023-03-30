@@ -25,6 +25,7 @@ namespace ya::enums
 		Player,
 		Animator,
 		Collider,
+		Bullet,
 
 		Particle,
 		UI,
