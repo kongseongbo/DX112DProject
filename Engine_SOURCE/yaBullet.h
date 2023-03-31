@@ -8,19 +8,15 @@ namespace ya
 	{
 	public:
 		Bullet();
-		 ~Bullet();
+		virtual ~Bullet();
 
-		void Initalize();
-		void Update();
-		void FixedUpdate();
-		void Render();
-
-		void Attack();
-
-		void SetPlayer(GameObject* player) { mPlayer = player; }
+		virtual void Initalize();
+		virtual void Update();
+		virtual void FixedUpdate();
+		virtual void Render();
 
 	private:
-		GameObject* mPlayer;
+
 
 	};
 }

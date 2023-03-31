@@ -15,9 +15,6 @@ namespace ya
 			if (obj == nullptr)
 				continue;
 
-			if (obj->GetName() == L"Bullet")
-				continue;
-
 			delete obj;
 			obj = nullptr;
 		}

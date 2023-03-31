@@ -7,8 +7,8 @@
 #include "yaRigidbody.h"
 #include "yaBodyScript.h"
 #include "yaSceneManager.h"
+#include "yaBulletScript.h"
 
-//#include "yaBullet.h"
 
 namespace ya
 {
@@ -280,9 +280,10 @@ namespace ya
 			auto a = s.allocate();
 			Scene* playScene = SceneManager::GetActiveScene();
 			playScene->AddGameObject(a, eLayerType::Bullet);
-			a->SetName(L"Bullet");
-			a->SetPlayer(GetOwner());
-			a->Attack();
+			Transform* bulletTr = a->GetComponent<Transform>();
+			bulletTr->SetPosition(mTr->GetPosition());
+			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+			a->AddComponent<BulletScript>();
 
 			headAni->Play(L"LPistolAttackU", false);
 			mHeadState = HeadState::ATTACK;

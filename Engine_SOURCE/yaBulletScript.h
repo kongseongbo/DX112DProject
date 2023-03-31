@@ -1,9 +1,10 @@
 #pragma once
 #include "yaScript.h"
-#include "yaBullet.h"
+
+
+
 namespace ya
 {
-
 	class BulletScript : public Script
 	{
 	public:
@@ -22,15 +23,8 @@ namespace ya
 		virtual void OnTriggerEnter(Collider2D* collider);
 		virtual void OnTriggerStay(Collider2D* collider);
 		virtual void OnTriggerExit(Collider2D* collider);
-	
-		//Bullet* GetBullet();
-		bool GetActive() { return mActive; }
-		void SetActive(bool active) { mActive = active; }
 		
 	private:
-		std::vector<Bullet> mBullets;
 
-		bool mActive;
-		int mMaxBullets;
 	};
 }
