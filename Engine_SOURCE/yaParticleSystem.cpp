@@ -6,6 +6,7 @@
 #include "yaTransform.h"
 #include "yaGameObject.h"
 #include "yaTexture.h"
+#include "yaTime.h"
 
 namespace ya
 {
@@ -17,6 +18,8 @@ namespace ya
 		, mStartColor(Vector4::Zero)
 		, mEndColor(Vector4::Zero)
 		, mStartLifeTime(0.0f)
+		, mFrequency(1.0f)
+		, mTime(0.0f)
 	{
 
 	}
@@ -25,6 +28,9 @@ namespace ya
 	{
 		delete mBuffer;
 		mBuffer = nullptr;
+
+		delete mSharedBuffer;
+		mSharedBuffer = nullptr;
 	}
 
 	void ParticleSystem::Initalize()
@@ -46,7 +52,7 @@ namespace ya
 		for (size_t i = 0; i < mCount; i++)
 		{
 			particles[i].position = Vector4(0.0f, 0.0f, 20.0f, 1.0f);
-			particles[i].active = 1;
+			particles[i].active = 0;
 			particles[i].direction =
 				Vector4(cosf((float)i * (XM_2PI / (float)mCount))
 					, sin((float)i * (XM_2PI / (float)mCount)), 0.0f, 1.0f);
@@ -54,13 +60,11 @@ namespace ya
 			particles[i].speed = 100.0f;
 		}
 
-		//for (size_t i = 50; i < mCount; i++)
-		//{
-		//	particles[i].active = 0;
-		//}
-
 		mBuffer = new StructedBuffer();
 		mBuffer->Create(sizeof(Particle), mCount, eSRVType::UAV, particles);
+
+		mSharedBuffer = new StructedBuffer();
+		mSharedBuffer->Create(sizeof(ParticleShared), 1, eSRVType::UAV, nullptr, true);
 	}
 
 	void ParticleSystem::Update()
@@ -68,7 +72,34 @@ namespace ya
 	}
 
 	void ParticleSystem::FixedUpdate()
-	{
+	{		//파티클 생성 시간
+		float aliveTime = 1.0f / mFrequency;
+		//누적시간
+		mTime += Time::DeltaTime();
+		if (aliveTime < mTime)
+		{
+			float f = (mTime / aliveTime);
+			UINT iAliveCount = (UINT)f;
+			mTime = f - std::floor(f);
+
+			ParticleShared shared = { 5, };
+			mSharedBuffer->SetData(&shared, 1);
+		}
+		else
+		{
+			ParticleShared shared = {  };
+			mSharedBuffer->SetData(&shared, 1);
+		}
+
+		renderer::ParticleSystemCB info = {};
+		info.elementCount = mBuffer->GetStride();
+		info.deltaTime = Time::DeltaTime();
+
+		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::ParticleSystem];
+		cb->SetData(&info);
+		cb->Bind(eShaderStage::CS);
+
+		mCS->SetSharedStrutedBuffer(mSharedBuffer);
 		mCS->SetStrcutedBuffer(mBuffer);
 		mCS->OnExcute();
 	}
