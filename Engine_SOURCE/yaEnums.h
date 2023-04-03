@@ -20,12 +20,12 @@ namespace ya::enums
 		Grid,
 		FadeIn,
 		Map,
+		Bullet,
 		Monster,
 		Body,
 		Player,
 		Animator,
 		Collider,
-		Bullet,
 
 		Particle,
 		UI,

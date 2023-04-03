@@ -5,13 +5,18 @@
 #include "yaSpriteRenderer.h"
 #include "yaMesh.h"
 #include "yaObject.h"
-
+#include "yaSceneManager.h"
+#include "yaHeadScript.h"
+#include "yaInput.h"
 
 
 namespace ya
 {
 	BulletScript::BulletScript()
 		: Script()
+		, mDirection(0)
+		, time(0.0f)
+		, mStateUp(false)
 	{
 	}
 	BulletScript::~BulletScript()
@@ -19,10 +24,10 @@ namespace ya
 	}
 	void BulletScript::Initalize()
 	{
-		/*Collider2D* bodyCollider = AddComponent<Collider2D>();
+		Collider2D* bodyCollider = GetOwner()->AddComponent<Collider2D>();
 		bodyCollider->SetType(eColliderType::Rect);
-		bodyCollider->SetCenter(Vector2(-0.5f, -1.0f));
-		bodyCollider->SetSize(Vector2(0.1f, 0.05f));*/
+		bodyCollider->SetCenter(Vector2(0.0f, 0.0f));
+		bodyCollider->SetSize(Vector2(0.1f, 0.1f));
 
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"BassBullet", L"Bullet\\BassBullet.png");
 		Animator* bulletAni = GetOwner()->AddComponent<Animator>();
@@ -35,16 +40,46 @@ namespace ya
 		bodyMr->SetMesh(mesh);
 
 		bulletAni->Play(L"BassBullet", true);
-
+		
 	}
 	void BulletScript::Update()
 	{
+		Animator* bulletAni = GetOwner()->GetComponent<Animator>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-		pos.x += 10.0f* Time::DeltaTime();
+		
 
+
+
+		if (mStateUp)
+		{
+			pos.y += 30.f * Time::DeltaTime();
+		}
+		else
+		{
+			if (mDirection == 0)
+				pos.x -= 30.f * Time::DeltaTime();
+			else
+				pos.x += 30.f * Time::DeltaTime();
+		}
+		
+	
+	
+
+
+		time += 1.5f * Time::DeltaTime();
 		tr->SetPosition(pos);
+		if (time > 2.0f)
+		{
+			GetOwner()->Death();
 
+			time = 0.0f;
+		}
+		if ((UINT)GetOwner()->GetState() == 2)
+		{
+			bulletAni->Clear();
+		
+		}
 	
 	}
 	void BulletScript::FixedUpdate()
@@ -71,5 +106,4 @@ namespace ya
 	void BulletScript::OnTriggerExit(Collider2D* collider)
 	{
 	}
-
 }

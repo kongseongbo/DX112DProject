@@ -14,6 +14,7 @@ namespace ya
 	}
 	Bullet::~Bullet()
 	{
+		
 	}
 	void Bullet::Initalize()
 	{

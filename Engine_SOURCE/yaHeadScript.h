@@ -22,6 +22,7 @@ namespace ya
 			SITDOWNMOVE,
 			SITDOWNATTACK,
 			ATTACK,
+			UPATTACK,
 			HIT,
 			DEATH,
 		};
@@ -48,6 +49,7 @@ namespace ya
 		void UpMove();
 		void Jump();
 		void Attack();
+		void UpAttack();
 		void SitDown();
 		void SitDownMove();
 		void SitDownAttack();
@@ -57,7 +59,6 @@ namespace ya
 		HeadState GetHeadState() { return mHeadState; }
 		void SetHeadState(HeadState state) { mHeadState = state; }
 
-
 		void SetHeadAnimator(Animator* ani) { headAni = ani; }
 		void SetBodyAnimator(Animator* ani) { bodyAni = ani; }
 
@@ -66,10 +67,13 @@ namespace ya
 		Animator* headAni;
 		Animator* bodyAni;
 
-		HeadState headState;
-
 		int direction;
 		ObjectPool< Bullet, 10 > s;
+
+		float time;
+		Bullet* mBullet;
+
+		std::queue<Bullet*> mBullets;
 
 	};
 }

@@ -23,8 +23,14 @@ namespace ya
 		virtual void OnTriggerEnter(Collider2D* collider);
 		virtual void OnTriggerStay(Collider2D* collider);
 		virtual void OnTriggerExit(Collider2D* collider);
-		
-	private:
 
+		void SetDirection(int direction) { mDirection = direction; }
+		void SetState(bool state) { mStateUp = state;}
+
+
+	private:
+		int mDirection;
+		bool mStateUp;
+		float time;
 	};
 }
