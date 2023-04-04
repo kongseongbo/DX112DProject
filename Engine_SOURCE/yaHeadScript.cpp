@@ -54,9 +54,11 @@ namespace ya
 
 			texture = Resources::Load<Texture>(L"PistolAttackU", L"Character\\Marco\\PistolAttackU.png");
 			headAni->Create(L"PistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.05f);
+			headAni->Create(L"JumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(0.005f,-0.2f), 10, 0.05f);
 
 			texture = Resources::Load<Texture>(L"LPistolAttackU", L"Character\\Marco\\LPistolAttackU.png");
 			headAni->Create(L"LPistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2::Zero, 10, 0.05f);
+			headAni->Create(L"LJumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2(0.005f, -0.2f), 10, 0.05f);
 
 			texture = Resources::Load<Texture>(L"LookTop", L"Character\\Marco\\LookTop.png");
 			headAni->Create(L"LookTop", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 33.5f), Vector2::Zero, 2, 0.1f);
@@ -103,6 +105,8 @@ namespace ya
 
 			headAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"LPistolAttackU") = std::bind(&HeadScript::End, this);
+			headAni->GetCompleteEvent(L"JumpAttack") = std::bind(&HeadScript::End, this);
+			headAni->GetCompleteEvent(L"LJumpAttack") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"LookTop") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"LLookTop") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"AttackTop") = std::bind(&HeadScript::End, this);
@@ -191,8 +195,6 @@ namespace ya
 				mHeadState = HeadState::IDLE;
 			}
 		}
-
-		
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)
@@ -381,7 +383,6 @@ namespace ya
 		{
 			mHeadState = HeadState::UPMOVE;
 		}
-		
 		
 		if (Input::GetKeyUp(eKeyCode::UP) && direction == 1)
 		{
@@ -601,13 +602,13 @@ namespace ya
 			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 			bulletScript->SetDirection(0);
 
-			headAni->Play(L"LPistolAttackU", false);
+			headAni->Play(L"LJumpAttack", false);
 			mHeadState = HeadState::ATTACK;
 		}
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
 
-			mTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y , mTr->GetPosition().z));
+			mTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y + 1.f, mTr->GetPosition().z));
 
 			mBullet = new Bullet();
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
@@ -617,7 +618,7 @@ namespace ya
 			bulletScript->SetDirection(1);
 
 			
-			headAni->Play(L"PistolAttackU", false);
+			headAni->Play(L"JumpAttack", false);
 			mHeadState = HeadState::ATTACK;
 		}
 	}

@@ -54,8 +54,6 @@ namespace ya
 		Vector3 pos = tr->GetPosition();
 		
 
-
-
 		if (mStateUp)
 		{
 			pos.y += 30.f * Time::DeltaTime();
@@ -68,14 +66,13 @@ namespace ya
 				pos.x += 30.f * Time::DeltaTime();
 		}
 		tr->SetPosition(pos);
-		
-	
-	
-
 
 		time += 1.5f * Time::DeltaTime();
 		if (time > 2.0f)
 		{
+			//Transform* mTr = GetOwner()->GetComponent<Transform>();
+			
+			tr->SetPosition(Vector3(-10.0f, -10.0f, 1.0f));
 			GetOwner()->Death();
 
 			time = 0.0f;
