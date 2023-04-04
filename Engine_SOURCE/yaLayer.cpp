@@ -14,6 +14,8 @@ namespace ya
 		{
 			if (obj == nullptr)
 				continue;
+			/*if (obj->GetLayerType() == eLayerType::Bullet)
+				continue;*/
 
 			delete obj;
 			obj = nullptr;

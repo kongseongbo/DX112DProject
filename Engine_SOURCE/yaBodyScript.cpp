@@ -196,6 +196,17 @@ namespace ya
 			mBodyState = BodyState::IDLE;
 		}
 
+		if (Input::GetKey(eKeyCode::DOWN) && direction == 0)
+		{
+			bodyAni->Play(L"def", false);
+			mBodyState = BodyState::SITDOWN;
+		}
+		else if (Input::GetKey(eKeyCode::DOWN) && direction == 1)
+		{
+			bodyAni->Play(L"def", false);
+			mBodyState = BodyState::SITDOWN;
+		}
+
 		if (Input::GetKey(eKeyCode::SPACE) && direction == 0)
 		{
 			bodyAni->Play(L"JumpMoveD", false);
@@ -206,7 +217,6 @@ namespace ya
 			bodyAni->Play(L"LJumpMoveD", false);
 			mBodyState = BodyState::JUMP;
 		}
-
 	}
 
 	void BodyScript::Jump()
@@ -228,6 +238,8 @@ namespace ya
 			bodyAni->Play(L"LBodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
+
+
 	}
 
 	void BodyScript::SitDownMove()

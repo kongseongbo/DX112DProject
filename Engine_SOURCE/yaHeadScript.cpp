@@ -22,6 +22,7 @@ namespace ya
 		, bodyAni(nullptr)
 		, direction(1)
 		, time(0.0f)
+		//, a(nullptr)
 	{
 
 	}
@@ -95,11 +96,12 @@ namespace ya
 			headAni->Create(L"JumpMoveU", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 40.0f), Vector2(-0.04f, 0.03f), 6, 0.1f);
 			headAni->Create(L"LJumpMoveU", texture, Vector2(0.0f, 40.0f), Vector2(35.0f, 40.0f), Vector2(-0.05f, 0.03f), 6, 0.1f);
 			
+			texture = Resources::Load<Texture>(L"KnifeAttackU", L"Character\\Marco\\KnifeAttackU.png");
+			headAni->Create(L"KnifeAttackU", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 58.0f), Vector2(-0.02f, -0.03f), 6, 0.1f);
 
 			headAni->Play(L"HeadIdle", true);
 
 			headAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&HeadScript::End, this);
-			/*headAni->GetEvent(L"LPistolAttackU",5) = std::bind(&HeadScript::Action, this);*/
 			headAni->GetCompleteEvent(L"LPistolAttackU") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"LookTop") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"LLookTop") = std::bind(&HeadScript::End, this);
@@ -110,26 +112,11 @@ namespace ya
 			headAni->GetCompleteEvent(L"StiDownAttack") = std::bind(&HeadScript::End, this);
 			headAni->GetCompleteEvent(L"LStiDownAttack") = std::bind(&HeadScript::End, this);
 		}
-
-
-	
-
-
-		/*mBullet = new Bullet();
-		if (mBullets.empty())
-		{
-			for (size_t i = 0; i < 10; i++)
-			{
-				mBullets.push(mBullet);
-			}
-		}*/
-
 	}
 
 	void HeadScript::Update()
 	{
 		time += 1.0f * Time::DeltaTime();
-
 
 		headAni = GetOwner()->GetComponent<Animator>();
 		switch (mHeadState)
@@ -174,6 +161,8 @@ namespace ya
 			break;
 		}
 
+		/*if(time > 5.0f)
+			mBullets.deallocate(a);*/
 	
 	}
 
@@ -202,10 +191,17 @@ namespace ya
 				mHeadState = HeadState::IDLE;
 			}
 		}
+
+		
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)
 	{
+		if (collider->GetID() == 3)
+		{
+			if (Input::GetKey(eKeyCode::LCTRL))
+				headAni->Play(L"KnifeAttackU", false);
+		}
 	}
 
 	void HeadScript::OnCollisionExit(Collider2D* collider)
@@ -260,6 +256,15 @@ namespace ya
 			headAni->Play(L"LDownIdle", true);
 		}
 
+		if (mHeadState == HeadState::SITDOWNMOVE && direction == 1)
+		{
+			headAni->Play(L"DownMove", true);
+		}
+		else if (mHeadState == HeadState::SITDOWNMOVE && direction == 0)
+		{
+			headAni->Play(L"LDownMove", true);
+		}
+
 		if (mHeadState == HeadState::SITDOWNATTACK && direction == 1)
 		{
 			headAni->Play(L"DownIdle", true);
@@ -291,18 +296,19 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
 			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 			bulletScript->SetDirection(0);
 			
-			/*Bullet* a = s.allocate();
+			/*a = mBullets.allocate();
 			Scene* playScene = SceneManager::GetActiveScene();
 			playScene->AddGameObject(a, eLayerType::Bullet);	
-			a->AddComponent<BulletScript>();*/
+			a->AddComponent<BulletScript>();
+			Transform* bulletTr = a->GetComponent<Transform>();
+			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
+			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));*/
 		
 			
 			headAni->Play(L"LPistolAttackU", false);
@@ -311,8 +317,6 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
@@ -348,20 +352,17 @@ namespace ya
 			mTr = GetOwner()->GetComponent<Transform>();
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
-			velocity.y = 30.0f;
+			velocity.y = 40.0f;
 			rigidbody->SetGround(false);
 			rigidbody->SetVelocity(velocity);
 
 			if (direction == 1)
 			{
-				//mTr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 				headAni->Play(L"Jump", false);
 				mHeadState = HeadState::JUMP;
 			}
 			else if (direction == 0)
 			{
-				//mTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
-			
 				headAni->Play(L"LJump", false);
 				mHeadState = HeadState::JUMP;
 			}
@@ -398,8 +399,6 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
@@ -412,8 +411,6 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
@@ -437,12 +434,9 @@ namespace ya
 			headAni->Play(L"LHeadIdle", true);
 			mHeadState = HeadState::IDLE;
 		}
-
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
@@ -455,8 +449,6 @@ namespace ya
 		else if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
@@ -491,27 +483,31 @@ namespace ya
 			mTr->SetPosition(pos);
 		}
 
-		if (Input::GetKeyDown(eKeyCode::SPACE) && direction == 0)
+		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
-			velocity.y = 30.0f;
+			velocity.y = 40.0f;
 			rigidbody->SetGround(false);
 			rigidbody->SetVelocity(velocity);
 
-			headAni->Play(L"LJumpMoveU", false);
+			if(direction == 0)
+				headAni->Play(L"LJumpMoveU", false);
+			else
+				headAni->Play(L"JumpMoveU", false);
+			
 			mHeadState = HeadState::JUMP;
 		}
-		else if (Input::GetKeyDown(eKeyCode::SPACE) && direction == 1)
-		{
-			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
-			Vector2 velocity = rigidbody->GetVelocity();
-			velocity.y = 30.0f;
-			rigidbody->SetGround(false);
-			rigidbody->SetVelocity(velocity);
 
-			headAni->Play(L"JumpMoveU", false);
-			mHeadState = HeadState::JUMP;
+		if (Input::GetKey(eKeyCode::DOWN) && direction == 0)
+		{
+			headAni->Play(L"LDownMotion", false);
+			mHeadState = HeadState::SITDOWNMOVE;
+		}
+		else if (Input::GetKey(eKeyCode::DOWN) && direction == 1)
+		{
+			headAni->Play(L"DownMotion", false);
+			mHeadState = HeadState::SITDOWNMOVE;
 		}
 	}
 
@@ -525,8 +521,6 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
@@ -539,8 +533,6 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
@@ -571,36 +563,62 @@ namespace ya
 			rigidbody->SetVelocity(velocity);
 		}
 
-		if (/*Input::GetKey(eKeyCode::LEFT) &&*/ direction == 0)
+		if (direction == 0)
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
-
-
 		}
-		if (/*Input::GetKey(eKeyCode::RIGHT) &&*/ direction == 1)
+		if (direction == 1)
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
-
 		}
 	}
 
 	void HeadScript::Jump()
 	{
-		if (Input::GetKey(eKeyCode::LEFT) && direction == 0)
+		if (Input::GetKey(eKeyCode::LEFT) )
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
-		else if (Input::GetKey(eKeyCode::RIGHT) && direction == 1)
+		if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
+		{
+			mBullet = new Bullet();
+			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
+			Transform* bulletTr = mBullet->GetComponent<Transform>();
+			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
+			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+			bulletScript->SetDirection(0);
+
+			headAni->Play(L"LPistolAttackU", false);
+			mHeadState = HeadState::ATTACK;
+		}
+		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
+		{
+
+			mTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y , mTr->GetPosition().z));
+
+			mBullet = new Bullet();
+			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
+			Transform* bulletTr = mBullet->GetComponent<Transform>();
+			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
+			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+			bulletScript->SetDirection(1);
+
+			
+			headAni->Play(L"PistolAttackU", false);
+			mHeadState = HeadState::ATTACK;
 		}
 	}
 
@@ -676,8 +694,6 @@ namespace ya
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{	
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x + 0.1f, mTr->GetPosition().y - 1.f, mTr->GetPosition().z));
@@ -690,8 +706,6 @@ namespace ya
 		else if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
 			mBullet = new Bullet();
-			Scene* playScene = SceneManager::GetActiveScene();
-			playScene->AddGameObject(mBullet, eLayerType::Bullet);
 			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullet->GetComponent<Transform>();
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - 0.1f, mTr->GetPosition().y - 1.f, mTr->GetPosition().z));

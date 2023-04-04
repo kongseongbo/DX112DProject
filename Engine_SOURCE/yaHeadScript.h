@@ -63,17 +63,16 @@ namespace ya
 		void SetBodyAnimator(Animator* ani) { bodyAni = ani; }
 
 	private:
+		Bullet* mBullet;
 		Transform* mTr;
 		Animator* headAni;
 		Animator* bodyAni;
 
+
 		int direction;
-		ObjectPool< Bullet, 10 > s;
-
 		float time;
-		Bullet* mBullet;
 
-		std::queue<Bullet*> mBullets;
-
+		/*ObjectPool< Bullet, 50 > mBullets;
+		Bullet* a;*/
 	};
 }

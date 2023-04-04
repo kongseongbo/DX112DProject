@@ -94,7 +94,7 @@ namespace ya
 		mapMr->SetMesh(mesh);
 
 		// Map Collider
-		GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+		GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 		mapcolliderObj->SetName(L"CollMap");
 		Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
 		mapcolliderTr->SetPosition(Vector3(1.0f, -5.0f, 1.0f));
@@ -157,7 +157,7 @@ namespace ya
 		Monster* monsterObj = object::Instantiate<Monster>(eLayerType::Monster, this);
 		monsterObj->SetName(L"Monster");
 		Transform* monsterTr = monsterObj->GetComponent<Transform>();
-		monsterTr->SetPosition(Vector3(3.0f, 0.0f, 5.0f));
+		monsterTr->SetPosition(Vector3(3.0f, -3.0f, 5.0f));
 		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 		Collider2D* monsterCollider = monsterObj->AddComponent<Collider2D>();
 		monsterCollider->SetType(eColliderType::Rect);
@@ -200,8 +200,8 @@ namespace ya
 		}
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Collider, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Map, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
 
 		Scene::Initalize();
 	}

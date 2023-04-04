@@ -17,13 +17,18 @@ namespace ya
 		, mDirection(0)
 		, time(0.0f)
 		, mStateUp(false)
+		, mSpeed(0.0f)
 	{
+
 	}
 	BulletScript::~BulletScript()
 	{
 	}
 	void BulletScript::Initalize()
 	{
+		Scene* playScene = SceneManager::GetActiveScene();
+		playScene->AddGameObject(GetOwner(), eLayerType::Bullet);
+
 		Collider2D* bodyCollider = GetOwner()->AddComponent<Collider2D>();
 		bodyCollider->SetType(eColliderType::Rect);
 		bodyCollider->SetCenter(Vector2(0.0f, 0.0f));
@@ -62,25 +67,19 @@ namespace ya
 			else
 				pos.x += 30.f * Time::DeltaTime();
 		}
+		tr->SetPosition(pos);
 		
 	
 	
 
 
 		time += 1.5f * Time::DeltaTime();
-		tr->SetPosition(pos);
 		if (time > 2.0f)
 		{
 			GetOwner()->Death();
 
 			time = 0.0f;
 		}
-		if ((UINT)GetOwner()->GetState() == 2)
-		{
-			bulletAni->Clear();
-		
-		}
-	
 	}
 	void BulletScript::FixedUpdate()
 	{

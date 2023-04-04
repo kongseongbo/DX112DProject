@@ -27,10 +27,12 @@ namespace ya
 		void SetDirection(int direction) { mDirection = direction; }
 		void SetState(bool state) { mStateUp = state;}
 
+		void SetSpeed(float speed) { mSpeed = speed; }
 
 	private:
 		int mDirection;
 		bool mStateUp;
+		float mSpeed;
 		float time;
 	};
 }
