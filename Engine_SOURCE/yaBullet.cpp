@@ -10,11 +10,11 @@ namespace ya
 {
 	Bullet::Bullet()
 	{
-		SetName(L"Bullet");
+		//SetName(L"Bullet");
 	}
 	Bullet::~Bullet()
 	{
-		
+		int a = 0;
 	}
 	void Bullet::Initalize()
 	{

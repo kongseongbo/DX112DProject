@@ -117,7 +117,7 @@ namespace ya
 			headObj->AddComponent<Animator>();
 			headObj->AddComponent<Rigidbody>();
 			HeadScript* playerscript = headObj->AddComponent<HeadScript>();
-			playerscript->SetHeadAnimator(headObj->GetComponent<Animator>());
+			
 
 			Collider2D* collider = headObj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
@@ -139,7 +139,6 @@ namespace ya
 			bodyObj->AddComponent<Animator>();
 			BodyScript* bodyScript = bodyObj->AddComponent<BodyScript>();
 			bodyScript->mHead = headObj;
-			playerscript->SetBodyAnimator(bodyObj->GetComponent<Animator>());
 
 			Collider2D* bodyCollider = bodyObj->AddComponent<Collider2D>();
 			bodyCollider->SetType(eColliderType::Rect);
@@ -191,13 +190,13 @@ namespace ya
 		fadeObject->AddComponent<FadeInOutScript>();
 
 		//Particle
-		{
+		/*{
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
 			obj->SetName(L"PARTICLE");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
 			obj->AddComponent<ParticleSystem>();
-		}
+		}*/
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Map, true);

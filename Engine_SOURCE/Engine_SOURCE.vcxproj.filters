@@ -295,6 +295,9 @@
     <ClCompile Include="yaObjectPool.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="yaMachineGunScript.cpp">
+      <Filter>Component\Script\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -468,6 +471,9 @@
     </ClInclude>
     <ClInclude Include="yaObjectPool.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMachineGunScript.h">
+      <Filter>Component\Script\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

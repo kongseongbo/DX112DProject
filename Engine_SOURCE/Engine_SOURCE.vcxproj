@@ -163,6 +163,7 @@
     <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaHeadScript.h" />
     <ClInclude Include="yaLight.h" />
+    <ClInclude Include="yaMachineGunScript.h" />
     <ClInclude Include="yaMapScript.h" />
     <ClInclude Include="yaObjectPool.h" />
     <ClInclude Include="yaPaintShader.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaHeadScript.cpp" />
     <ClCompile Include="yaLight.cpp" />
+    <ClCompile Include="yaMachineGunScript.cpp" />
     <ClCompile Include="yaMapScript.cpp" />
     <ClCompile Include="yaObjectPool.cpp" />
     <ClCompile Include="yaPaintShader.cpp" />

@@ -29,20 +29,20 @@ namespace ya
 		Scene* playScene = SceneManager::GetActiveScene();
 		playScene->AddGameObject(GetOwner(), eLayerType::Bullet);
 
-		Collider2D* bodyCollider = GetOwner()->AddComponent<Collider2D>();
-		bodyCollider->SetType(eColliderType::Rect);
-		bodyCollider->SetCenter(Vector2(0.0f, 0.0f));
-		bodyCollider->SetSize(Vector2(0.1f, 0.1f));
+		Collider2D* bulletColl = GetOwner()->AddComponent<Collider2D>();
+		bulletColl->SetType(eColliderType::Rect);
+		bulletColl->SetCenter(Vector2(0.0f, 0.0f));
+		bulletColl->SetSize(Vector2(0.1f, 0.1f));
 
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"BassBullet", L"Bullet\\BassBullet.png");
 		Animator* bulletAni = GetOwner()->AddComponent<Animator>();
 		bulletAni->Create(L"BassBullet", texture, Vector2(0.0f, 0.0f), Vector2(18.0f, 18.0f), Vector2::Zero, 1, 0.3f);
 
-		SpriteRenderer* bodyMr = GetOwner()->AddComponent<SpriteRenderer>();
+		SpriteRenderer* bulletSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		bodyMr->SetMaterial(bodyMateiral);
-		bodyMr->SetMesh(mesh);
+		bulletSr->SetMaterial(bodyMateiral);
+		bulletSr->SetMesh(mesh);
 
 		bulletAni->Play(L"BassBullet", true);
 		
@@ -52,31 +52,72 @@ namespace ya
 		Animator* bulletAni = GetOwner()->GetComponent<Animator>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-		
-
-		if (mStateUp)
-		{
-			pos.y += 30.f * Time::DeltaTime();
-		}
-		else
-		{
-			if (mDirection == 0)
-				pos.x -= 30.f * Time::DeltaTime();
-			else
-				pos.x += 30.f * Time::DeltaTime();
-		}
-		tr->SetPosition(pos);
 
 		time += 1.5f * Time::DeltaTime();
-		if (time > 2.0f)
+		
+		if (GetOwner()->GetName() == L"bullet0")
 		{
-			//Transform* mTr = GetOwner()->GetComponent<Transform>();
-			
-			tr->SetPosition(Vector3(-10.0f, -10.0f, 1.0f));
-			GetOwner()->Death();
+			if (time > 2.0f)
+			{
+				if (mStateUp)
+				{
+					pos.y += 30.f * Time::DeltaTime();
+				}
+				else
+				{
 
-			time = 0.0f;
+					if (mDirection == 0)
+						pos.x -= 30.f * Time::DeltaTime();
+					else
+						pos.x += 30.f * Time::DeltaTime();
+					//time = 0.0f;
+					tr->SetPosition(pos);
+				}
+			}
 		}
+		if (GetOwner()->GetName() == L"bullet1")
+		{
+			if (time > 1.0f)
+			{
+				if (mStateUp)
+				{
+					pos.y += 30.f * Time::DeltaTime();
+				}
+				else
+				{
+
+					if (mDirection == 0)
+						pos.x -= 30.f * Time::DeltaTime();
+					else
+						pos.x += 30.f * Time::DeltaTime();
+					//time = 0.0f;
+					tr->SetPosition(pos);
+				}
+			}
+		}
+		//else
+		//{
+		//	if (mStateUp)
+		//	{
+		//		pos.y += 30.f * Time::DeltaTime();
+		//	}
+		//	else
+		//	{
+
+		//		if (mDirection == 0)
+		//			pos.x -= 30.f * Time::DeltaTime();
+		//		else
+		//			pos.x += 30.f * Time::DeltaTime();
+		//		//time = 0.0f;
+		//		tr->SetPosition(pos);
+		//	}
+
+		//	if (time > 5.0f)
+		//	{
+		//		GetOwner()->Death();
+		//		time = 0.0f;
+		//	}
+		//}
 	}
 	void BulletScript::FixedUpdate()
 	{
