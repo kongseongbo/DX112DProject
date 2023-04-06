@@ -9,7 +9,6 @@
 #include "yaSceneManager.h"
 #include "yaBulletScript.h"
 
-
 namespace ya
 {
 	HeadScript::GunState HeadScript::mGunState = GunState::GUN;
@@ -22,7 +21,7 @@ namespace ya
 		, mTr(nullptr)
 		, mHeadAni(nullptr)
 		, direction(1)
-		, time(0.0f)
+		, mTime(0.0f)
 		//, a(nullptr)
 	{
 
@@ -300,31 +299,12 @@ namespace ya
 		{
 			/*if (mGunState == GunState::GUN)
 			{
-				mBullet = new Bullet();
-				BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-				Transform* bulletTr = mBullet->GetComponent<Transform>();
-				bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
-				bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-				bulletScript->SetDirection(0);
+				NewBullet(L"bullet", Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z), 0);
 			}*/
 			
 			if (mGunState == GunState::GUN)
 			{
-
-				
-				for (size_t i = 0; i < 5; i++)
-				{
-					mBullets[i] = new Bullet();
-					if(i == 0)
-						mBullets[i]->SetName(L"bullet0");
-					if (i == 1)
-						mBullets[i]->SetName(L"bullet1");
-					BulletScript* bulletScript = mBullets[i]->AddComponent<BulletScript>();
-					Transform* bulletTr = mBullets[i]->GetComponent<Transform>();
-					bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f + i, mTr->GetPosition().z));
-					bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-					bulletScript->SetDirection(0);
-				}
+				NewMachineGun(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z), 0);
 			}
 
 			/*a = mBullets.allocate();
@@ -335,18 +315,12 @@ namespace ya
 			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
 			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));*/
 		
-			
 			mHeadAni->Play(L"LPistolAttackU", false);
 			mHeadState = HeadState::ATTACK;
 		}
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(1);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z), 1);
 
 			mHeadAni->Play(L"PistolAttackU", false);
 			mHeadState = HeadState::ATTACK;
@@ -424,25 +398,15 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(1);
-			bulletScript->SetState(true);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 1, true);
+
 			mHeadAni->Play(L"AttackTop", false);
 			mHeadState = HeadState::UPATTACK;
 		}
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(0);
-			bulletScript->SetState(true);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 0, true);
+
 			mHeadAni->Play(L"LAttackTop", false);
 			mHeadState = HeadState::UPATTACK;
 		}
@@ -462,24 +426,14 @@ namespace ya
 		}
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(1);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z), 1);
 
 			mHeadAni->Play(L"PistolAttackU", true);
 			mHeadState = HeadState::ATTACK;
 		}
 		else if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(0);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z), 0);
 
 			mHeadAni->Play(L"LPistolAttackU", true);
 			mHeadState = HeadState::ATTACK;
@@ -546,25 +500,16 @@ namespace ya
 		
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(0);
-			bulletScript->SetState(true);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 0, true);
+
 			mHeadAni->Play(L"LAttackTop", false);
 			mHeadState = HeadState::UPATTACK;
 		}
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(1);
-			bulletScript->SetState(true);
+
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 1, true);
+
 			mHeadAni->Play(L"AttackTop", false);
 			mHeadState = HeadState::UPATTACK;
 		}
@@ -620,12 +565,7 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(0);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 0);
 
 			mHeadAni->Play(L"LJumpAttack", false);
 			mHeadState = HeadState::ATTACK;
@@ -635,13 +575,7 @@ namespace ya
 
 			mTr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y + 1.f, mTr->GetPosition().z));
 
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(1);
-
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 1);
 			
 			mHeadAni->Play(L"JumpAttack", false);
 			mHeadState = HeadState::ATTACK;
@@ -719,24 +653,14 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
 		{	
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x + 0.1f, mTr->GetPosition().y - 1.f, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(1);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x + 0.1f, mTr->GetPosition().y - 1.f, mTr->GetPosition().z), 1);
 
 			mHeadAni->Play(L"StiDownAttack", false);
 			mHeadState = HeadState::SITDOWNATTACK;
 		}
 		else if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
-			mBullet = new Bullet();
-			BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
-			Transform* bulletTr = mBullet->GetComponent<Transform>();
-			bulletTr->SetPosition(Vector3(mTr->GetPosition().x - 0.1f, mTr->GetPosition().y - 1.f, mTr->GetPosition().z));
-			bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-			bulletScript->SetDirection(0);
+			NewBullet(L"bullet", Vector3(mTr->GetPosition().x - 0.1f, mTr->GetPosition().y - 1.f, mTr->GetPosition().z), 0);
 
 			mHeadAni->Play(L"LStiDownAttack", false);
 			mHeadState = HeadState::SITDOWNATTACK;
@@ -797,13 +721,54 @@ namespace ya
 		}
 	}
 
-
-
 	void HeadScript::Hit()
 	{
 	}
 
 	void HeadScript::Death()
 	{
+	}
+	void HeadScript::NewBullet(std::wstring name, Vector3 pos , int direction, bool up)
+	{
+		mBullet = new Bullet();
+		mBullet->SetName(name);
+		BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
+		Transform* bulletTr = mBullet->GetComponent<Transform>();
+		bulletTr->SetPosition(pos);
+		bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+		bulletScript->SetDirection(direction);
+		bulletScript->SetState(up);
+	}
+	void HeadScript::NewMachineGun(Vector3 pos, int direction, bool up)
+	{
+		for (size_t i = 0; i < 5; i++)
+		{
+			mBullets[i] = new Bullet();
+			if (i == 0)
+				mBullets[i]->SetName(L"bullet0");
+			if (i == 1)
+				mBullets[i]->SetName(L"bullet1");
+			if (i == 2)
+				mBullets[i]->SetName(L"bullet2");
+			if (i == 3)
+				mBullets[i]->SetName(L"bullet3");
+			if (i == 4)
+				mBullets[i]->SetName(L"bullet4");
+
+			// 0~0.5 사이의 난수 생성
+			std::random_device rd;
+			std::mt19937 eng(rd());
+			std::uniform_real_distribution<> distr(0, 0.5);
+
+			BulletScript* bulletScript = mBullets[i]->AddComponent<BulletScript>();
+			Transform* bulletTr = mBullets[i]->GetComponent<Transform>();
+			bulletTr->SetPosition(Vector3(pos.x,pos.y + distr(eng), pos.z));
+			bulletTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+			if(direction == 0)
+				bulletTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+			
+			bulletScript->SetDirection(direction);
+			bulletScript->SetState(up);
+		}
 	}
 }

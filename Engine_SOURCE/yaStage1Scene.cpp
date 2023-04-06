@@ -23,7 +23,8 @@
 #include "yaHeadScript.h"
 #include "yaBodyScript.h"
 #include "yaParticleSystem.h"
-
+#include "yaMachineGunScript.h"
+#include "yaMachineGun.h"
 
 namespace ya
 {
@@ -165,6 +166,27 @@ namespace ya
 		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");
 		monsterMr->SetMaterial(monsterMateiral);
 		monsterMr->SetMesh(mesh);
+
+		// MachineGunItem
+		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
+		machineGun->SetName(L"machineGun");
+		Transform* machineGunTr = machineGun->GetComponent<Transform>();
+		machineGunTr->SetPosition(Vector3(0.0f, -3.0f, 5.0f));
+		//machineGunTr->SetScale(Vector3(5.0f, 5.0f,1.0f));
+		MachineGunScript* machineGunScript = machineGun->AddComponent<MachineGunScript>();
+
+		Collider2D* machineGunCollider = machineGun->AddComponent<Collider2D>();
+		machineGunCollider->SetType(eColliderType::Rect);
+
+		Animator* machineGunAni = machineGun->AddComponent<Animator>();
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MachineGunItem", L"Bullet\\MachineGunItem.png");
+		machineGunAni->Create(L"MachineGunItem", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 22.0f), Vector2::Zero, 2, 0.3f);
+
+		SpriteRenderer* machineGunSr = machineGun->AddComponent<SpriteRenderer>();
+		std::shared_ptr<Material> machineGunMateiral = Resources::Find<Material>(L"SpriteMaterial");
+		machineGunSr->SetMaterial(machineGunMateiral);
+		machineGunSr->SetMesh(mesh);
+		machineGunAni->Play(L"MachineGunItem", true);
 
 		// HPBAR
 		GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI, this);

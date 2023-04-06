@@ -58,9 +58,6 @@
     <Filter Include="Component\Transform">
       <UniqueIdentifier>{7d59c778-f068-46ca-b13d-be33f9bc8c9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Contents">
-      <UniqueIdentifier>{1cd574f3-8e7d-4c59-b5f3-64fbd75f2977}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{7f276426-3008-40fa-9275-dcf7a3d92304}</UniqueIdentifier>
     </Filter>
@@ -135,6 +132,9 @@
     </Filter>
     <Filter Include="Component\Script\Player\Head">
       <UniqueIdentifier>{4ac7cc98-2a86-43d5-9fe8-6ba5c4b23c62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\MachineGun">
+      <UniqueIdentifier>{429072b9-39ff-4bf8-b502-8dedda7650dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -295,8 +295,11 @@
     <ClCompile Include="yaObjectPool.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="yaMachineGun.cpp">
+      <Filter>Component\Script\MachineGun</Filter>
+    </ClCompile>
     <ClCompile Include="yaMachineGunScript.cpp">
-      <Filter>Component\Script\Bullet</Filter>
+      <Filter>Component\Script\MachineGun</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -472,8 +475,11 @@
     <ClInclude Include="yaObjectPool.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="yaMachineGun.h">
+      <Filter>Component\Script\MachineGun</Filter>
+    </ClInclude>
     <ClInclude Include="yaMachineGunScript.h">
-      <Filter>Component\Script\Bullet</Filter>
+      <Filter>Component\Script\MachineGun</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

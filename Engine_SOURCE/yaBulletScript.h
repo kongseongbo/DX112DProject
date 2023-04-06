@@ -29,11 +29,13 @@ namespace ya
 
 		void SetSpeed(float speed) { mSpeed = speed; }
 
+		void Attack(float time, float attacktime);
+
 
 	private:
 		int mDirection;
 		bool mStateUp;
 		float mSpeed;
-		float time;
+		float mTime;
 	};
 }

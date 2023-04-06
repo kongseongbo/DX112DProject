@@ -63,6 +63,9 @@ namespace ya
 		void Hit();
 		void Death();
 
+		void NewBullet(std::wstring name, Vector3 pos, int direction, bool Up = false);
+		void NewMachineGun(Vector3 pos, int direction, bool Up = false);
+
 		HeadState GetHeadState() { return mHeadState; }
 		void SetHeadState(HeadState state) { mHeadState = state; }
 
@@ -76,7 +79,7 @@ namespace ya
 		Animator* mHeadAni;
 
 		int direction;
-		float time;
+		float mTime;
 
 		/*ObjectPool< Bullet, 50 > mBullets;
 		Bullet* a;*/

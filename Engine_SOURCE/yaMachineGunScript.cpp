@@ -5,7 +5,7 @@
 #include "yaSpriteRenderer.h"
 #include "yaMesh.h"
 #include "yaObject.h"
-#include "yaSceneManager.h"
+//#include "yaSceneManager.h"
 #include "yaHeadScript.h"
 #include "yaInput.h"
 
@@ -13,6 +13,7 @@
 namespace ya
 {
 	MachineGunScript::MachineGunScript()
+		:Script()
 	{
 	}
 	MachineGunScript::~MachineGunScript()
@@ -21,16 +22,16 @@ namespace ya
 	void MachineGunScript::Initalize()
 	{
 		/*Scene* playScene = SceneManager::GetActiveScene();
-		playScene->AddGameObject(GetOwner(), eLayerType::Bullet);
+		playScene->AddGameObject(GetOwner(), eLayerType::MachineGunItem);*/
 
-		Collider2D* bulletColl = GetOwner()->AddComponent<Collider2D>();
+		/*Collider2D* bulletColl = GetOwner()->AddComponent<Collider2D>();
 		bulletColl->SetType(eColliderType::Rect);
 		bulletColl->SetCenter(Vector2(0.0f, 0.0f));
-		bulletColl->SetSize(Vector2(0.1f, 0.1f));
+		bulletColl->SetSize(Vector2(1.f, 1.f));
 
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"BassBullet", L"Bullet\\BassBullet.png");
 		Animator* bulletAni = GetOwner()->AddComponent<Animator>();
-		bulletAni->Create(L"BassBullet", texture, Vector2(0.0f, 0.0f), Vector2(18.0f, 18.0f), Vector2::Zero, 1, 0.3f);
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MachineGunItem", L"Bullet\\MachineGunItem.png");
+		bulletAni->Create(L"MachineGunItem", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 22.0f), Vector2::Zero, 2, 0.3f);
 
 		SpriteRenderer* bulletSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -38,7 +39,7 @@ namespace ya
 		bulletSr->SetMaterial(bodyMateiral);
 		bulletSr->SetMesh(mesh);
 
-		bulletAni->Play(L"BassBullet", true);*/
+		bulletAni->Play(L"MachineGunItem", true);*/
 
 	}
 	void MachineGunScript::Update()

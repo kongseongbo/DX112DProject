@@ -24,6 +24,7 @@ namespace ya::enums
 		Monster,
 		Body,
 		Player,
+		MachineGunItem,
 		Animator,
 		Collider,
 

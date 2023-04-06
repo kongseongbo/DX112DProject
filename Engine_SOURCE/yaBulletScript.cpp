@@ -15,7 +15,7 @@ namespace ya
 	BulletScript::BulletScript()
 		: Script()
 		, mDirection(0)
-		, time(0.0f)
+		, mTime(0.0f)
 		, mStateUp(false)
 		, mSpeed(0.0f)
 	{
@@ -34,9 +34,12 @@ namespace ya
 		bulletColl->SetCenter(Vector2(0.0f, 0.0f));
 		bulletColl->SetSize(Vector2(0.1f, 0.1f));
 
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"BassBullet", L"Bullet\\BassBullet.png");
 		Animator* bulletAni = GetOwner()->AddComponent<Animator>();
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"BassBullet", L"Bullet\\BassBullet.png");
 		bulletAni->Create(L"BassBullet", texture, Vector2(0.0f, 0.0f), Vector2(18.0f, 18.0f), Vector2::Zero, 1, 0.3f);
+
+		texture = Resources::Load<Texture>(L"MachineGunBullet", L"Bullet\\MachineGunBullet.png");
+		bulletAni->Create(L"MachineGunBullet", texture, Vector2(0.0f, 0.0f), Vector2(32.0f, 7.0f), Vector2::Zero, 1, 0.3f);
 
 		SpriteRenderer* bulletSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -44,80 +47,47 @@ namespace ya
 		bulletSr->SetMaterial(bodyMateiral);
 		bulletSr->SetMesh(mesh);
 
-		bulletAni->Play(L"BassBullet", true);
 		
 	}
 	void BulletScript::Update()
 	{
 		Animator* bulletAni = GetOwner()->GetComponent<Animator>();
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector3 pos = tr->GetPosition();
-
-		time += 1.5f * Time::DeltaTime();
 		
+		mTime += 1.5f * Time::DeltaTime();
+
+		if (GetOwner()->GetName() == L"bullet")
+		{
+			bulletAni->Play(L"BassBullet", true);
+			Attack(mTime, 0.0);
+		}
+
 		if (GetOwner()->GetName() == L"bullet0")
 		{
-			if (time > 2.0f)
-			{
-				if (mStateUp)
-				{
-					pos.y += 30.f * Time::DeltaTime();
-				}
-				else
-				{
-
-					if (mDirection == 0)
-						pos.x -= 30.f * Time::DeltaTime();
-					else
-						pos.x += 30.f * Time::DeltaTime();
-					//time = 0.0f;
-					tr->SetPosition(pos);
-				}
-			}
+			bulletAni->Play(L"MachineGunBullet", true);
+			Attack(mTime, 0.0);
 		}
 		if (GetOwner()->GetName() == L"bullet1")
 		{
-			if (time > 1.0f)
-			{
-				if (mStateUp)
-				{
-					pos.y += 30.f * Time::DeltaTime();
-				}
-				else
-				{
-
-					if (mDirection == 0)
-						pos.x -= 30.f * Time::DeltaTime();
-					else
-						pos.x += 30.f * Time::DeltaTime();
-					//time = 0.0f;
-					tr->SetPosition(pos);
-				}
-			}
+			bulletAni->Play(L"MachineGunBullet", true);
+			Attack(mTime, 0.05);
 		}
-		//else
-		//{
-		//	if (mStateUp)
-		//	{
-		//		pos.y += 30.f * Time::DeltaTime();
-		//	}
-		//	else
-		//	{
+		if (GetOwner()->GetName() == L"bullet2")
+		{
+			bulletAni->Play(L"MachineGunBullet", true);
+			Attack(mTime, 0.1);
+		}
+		if (GetOwner()->GetName() == L"bullet3")
+		{
+			bulletAni->Play(L"MachineGunBullet", true);
+			Attack(mTime, 0.15);
+		}
+		if (GetOwner()->GetName() == L"bullet4")
+		{
+			bulletAni->Play(L"MachineGunBullet", true);
+			Attack(mTime, 0.2);
+		}
 
-		//		if (mDirection == 0)
-		//			pos.x -= 30.f * Time::DeltaTime();
-		//		else
-		//			pos.x += 30.f * Time::DeltaTime();
-		//		//time = 0.0f;
-		//		tr->SetPosition(pos);
-		//	}
-
-		//	if (time > 5.0f)
-		//	{
-		//		GetOwner()->Death();
-		//		time = 0.0f;
-		//	}
-		//}
+		
 	}
 	void BulletScript::FixedUpdate()
 	{
@@ -142,5 +112,27 @@ namespace ya
 	}
 	void BulletScript::OnTriggerExit(Collider2D* collider)
 	{
+	}
+	void BulletScript::Attack(float time, float attacktime)
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		if (attacktime < time)
+		{
+			if (mStateUp)
+			{
+				pos.y += 30.f * Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
+			else
+			{
+				if (mDirection == 0)
+					pos.x -= 30.f * Time::DeltaTime();
+				else
+					pos.x += 30.f * Time::DeltaTime();
+			
+				tr->SetPosition(pos);
+			}
+		}
 	}
 }
