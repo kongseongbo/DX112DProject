@@ -91,12 +91,12 @@ namespace ya
 			mSharedBuffer->SetData(&shared, 1);
 		}
 
-		renderer::ParticleSystemCB info = {};
-		info.elementCount = mBuffer->GetStride();
-		info.deltaTime = Time::DeltaTime();
+		mCBData.elementCount = mBuffer->GetStride();
+		mCBData.deltaTime = Time::DeltaTime();
+		mCBData.elapsedTime += Time::DeltaTime();
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::ParticleSystem];
-		cb->SetData(&info);
+		cb->SetData(&mCBData);
 		cb->Bind(eShaderStage::CS);
 
 		mCS->SetSharedStrutedBuffer(mSharedBuffer);
@@ -107,11 +107,11 @@ namespace ya
 	void ParticleSystem::Render()
 	{
 		GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
-		mBuffer->BindSRV(eShaderStage::VS, 15);
+		//mBuffer->BindSRV(eShaderStage::VS, 15);
 		//mBuffer->BindUAV(eShaderStage::VS, 0);
 		mBuffer->BindSRV(eShaderStage::GS, 15);
 		//mBuffer->BindUAV(eShaderStage::GS, 0);
-		mBuffer->BindSRV(eShaderStage::PS, 15);
+		//mBuffer->BindSRV(eShaderStage::PS, 15);
 		//mBuffer->BindUAV(eShaderStage::PS, 0);
 
 		GetMaterial()->Bind();

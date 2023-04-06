@@ -74,6 +74,12 @@ namespace ya::renderer
 		Vector4 color;
 		UINT elementCount;
 		float deltaTime;
+		float elapsedTime;
+	};
+
+	CBUFFER(NoiseCB, CBSLOT_NOISE)
+	{
+		Vector4 noiseSize;
 	};
 
 	extern Vertex vertexes[4];
@@ -95,5 +101,6 @@ namespace ya::renderer
 
 	void PushLightAttribute(LightAttribute lightAttribute);
 	void BindLights();
+	void BindNoiseTexture();
 }
 

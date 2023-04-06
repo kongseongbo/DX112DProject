@@ -14,3 +14,4 @@ struct ParticleShared
 {
     uint gActiveCount;
 };
+

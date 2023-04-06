@@ -53,11 +53,11 @@ namespace ya::graphics
 			, mCSBlob.GetAddressOf()
 			, mErrorBlob.GetAddressOf());
 
-		//if (mErrorBlob)
-		//{
-		//	OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
-		//	mErrorBlob->Release();
-		//}
+		/*if (mErrorBlob)
+		{
+			OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+			mErrorBlob->Release();
+		}*/
 
 		GetDevice()->CreateComputeShader(mCSBlob->GetBufferPointer()
 			, mCSBlob->GetBufferSize()
