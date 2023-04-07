@@ -40,6 +40,7 @@ namespace ya::graphics
 		GS,
 		PS,
 		CS,
+		ALL,
 		Count,
 	};
 
