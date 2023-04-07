@@ -92,4 +92,10 @@ namespace ya::enums
 		Spot,
 		End,
 	};
+
+	enum class eGunState
+	{
+		GUN,
+		MACHINEGUN,
+	};
 }

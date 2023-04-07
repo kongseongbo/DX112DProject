@@ -11,7 +11,7 @@
 
 namespace ya
 {
-	HeadScript::GunState HeadScript::mGunState = GunState::GUN;
+	//HeadScript::GunState HeadScript::mGunState = eGunState::GUN;
 	HeadScript::HeadState HeadScript::mHeadState = HeadState::IDLE;
 
 	HeadScript::HeadScript()
@@ -22,6 +22,7 @@ namespace ya
 		, mHeadAni(nullptr)
 		, direction(1)
 		, mTime(0.0f)
+		, mGunState(eGunState::GUN)
 		//, a(nullptr)
 	{
 
@@ -297,15 +298,12 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
 		{
-			/*if (mGunState == GunState::GUN)
-			{
+			if (mGunState == eGunState::GUN)
 				NewBullet(L"bullet", Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z), 0);
-			}*/
 			
-			if (mGunState == GunState::GUN)
-			{
+			if (mGunState == eGunState::MACHINEGUN)
 				NewMachineGun(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 0.5f, mTr->GetPosition().z), 0);
-			}
+			
 
 			/*a = mBullets.allocate();
 			Scene* playScene = SceneManager::GetActiveScene();

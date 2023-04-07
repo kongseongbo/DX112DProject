@@ -10,12 +10,12 @@ namespace ya
 	class HeadScript : public Script
 	{
 	public:
-		enum class GunState
+		/*enum class GunState
 		{
 			GUN,
 			MACHINEGUN,
 		};
-		static GunState mGunState;
+		static GunState mGunState;*/
 
 		enum class HeadState
 		{
@@ -69,14 +69,16 @@ namespace ya
 		HeadState GetHeadState() { return mHeadState; }
 		void SetHeadState(HeadState state) { mHeadState = state; }
 
-		GunState GetGunState() { return mGunState; }
-		void SetGunState(GunState state) { mGunState = state; }
+		eGunState GetGunState() { return mGunState; }
+		void SetGunState(eGunState state) { mGunState = state; }
 
 	private:
 		Bullet* mBullet;
 		Bullet* mBullets[5];
 		Transform* mTr;
 		Animator* mHeadAni;
+
+		eGunState mGunState;
 
 		int direction;
 		float mTime;

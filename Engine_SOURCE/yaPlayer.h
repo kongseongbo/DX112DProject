@@ -1,7 +1,5 @@
 #pragma once
 #include "yaGameObject.h"
-#include "yaAnimator.h"
-
 
 
 
@@ -18,6 +16,10 @@ namespace ya
 		virtual void FixedUpdate();
 		virtual void Render();
 
+		//eGunState GetGunState() { return mGuntype; }
+		//void SetGunState(eGunState type) { mGuntype = type; }
+
 	private:
+		//eGunState mGuntype;
 	};
 }

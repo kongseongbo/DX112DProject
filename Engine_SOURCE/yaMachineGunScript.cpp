@@ -53,6 +53,11 @@ namespace ya
 	}
 	void MachineGunScript::OnCollisionEnter(Collider2D* collider)
 	{
+		if (collider->GetOwner()->GetName() == L"Head")
+		{
+			HeadScript* scr = collider->GetOwner()->GetScript<HeadScript>();
+			scr->SetGunState(eGunState::MACHINEGUN);
+		}
 	}
 	void MachineGunScript::OnCollisionStay(Collider2D* collider)
 	{

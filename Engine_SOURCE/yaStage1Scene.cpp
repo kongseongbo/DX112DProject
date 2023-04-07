@@ -171,12 +171,13 @@ namespace ya
 		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
 		machineGun->SetName(L"machineGun");
 		Transform* machineGunTr = machineGun->GetComponent<Transform>();
-		machineGunTr->SetPosition(Vector3(0.0f, -3.0f, 5.0f));
-		//machineGunTr->SetScale(Vector3(5.0f, 5.0f,1.0f));
+		machineGunTr->SetPosition(Vector3(-5.0f, -4.0f, 2.0f));
+		machineGunTr->SetScale(Vector3(10.0f, 10.0f,1.0f));
 		MachineGunScript* machineGunScript = machineGun->AddComponent<MachineGunScript>();
 
 		Collider2D* machineGunCollider = machineGun->AddComponent<Collider2D>();
 		machineGunCollider->SetType(eColliderType::Rect);
+		machineGunCollider->SetSize(Vector2(0.1f, 0.1f));
 
 		Animator* machineGunAni = machineGun->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MachineGunItem", L"Bullet\\MachineGunItem.png");
@@ -222,6 +223,7 @@ namespace ya
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Map, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MachineGunItem, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
 
 		Scene::Initalize();

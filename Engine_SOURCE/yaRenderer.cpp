@@ -617,7 +617,7 @@ namespace ya::renderer
 		eri3Material->SetShader(eri3Shader);
 		eri3Material->SetTexture(eTextureSlot::T0, eri3Texture);
 		Resources::Insert<Material>(L"eri3Material", eri3Material);
-
+                  	
 		// Map
 		std::shared_ptr <Texture> mapTexture = Resources::Find<Texture>(L"Mission1");
 		std::shared_ptr<Shader> mapShader = Resources::Find<Shader>(L"RectShader");

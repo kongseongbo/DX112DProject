@@ -77,6 +77,20 @@ namespace ya
 			return components;
 		}
 
+		template <typename T>
+		T* GetScript()
+		{
+			T* comp;
+			for (auto c : mScripts)
+			{
+				comp = dynamic_cast<T*>(c);
+
+				if (comp != nullptr)
+					return comp;
+			}
+
+			return nullptr;
+		}
 
 		const std::vector<Script*>& GetScripts() { return mScripts; }
 
@@ -98,11 +112,11 @@ namespace ya
 
 	protected:
 		std::vector<Component*> mComponents;
+		std::vector<Script*> mScripts;
 
 	private:
 		eState mState;
 		eLayerType mType;
-		std::vector<Script*> mScripts;
 		bool mbDontDestroy;
 		//Scene* mScene;
 	};

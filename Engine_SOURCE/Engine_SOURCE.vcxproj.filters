@@ -136,6 +136,12 @@
     <Filter Include="Component\Script\MachineGun">
       <UniqueIdentifier>{429072b9-39ff-4bf8-b502-8dedda7650dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\ParticleSystem">
+      <UniqueIdentifier>{c8614464-08ac-446f-b2dd-d79a8e861d37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Shader">
+      <UniqueIdentifier>{2ef2a40d-089b-4268-8761-c5294316cd90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -255,8 +261,6 @@
     <ClCompile Include="yaLight.cpp">
       <Filter>Component\Light</Filter>
     </ClCompile>
-    <ClCompile Include="yaPaintShader.cpp" />
-    <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaRigidbody.cpp">
       <Filter>Component\Rigidbody</Filter>
     </ClCompile>
@@ -269,11 +273,9 @@
     <ClCompile Include="yaMapScript.cpp">
       <Filter>Component\Script\Map</Filter>
     </ClCompile>
-    <ClCompile Include="yaParticleSystem.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp">
       <Filter>Graphics\API</Filter>
     </ClCompile>
-    <ClCompile Include="yaParticleShader.cpp" />
     <ClCompile Include="yaBullet.cpp">
       <Filter>Component\Script\Bullet</Filter>
     </ClCompile>
@@ -300,6 +302,18 @@
     </ClCompile>
     <ClCompile Include="yaMachineGunScript.cpp">
       <Filter>Component\Script\MachineGun</Filter>
+    </ClCompile>
+    <ClCompile Include="yaParticleSystem.cpp">
+      <Filter>Component\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="yaComputeShader.cpp">
+      <Filter>Component\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPaintShader.cpp">
+      <Filter>Component\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="yaParticleShader.cpp">
+      <Filter>Component\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -435,8 +449,6 @@
     <ClInclude Include="yaLight.h">
       <Filter>Component\Light</Filter>
     </ClInclude>
-    <ClInclude Include="yaPaintShader.h" />
-    <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaRigidbody.h">
       <Filter>Component\Rigidbody</Filter>
     </ClInclude>
@@ -449,11 +461,9 @@
     <ClInclude Include="yaMapScript.h">
       <Filter>Component\Script\Map</Filter>
     </ClInclude>
-    <ClInclude Include="yaParticleSystem.h" />
     <ClInclude Include="yaGraphicDevice_DX11.h">
       <Filter>Graphics\API</Filter>
     </ClInclude>
-    <ClInclude Include="yaParticleShader.h" />
     <ClInclude Include="yaBullet.h">
       <Filter>Component\Script\Bullet</Filter>
     </ClInclude>
@@ -480,6 +490,18 @@
     </ClInclude>
     <ClInclude Include="yaMachineGunScript.h">
       <Filter>Component\Script\MachineGun</Filter>
+    </ClInclude>
+    <ClInclude Include="yaParticleSystem.h">
+      <Filter>Component\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="yaComputeShader.h">
+      <Filter>Component\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPaintShader.h">
+      <Filter>Component\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="yaParticleShader.h">
+      <Filter>Component\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
