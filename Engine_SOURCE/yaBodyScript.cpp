@@ -228,12 +228,12 @@ namespace ya
 
 	void BodyScript::SitDown()
 	{
-		if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 0)
+		if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 1)
 		{
 			bodyAni->Play(L"BodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
-		else if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 1)
+		else if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 0)
 		{
 			bodyAni->Play(L"LBodyIdle", true);
 			mBodyState = BodyState::IDLE;
@@ -244,7 +244,14 @@ namespace ya
 
 	void BodyScript::SitDownMove()
 	{
-
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			direction = 0;
+		}
+		else if (Input::GetKey(eKeyCode::LEFT))
+		{
+			direction = 1;
+		}
 
 		
 	}

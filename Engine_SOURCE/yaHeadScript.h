@@ -3,6 +3,7 @@
 #include "yaGameObject.h"
 #include "yaAnimator.h"
 #include "yaBullet.h"
+#include "yaBomb.h"
 #include "yaObjectPool.h"
 
 namespace ya
@@ -75,6 +76,8 @@ namespace ya
 	private:
 		Bullet* mBullet;
 		Bullet* mBullets[5];
+		Bomb* mBomb;
+
 		Transform* mTr;
 		Animator* mHeadAni;
 

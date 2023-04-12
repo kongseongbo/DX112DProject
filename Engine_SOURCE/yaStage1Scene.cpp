@@ -104,7 +104,7 @@ namespace ya
 		
 		Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 		mapCollider->SetType(eColliderType::Rect);
-		mapCollider->SetCenter(Vector2(0.0f, -0.7f));
+		mapCollider->SetCenter(Vector2(0.0f, -0.0f));
 		//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		
 		//Player Head
@@ -118,7 +118,6 @@ namespace ya
 			headObj->AddComponent<Animator>();
 			headObj->AddComponent<Rigidbody>();
 			HeadScript* playerscript = headObj->AddComponent<HeadScript>();
-			
 
 			Collider2D* collider = headObj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
@@ -213,17 +212,18 @@ namespace ya
 		fadeObject->AddComponent<FadeInOutScript>();
 
 		//Particle
-		{
+		/*{
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
 			obj->SetName(L"PARTICLE");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
 			obj->AddComponent<ParticleSystem>();
-		}
+		}*/
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MachineGunItem, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
 
 		Scene::Initalize();

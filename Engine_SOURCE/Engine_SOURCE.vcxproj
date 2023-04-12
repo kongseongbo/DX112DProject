@@ -158,6 +158,8 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="yaBody.h" />
     <ClInclude Include="yaBodyScript.h" />
+    <ClInclude Include="yaBomb.h" />
+    <ClInclude Include="yaBombScript.h" />
     <ClInclude Include="yaBullet.h" />
     <ClInclude Include="yaBulletScript.h" />
     <ClInclude Include="yaComputeShader.h" />
@@ -221,6 +223,8 @@
   <ItemGroup>
     <ClCompile Include="yaBody.cpp" />
     <ClCompile Include="yaBodyScript.cpp" />
+    <ClCompile Include="yaBomb.cpp" />
+    <ClCompile Include="yaBombScript.cpp" />
     <ClCompile Include="yaBullet.cpp" />
     <ClCompile Include="yaBulletScript.cpp" />
     <ClCompile Include="yaComputeShader.cpp" />

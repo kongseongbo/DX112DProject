@@ -142,6 +142,9 @@
     <Filter Include="Component\Shader">
       <UniqueIdentifier>{2ef2a40d-089b-4268-8761-c5294316cd90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Bomb">
+      <UniqueIdentifier>{15caf18c-4441-4530-a55c-8d08e8a16fea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -314,6 +317,12 @@
     </ClCompile>
     <ClCompile Include="yaParticleShader.cpp">
       <Filter>Component\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBomb.cpp">
+      <Filter>Component\Script\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBombScript.cpp">
+      <Filter>Component\Script\Bomb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -502,6 +511,12 @@
     </ClInclude>
     <ClInclude Include="yaParticleShader.h">
       <Filter>Component\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBomb.h">
+      <Filter>Component\Script\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBombScript.h">
+      <Filter>Component\Script\Bomb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,6 @@
 #include "yaSpriteRenderer.h"
 #include "yaMesh.h"
 #include "yaObject.h"
-//#include "yaSceneManager.h"
 #include "yaHeadScript.h"
 #include "yaInput.h"
 
@@ -57,7 +56,9 @@ namespace ya
 		{
 			HeadScript* scr = collider->GetOwner()->GetScript<HeadScript>();
 			scr->SetGunState(eGunState::MACHINEGUN);
+			GetOwner()->Death();
 		}
+
 	}
 	void MachineGunScript::OnCollisionStay(Collider2D* collider)
 	{

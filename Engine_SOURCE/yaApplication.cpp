@@ -59,6 +59,7 @@ namespace ya
 		//graphicDevice->Render();
 		//graphicDevice->Present();
 
+		SceneManager::Destroy();
 
 	}
 
