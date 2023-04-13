@@ -89,9 +89,9 @@ namespace ya
 		case ya::BodyScript::BodyState::SITDOWN:
 			SitDown();
 			break;
-		//case ya::BodyScript::BodyState::SITDOWNMOVE:
-		//	SitDownMove();
-		//	break;
+		case ya::BodyScript::BodyState::SITDOWNMOVE:
+			SitDownMove();
+			break;
 		//case ya::BodyScript::BodyState::SITDOWNATTACK:
 		//	SitDownAttack();
 		//	break;
@@ -228,17 +228,19 @@ namespace ya
 
 	void BodyScript::SitDown()
 	{
-		if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 1)
+		if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 0)
 		{
 			bodyAni->Play(L"BodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
-		else if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 0)
+		else if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 1)
 		{
 			bodyAni->Play(L"LBodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
 
+		if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKey(eKeyCode::LEFT))
+			mBodyState = BodyState::SITDOWNMOVE;
 
 	}
 
@@ -253,6 +255,16 @@ namespace ya
 			direction = 1;
 		}
 
+		if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 0)
+		{
+			bodyAni->Play(L"BodyIdle", true);
+			mBodyState = BodyState::IDLE;
+		}
+		else if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 1)
+		{
+			bodyAni->Play(L"LBodyIdle", true);
+			mBodyState = BodyState::IDLE;
+		}
 		
 	}
 

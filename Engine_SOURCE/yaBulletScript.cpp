@@ -8,7 +8,7 @@
 #include "yaSceneManager.h"
 #include "yaHeadScript.h"
 #include "yaInput.h"
-
+#include "yaLight.h"
 
 namespace ya
 {
@@ -28,6 +28,13 @@ namespace ya
 	{
 		Scene* playScene = SceneManager::GetActiveScene();
 		playScene->AddGameObject(GetOwner(), eLayerType::Bullet);
+
+
+		/*Light* lightComp = GetOwner()->AddComponent<Light>();
+		lightComp->SetType(eLightType::Point);
+		lightComp->SetRadius(2.5f);
+		lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));*/
+		
 
 		Collider2D* bulletColl = GetOwner()->AddComponent<Collider2D>();
 		bulletColl->SetType(eColliderType::Rect);
@@ -119,9 +126,12 @@ namespace ya
 		Vector3 pos = tr->GetPosition();
 		if (attacktime < time)
 		{
+			Vector3 v = Vector3::Lerp(Vector3(2, 0, 0), Vector3(0, 2, 0), 2.0f);
+			
 			if (mStateUp)
 			{
 				pos.y += 30.f * Time::DeltaTime();
+				//pos.x += 15.f * Time::DeltaTime();
 				tr->SetPosition(pos);
 			}
 			else
@@ -136,3 +146,4 @@ namespace ya
 		}
 	}
 }
+// 러프함수

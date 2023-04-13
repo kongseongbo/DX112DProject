@@ -17,6 +17,7 @@ namespace ya
 			MOVE,
 			JUMP,
 			SITDOWN,
+			SITDOWNMOVE,
 			ATTACK,
 			HIT,
 			DEATH,
