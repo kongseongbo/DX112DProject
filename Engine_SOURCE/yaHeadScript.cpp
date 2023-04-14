@@ -881,7 +881,17 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::UP))
 		{
-			NewMachineGun(Vector3(mTr->GetPosition().x + .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), 0);
+			if (direction == 0)
+			{
+				NewMachineGunUp(Vector3(mTr->GetPosition().x + .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), direction);
+				mHeadAni->Play(L"LeftLookUp", false);
+			}
+			if (direction == 1)
+			{
+				NewMachineGunUp(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), direction);
+				mHeadAni->Play(L"RightLookUp", false);
+			}
+			mHeadState = HeadState::UPIDLE;
 		}
 	}
 
@@ -1090,6 +1100,8 @@ namespace ya
 	}
 	void HeadScript::NewMachineGun(Vector3 pos, int direction, bool up)
 	{
+
+
 		for (size_t i = 0; i < 5; i++)
 		{
 			mBullets[i] = new Bullet();
@@ -1110,8 +1122,6 @@ namespace ya
 			std::uniform_real_distribution<> distr(0, 0.3);
 
 
-			Vector3 v = Vector3::Lerp(Vector3(pos.x + 10.0f ,pos.y,pos.z), Vector3(pos.x, pos.y + 2.0f, pos.z), 3);
-
 			BulletScript* bulletScript = mBullets[i]->AddComponent<BulletScript>();
 			Transform* bulletTr = mBullets[i]->GetComponent<Transform>();
 			bulletTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
@@ -1119,16 +1129,18 @@ namespace ya
 			{
 				bulletTr->SetPosition(Vector3((pos.x - 1.0f) + distr(eng), pos.y , pos.z ));
 				bulletTr->SetRotation(Vector3(0.0f, 0.0f, 90.0f));
-				
 			}
 			else
 			{
 				if (direction == 0)
 				{
-					bulletTr->SetPosition(Vector3(v.x, v.y /*+ distr(eng)*/, v.z));
-					//bulletTr->SetPosition(Vector3(pos.x - 2.0f, pos.y + distr(eng), pos.z));
-					bulletTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
 					
+					/*bulletTr->SetPosition(Vector3(pos.x - 2.0f, pos.y + distr(eng), pos.z));
+					bulletTr->SetRotation(Vector3(0.0f, 180.0f, -10.0f * (i + 4)));*/
+		
+					bulletTr->SetPosition(Vector3(pos.x - 2.0f, pos.y + distr(eng), pos.z));
+					bulletTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f  ));
+
 				}
 				else
 				{
@@ -1140,4 +1152,50 @@ namespace ya
 			bulletScript->SetState(up);
 		}
 	}
+	void HeadScript::NewMachineGunUp(Vector3 pos, int direction)
+	{
+		int num_angles = 5; // 출력할 각의 개수
+		int interval = 90 / num_angles; // 일정한 간격 계산
+
+		for (size_t i = 0; i < 5; i++)
+		{
+			mBullets[i] = new Bullet();
+			if (i == 0)
+				mBullets[i]->SetName(L"bullet0");
+			if (i == 1)
+				mBullets[i]->SetName(L"bullet1");
+			if (i == 2)
+				mBullets[i]->SetName(L"bullet2");
+			if (i == 3)
+				mBullets[i]->SetName(L"bullet3");
+			if (i == 4)
+				mBullets[i]->SetName(L"bullet4");
+
+			// 0~0.5 사이의 난수 생성
+			std::random_device rd;
+			std::mt19937 eng(rd());
+			std::uniform_real_distribution<> distr(0, 0.3);
+
+			int angle = i * interval;
+
+			BulletScript* bulletScript = mBullets[i]->AddComponent<BulletScript>();
+			Transform* bulletTr = mBullets[i]->GetComponent<Transform>();
+			bulletTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+
+			if (direction == 0)
+			{
+
+				bulletTr->SetPosition(Vector3(pos.x - 2.0f, pos.y + distr(eng), pos.z));
+				bulletTr->SetRotation(Vector3(0.0f, 180.0f, -1 *angle));
+			}
+			else
+			{
+				bulletTr->SetPosition(Vector3(pos.x + 1.0f, pos.y + distr(eng), pos.z));
+				bulletTr->SetRotation(Vector3(0.0f, 0.0f, 1.0f * angle));
+			}
+			
+			bulletScript->SetDirection(direction);
+		}
+	}
+
 }

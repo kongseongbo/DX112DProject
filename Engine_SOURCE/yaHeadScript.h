@@ -66,6 +66,7 @@ namespace ya
 
 		void NewBullet(std::wstring name, Vector3 pos, int direction, bool Up = false);
 		void NewMachineGun(Vector3 pos, int direction, bool Up = false);
+		void NewMachineGunUp(Vector3 pos, int direction);
 
 		HeadState GetHeadState() { return mHeadState; }
 		void SetHeadState(HeadState state) { mHeadState = state; }

@@ -76,22 +76,22 @@ namespace ya
 		if (GetOwner()->GetName() == L"bullet1")
 		{
 			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.05);
+			Attack(mTime, 0.1);
 		}
 		if (GetOwner()->GetName() == L"bullet2")
 		{
 			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.1);
+			Attack(mTime, 0.15);
 		}
 		if (GetOwner()->GetName() == L"bullet3")
 		{
 			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.15);
+			Attack(mTime, 0.2);
 		}
 		if (GetOwner()->GetName() == L"bullet4")
 		{
 			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.2);
+			Attack(mTime, 0.25);
 		}
 
 		
@@ -125,25 +125,27 @@ namespace ya
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 		if (attacktime < time)
-		{
-			Vector3 v = Vector3::Lerp(Vector3(2, 0, 0), Vector3(0, 2, 0), 2.0f);
-			
+		{	
 			if (mStateUp)
 			{
-				pos.y += 30.f * Time::DeltaTime();
-				//pos.x += 15.f * Time::DeltaTime();
+				pos += tr->Right() * 30.f * Time::DeltaTime();
 				tr->SetPosition(pos);
 			}
 			else
 			{
 				if (mDirection == 0)
-					pos.x -= 30.f * Time::DeltaTime();
+				{
+					
+					pos += tr->Right() * 30.f * Time::DeltaTime();
+				}
 				else
-					pos.x += 30.f * Time::DeltaTime();
+				{
+
+					pos += tr->Right() * 30.f * Time::DeltaTime();
+				}
 			
 				tr->SetPosition(pos);
 			}
 		}
 	}
 }
-// 러프함수
