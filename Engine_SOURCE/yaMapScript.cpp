@@ -24,7 +24,7 @@ namespace ya
 	}
 	void MapScript::OnCollisionEnter(Collider2D* collider)
 	{
-		int a = 0;
+		
 	}
 	void MapScript::OnCollisionStay(Collider2D* collider)
 	{

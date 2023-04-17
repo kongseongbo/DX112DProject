@@ -145,6 +145,21 @@
     <Filter Include="Component\Script\Bomb">
       <UniqueIdentifier>{15caf18c-4441-4530-a55c-8d08e8a16fea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Helicopter">
+      <UniqueIdentifier>{9f12889e-aa34-43f3-b812-0ed2fd113ebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\MosqueArtillery">
+      <UniqueIdentifier>{b7468644-d590-4697-be69-6771a3aae82a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Camera">
+      <UniqueIdentifier>{33b49647-a7fd-4754-9270-59ae03c8e409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Base">
+      <UniqueIdentifier>{99e0a121-cb05-4fef-a6db-7c16c1fb342d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\FadeInOut">
+      <UniqueIdentifier>{2338aeba-4404-4353-ae9f-86321019a749}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -192,23 +207,14 @@
     <ClCompile Include="yaMeshRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="yaScript.cpp">
-      <Filter>Component\Script</Filter>
-    </ClCompile>
     <ClCompile Include="yaTransform.cpp">
       <Filter>Component\Transform</Filter>
     </ClCompile>
     <ClCompile Include="yaCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="yaCameraScript.cpp">
-      <Filter>Component\Script</Filter>
-    </ClCompile>
     <ClCompile Include="yaSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="yaFadeInOutScript.cpp">
-      <Filter>Component\Script</Filter>
     </ClCompile>
     <ClCompile Include="yaLayer.cpp">
       <Filter>Scene\Layer</Filter>
@@ -324,6 +330,27 @@
     <ClCompile Include="yaBombScript.cpp">
       <Filter>Component\Script\Bomb</Filter>
     </ClCompile>
+    <ClCompile Include="yaHelicopter.cpp">
+      <Filter>Component\Script\Helicopter</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHelicopterScript.cpp">
+      <Filter>Component\Script\Helicopter</Filter>
+    </ClCompile>
+    <ClCompile Include="yaScript.cpp">
+      <Filter>Component\Script\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCameraScript.cpp">
+      <Filter>Component\Script\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFadeInOutScript.cpp">
+      <Filter>Component\Script\FadeInOut</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtillery.cpp">
+      <Filter>Component\Script\MosqueArtillery</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryScript.cpp">
+      <Filter>Component\Script\MosqueArtillery</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -383,26 +410,17 @@
     <ClInclude Include="yaMeshRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="yaScript.h">
-      <Filter>Component\Script</Filter>
-    </ClInclude>
     <ClInclude Include="yaTransform.h">
       <Filter>Component\Transform</Filter>
     </ClInclude>
     <ClInclude Include="yaCamera.h">
       <Filter>Component\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="yaCameraScript.h">
-      <Filter>Component\Script</Filter>
-    </ClInclude>
     <ClInclude Include="yaSpriteRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="yaObject.h">
       <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="yaFadeInOutScript.h">
-      <Filter>Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="yaLayer.h">
       <Filter>Scene\Layer</Filter>
@@ -517,6 +535,27 @@
     </ClInclude>
     <ClInclude Include="yaBombScript.h">
       <Filter>Component\Script\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHelicopterScript.h">
+      <Filter>Component\Script\Helicopter</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHelicopter.h">
+      <Filter>Component\Script\Helicopter</Filter>
+    </ClInclude>
+    <ClInclude Include="yaScript.h">
+      <Filter>Component\Script\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCameraScript.h">
+      <Filter>Component\Script\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFadeInOutScript.h">
+      <Filter>Component\Script\FadeInOut</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryScript.h">
+      <Filter>Component\Script\MosqueArtillery</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtillery.h">
+      <Filter>Component\Script\MosqueArtillery</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

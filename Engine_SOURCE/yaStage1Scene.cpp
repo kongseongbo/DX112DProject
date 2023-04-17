@@ -25,6 +25,10 @@
 #include "yaParticleSystem.h"
 #include "yaMachineGunScript.h"
 #include "yaMachineGun.h"
+#include "yaHelicopter.h"
+#include "yaHelicopterScript.h"
+#include "yaMosqueArtilleryScript.h"
+
 
 namespace ya
 {
@@ -106,6 +110,15 @@ namespace ya
 		mapCollider->SetType(eColliderType::Rect);
 		mapCollider->SetCenter(Vector2(0.0f, -0.0f));
 		//mapCollider->SetSize(Vector2(5.f, 0.1f));
+
+		//
+		GameObject* mosqueArtilleryObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+		mosqueArtilleryObj->SetName(L"MosqueArtillery");
+		Transform* mosqueArtillery1Tr = mosqueArtilleryObj->GetComponent<Transform>();
+		mosqueArtillery1Tr->SetPosition(Vector3(49.0f, -0.5f, 10.0f));
+		mosqueArtillery1Tr->SetScale(Vector3(25.0f, 8.5f, 1.0f));
+		mosqueArtilleryObj->AddComponent<MosqueArtilleryScript>();
+
 		
 		//Player Head
 		{
@@ -165,6 +178,18 @@ namespace ya
 		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");
 		monsterMr->SetMaterial(monsterMateiral);
 		monsterMr->SetMesh(mesh);
+
+		// Helicopter Object
+		Helicopter* heliObj = object::Instantiate<Helicopter>(eLayerType::Monster, this);
+		heliObj->SetName(L"Helicopter");
+		Transform* heliTr = heliObj->GetComponent<Transform>();
+		heliTr->SetPosition(Vector3(3.0f, 5.0f, 5.0f));
+		heliTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+
+		heliObj->AddComponent<HelicopterScript>();
+
+		
 
 		// MachineGunItem
 		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);

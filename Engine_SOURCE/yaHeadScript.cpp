@@ -881,17 +881,20 @@ namespace ya
 
 		if (Input::GetKeyDown(eKeyCode::UP))
 		{
-			if (direction == 0)
+			if (mGunState == eGunState::MACHINEGUN)
 			{
-				NewMachineGunUp(Vector3(mTr->GetPosition().x + .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), direction);
-				mHeadAni->Play(L"LeftLookUp", false);
+				if (direction == 0)
+				{
+					NewMachineGunUp(Vector3(mTr->GetPosition().x + .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), direction);
+					mHeadAni->Play(L"LeftLookUp", false);
+				}
+				if (direction == 1)
+				{
+					NewMachineGunUp(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), direction);
+					mHeadAni->Play(L"RightLookUp", false);
+				}
+				mHeadState = HeadState::UPIDLE;
 			}
-			if (direction == 1)
-			{
-				NewMachineGunUp(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), direction);
-				mHeadAni->Play(L"RightLookUp", false);
-			}
-			mHeadState = HeadState::UPIDLE;
 		}
 	}
 
@@ -1093,6 +1096,21 @@ namespace ya
 		mBullet->SetName(name);
 		BulletScript* bulletScript = mBullet->AddComponent<BulletScript>();
 		Transform* bulletTr = mBullet->GetComponent<Transform>();
+
+		if (up == true)
+		{
+			
+			bulletTr->SetRotation(Vector3(0.0f, 0.0f, 90.0f));
+		}
+		else
+		{
+			if (direction == 0)
+			{
+				bulletTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+			}
+		}
+		
+
 		bulletTr->SetPosition(pos);
 		bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 		bulletScript->SetDirection(direction);

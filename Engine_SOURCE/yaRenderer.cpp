@@ -469,6 +469,7 @@ namespace ya::renderer
 
 		// Map
 		Resources::Load<Texture>(L"Mission1", L"Map\\Mission1.png");
+		Resources::Load<Texture>(L"MosqueArtilleryBase", L"MosqueArtillery\\Base.png");
 #pragma endregion
 #pragma region DYNAMIC TEXTURE
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
@@ -626,6 +627,15 @@ namespace ya::renderer
 		mapMaterial->SetShader(mapShader);
 		mapMaterial->SetTexture(eTextureSlot::T0, mapTexture);
 		Resources::Insert<Material>(L"MapMaterial", mapMaterial);
+
+		// MosqueArtilleryBase
+		std::shared_ptr <Texture> mosqueArtilleryBaseTexture = Resources::Find<Texture>(L"MosqueArtilleryBase");
+		std::shared_ptr<Shader> mosqueArtilleryBaseShader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Material> mosqueArtilleryBaseMaterial = std::make_shared<Material>();
+		mosqueArtilleryBaseMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		mosqueArtilleryBaseMaterial->SetShader(mosqueArtilleryBaseShader);
+		mosqueArtilleryBaseMaterial->SetTexture(eTextureSlot::T0, mosqueArtilleryBaseTexture);
+		Resources::Insert<Material>(L"mosqueArtilleryBaseMaterial", mosqueArtilleryBaseMaterial);
 #pragma endregion
 #pragma region PARTICLE
 		std::shared_ptr<Shader> particleShader = Resources::Find<Shader>(L"ParticleShader");
