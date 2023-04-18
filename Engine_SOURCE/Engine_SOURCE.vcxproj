@@ -156,6 +156,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="yaArabian.h" />
+    <ClInclude Include="yaArabianKnife.h" />
+    <ClInclude Include="yaArabianKnifeScript.h" />
+    <ClInclude Include="yaArabianScript.h" />
     <ClInclude Include="yaBody.h" />
     <ClInclude Include="yaBodyScript.h" />
     <ClInclude Include="yaBomb.h" />
@@ -225,6 +229,10 @@
     <ClInclude Include="yaTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="yaArabian.cpp" />
+    <ClCompile Include="yaArabianKnife.cpp" />
+    <ClCompile Include="yaArabianKnifeScript.cpp" />
+    <ClCompile Include="yaArabianScript.cpp" />
     <ClCompile Include="yaBody.cpp" />
     <ClCompile Include="yaBodyScript.cpp" />
     <ClCompile Include="yaBomb.cpp" />

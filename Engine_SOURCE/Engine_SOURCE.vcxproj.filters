@@ -124,9 +124,6 @@
     <Filter Include="Graphics\API">
       <UniqueIdentifier>{827ef6d9-7b0a-4949-9025-1cf5f8c3145d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Bullet">
-      <UniqueIdentifier>{cf5d5b92-0309-4d29-b244-f4059f86744f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Script\Player\Body">
       <UniqueIdentifier>{1a56fa4f-0352-4a79-b401-e67efee68591}</UniqueIdentifier>
     </Filter>
@@ -142,9 +139,6 @@
     <Filter Include="Component\Shader">
       <UniqueIdentifier>{2ef2a40d-089b-4268-8761-c5294316cd90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Bomb">
-      <UniqueIdentifier>{15caf18c-4441-4530-a55c-8d08e8a16fea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Script\Helicopter">
       <UniqueIdentifier>{9f12889e-aa34-43f3-b812-0ed2fd113ebb}</UniqueIdentifier>
     </Filter>
@@ -159,6 +153,18 @@
     </Filter>
     <Filter Include="Component\Script\FadeInOut">
       <UniqueIdentifier>{2338aeba-4404-4353-ae9f-86321019a749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Arabian">
+      <UniqueIdentifier>{af48efa5-f7c4-401f-bc49-229141716f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Player\Bomb">
+      <UniqueIdentifier>{15caf18c-4441-4530-a55c-8d08e8a16fea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Arabian\Knife">
+      <UniqueIdentifier>{d4e8e302-32a2-4649-94d8-0a0dc5dba5eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Player\Bullet">
+      <UniqueIdentifier>{cf5d5b92-0309-4d29-b244-f4059f86744f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -286,7 +292,7 @@
       <Filter>Graphics\API</Filter>
     </ClCompile>
     <ClCompile Include="yaBullet.cpp">
-      <Filter>Component\Script\Bullet</Filter>
+      <Filter>Component\Script\Player\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="yaBody.cpp">
       <Filter>Component\Script\Player\Body</Filter>
@@ -301,7 +307,7 @@
       <Filter>Component\Script\Player\Head</Filter>
     </ClCompile>
     <ClCompile Include="yaBulletScript.cpp">
-      <Filter>Component\Script\Bullet</Filter>
+      <Filter>Component\Script\Player\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="yaObjectPool.cpp">
       <Filter>GameObject</Filter>
@@ -325,10 +331,10 @@
       <Filter>Component\Shader</Filter>
     </ClCompile>
     <ClCompile Include="yaBomb.cpp">
-      <Filter>Component\Script\Bomb</Filter>
+      <Filter>Component\Script\Player\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="yaBombScript.cpp">
-      <Filter>Component\Script\Bomb</Filter>
+      <Filter>Component\Script\Player\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="yaHelicopter.cpp">
       <Filter>Component\Script\Helicopter</Filter>
@@ -350,6 +356,18 @@
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryScript.cpp">
       <Filter>Component\Script\MosqueArtillery</Filter>
+    </ClCompile>
+    <ClCompile Include="yaArabian.cpp">
+      <Filter>Component\Script\Arabian</Filter>
+    </ClCompile>
+    <ClCompile Include="yaArabianScript.cpp">
+      <Filter>Component\Script\Arabian</Filter>
+    </ClCompile>
+    <ClCompile Include="yaArabianKnife.cpp">
+      <Filter>Component\Script\Arabian\Knife</Filter>
+    </ClCompile>
+    <ClCompile Include="yaArabianKnifeScript.cpp">
+      <Filter>Component\Script\Arabian\Knife</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -492,7 +510,7 @@
       <Filter>Graphics\API</Filter>
     </ClInclude>
     <ClInclude Include="yaBullet.h">
-      <Filter>Component\Script\Bullet</Filter>
+      <Filter>Component\Script\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="yaBody.h">
       <Filter>Component\Script\Player\Body</Filter>
@@ -507,7 +525,7 @@
       <Filter>Component\Script\Player\Head</Filter>
     </ClInclude>
     <ClInclude Include="yaBulletScript.h">
-      <Filter>Component\Script\Bullet</Filter>
+      <Filter>Component\Script\Player\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="yaObjectPool.h">
       <Filter>GameObject</Filter>
@@ -531,10 +549,10 @@
       <Filter>Component\Shader</Filter>
     </ClInclude>
     <ClInclude Include="yaBomb.h">
-      <Filter>Component\Script\Bomb</Filter>
+      <Filter>Component\Script\Player\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="yaBombScript.h">
-      <Filter>Component\Script\Bomb</Filter>
+      <Filter>Component\Script\Player\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="yaHelicopterScript.h">
       <Filter>Component\Script\Helicopter</Filter>
@@ -556,6 +574,18 @@
     </ClInclude>
     <ClInclude Include="yaMosqueArtillery.h">
       <Filter>Component\Script\MosqueArtillery</Filter>
+    </ClInclude>
+    <ClInclude Include="yaArabian.h">
+      <Filter>Component\Script\Arabian</Filter>
+    </ClInclude>
+    <ClInclude Include="yaArabianScript.h">
+      <Filter>Component\Script\Arabian</Filter>
+    </ClInclude>
+    <ClInclude Include="yaArabianKnife.h">
+      <Filter>Component\Script\Arabian\Knife</Filter>
+    </ClInclude>
+    <ClInclude Include="yaArabianKnifeScript.h">
+      <Filter>Component\Script\Arabian\Knife</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

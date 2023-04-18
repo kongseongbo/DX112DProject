@@ -28,7 +28,8 @@
 #include "yaHelicopter.h"
 #include "yaHelicopterScript.h"
 #include "yaMosqueArtilleryScript.h"
-
+#include "yaArabian.h"
+#include "yaArabianScript.h"
 
 namespace ya
 {
@@ -189,7 +190,16 @@ namespace ya
 
 		heliObj->AddComponent<HelicopterScript>();
 
-		
+		// Arabian Object
+		Arabian* arabianObj = object::Instantiate<Arabian>(eLayerType::Monster, this);
+		arabianObj->SetName(L"Arabian");
+		Transform* arabianTr = arabianObj->GetComponent<Transform>();
+		arabianTr->SetPosition(Vector3(5.0f, -3.5f, 5.0f));
+		arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+
+		arabianObj->AddComponent<ArabianScript>();
+
 
 		// MachineGunItem
 		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
@@ -248,6 +258,7 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MachineGunItem, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
 

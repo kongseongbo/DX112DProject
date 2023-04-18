@@ -30,10 +30,10 @@ namespace ya
 		playScene->AddGameObject(GetOwner(), eLayerType::Bullet);
 
 
-		/*Light* lightComp = GetOwner()->AddComponent<Light>();
+		Light* lightComp = GetOwner()->AddComponent<Light>();
 		lightComp->SetType(eLightType::Point);
 		lightComp->SetRadius(2.5f);
-		lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));*/
+		lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 		
 
 		Collider2D* bulletColl = GetOwner()->AddComponent<Collider2D>();
