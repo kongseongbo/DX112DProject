@@ -64,6 +64,12 @@ namespace ya
 
 	void BodyScript::Update()
 	{
+		if (mHead->GetState() == GameObject::Paused)
+		{
+			GetOwner()->Pause();
+		}
+
+
 		Transform* headTr = mHead->GetComponent<Transform>();
 		Vector3 headPos = headTr->GetPosition();
 		mTr->SetPosition(Vector3(headTr->GetPosition().x - 0.2f, headTr->GetPosition().y - 1.3f, 5.0f));
@@ -124,7 +130,6 @@ namespace ya
 			bodyAni->Play(L"LBodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
-		
 	}
 
 	void BodyScript::OnCollisionStay(Collider2D* collider)

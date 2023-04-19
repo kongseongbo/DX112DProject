@@ -6,7 +6,8 @@ namespace ya
 	{
 	}
 	Arabian::~Arabian()
-	{
+	{ 
+		int a = 0;
 	}
 	void Arabian::Initalize()
 	{

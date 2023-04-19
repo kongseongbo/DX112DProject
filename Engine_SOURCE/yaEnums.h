@@ -22,6 +22,7 @@ namespace ya::enums
 		Map,
 		Bullet,
 		Monster,
+		MonsterAttack,
 		Body,
 		Player,
 		Bomb,
@@ -31,7 +32,7 @@ namespace ya::enums
 
 		Particle,
 		UI,
-		End = 16,
+		End = 26,
 	};
 
 	enum class eComponentType

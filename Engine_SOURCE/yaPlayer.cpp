@@ -5,7 +5,6 @@
 namespace ya
 {
 	Player::Player()
-		//: mGuntype(eGunState::GUN)
 	{
 	}
 

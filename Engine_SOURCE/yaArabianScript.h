@@ -10,6 +10,7 @@ namespace ya
 		enum class ArabianState
 		{
 			NONE,
+			NEW,
 			IDLE,
 			MOVE,
 			ATTACK,
@@ -34,6 +35,7 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider);
 		virtual void OnTriggerExit(Collider2D* collider);
 
+		void New();
 		void Idle();
 		void Move();
 		void Attack();

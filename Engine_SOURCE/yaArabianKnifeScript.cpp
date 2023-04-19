@@ -14,6 +14,7 @@ namespace ya
 {
 	ArabianKnifeScript::ArabianKnifeScript()
 		: Script()
+		, mTime(0.0f)
 	{
 	}
 	ArabianKnifeScript::~ArabianKnifeScript()
@@ -22,12 +23,12 @@ namespace ya
 	void ArabianKnifeScript::Initalize()
 	{
 		Scene* playScene = SceneManager::GetActiveScene();
-		playScene->AddGameObject(GetOwner(), eLayerType::Bomb);
+		playScene->AddGameObject(GetOwner(), eLayerType::MonsterAttack);
 
 		Collider2D* knifeColl = GetOwner()->AddComponent<Collider2D>();
 		knifeColl->SetType(eColliderType::Rect);
 		knifeColl->SetCenter(Vector2(0.0f, 0.0f));
-		knifeColl->SetSize(Vector2(0.1f, 0.1f));
+		knifeColl->SetSize(Vector2(0.2f, 0.2f));
 
 		GetOwner()->AddComponent<Rigidbody>();
 
@@ -60,6 +61,7 @@ namespace ya
 	}
 	void ArabianKnifeScript::OnCollisionEnter(Collider2D* collider)
 	{
+		
 	}
 	void ArabianKnifeScript::OnCollisionStay(Collider2D* collider)
 	{

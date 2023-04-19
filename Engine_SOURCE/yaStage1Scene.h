@@ -1,7 +1,7 @@
 #pragma once
 #include "yaScene.h"
 #include "yaPlayer.h"
-
+#include "yaBody.h"
 namespace ya
 {
 	class Stage1Scene : public Scene
@@ -21,5 +21,8 @@ namespace ya
 	private:
 		GameObject* mCameraObj;
 		Player* headObj;
+		Body* bodyObj;
+
+		float mTime;
 	};
 }

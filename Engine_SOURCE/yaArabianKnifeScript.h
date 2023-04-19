@@ -27,5 +27,6 @@ namespace ya
 
 	private:
 		int stack;
+		float mTime;
 	};
 }

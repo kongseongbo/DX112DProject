@@ -261,6 +261,12 @@ namespace ya
 				mHeadState = HeadState::IDLE;
 			}
 		}
+
+		if (collider->GetOwner()->GetLayerType() == eLayerType::MonsterAttack)
+		{
+			GetOwner()->Pause();
+		}
+
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)

@@ -1,7 +1,6 @@
 #pragma once
 #include "yaScript.h"
-#include "yaCollider2D.h"
-
+#include "yaArabian.h"
 namespace ya
 {
 	class MapScript : public Script
@@ -23,5 +22,7 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider);
 		virtual void OnTriggerExit(Collider2D* collider);
 	private:
+		
+
 	};
 }

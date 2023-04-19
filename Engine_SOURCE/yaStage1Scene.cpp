@@ -19,7 +19,6 @@
 #include "yaRigidbody.h"
 #include "yaPaintShader.h"
 #include "yaMapScript.h"
-#include "yaBody.h"
 #include "yaHeadScript.h"
 #include "yaBodyScript.h"
 #include "yaParticleSystem.h"
@@ -30,6 +29,7 @@
 #include "yaMosqueArtilleryScript.h"
 #include "yaArabian.h"
 #include "yaArabianScript.h"
+#include "yaTime.h"
 
 namespace ya
 {
@@ -37,6 +37,8 @@ namespace ya
 		: Scene(eSceneType::Stage1)
 		, mCameraObj(nullptr)
 		, headObj(nullptr)
+		, bodyObj(nullptr)
+		, mTime(0.0f)
 	{
 
 	}
@@ -100,17 +102,34 @@ namespace ya
 		mapMr->SetMesh(mesh);
 
 		// Map Collider
-		GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
-		mapcolliderObj->SetName(L"CollMap");
-		Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-		mapcolliderTr->SetPosition(Vector3(1.0f, -5.0f, 1.0f));
-		mapcolliderTr->SetScale(Vector3(180.0f, 1.5f, 1.0f));
-		MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
-		
-		Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
-		mapCollider->SetType(eColliderType::Rect);
-		mapCollider->SetCenter(Vector2(0.0f, -0.0f));
-		//mapCollider->SetSize(Vector2(5.f, 0.1f));
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mapcolliderObj->SetName(L"CollMap");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(1.0f, -5.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(180.0f, 1.5f, 1.0f));
+			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+			
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, -0.0f));
+			//mapCollider->SetSize(Vector2(5.f, 0.1f));
+		}
+
+		// Collider
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+			mapcolliderObj->SetName(L"Coll");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(1.0f, 20.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+			//mapCollider->SetSize(Vector2(1.f, 1.f));
+		}
 
 		//
 		GameObject* mosqueArtilleryObj = object::Instantiate<GameObject>(eLayerType::Map, this);
@@ -126,7 +145,7 @@ namespace ya
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
-			headTr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+			headTr->SetPosition(Vector3(-5.0f, 0.0f, 5.0f));
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
@@ -145,7 +164,7 @@ namespace ya
 			object::DontDestroyOnLoad(headObj);
 		
 		//Player Body
-			Body* bodyObj = object::Instantiate<Body>(eLayerType::Body, this);
+			bodyObj = object::Instantiate<Body>(eLayerType::Body, this);
 			bodyObj->SetName(L"Body");
 			Transform* bodyTr = bodyObj->GetComponent<Transform>();
 			bodyTr->SetPosition(Vector3(headTr->GetPosition().x - 0.2f, headTr->GetPosition().y - 1.3f, 5.0f));
@@ -190,15 +209,7 @@ namespace ya
 
 		heliObj->AddComponent<HelicopterScript>();
 
-		// Arabian Object
-		Arabian* arabianObj = object::Instantiate<Arabian>(eLayerType::Monster, this);
-		arabianObj->SetName(L"Arabian");
-		Transform* arabianTr = arabianObj->GetComponent<Transform>();
-		arabianTr->SetPosition(Vector3(5.0f, -3.5f, 5.0f));
-		arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-
-		arabianObj->AddComponent<ArabianScript>();
+		
 
 
 		// MachineGunItem
@@ -260,7 +271,10 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MachineGunItem, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack, true);
+		//CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::MonsterAttack, true);
 
 		Scene::Initalize();
 	}
@@ -269,9 +283,24 @@ namespace ya
 	{
 		CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
 		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
-		Transform* headTr = headObj->GetComponent<Transform>();
-		Vector3 headPos = headTr->GetPosition();
-		cameraTr->SetPosition(Vector3(headPos.x, headPos.y + 3.0f, headPos.z));
+		if (headObj->GetState() == GameObject::Active)
+		{
+			Transform* headTr = headObj->GetComponent<Transform>();
+			Vector3 headPos = headTr->GetPosition();
+			cameraTr->SetPosition(Vector3(headPos.x, headPos.y + 3.0f, headPos.z));
+		}
+
+		
+		if (headObj->GetState() == GameObject::Paused)
+		{
+			mTime += 2.0f * Time::DeltaTime();
+			if (mTime >= 10.0f)
+			{
+				headObj->SetState(GameObject::Active);
+				bodyObj->SetState(GameObject::Active);
+				mTime = 0.0f;
+			}
+		}
 
 		if (Input::GetKeyDown(eKeyCode::N))
 		{

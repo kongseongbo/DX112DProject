@@ -94,7 +94,8 @@ namespace ya
 			Attack(mTime, 0.25);
 		}
 
-		
+		if (mTime > 5.0f)
+			GetOwner()->Death();
 	}
 	void BulletScript::FixedUpdate()
 	{

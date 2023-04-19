@@ -104,6 +104,7 @@ namespace ya
 		void Pause() { mState = eState::Paused; }
 		void Death() { mState = eState::Dead; }
 		eState GetState() { return mState; }
+		void SetState(eState state) { mState = state; }
 
 		bool IsDontDestroy() { return mbDontDestroy; }
 		void DontDestroy(bool enable) { mbDontDestroy = enable; }

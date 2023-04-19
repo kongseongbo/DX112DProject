@@ -13,7 +13,7 @@
 
 namespace ya
 {
-	ArabianScript::ArabianState ArabianScript::mArabianState = ArabianState::IDLE;
+	ArabianScript::ArabianState ArabianScript::mArabianState = ArabianState::NEW;
 
 	ArabianScript::ArabianScript()
 		: Script()
@@ -21,9 +21,11 @@ namespace ya
 		, mTr(nullptr)
 		, mTime(0.0f)
 	{
+		
 	}
 	ArabianScript::~ArabianScript()
 	{
+		mArabianState = ArabianState::NEW;
 	}
 	void ArabianScript::Initalize()
 	{
@@ -37,7 +39,7 @@ namespace ya
 
 		mArabianAni = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"ArabianIdle", L"Arabian\\Idle.png");
-		mArabianAni->Create(L"LeftIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 55.0f), Vector2::Zero, 6, 0.2f);
+		mArabianAni->Create(L"LeftIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 55.0f), Vector2::Zero, 6, 0.25f);
 		
 		texture = Resources::Load<Texture>(L"ArabianMove", L"Arabian\\Move.png");
 		mArabianAni->Create(L"LeftMove", texture, Vector2(0.0f, 0.0f), Vector2(54.0f, 52.0f), Vector2::Zero, 12, 0.1f);
@@ -49,9 +51,7 @@ namespace ya
 		mArabianAni->Create(L"LeftDeath", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 50.0f), Vector2::Zero, 11, 0.1f);
 		
 		texture = Resources::Load<Texture>(L"ArabianAttack2", L"Arabian\\Attack2.png");
-		mArabianAni->Create(L"LeftAttack2", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 60.0f), Vector2(0.0f, -0.05), 19, 0.15f);
-
-
+		mArabianAni->Create(L"LeftKnifeAttack2", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 60.0f), Vector2(0.0f, -0.05), 19, 0.1f);
 
 		SpriteRenderer* arabianSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> arabianMaterial = Resources::Find<Material>(L"SpriteMaterial");
@@ -59,16 +59,19 @@ namespace ya
 		arabianSr->SetMaterial(arabianMaterial);
 		arabianSr->SetMesh(mesh);
 
-		mArabianAni->Play(L"LeftIdle", true);
-
 		mArabianAni->GetCompleteEvent(L"LeftAttack") = std::bind(&ArabianScript::Attack, this);
-		mArabianAni->GetCompleteEvent(L"LeftAttack2") = std::bind(&ArabianScript::Attack, this);
-		mArabianAni->GetEvent(L"LeftAttack2", 3) = std::bind(&ArabianScript::AttackKnife, this);
+		mArabianAni->GetCompleteEvent(L"LeftKnifeAttack2") = std::bind(&ArabianScript::Attack, this);
+		//mArabianAni->GetEvent(L"LeftKnifeAttack2", 4) = std::bind(&ArabianScript::AttackKnife, this);
+
+		mArabianAni->Play(L"LeftMove", true);
 	}
 	void ArabianScript::Update()
 	{
 		switch (mArabianState)
 		{
+		case ya::ArabianScript::ArabianState::NEW:
+			New();
+			break;
 		case ya::ArabianScript::ArabianState::IDLE:
 			Idle();
 			break;
@@ -96,14 +99,13 @@ namespace ya
 		if (collider->GetID() == 1)
 		{
 			mArabianAni->Play(L"LeftAttack", false);
-			//mArabianState = ArabianState::ATTACK;
 		}
 
-		if (collider->GetID() == 7)
+		if (collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
 		{
 			mArabianAni->Play(L"LeftDeath", false);
-			mTime = 0.0f;
 			mArabianState = ArabianState::DEATH;
+			mTime = 0.0f;
 		}
 	}
 	void ArabianScript::OnCollisionStay(Collider2D* collider)
@@ -121,12 +123,28 @@ namespace ya
 	void ArabianScript::OnTriggerExit(Collider2D* collider)
 	{
 	}
+	void ArabianScript::New()
+	{
+		Vector3 pos = mTr->GetPosition();
+		pos.x -= 5.0f * Time::DeltaTime();
+		mTr->SetPosition(pos);
+
+		mTime += Time::DeltaTime();
+		if (mTime > 0.5f)
+		{
+			mArabianAni->Play(L"LeftIdle", true);
+			mArabianState = ArabianState::IDLE;
+			mTime = 0.0f;
+		}
+
+	}
 	void ArabianScript::Idle()
 	{
 		mTime += Time::DeltaTime();
-		if (mTime > 3.0f)
+		if (mTime > 4.0f)
 		{
-			mArabianAni->Play(L"LeftAttack2", false);
+			mArabianAni->Play(L"LeftKnifeAttack2", false);
+			AttackKnife();
 			mTime = 0.0f;
 		}
 
@@ -140,21 +158,19 @@ namespace ya
 
 		mArabianAni->Play(L"LeftIdle", true);
 		mArabianState = ArabianState::IDLE;
-
-		
 	}
 	void ArabianScript::Death()
 	{
 		mTime += Time::DeltaTime();
 
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector3 pos = tr->GetPosition();	
+		mTr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = mTr->GetPosition();
 		pos.x += 5.0f * Time::DeltaTime();
 
 		if (mTime > 0.5f)
 			GetOwner()->Death();
 
-		tr->SetPosition(pos);
+		mTr->SetPosition(pos);
 	}
 	void ArabianScript::AttackKnife()
 	{
