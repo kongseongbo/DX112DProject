@@ -5,14 +5,15 @@
 #include "yaTransform.h"
 #include "yaPlayer.h"
 #include "yaRigidbody.h"
-#include "yaBodyScript.h"
 #include "yaSceneManager.h"
 #include "yaBulletScript.h"
 #include "yaBombScript.h"
+
+
 namespace ya
 {
 	//HeadScript::GunState HeadScript::mGunState = eGunState::GUN;
-	HeadScript::HeadState HeadScript::mHeadState = HeadState::IDLE;
+
 
 	HeadScript::HeadScript()
 		: Script()
@@ -23,9 +24,10 @@ namespace ya
 		, direction(1)
 		, mTime(0.0f)
 		, mGunState(eGunState::GUN)
+		, mBody(nullptr)
 		//, a(nullptr)
 	{
-
+		mHeadState = HeadState::IDLE;
 	}
 
 	HeadScript::~HeadScript()
@@ -105,6 +107,12 @@ namespace ya
 			texture = Resources::Load<Texture>(L"GrenadeAttackU", L"Character\\Marco\\GrenadeAttackU.png");
 			mHeadAni->Create(L"GrenadeAttackU", texture, Vector2(0.0f, 0.0f), Vector2(39.5f, 38.0f), Vector2(-0.005f, 0.1f), 6, 0.1f);
 
+			texture = Resources::Load<Texture>(L"Death", L"Character\\Marco\\Death.png");
+			mHeadAni->Create(L"Death", texture, Vector2(0.0f, 0.0f), Vector2(45.0f, 46.0f), Vector2(-0.008f, 0.18f), 19, 0.1f);
+
+			texture = Resources::Load<Texture>(L"NewMarco", L"Character\\Marco\\NewMarco.png");
+			mHeadAni->Create(L"NewMarco", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 244.0f), Vector2(-0.03f, -0.38f), 7, 0.2f);
+
 			//MachineGun
 			texture = Resources::Load<Texture>(L"MachineIdle", L"Character\\MarcoMachineGun\\Idle.png");
 			mHeadAni->Create(L"RightIdle", texture, Vector2(0.0f, 0.0f), Vector2(47.5f, 36.0f), Vector2(0.02, 0.05f), 4, 0.3f);
@@ -164,6 +172,9 @@ namespace ya
 			mHeadAni->GetCompleteEvent(L"StiDownAttack") = std::bind(&HeadScript::End, this);
 			mHeadAni->GetCompleteEvent(L"LStiDownAttack") = std::bind(&HeadScript::End, this);
 
+			mHeadAni->GetCompleteEvent(L"Death") = std::bind(&HeadScript::End, this);
+			mHeadAni->GetCompleteEvent(L"NewMarco") = std::bind(&HeadScript::Start, this);
+
 			//MachineGun
 			mHeadAni->GetCompleteEvent(L"RightDownMotion") = std::bind(&HeadScript::End, this);
 			mHeadAni->GetCompleteEvent(L"LeftDownMotion") = std::bind(&HeadScript::End, this);
@@ -183,40 +194,40 @@ namespace ya
 		mHeadAni = GetOwner()->GetComponent<Animator>();
 		switch (mHeadState)
 		{
-		case ya::HeadScript::HeadState::IDLE:
+		case ya::HeadState::IDLE:
 			Idle();
 			break;
-		case ya::HeadScript::HeadState::UPIDLE:
+		case ya::HeadState::UPIDLE:
 			UpIdle();
 			break;
-		case ya::HeadScript::HeadState::MOVE:
+		case ya::HeadState::MOVE:
 			Move();
 			break;
-		case ya::HeadScript::HeadState::UPMOVE:
+		case ya::HeadState::UPMOVE:
 			UpMove();
 			break;
-		case ya::HeadScript::HeadState::JUMP:
+		case ya::HeadState::JUMP:
 			Jump();
 			break;
-		case ya::HeadScript::HeadState::HIT:
+		case ya::HeadState::HIT:
 			Hit();
 			break;
-		case ya::HeadScript::HeadState::ATTACK:
+		case ya::HeadState::ATTACK:
 			Attack();
 			break;
-		case ya::HeadScript::HeadState::UPATTACK:
+		case ya::HeadState::UPATTACK:
 			UpAttack();
 			break;
-		case ya::HeadScript::HeadState::SITDOWN:
+		case ya::HeadState::SITDOWN:
 			SitDown();
 			break;
-		case ya::HeadScript::HeadState::SITDOWNMOVE:
+		case ya::HeadState::SITDOWNMOVE:
 			SitDownMove();
 			break;
-		case ya::HeadScript::HeadState::SITDOWNATTACK:
+		case ya::HeadState::SITDOWNATTACK:
 			SitDownAttack();
 			break;
-		case ya::HeadScript::HeadState::DEATH:
+		case ya::HeadState::DEATH:
 			Death();
 			break;
 		default:
@@ -264,9 +275,12 @@ namespace ya
 
 		if (collider->GetOwner()->GetLayerType() == eLayerType::MonsterAttack)
 		{
-			GetOwner()->Pause();
-		}
+			if (mHeadState == HeadState::DEATH)
+				return;
 
+			mHeadAni->Play(L"Death", false);
+			mHeadState = HeadState::DEATH;
+		}
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)
@@ -284,6 +298,13 @@ namespace ya
 
 	void HeadScript::Start()
 	{
+		Animator* bodyAni = mBody->GetComponent<Animator>();
+		bodyAni->Play(L"BodyIdle",true);
+
+		mHeadAni->Play(L"HeadIdle", true);
+		mHeadState = HeadState::IDLE;
+
+		
 	}
 
 	void HeadScript::Action()
@@ -381,6 +402,12 @@ namespace ya
 
 			mHeadState = HeadState::SITDOWN;
 		}
+
+		if (mHeadState == HeadState::DEATH)
+		{
+			GetOwner()->Pause();
+		}
+
 	}
 
 	void HeadScript::Idle()
@@ -1095,6 +1122,19 @@ namespace ya
 
 	void HeadScript::Death()
 	{
+
+		/*mTime += 2.0f * Time::DeltaTime();
+		if (mTime >= 5.0f)
+		{
+			GetOwner()->SetState(GameObject::Active);
+			Vector3 pos = mTr->GetPosition();
+			pos.x -= 2.0f;
+			mTr->SetPosition(pos);
+			mHeadAni->Play(L"NewMarco", false);
+			mHeadState = HeadState::IDLE;
+			mTime = 0.0f;
+		}*/
+		
 	}
 	void HeadScript::NewBullet(std::wstring name, Vector3 pos , int direction, bool up)
 	{

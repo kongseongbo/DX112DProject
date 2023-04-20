@@ -6,20 +6,18 @@
 #include "yaPlayer.h"
 #include "yaRigidbody.h"
 #include "yaBody.h"
-#include "yaHead.h"
 #include "yaCollider2D.h"
+#include "yaHeadScript.h"
 
 namespace ya
 {
-	BodyScript::BodyState BodyScript::mBodyState = BodyState::IDLE;
-
 	BodyScript::BodyScript()
 		: Script()
 		, mTr(nullptr)
 		, bodyAni(nullptr)
 		, direction(0)
 	{
-
+		mBodyState = BodyState::IDLE;
 	}
 
 	BodyScript::~BodyScript()
@@ -64,12 +62,6 @@ namespace ya
 
 	void BodyScript::Update()
 	{
-		if (mHead->GetState() == GameObject::Paused)
-		{
-			GetOwner()->Pause();
-		}
-
-
 		Transform* headTr = mHead->GetComponent<Transform>();
 		Vector3 headPos = headTr->GetPosition();
 		mTr->SetPosition(Vector3(headTr->GetPosition().x - 0.2f, headTr->GetPosition().y - 1.3f, 5.0f));
@@ -77,31 +69,31 @@ namespace ya
 		bodyAni = GetOwner()->GetComponent<Animator>();
 		switch (mBodyState)
 		{
-		case ya::BodyScript::BodyState::IDLE:
+		case ya::BodyState::IDLE:
 			Idle();
 			break;
-		case ya::BodyScript::BodyState::MOVE:
+		case ya::BodyState::MOVE:
 			Move();
 			break;
-		case ya::BodyScript::BodyState::JUMP:
+		case ya::BodyState::JUMP:
 			Jump();
 			break;
-		case ya::BodyScript::BodyState::HIT:
+		case ya::BodyState::HIT:
 			Hit();
 			break;
-		case ya::BodyScript::BodyState::ATTACK:
+		case ya::BodyState::ATTACK:
 			Attack();
 			break;
-		case ya::BodyScript::BodyState::SITDOWN:
+		case ya::BodyState::SITDOWN:
 			SitDown();
 			break;
-		case ya::BodyScript::BodyState::SITDOWNMOVE:
+		case ya::BodyState::SITDOWNMOVE:
 			SitDownMove();
 			break;
 		//case ya::BodyScript::BodyState::SITDOWNATTACK:
 		//	SitDownAttack();
 		//	break;
-		case ya::BodyScript::BodyState::DEATH:
+		case ya::BodyState::DEATH:
 			Death();
 			break;
 		default:
@@ -118,8 +110,6 @@ namespace ya
 
 	void BodyScript::OnCollisionEnter(Collider2D* collider)
 	{
-		
-
 		if (mBodyState == BodyState::JUMP&& direction == 0)
 		{
 			bodyAni->Play(L"BodyIdle", true);
@@ -130,6 +120,17 @@ namespace ya
 			bodyAni->Play(L"LBodyIdle", true);
 			mBodyState = BodyState::IDLE;
 		}
+
+		if (collider->GetOwner()->GetLayerType() == eLayerType::MonsterAttack)
+		{
+			if (mBodyState == BodyState::DEATH)
+				return;
+
+			bodyAni->Play(L"def", true);
+			mBodyState = BodyState::DEATH;
+		}
+
+
 	}
 
 	void BodyScript::OnCollisionStay(Collider2D* collider)
@@ -288,5 +289,17 @@ namespace ya
 
 	void BodyScript::Death()
 	{
+		if (GetOwner()->GetState() == GameObject::Active)
+		{
+			if (mHeadState == HeadState::NONE)
+			{
+				
+				//bodyAni->Play(L"BodyIdle", true);
+				mBodyState = BodyState::IDLE;
+			}
+		}
+		
+		else
+			GetOwner()->Pause();
 	}
 }

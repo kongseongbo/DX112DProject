@@ -183,6 +183,8 @@ namespace ya
 			bodyMr->SetMaterial(bodyMateiral);
 			bodyMr->SetMesh(mesh);
 			object::DontDestroyOnLoad(bodyObj);
+
+			playerscript->SetBody(bodyObj);
 		}
 
 		// Monster Object
@@ -271,10 +273,11 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MachineGunItem, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack, true);
-		//CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::MonsterAttack, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::MonsterAttack, true);
 
 		Scene::Initalize();
 	}
@@ -294,10 +297,16 @@ namespace ya
 		if (headObj->GetState() == GameObject::Paused)
 		{
 			mTime += 2.0f * Time::DeltaTime();
-			if (mTime >= 10.0f)
+			if (mTime >= 5.0f)
 			{
 				headObj->SetState(GameObject::Active);
 				bodyObj->SetState(GameObject::Active);
+				Transform* headTr = headObj->GetComponent<Transform>();
+				Vector3 pos = headTr->GetPosition();
+				pos.x -= 5.0f;
+				headTr->SetPosition(pos);
+				Animator* headAni = headObj->GetComponent<Animator>();
+				headAni->Play(L"NewMarco", false);
 				mTime = 0.0f;
 			}
 		}

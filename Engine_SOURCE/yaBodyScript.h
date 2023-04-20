@@ -6,23 +6,25 @@
 
 namespace ya
 {
+	enum class BodyState
+	{
+		NONE,
+		IDLE,
+		MOVE,
+		JUMP,
+		SITDOWN,
+		SITDOWNMOVE,
+		ATTACK,
+		HIT,
+		DEATH,
+	};
+	static BodyState mBodyState;
+
 	class Player;
 	class BodyScript : public Script
 	{
 	public:
-		enum class BodyState
-		{
-			NONE,
-			IDLE,
-			MOVE,
-			JUMP,
-			SITDOWN,
-			SITDOWNMOVE,
-			ATTACK,
-			HIT,
-			DEATH,
-		};
-		static BodyState mBodyState;
+
 
 		BodyScript();
 		~BodyScript();

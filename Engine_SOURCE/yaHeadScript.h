@@ -5,9 +5,28 @@
 #include "yaBullet.h"
 #include "yaBomb.h"
 #include "yaObjectPool.h"
+#include "yaBody.h"
 
 namespace ya
 {
+	enum class HeadState
+	{
+		NONE,
+		IDLE,
+		UPIDLE,
+		MOVE,
+		UPMOVE,
+		JUMP,
+		SITDOWN,
+		SITDOWNMOVE,
+		SITDOWNATTACK,
+		ATTACK,
+		UPATTACK,
+		HIT,
+		DEATH,
+	};
+	static HeadState mHeadState;
+
 	class HeadScript : public Script
 	{
 	public:
@@ -18,23 +37,7 @@ namespace ya
 		};
 		static GunState mGunState;*/
 
-		enum class HeadState
-		{
-			NONE,
-			IDLE,
-			UPIDLE,
-			MOVE,
-			UPMOVE,
-			JUMP,
-			SITDOWN,
-			SITDOWNMOVE,
-			SITDOWNATTACK,
-			ATTACK,
-			UPATTACK,
-			HIT,
-			DEATH,
-		};
-		static HeadState mHeadState;
+
 
 		HeadScript();
 		~HeadScript();
@@ -68,6 +71,8 @@ namespace ya
 		void NewMachineGun(Vector3 pos, int direction, bool Up = false);
 		void NewMachineGunUp(Vector3 pos, int direction);
 
+		void SetBody(Body* body) { mBody = body; }
+
 		HeadState GetHeadState() { return mHeadState; }
 		void SetHeadState(HeadState state) { mHeadState = state; }
 
@@ -78,6 +83,8 @@ namespace ya
 		Bullet* mBullet;
 		Bullet* mBullets[5];
 		Bomb* mBomb;
+
+		Body* mBody;
 
 		Transform* mTr;
 		Animator* mHeadAni;
