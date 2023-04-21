@@ -27,7 +27,7 @@ namespace ya
 		, mBody(nullptr)
 		//, a(nullptr)
 	{
-		mHeadState = HeadState::IDLE;
+		mHeadState = HeadState::JUMP;
 	}
 
 	HeadScript::~HeadScript()
@@ -158,7 +158,7 @@ namespace ya
 			mHeadAni->Create(L"RightDownAttack", texture, Vector2(0.0f, 0.0f), Vector2(77.5f, 30.0f), Vector2(0.05f, 0.27f), 4, 0.1f);
 			mHeadAni->Create(L"LeftDownAttack", texture, Vector2(0.0f, 30.0f), Vector2(77.5f, 30.0f), Vector2(-0.11f, 0.27f), 4, 0.1f);
 
-			mHeadAni->Play(L"HeadIdle", true);
+			mHeadAni->Play(L"Jump", false);
 
 			mHeadAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&HeadScript::End, this);
 			mHeadAni->GetCompleteEvent(L"GrenadeAttackU") = std::bind(&HeadScript::End, this);
@@ -189,8 +189,6 @@ namespace ya
 
 	void HeadScript::Update()
 	{
-		//time += 1.0f * Time::DeltaTime();
-
 		mHeadAni = GetOwner()->GetComponent<Animator>();
 		switch (mHeadState)
 		{
@@ -1261,5 +1259,4 @@ namespace ya
 			bulletScript->SetDirection(direction);
 		}
 	}
-
 }

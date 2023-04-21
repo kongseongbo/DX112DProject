@@ -30,6 +30,9 @@
 #include "yaArabian.h"
 #include "yaArabianScript.h"
 #include "yaTime.h"
+#include "yaParachute.h"
+#include "yaParachuteScript.h"
+
 
 namespace ya
 {
@@ -145,7 +148,7 @@ namespace ya
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
-			headTr->SetPosition(Vector3(-5.0f, 0.0f, 5.0f));
+			headTr->SetPosition(Vector3(-10.0f, 2.0f, 5.0f));
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
@@ -185,6 +188,16 @@ namespace ya
 			object::DontDestroyOnLoad(bodyObj);
 
 			playerscript->SetBody(bodyObj);
+
+		//parachute
+			Parachute* parachute = object::Instantiate<Parachute>(eLayerType::Bullet, this);
+			parachute->SetName(L"parachute");
+			Transform* parachuteTr = parachute->GetComponent<Transform>();
+			parachuteTr->SetPosition(Vector3(headTr->GetPosition().x , headTr->GetPosition().y, headTr->GetPosition().z));
+			parachuteTr->SetScale(Vector3(10.0f, 10.0f, 1.0f)); 
+			parachuteTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+			ParachuteScript* script = parachute->AddComponent<ParachuteScript>();
+			script->SetPlayer(headObj);
 		}
 
 		// Monster Object
@@ -291,6 +304,7 @@ namespace ya
 			Transform* headTr = headObj->GetComponent<Transform>();
 			Vector3 headPos = headTr->GetPosition();
 			cameraTr->SetPosition(Vector3(headPos.x, headPos.y + 3.0f, headPos.z));
+			
 		}
 
 		
@@ -307,6 +321,9 @@ namespace ya
 				headTr->SetPosition(pos);
 				Animator* headAni = headObj->GetComponent<Animator>();
 				headAni->Play(L"NewMarco", false);
+				HeadScript* headScript = headObj->GetScript<HeadScript>();
+				headScript->SetGunState(eGunState::GUN);
+
 				mTime = 0.0f;
 			}
 		}

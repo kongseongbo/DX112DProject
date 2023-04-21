@@ -30,14 +30,6 @@ namespace ya
 	class HeadScript : public Script
 	{
 	public:
-		/*enum class GunState
-		{
-			GUN,
-			MACHINEGUN,
-		};
-		static GunState mGunState;*/
-
-
 
 		HeadScript();
 		~HeadScript();

@@ -20,6 +20,7 @@ namespace ya
 		, mArabianAni(nullptr)
 		, mTr(nullptr)
 		, mTime(0.0f)
+		, direction(0)
 	{
 		
 	}
@@ -53,6 +54,9 @@ namespace ya
 		texture = Resources::Load<Texture>(L"ArabianAttack2", L"Arabian\\Attack2.png");
 		mArabianAni->Create(L"LeftKnifeAttack2", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 60.0f), Vector2(0.0f, -0.05), 19, 0.1f);
 
+		texture = Resources::Load<Texture>(L"S", L"Arabian\\S.png");
+		mArabianAni->Create(L"S", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 55.0f), Vector2(0.0f, 0.0f), 4, 0.3f);
+
 		SpriteRenderer* arabianSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> arabianMaterial = Resources::Find<Material>(L"SpriteMaterial");
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -67,6 +71,8 @@ namespace ya
 	}
 	void ArabianScript::Update()
 	{
+		
+
 		switch (mArabianState)
 		{
 		case ya::ArabianScript::ArabianState::NEW:
@@ -96,7 +102,7 @@ namespace ya
 	}
 	void ArabianScript::OnCollisionEnter(Collider2D* collider)
 	{
-		if (collider->GetID() == 1)
+		if (collider->GetOwner()->GetLayerType() == eLayerType::Player)
 		{
 			mArabianAni->Play(L"LeftAttack", false);
 		}
@@ -140,22 +146,76 @@ namespace ya
 	}
 	void ArabianScript::Idle()
 	{
+		// 0~0.5 사이의 난수 생성
+		std::random_device rd;
+		std::mt19937 eng(rd());
+		std::uniform_real_distribution<> distr(0, 4);
+
+		int a = 0;
 		mTime += Time::DeltaTime();
-		if (mTime > 4.0f)
+		if (mTime > 2.0f)
+		{
+			a = distr(eng);
+			mTime = 0.0f;
+		}
+
+		if (a == 1)
 		{
 			mArabianAni->Play(L"LeftKnifeAttack2", false);
 			AttackKnife();
+		}
+
+		if (a == 2)
+		{
 			mTime = 0.0f;
+			direction = 1;
+			mArabianAni->Play(L"S", true);
+			mArabianState = ArabianState::MOVE;
+		}
+		if (a == 3)
+		{
+			mTime = 0.0f;
+			direction = 0;
+			mArabianAni->Play(L"S", true);
+			mArabianState = ArabianState::MOVE;
 		}
 
 	}
 	void ArabianScript::Move()
 	{
+		mTime += Time::DeltaTime();
+
+
+		if (direction == 0)
+		{
+			Vector3 pos = mTr->GetPosition();
+			pos.x -= 2.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+
+			if (mTime > 1.0f)
+			{
+				mArabianAni->Play(L"LeftIdle", true);
+				mArabianState = ArabianState::IDLE;
+				mTime = 0.0f;
+			}
+		}
+
+		if (direction == 1)
+		{
+			Vector3 pos = mTr->GetPosition();
+			pos.x += 2.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+
+			if (mTime > 1.0f)
+			{
+				mArabianAni->Play(L"LeftIdle", true);
+				mArabianState = ArabianState::IDLE;
+				mTime = 0.0f;
+			}
+		}
 	}
 	void ArabianScript::Attack()
 	{
-		//mTime = 0.0f;
-
 		mArabianAni->Play(L"LeftIdle", true);
 		mArabianState = ArabianState::IDLE;
 	}

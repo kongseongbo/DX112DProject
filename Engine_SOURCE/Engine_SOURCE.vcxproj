@@ -178,6 +178,8 @@
     <ClInclude Include="yaMosqueArtilleryScript.h" />
     <ClInclude Include="yaObjectPool.h" />
     <ClInclude Include="yaPaintShader.h" />
+    <ClInclude Include="yaParachute.h" />
+    <ClInclude Include="yaParachuteScript.h" />
     <ClInclude Include="yaParticleShader.h" />
     <ClInclude Include="yaParticleSystem.h" />
     <ClInclude Include="yaRigidbody.h" />
@@ -251,6 +253,8 @@
     <ClCompile Include="yaMosqueArtilleryScript.cpp" />
     <ClCompile Include="yaObjectPool.cpp" />
     <ClCompile Include="yaPaintShader.cpp" />
+    <ClCompile Include="yaParachute.cpp" />
+    <ClCompile Include="yaParachuteScript.cpp" />
     <ClCompile Include="yaParticleShader.cpp" />
     <ClCompile Include="yaParticleSystem.cpp" />
     <ClCompile Include="yaRigidbody.cpp" />

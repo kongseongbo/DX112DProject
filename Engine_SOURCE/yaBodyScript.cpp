@@ -17,7 +17,7 @@ namespace ya
 		, bodyAni(nullptr)
 		, direction(0)
 	{
-		mBodyState = BodyState::IDLE;
+		mBodyState = BodyState::JUMP;
 	}
 
 	BodyScript::~BodyScript()
@@ -55,7 +55,7 @@ namespace ya
 			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
 			bodyAni->Create(L"def", texture, Vector2(0.0f, 50.f), Vector2(50.0f, 50.0f), Vector2::Zero, 1, 0.1f);
 
-			bodyAni->Play(L"BodyIdle", true);
+			bodyAni->Play(L"JumpD", false);
 
 		}
 	}

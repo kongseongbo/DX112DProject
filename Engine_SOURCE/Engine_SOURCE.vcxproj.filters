@@ -166,6 +166,9 @@
     <Filter Include="Component\Script\Player\Bullet">
       <UniqueIdentifier>{cf5d5b92-0309-4d29-b244-f4059f86744f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Player\Parachute">
+      <UniqueIdentifier>{3fb333f8-2bf4-4f8e-b027-965177a5eb2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -368,6 +371,12 @@
     </ClCompile>
     <ClCompile Include="yaArabianKnifeScript.cpp">
       <Filter>Component\Script\Arabian\Knife</Filter>
+    </ClCompile>
+    <ClCompile Include="yaParachute.cpp">
+      <Filter>Component\Script\Player\Parachute</Filter>
+    </ClCompile>
+    <ClCompile Include="yaParachuteScript.cpp">
+      <Filter>Component\Script\Player\Parachute</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -586,6 +595,12 @@
     </ClInclude>
     <ClInclude Include="yaArabianKnifeScript.h">
       <Filter>Component\Script\Arabian\Knife</Filter>
+    </ClInclude>
+    <ClInclude Include="yaParachuteScript.h">
+      <Filter>Component\Script\Player\Parachute</Filter>
+    </ClInclude>
+    <ClInclude Include="yaParachute.h">
+      <Filter>Component\Script\Player\Parachute</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

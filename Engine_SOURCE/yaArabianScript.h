@@ -47,5 +47,7 @@ namespace ya
 		Animator* mArabianAni;
 		Transform* mTr;
 		float mTime;
+
+		int direction;
 	};
 }
