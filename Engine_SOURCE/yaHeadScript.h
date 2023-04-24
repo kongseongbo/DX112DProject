@@ -62,6 +62,7 @@ namespace ya
 		void NewBullet(std::wstring name, Vector3 pos, int direction, bool Up = false);
 		void NewMachineGun(Vector3 pos, int direction, bool Up = false);
 		void NewMachineGunUp(Vector3 pos, int direction);
+		void NewBomb(Vector3 pos, float speed, int direction);
 
 		void SetBody(Body* body) { mBody = body; }
 

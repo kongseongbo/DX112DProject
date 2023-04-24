@@ -51,6 +51,9 @@ namespace ya
 		texture = Resources::Load<Texture>(L"ArabianDeath", L"Arabian\\Death.png");
 		mArabianAni->Create(L"LeftDeath", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 50.0f), Vector2::Zero, 11, 0.1f);
 		
+		texture = Resources::Load<Texture>(L"BombDeath", L"Arabian\\BombDeath.png");
+		mArabianAni->Create(L"BombDeath", texture, Vector2(0.0f, 0.0f), Vector2(80.0f, 60.0f), Vector2::Zero, 13, 0.1f);
+
 		texture = Resources::Load<Texture>(L"ArabianAttack2", L"Arabian\\Attack2.png");
 		mArabianAni->Create(L"LeftKnifeAttack2", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 60.0f), Vector2(0.0f, -0.05), 19, 0.1f);
 
@@ -102,14 +105,22 @@ namespace ya
 	}
 	void ArabianScript::OnCollisionEnter(Collider2D* collider)
 	{
-		if (collider->GetOwner()->GetLayerType() == eLayerType::Player)
+		if (collider->GetOwner()->GetName() == L"Head")
 		{
 			mArabianAni->Play(L"LeftAttack", false);
+			//mArabianState = ArabianState::ATTACK;
 		}
 
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
 		{
 			mArabianAni->Play(L"LeftDeath", false);
+			mArabianState = ArabianState::DEATH;
+			mTime = 0.0f;
+		}
+
+		if (collider->GetOwner()->GetLayerType() == eLayerType::Bomb)
+		{
+			mArabianAni->Play(L"BombDeath", false);
 			mArabianState = ArabianState::DEATH;
 			mTime = 0.0f;
 		}

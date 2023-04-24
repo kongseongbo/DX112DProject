@@ -152,7 +152,8 @@ namespace ya
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
-			headObj->AddComponent<Rigidbody>();
+			Rigidbody* playerGirigid = headObj->AddComponent<Rigidbody>();
+			playerGirigid->SetGravity(Vector2(0.0f, 102.0f));
 			HeadScript* playerscript = headObj->AddComponent<HeadScript>();
 
 			Collider2D* collider = headObj->AddComponent<Collider2D>();
@@ -201,18 +202,18 @@ namespace ya
 		}
 
 		// Monster Object
-		Monster* monsterObj = object::Instantiate<Monster>(eLayerType::Monster, this);
-		monsterObj->SetName(L"Monster");
-		Transform* monsterTr = monsterObj->GetComponent<Transform>();
-		monsterTr->SetPosition(Vector3(3.0f, -3.0f, 5.0f));
-		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-		Collider2D* monsterCollider = monsterObj->AddComponent<Collider2D>();
-		monsterCollider->SetType(eColliderType::Rect);
+		//Monster* monsterObj = object::Instantiate<Monster>(eLayerType::Monster, this);
+		//monsterObj->SetName(L"Monster");
+		//Transform* monsterTr = monsterObj->GetComponent<Transform>();
+		//monsterTr->SetPosition(Vector3(3.0f, -3.0f, 5.0f));
+		////tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+		//Collider2D* monsterCollider = monsterObj->AddComponent<Collider2D>();
+		//monsterCollider->SetType(eColliderType::Rect);
 
-		SpriteRenderer* monsterMr = monsterObj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");
-		monsterMr->SetMaterial(monsterMateiral);
-		monsterMr->SetMesh(mesh);
+		//SpriteRenderer* monsterMr = monsterObj->AddComponent<SpriteRenderer>();
+		//std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");
+		//monsterMr->SetMaterial(monsterMateiral);
+		//monsterMr->SetMesh(mesh);
 
 		// Helicopter Object
 		Helicopter* heliObj = object::Instantiate<Helicopter>(eLayerType::Monster, this);
@@ -286,6 +287,7 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MachineGunItem, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);

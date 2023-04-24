@@ -25,7 +25,12 @@ namespace ya
 
 		void End();
 
+		void SetDirection(int direction) { mDirection = direction; }
+		void SetSpeed(float speed) { mSpeed = speed; }
+
 	private:
 		int stack;
+		int mDirection;
+		float mSpeed;
 	};
 }

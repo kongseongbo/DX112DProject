@@ -15,6 +15,8 @@ namespace ya
 	BombScript::BombScript()
 		: Script()
 		, stack(0)
+		, mDirection(1)
+		, mSpeed(0.0f)
 	{
 	}
 	BombScript::~BombScript()
@@ -51,11 +53,20 @@ namespace ya
 	}
 	void BombScript::Update()
 	{
-		if (stack < 2)
+		if (stack < 2 && mDirection == 1)
 		{
 			Transform* tr = GetOwner()->GetComponent<Transform>();
 			Vector3 pos = tr->GetPosition();
-			pos.x += 5.0f * Time::DeltaTime();
+			pos.x += mSpeed * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
+
+		if (stack < 2 && mDirection == 0)
+		{
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			tr->SetRotation(Vector3(0.0f, 180.f, 0.0f));
+			pos.x -= mSpeed * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 	}
@@ -69,23 +80,44 @@ namespace ya
 	{
 		Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 		Vector2 velocity = rigidbody->GetVelocity();
-
-		if (stack >= 2)
+		if (collider->GetOwner()->GetLayerType() == eLayerType::Monster)
 		{
+			Transform* monTr = collider->GetOwner()->GetComponent<Transform>();
+
 			Animator* bombAni = GetOwner()->GetComponent<Animator>();
 			Transform* tr = GetOwner()->GetComponent<Transform>();
 			Vector3 rot = tr->GetRotation();
-			rot.z = 90.0f;
+			if (mDirection == 1)
+				rot.z = 90.0f;
+			if (mDirection == 0)
+				rot.z = -90.0f;
 			tr->SetRotation(rot);
+			tr->SetPosition(monTr->GetPosition());
 			bombAni->Play(L"BombEffect", false);
 			rigidbody->SetGround(true);
 		}
 		else
 		{
-			velocity.y = 20.0f;
-			rigidbody->SetGround(false);
-			rigidbody->SetVelocity(velocity);
-			++stack;
+			if (stack >= 2)
+			{
+				Animator* bombAni = GetOwner()->GetComponent<Animator>();
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				Vector3 rot = tr->GetRotation();
+				if (mDirection == 1)
+					rot.z = 90.0f;
+				if (mDirection == 0)
+					rot.z = -90.0f;
+				tr->SetRotation(rot);
+				bombAni->Play(L"BombEffect", false);
+				rigidbody->SetGround(true);
+			}
+			else
+			{
+				velocity.y = 20.0f;
+				rigidbody->SetGround(false);
+				rigidbody->SetVelocity(velocity);
+				++stack;
+			}
 		}
 	}
 	void BombScript::OnCollisionStay(Collider2D* collider)
