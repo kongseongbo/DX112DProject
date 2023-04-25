@@ -58,11 +58,13 @@ namespace ya
 
 			texture = Resources::Load<Texture>(L"PistolAttackU", L"Character\\Marco\\PistolAttackU.png");
 			mHeadAni->Create(L"PistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.05f);
-			mHeadAni->Create(L"JumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(0.007f,-0.2f), 10, 0.05f);
+			mHeadAni->Create(L"JumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(0.0f, 0.0f), 10, 0.05f);
+			mHeadAni->Create(L"JumpMoveAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(0.007f,-0.2f), 10, 0.05f);
 
 			texture = Resources::Load<Texture>(L"LPistolAttackU", L"Character\\Marco\\LPistolAttackU.png");
 			mHeadAni->Create(L"LPistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2::Zero, 10, 0.05f);
-			mHeadAni->Create(L"LJumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2(-0.005f, -0.2f), 10, 0.05f);
+			mHeadAni->Create(L"LJumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2(0.0f, 0.0f), 10, 0.05f);
+			mHeadAni->Create(L"LJumpMoveAttack", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2(-0.005f, -0.2f), 10, 0.05f);
 
 			texture = Resources::Load<Texture>(L"LookTop", L"Character\\Marco\\LookTop.png");
 			mHeadAni->Create(L"LookTop", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 33.5f), Vector2::Zero, 2, 0.1f);
@@ -155,6 +157,9 @@ namespace ya
 			mHeadAni->Create(L"RightAttack", texture, Vector2(0.0f, 0.0f), Vector2(75.0f, 30.0f), Vector2(0.055f, 0.07f), 4, 0.1f);
 			mHeadAni->Create(L"LeftAttack", texture, Vector2(0.0f, 30.0f), Vector2(75.0f, 30.0f), Vector2(-0.12f, 0.08f), 4, 0.1f);
 
+			mHeadAni->Create(L"RightJumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(75.0f, 30.0f), Vector2(0.05f, 0.1f), 4, 0.1f);
+			mHeadAni->Create(L"LeftJumpAttack", texture, Vector2(0.0f, 30.0f), Vector2(75.0f, 30.0f), Vector2(-0.115f, 0.12f), 4, 0.1f);
+
 			mHeadAni->Create(L"RightJumpMoveAttack", texture, Vector2(0.0f, 0.0f), Vector2(75.0f, 30.0f), Vector2(0.07f, -0.06f), 4, 0.1f);
 			mHeadAni->Create(L"LeftJumpMoveAttack", texture, Vector2(0.0f, 30.0f), Vector2(75.0f, 30.0f), Vector2(-0.13f, -0.05f), 4, 0.1f);
 
@@ -179,6 +184,10 @@ namespace ya
 			mHeadAni->Play(L"Jump", false);
 
 			mHeadAni->GetCompleteEvent(L"PistolAttackU") = std::bind(&HeadScript::End, this);
+			mHeadAni->GetCompleteEvent(L"JumpAttack") = std::bind(&HeadScript::End, this);
+			mHeadAni->GetCompleteEvent(L"JumpMoveAttack") = std::bind(&HeadScript::End, this);
+			mHeadAni->GetCompleteEvent(L"LJumpAttack") = std::bind(&HeadScript::End, this);
+			mHeadAni->GetCompleteEvent(L"LJumpMoveAttack") = std::bind(&HeadScript::End, this);
 			mHeadAni->GetCompleteEvent(L"GrenadeAttackU") = std::bind(&HeadScript::End, this);
 			mHeadAni->GetCompleteEvent(L"LGrenadeAttackU") = std::bind(&HeadScript::End, this);
 			mHeadAni->GetCompleteEvent(L"GrenadeJumpAttackU") = std::bind(&HeadScript::End, this);
@@ -238,6 +247,9 @@ namespace ya
 		case ya::HeadState::JUMP:
 			Jump();
 			break;
+		case ya::HeadState::JUMPMOVE:
+			JumpMove();
+			break;
 		case ya::HeadState::HIT:
 			Hit();
 			break;
@@ -295,6 +307,25 @@ namespace ya
 				mHeadState = HeadState::IDLE;
 			}
 			else if (mHeadState == HeadState::JUMP && direction == 0)
+			{
+				if (mGunState == eGunState::GUN)
+					mHeadAni->Play(L"LHeadIdle", true);
+				if (mGunState == eGunState::MACHINEGUN)
+					mHeadAni->Play(L"LeftIdle", true);
+
+				mHeadState = HeadState::IDLE;
+			}
+
+			if (mHeadState == HeadState::JUMPMOVE && direction == 1)
+			{
+				if (mGunState == eGunState::GUN)
+					mHeadAni->Play(L"HeadIdle", true);
+				if (mGunState == eGunState::MACHINEGUN)
+					mHeadAni->Play(L"RightIdle", true);
+
+				mHeadState = HeadState::IDLE;
+			}
+			else if (mHeadState == HeadState::JUMPMOVE && direction == 0)
 			{
 				if (mGunState == eGunState::GUN)
 					mHeadAni->Play(L"LHeadIdle", true);
@@ -366,7 +397,7 @@ namespace ya
 					if (mGunState == eGunState::MACHINEGUN)
 						mHeadAni->Play(L"RightJump", false);
 				}
-				mHeadState = HeadState::JUMP;
+				mHeadState = HeadState::JUMPMOVE;
 			}
 			else
 			{
@@ -397,7 +428,7 @@ namespace ya
 					if (mGunState == eGunState::MACHINEGUN)
 						mHeadAni->Play(L"LeftJump", false);
 				}
-				mHeadState = HeadState::JUMP;
+				mHeadState = HeadState::JUMPMOVE;
 			}
 			else
 			{
@@ -851,7 +882,7 @@ namespace ya
 					mHeadAni->Play(L"RightMoveJump", false);
 			}
 			
-			mHeadState = HeadState::JUMP;
+			mHeadState = HeadState::JUMPMOVE;
 		}
 
 		if (Input::GetKey(eKeyCode::DOWN) && direction == 0)
@@ -981,7 +1012,7 @@ namespace ya
 			if (mGunState == eGunState::MACHINEGUN)
 			{
 				NewMachineGun(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), 0);
-				mHeadAni->Play(L"LeftJumpMoveAttack", false);
+				mHeadAni->Play(L"LeftJumpAttack", false);
 			}
 
 			//mHeadState = HeadState::ATTACK;
@@ -997,7 +1028,7 @@ namespace ya
 			if (mGunState == eGunState::MACHINEGUN)
 			{
 				NewMachineGun(Vector3(mTr->GetPosition().x + .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), 1);
-				mHeadAni->Play(L"RightJumpMoveAttack", false);
+				mHeadAni->Play(L"RightJumpAttack", false);
 			}
 
 			//mHeadState = HeadState::ATTACK;
@@ -1043,9 +1074,97 @@ namespace ya
 			}
 			mHeadState = HeadState::ATTACK;
 		}
+	}
 
-		
-		
+	void HeadScript::JumpMove()
+	{
+
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			Vector3 pos = mTr->GetPosition();
+			pos.x -= 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+		}
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			Vector3 pos = mTr->GetPosition();
+			pos.x += 6.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 0)
+		{
+
+			if (mGunState == eGunState::GUN)
+			{
+				NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 0);
+				mHeadAni->Play(L"LJumpMoveAttack", false);
+			}
+			if (mGunState == eGunState::MACHINEGUN)
+			{
+				NewMachineGun(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), 0);
+				mHeadAni->Play(L"LeftJumpMoveAttack", false);
+			}
+
+			//mHeadState = HeadState::ATTACK;
+		}
+		if (Input::GetKeyDown(eKeyCode::LCTRL) && direction == 1)
+		{
+
+			if (mGunState == eGunState::GUN)
+			{
+				NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 1);
+				mHeadAni->Play(L"JumpMoveAttack", false);
+			}
+			if (mGunState == eGunState::MACHINEGUN)
+			{
+				NewMachineGun(Vector3(mTr->GetPosition().x + .5f, mTr->GetPosition().y - 0.7f, mTr->GetPosition().z), 1);
+				mHeadAni->Play(L"RightJumpMoveAttack", false);
+			}
+
+			//mHeadState = HeadState::ATTACK;
+		}
+
+		if (Input::GetKey(eKeyCode::S) && direction == 1)
+		{
+			NewBomb(Vector3(mTr->GetPosition().x, mTr->GetPosition().y, mTr->GetPosition().z - 1), 5.0f, direction);
+			if (Input::GetKey(eKeyCode::RIGHT))
+			{
+				if (mGunState == eGunState::GUN)
+					mHeadAni->Play(L"GrenadeJumpMoveAttackU", false);
+				if (mGunState == eGunState::MACHINEGUN)
+					mHeadAni->Play(L"MachineGrenadeJumpMoveAttack", false);
+			}
+			else
+			{
+				if (mGunState == eGunState::GUN)
+					mHeadAni->Play(L"GrenadeJumpAttackU", false);
+				if (mGunState == eGunState::MACHINEGUN)
+					mHeadAni->Play(L"MachineGrenadeJumpAttack", false);
+			}
+			mHeadState = HeadState::ATTACK;
+		}
+
+		if (Input::GetKey(eKeyCode::S) && direction == 0)
+		{
+			NewBomb(Vector3(mTr->GetPosition().x - 1.0f, mTr->GetPosition().y, mTr->GetPosition().z - 1), 5.0f, direction);
+
+			if (Input::GetKey(eKeyCode::LEFT))
+			{
+				if (mGunState == eGunState::GUN)
+					mHeadAni->Play(L"LGrenadeJumpMoveAttackU", false);
+				if (mGunState == eGunState::MACHINEGUN)
+					mHeadAni->Play(L"LMachineGrenadeJumpMoveAttack", false);
+			}
+			else
+			{
+				if (mGunState == eGunState::GUN)
+					mHeadAni->Play(L"LGrenadeJumpAttackU", false);
+				if (mGunState == eGunState::MACHINEGUN)
+					mHeadAni->Play(L"LMachineGrenadeJumpAttack", false);
+			}
+			mHeadState = HeadState::ATTACK;
+		}
 	}
 
 	void HeadScript::Attack()
