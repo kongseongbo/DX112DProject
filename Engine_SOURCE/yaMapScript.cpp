@@ -9,6 +9,7 @@ namespace ya
 {
 	MapScript::MapScript()
 		: Script()
+
 	{
 	}
 	MapScript::~MapScript()
@@ -29,16 +30,24 @@ namespace ya
 	void MapScript::OnCollisionEnter(Collider2D* collider)
 	{
 		// Arabian Object
-		Arabian* arabianObj = new Arabian();
-		Scene* scene = SceneManager::GetActiveScene();
-		scene->AddGameObject(arabianObj,eLayerType::Monster);
-		arabianObj->SetName(L"Arabian");
-		Transform* arabianTr = arabianObj->GetComponent<Transform>();
-		arabianTr->SetPosition(Vector3(9.0f, -3.5f, 5.0f));
-		arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-		arabianObj->AddComponent<ArabianScript>();
-		
+		for (size_t i = 0; i < 3; i++)
+		{
+			Arabian* arabianObj = new Arabian();
+			if (i ==0)
+				arabianObj->SetName(L"Arabian1");
+			if (i == 1)
+				arabianObj->SetName(L"Arabian2");
+			if (i == 2)
+				arabianObj->SetName(L"Arabian3");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(arabianObj, eLayerType::Monster);
+			arabianTr[i] = arabianObj->GetComponent<Transform>();
+			arabianTr[i]->SetPosition(Vector3(10.0f + i, - 3.4f, 5.0f));
+			arabianTr[i]->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+			ArabianScript* script = arabianObj->AddComponent<ArabianScript>();
+			script->SetIndex(i);
+		}
 	}
 	void MapScript::OnCollisionStay(Collider2D* collider)
 	{

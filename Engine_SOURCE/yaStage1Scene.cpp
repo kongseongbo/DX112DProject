@@ -119,7 +119,7 @@ namespace ya
 			//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		}
 
-		// Collider
+		// Monster »ý¼º Collider
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
 			mapcolliderObj->SetName(L"Coll");

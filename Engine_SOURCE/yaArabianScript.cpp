@@ -20,7 +20,8 @@ namespace ya
 		, mArabianAni(nullptr)
 		, mTr(nullptr)
 		, mTime(0.0f)
-		, direction(0)
+		, direction(-1)
+		, index(0)
 	{
 		
 	}
@@ -30,6 +31,14 @@ namespace ya
 	}
 	void ArabianScript::Initalize()
 	{
+	/*	if (index == 0)
+			GetOwner()->SetName(L"Arabian1");
+		if (index == 1)
+			GetOwner()->SetName(L"Arabian2");
+		if (index == 2)
+			GetOwner()->SetName(L"Arabian3");*/
+
+
 		Collider2D* arabianColl = GetOwner()->AddComponent<Collider2D>();
 		arabianColl->SetType(eColliderType::Rect);
 		arabianColl->SetCenter(Vector2(0.0f, 0.0f));
@@ -43,10 +52,10 @@ namespace ya
 		mArabianAni->Create(L"LeftIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 55.0f), Vector2::Zero, 6, 0.25f);
 		
 		texture = Resources::Load<Texture>(L"ArabianMove", L"Arabian\\Move.png");
-		mArabianAni->Create(L"LeftMove", texture, Vector2(0.0f, 0.0f), Vector2(54.0f, 52.0f), Vector2::Zero, 12, 0.1f);
+		mArabianAni->Create(L"LeftMove", texture, Vector2(0.0f, 0.0f), Vector2(54.0f, 52.0f), Vector2(0.05f, 0.0f), 12, 0.1f);
 
 		texture = Resources::Load<Texture>(L"ArabianAttack", L"Arabian\\Attack.png");
-		mArabianAni->Create(L"LeftAttack", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 65.0f), Vector2(-0.02f,-0.05f), 8, 0.1f);
+		mArabianAni->Create(L"LeftAttack", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 65.0f), Vector2::Zero, 8, 0.1f);
 
 		texture = Resources::Load<Texture>(L"ArabianDeath", L"Arabian\\Death.png");
 		mArabianAni->Create(L"LeftDeath", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 50.0f), Vector2::Zero, 11, 0.1f);
@@ -58,7 +67,7 @@ namespace ya
 		mArabianAni->Create(L"LeftKnifeAttack2", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 60.0f), Vector2(0.0f, -0.05), 19, 0.1f);
 
 		texture = Resources::Load<Texture>(L"S", L"Arabian\\S.png");
-		mArabianAni->Create(L"S", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 55.0f), Vector2(0.0f, 0.0f), 4, 0.3f);
+		mArabianAni->Create(L"S", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 55.0f), Vector2(0.01f, 0.0f), 4, 0.3f);
 
 		SpriteRenderer* arabianSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> arabianMaterial = Resources::Find<Material>(L"SpriteMaterial");
@@ -75,7 +84,8 @@ namespace ya
 	void ArabianScript::Update()
 	{
 		
-
+		if (GetOwner()->GetName() == L"Arabian1")
+			int a = 0;
 		switch (mArabianState)
 		{
 		case ya::ArabianScript::ArabianState::NEW:
@@ -157,71 +167,223 @@ namespace ya
 	}
 	void ArabianScript::Idle()
 	{
-		// 0~0.5 사이의 난수 생성
-		std::random_device rd;
-		std::mt19937 eng(rd());
-		std::uniform_real_distribution<> distr(0, 4);
 
-		int a = 0;
-		mTime += Time::DeltaTime();
-		if (mTime > 2.0f)
+		if (GetOwner()->GetName() == L"Arabian1")
 		{
-			a = distr(eng);
-			mTime = 0.0f;
+			std::random_device rd;
+			std::mt19937 eng(rd());
+			std::uniform_real_distribution<> distr(0, 4);
+
+			int a = 0;
+			mTime += Time::DeltaTime();
+			if (mTime > 2.0f)
+			{
+				a = distr(eng);
+				mTime = 0.0f;
+			}
+
+			if (a == 1)
+			{
+				mArabianAni->Play(L"LeftKnifeAttack2", false);
+				AttackKnife();
+			}
+
+			if (a == 2)
+			{
+				mTime = 0.0f;
+				direction = 1;
+				mArabianAni->Play(L"S", true);
+				mArabianState = ArabianState::MOVE;
+			}
+			if (a == 3)
+			{
+				mTime = 0.0f;
+				direction = 0;
+				mArabianAni->Play(L"S", true);
+				mArabianState = ArabianState::MOVE;
+			}
 		}
 
-		if (a == 1)
+		if (GetOwner()->GetName() == L"Arabian2")
 		{
-			mArabianAni->Play(L"LeftKnifeAttack2", false);
-			AttackKnife();
+			std::random_device rd;
+			std::mt19937 eng(rd());
+			std::uniform_real_distribution<> distr(0, 4);
+
+			int a = 0;
+			mTime += Time::DeltaTime();
+			if (mTime > 2.0f)
+			{
+				a = distr(eng);
+				mTime = 0.0f;
+			}
+
+			if (a == 1)
+			{
+				mArabianAni->Play(L"LeftKnifeAttack2", false);
+				AttackKnife();
+			}
+
+			if (a == 2)
+			{
+				mTime = 0.0f;
+				direction = 1;
+				mArabianAni->Play(L"S", true);
+				mArabianState = ArabianState::MOVE;
+			}
+			if (a == 3)
+			{
+				mTime = 0.0f;
+				direction = 0;
+				mArabianAni->Play(L"S", true);
+				mArabianState = ArabianState::MOVE;
+			}
 		}
 
-		if (a == 2)
+		if (GetOwner()->GetName() == L"Arabian3")
 		{
-			mTime = 0.0f;
-			direction = 1;
-			mArabianAni->Play(L"S", true);
-			mArabianState = ArabianState::MOVE;
-		}
-		if (a == 3)
-		{
-			mTime = 0.0f;
-			direction = 0;
-			mArabianAni->Play(L"S", true);
-			mArabianState = ArabianState::MOVE;
+			std::random_device rd;
+			std::mt19937 eng(rd());
+			std::uniform_real_distribution<> distr(0, 4);
+
+			int a = 0;
+			mTime += Time::DeltaTime();
+			if (mTime > 2.0f)
+			{
+				a = distr(eng);
+				mTime = 0.0f;
+			}
+
+			if (a == 1)
+			{
+				mArabianAni->Play(L"LeftKnifeAttack2", false);
+				AttackKnife();
+			}
+
+			if (a == 2)
+			{
+				mTime = 0.0f;
+				direction = 1;
+				mArabianAni->Play(L"S", true);
+				mArabianState = ArabianState::MOVE;
+			}
+			if (a == 3)
+			{
+				mTime = 0.0f;
+				direction = 0;
+				mArabianAni->Play(L"S", true);
+				mArabianState = ArabianState::MOVE;
+			}
 		}
 
 	}
 	void ArabianScript::Move()
 	{
-		mTime += Time::DeltaTime();
-
-
-		if (direction == 0)
+		if (GetOwner()->GetName() == L"Arabian1")
 		{
-			Vector3 pos = mTr->GetPosition();
-			pos.x -= 2.0f * Time::DeltaTime();
-			mTr->SetPosition(pos);
+			mTime += Time::DeltaTime();
 
-			if (mTime > 1.0f)
+
+			if (direction == 0)
 			{
-				mArabianAni->Play(L"LeftIdle", true);
-				mArabianState = ArabianState::IDLE;
-				mTime = 0.0f;
+				Vector3 pos = mTr->GetPosition();
+				pos.x -= 2.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+				if (mTime > 1.0f)
+				{
+					mArabianAni->Play(L"LeftIdle", true);
+					mArabianState = ArabianState::IDLE;
+					mTime = 0.0f;
+				}
+			}
+
+			if (direction == 1)
+			{
+				Vector3 pos = mTr->GetPosition();
+				pos.x += 2.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+				if (mTime > 1.0f)
+				{
+					mArabianAni->Play(L"LeftIdle", true);
+					mArabianState = ArabianState::IDLE;
+					mTime = 0.0f;
+
+				}
+
 			}
 		}
 
-		if (direction == 1)
+		if (GetOwner()->GetName() == L"Arabian2")
 		{
-			Vector3 pos = mTr->GetPosition();
-			pos.x += 2.0f * Time::DeltaTime();
-			mTr->SetPosition(pos);
+			mTime += Time::DeltaTime();
 
-			if (mTime > 1.0f)
+
+			if (direction == 0)
 			{
-				mArabianAni->Play(L"LeftIdle", true);
-				mArabianState = ArabianState::IDLE;
-				mTime = 0.0f;
+				Vector3 pos = mTr->GetPosition();
+				pos.x -= 2.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+				if (mTime > 1.0f)
+				{
+					mArabianAni->Play(L"LeftIdle", true);
+					mArabianState = ArabianState::IDLE;
+					mTime = 0.0f;
+				}
+			}
+
+			if (direction == 1)
+			{
+				Vector3 pos = mTr->GetPosition();
+				pos.x += 2.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+				if (mTime > 1.0f)
+				{
+					mArabianAni->Play(L"LeftIdle", true);
+					mArabianState = ArabianState::IDLE;
+					mTime = 0.0f;
+
+				}
+
+			}
+		}
+
+		if (GetOwner()->GetName() == L"Arabian3")
+		{
+			mTime += Time::DeltaTime();
+
+
+			if (direction == 0)
+			{
+				Vector3 pos = mTr->GetPosition();
+				pos.x -= 2.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+				if (mTime > 1.0f)
+				{
+					mArabianAni->Play(L"LeftIdle", true);
+					mArabianState = ArabianState::IDLE;
+					mTime = 0.0f;
+				}
+			}
+
+			if (direction == 1)
+			{
+				Vector3 pos = mTr->GetPosition();
+				pos.x += 2.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+				if (mTime > 1.0f)
+				{
+					mArabianAni->Play(L"LeftIdle", true);
+					mArabianState = ArabianState::IDLE;
+					mTime = 0.0f;
+
+				}
+
 			}
 		}
 	}
@@ -237,11 +399,10 @@ namespace ya
 		mTr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = mTr->GetPosition();
 		pos.x += 5.0f * Time::DeltaTime();
+		mTr->SetPosition(pos);
 
 		if (mTime > 0.5f)
 			GetOwner()->Death();
-
-		mTr->SetPosition(pos);
 	}
 	void ArabianScript::AttackKnife()
 	{

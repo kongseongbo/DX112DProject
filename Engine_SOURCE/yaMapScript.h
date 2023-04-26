@@ -23,6 +23,6 @@ namespace ya
 		virtual void OnTriggerExit(Collider2D* collider);
 	private:
 		
-
+		Transform* arabianTr[3];
 	};
 }

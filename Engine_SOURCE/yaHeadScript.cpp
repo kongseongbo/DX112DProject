@@ -724,12 +724,12 @@ namespace ya
 		{
 			if (mGunState == eGunState::GUN)
 			{
-				NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y, mTr->GetPosition().z), 1, true);
+				NewBullet(L"bullet", Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y , mTr->GetPosition().z), 1, true);
 				mHeadAni->Play(L"AttackTop", false);
 			}
 			if (mGunState == eGunState::MACHINEGUN)
 			{
-				NewMachineGun(Vector3(mTr->GetPosition()), 1, true);
+				NewMachineGun(Vector3(mTr->GetPosition().x, mTr->GetPosition().y + 1.5f, mTr->GetPosition().z), 1, true);
 				mHeadAni->Play(L"RightUpAttack", false);
 			}
 
@@ -921,7 +921,7 @@ namespace ya
 			}
 			if (mGunState == eGunState::MACHINEGUN)
 			{
-				NewMachineGun(Vector3(mTr->GetPosition().x - .5f, mTr->GetPosition().y + 1.f, mTr->GetPosition().z), 0,true);
+				NewMachineGun(Vector3(mTr->GetPosition().x - 1.0f, mTr->GetPosition().y + 1.5f, mTr->GetPosition().z), 0,true);
 				mHeadAni->Play(L"LeftUpAttack", false);
 			}
 
@@ -937,7 +937,7 @@ namespace ya
 			}
 			if (mGunState == eGunState::MACHINEGUN)
 			{
-				NewMachineGun(Vector3(mTr->GetPosition().x + .5f, mTr->GetPosition().y + 1.f, mTr->GetPosition().z), 1, true);
+				NewMachineGun(Vector3(mTr->GetPosition().x + 1.0f, mTr->GetPosition().y + 1.5f, mTr->GetPosition().z), 1, true);
 				mHeadAni->Play(L"RightUpAttack", false);
 			}
 			

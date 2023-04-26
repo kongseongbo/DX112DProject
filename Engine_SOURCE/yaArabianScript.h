@@ -1,7 +1,7 @@
 #pragma once
 #include "yaScript.h"
 #include "yaAnimator.h"
-
+#include "yaArabian.h"
 namespace ya
 {
 	class ArabianScript : public Script
@@ -43,11 +43,16 @@ namespace ya
 
 		void AttackKnife();
 
+		void SetIndex(int a) { index = a; }
+
 	private:
+		//std::vector<Arabian*> mArabian;
+
 		Animator* mArabianAni;
 		Transform* mTr;
 		float mTime;
 
 		int direction;
+		int index;
 	};
 }
