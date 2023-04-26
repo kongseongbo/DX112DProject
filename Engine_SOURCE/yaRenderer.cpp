@@ -80,6 +80,14 @@ namespace ya::renderer
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
 		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
+
+
+		indexes.clear();
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
+		indexes.push_back(3);
+		indexes.push_back(0);
 		// Crate Mesh
 		std::shared_ptr<Mesh> debugmesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"DebugRectMesh", debugmesh);
