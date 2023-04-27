@@ -33,6 +33,16 @@ namespace ya
 		renderer->SetMaterial(material);
 		renderer->SetMesh(circleMesh);
 
+		std::shared_ptr<Mesh> lineMesh = Resources::Find<Mesh>(L"LineMesh");
+
+		mDebugObjects[(UINT)eColliderType::Line] = new DebugObject();
+		renderer
+			= mDebugObjects[(UINT)eColliderType::Line]->AddComponent<MeshRenderer>();
+
+		renderer->SetMaterial(material);
+		renderer->SetMesh(lineMesh);
+
+
 		//그리드 이쪽으로 옮겨줘야 한다.
 		// Grid Object
 		EditorObject* gridObject = new EditorObject();
@@ -98,6 +108,7 @@ namespace ya
 
 		delete mDebugObjects[(UINT)eColliderType::Rect];
 		delete mDebugObjects[(UINT)eColliderType::Circle];
+		delete mDebugObjects[(UINT)eColliderType::Line];
 	}
 
 	void Editor::DebugRender(graphics::DebugMesh& mesh)
@@ -110,6 +121,8 @@ namespace ya
 
 
 		if (mesh.type == eColliderType::Rect)
+			tr->SetScale(mesh.scale);
+		else if (mesh.type == eColliderType::Line)
 			tr->SetScale(mesh.scale);
 		else
 			tr->SetScale(Vector3(mesh.radius));

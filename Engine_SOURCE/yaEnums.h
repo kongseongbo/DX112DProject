@@ -73,6 +73,7 @@ namespace ya::enums
 	{
 		None,
 		Rect,
+		Line,
 		Circle,
 		Box,
 		Sphere,

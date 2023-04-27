@@ -286,7 +286,7 @@ namespace ya
 
 	void HeadScript::OnCollisionEnter(Collider2D* collider)
 	{
-		if (collider->GetID() == 0)
+		if (collider->GetColliderType() == eColliderType::Line || collider->GetColliderType() == eColliderType::Rect)
 		{
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
@@ -357,6 +357,15 @@ namespace ya
 
 	void HeadScript::OnCollisionExit(Collider2D* collider)
 	{
+		Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
+		Vector2 velocity = rigidbody->GetVelocity();
+
+		if (rigidbody->GetVelocity().y != 110.0f)
+			rigidbody->SetGravity(Vector2(0.0f, 110.0f));
+
+		//velocity.y = 30.0f;
+		rigidbody->SetGround(false);
+		//rigidbody->SetVelocity(velocity);
 	}
 
 	void HeadScript::Start()
@@ -849,13 +858,15 @@ namespace ya
 		if (direction == 0)
 		{
 			Vector3 pos = mTr->GetPosition();
-			pos.x -= 6.0f * Time::DeltaTime();
+			pos -= mTr->Right() * 6.f * Time::DeltaTime();
+			pos -= mTr->Up() * 0.5f * Time::DeltaTime();
+			//pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 		else if (direction == 1)
 		{
 			Vector3 pos = mTr->GetPosition();
-			pos.x += 6.0f * Time::DeltaTime();
+			pos += mTr->Right() * 6.f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 
@@ -975,13 +986,15 @@ namespace ya
 		if (Input::GetKey(eKeyCode::LEFT) && direction == 0)
 		{
 			Vector3 pos = mTr->GetPosition();
-			pos.x -= 6.0f * Time::DeltaTime();
+			pos -= mTr->Right() * 6.f * Time::DeltaTime();
+			//pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 		if (Input::GetKey(eKeyCode::RIGHT) && direction == 1)
 		{
 			Vector3 pos = mTr->GetPosition();
-			pos.x += 6.0f * Time::DeltaTime();
+			pos += mTr->Right() * 6.f * Time::DeltaTime();
+			//pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 	}
@@ -1082,13 +1095,15 @@ namespace ya
 		if (Input::GetKey(eKeyCode::LEFT))
 		{
 			Vector3 pos = mTr->GetPosition();
-			pos.x -= 6.0f * Time::DeltaTime();
+			pos -= mTr->Right() * 6.f * Time::DeltaTime();
+			//pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			Vector3 pos = mTr->GetPosition();
-			pos.x += 6.0f * Time::DeltaTime();
+			pos += mTr->Right() * 6.f * Time::DeltaTime();
+			//pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 

@@ -11,6 +11,7 @@ namespace ya
 	}
 	void Arabian::Initalize()
 	{
+		SetName(L"Arabian1");
 		GameObject::Initalize();
 	}
 	void Arabian::Update()

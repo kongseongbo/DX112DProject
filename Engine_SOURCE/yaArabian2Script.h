@@ -4,10 +4,10 @@
 #include "yaArabian.h"
 namespace ya
 {
-	class ArabianScript : public Script
+	class Arabian2Script : public Script
 	{
 	public:
-		enum class ArabianState
+		enum class Arabian2State
 		{
 			NONE,
 			NEW,
@@ -17,10 +17,10 @@ namespace ya
 			UPATTACK,
 			DEATH,
 		};
-		ArabianState mArabianState;
+		Arabian2State mArabian2State;
 
-		ArabianScript();
-		virtual ~ArabianScript();
+		Arabian2Script();
+		virtual ~Arabian2Script();
 
 		virtual void Initalize();
 		virtual void Update();
@@ -43,16 +43,11 @@ namespace ya
 
 		void AttackKnife();
 
-		void SetIndex(int a) { index = a; }
-
 	private:
-		//std::vector<Arabian*> mArabian;
-
 		Animator* mArabianAni;
 		Transform* mTr;
 		float mTime;
 
 		int direction;
-		int index;
 	};
 }

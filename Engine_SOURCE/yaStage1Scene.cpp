@@ -104,15 +104,32 @@ namespace ya
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
 
-		// Map Collider
+		// Map Line Collider
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mapcolliderObj->SetName(L"CollMap");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(79.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetRotation(Vector3(0.0f,0.0f, 5.0f));
+			mapcolliderTr->SetScale(Vector3(10.0f, 1.0f, 1.0f));
+			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+			
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Line);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+			//mapCollider->SetSize(Vector2(5.f, 0.1f));
+		}
+
+		// Map Rect Collider
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 			mapcolliderObj->SetName(L"CollMap");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
 			mapcolliderTr->SetPosition(Vector3(1.0f, -5.0f, 1.0f));
+			//mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 5.0f));
 			mapcolliderTr->SetScale(Vector3(180.0f, 1.5f, 1.0f));
 			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
-			
+
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 			mapCollider->SetType(eColliderType::Rect);
 			mapCollider->SetCenter(Vector2(0.0f, -0.0f));
@@ -145,10 +162,12 @@ namespace ya
 		
 		//Player Head
 		{
+			//+DirectX::XMFLOAT3{ x = -79.6583176 y = -2.75406957 z = 1.00000000 }	DirectX::XMFLOAT3
+
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
-			headTr->SetPosition(Vector3(-10.0f, 2.0f, 5.0f));
+			headTr->SetPosition(Vector3(-79.0f, 3.0f, 5.0f));
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
@@ -306,7 +325,7 @@ namespace ya
 			Transform* headTr = headObj->GetComponent<Transform>();
 			Vector3 headPos = headTr->GetPosition();
 			cameraTr->SetPosition(Vector3(headPos.x, headPos.y + 3.0f, headPos.z));
-			
+			//cameraTr->SetPosition(Vector3(headPos.x, cameraTr->GetPosition().y, headPos.z));
 		}
 
 		
