@@ -25,6 +25,8 @@ namespace ya
 		, mTime(0.0f)
 		, mGunState(eGunState::GUN)
 		, mBody(nullptr)
+		, mDiagonal(0.0f)
+		, mLine(false)
 		//, a(nullptr)
 	{
 		
@@ -42,11 +44,9 @@ namespace ya
 		mHeadAni = GetOwner()->GetComponent<Animator>();
 		if (mHeadAni != nullptr )
 		{
-			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"headIdle", L"Character\\Marco\\IdleU.png");
-			mHeadAni->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 36.0f), Vector2::Zero, 4, 0.3f);
-
-			texture = Resources::Load<Texture>(L"LheadIdle", L"Character\\Marco\\LIdleU.png");
-			mHeadAni->Create(L"LHeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 36.0f), Vector2::Zero, 4, 0.3f);
+			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"headIdle", L"Character\\Marco\\Idle.png");
+			mHeadAni->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 32.0f), Vector2(0.05f,-0.08f), 4, 0.3f);
+			mHeadAni->Create(L"LHeadIdle", texture, Vector2(0.0f, 32.0f), Vector2(40.0f, 32.0f), Vector2(-0.05f, -0.08f), 4, 0.3f);
 
 			texture = Resources::Load<Texture>(L"MoveLeftU", L"Character\\Marco\\LMoveU.png");
 			mHeadAni->Create(L"MoveLeftU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(-0.001f, 0.0f), 12, 0.15f);
@@ -286,6 +286,8 @@ namespace ya
 
 	void HeadScript::OnCollisionEnter(Collider2D* collider)
 	{
+	
+
 		if (collider->GetColliderType() == eColliderType::Line || collider->GetColliderType() == eColliderType::Rect)
 		{
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
@@ -344,28 +346,41 @@ namespace ya
 			mHeadAni->Play(L"Death", false);
 			mHeadState = HeadState::DEATH;
 		}
+
+		
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)
 	{
-		if (collider->GetID() == 3)
+
+		if (collider->GetColliderType() == eColliderType::Line)
+		{
+			Transform* collTr = collider->GetOwner()->GetComponent<Transform>();
+			float z = collTr->GetRotation().z;
+			mDiagonal = z / 10;
+			mLine = true;
+		}
+
+
+		/*if (collider->GetID() == 3)
 		{
 			if (Input::GetKey(eKeyCode::LCTRL))
 				mHeadAni->Play(L"KnifeAttackU", false);
-		}
+		}*/
 	}
 
 	void HeadScript::OnCollisionExit(Collider2D* collider)
 	{
+		/*if (collider->GetID() != -1)
+			return;*/
+
+	
 		Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
-		Vector2 velocity = rigidbody->GetVelocity();
-
-		if (rigidbody->GetVelocity().y != 110.0f)
-			rigidbody->SetGravity(Vector2(0.0f, 110.0f));
-
-		//velocity.y = 30.0f;
 		rigidbody->SetGround(false);
-		//rigidbody->SetVelocity(velocity);
+		
+		if (collider->GetColliderType() == eColliderType::Line)
+			mLine = false;
+
 	}
 
 	void HeadScript::Start()
@@ -859,7 +874,8 @@ namespace ya
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos -= mTr->Right() * 6.f * Time::DeltaTime();
-			pos -= mTr->Up() * 0.5f * Time::DeltaTime();
+			if (mLine)
+				pos -= mTr->Up() * mDiagonal * Time::DeltaTime();
 			//pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
@@ -867,6 +883,8 @@ namespace ya
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos += mTr->Right() * 6.f * Time::DeltaTime();
+			if(mLine)
+				pos += mTr->Up() * mDiagonal * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 
@@ -987,6 +1005,8 @@ namespace ya
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos -= mTr->Right() * 6.f * Time::DeltaTime();
+			if (mLine)
+				pos -= mTr->Up() * mDiagonal * Time::DeltaTime();
 			//pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
@@ -994,6 +1014,8 @@ namespace ya
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos += mTr->Right() * 6.f * Time::DeltaTime();
+			if (mLine)
+				pos += mTr->Up() * mDiagonal * Time::DeltaTime();
 			//pos.x += 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
@@ -1366,6 +1388,8 @@ namespace ya
 			direction = 0;
 			Vector3 pos = mTr->GetPosition();
 			pos.x -= 6.0f * Time::DeltaTime();
+			if (mLine)
+				pos -= mTr->Up() * mDiagonal * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::RIGHT))
@@ -1373,6 +1397,8 @@ namespace ya
 			direction = 1;
 			Vector3 pos = mTr->GetPosition();
 			pos.x += 6.0f * Time::DeltaTime();
+			if (mLine)
+				pos += mTr->Up() * mDiagonal * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
 	}
@@ -1396,7 +1422,6 @@ namespace ya
 					mHeadAni->Play(L"RightIdle", true);
 			}
 				
-
 			mHeadState = HeadState::IDLE;
 		}
 	}

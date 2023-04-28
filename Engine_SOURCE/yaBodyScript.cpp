@@ -32,10 +32,10 @@ namespace ya
 		if (bodyAni != nullptr)
 		{
 			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"bodyidle", L"Character\\Marco\\IdleD.png");
-			bodyAni->Create(L"BodyIdle", texture, Vector2(0.0f, 0.0f), Vector2(33.0f, 28.0f), Vector2::Zero, 1, 0.3f);
+			bodyAni->Create(L"BodyIdle", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 18.0f), Vector2(-0.01f,-0.05f), 1, 0.3f);
 
 			texture = Resources::Load<Texture>(L"Lbodyidle", L"Character\\Marco\\LIdleD.png");
-			bodyAni->Create(L"LBodyIdle", texture, Vector2(0.0f, 0.0f), Vector2(33.0f, 28.0f), Vector2::Zero, 1, 0.3f);
+			bodyAni->Create(L"LBodyIdle", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 18.0f), Vector2(0.1f, -0.05f), 1, 0.3f);
 
 			texture = Resources::Load<Texture>(L"MoveLeftD", L"Character\\Marco\\LMoveD.png");
 			bodyAni->Create(L"MoveLeftD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
@@ -64,7 +64,7 @@ namespace ya
 	{
 		Transform* headTr = mHead->GetComponent<Transform>();
 		Vector3 headPos = headTr->GetPosition();
-		mTr->SetPosition(Vector3(headTr->GetPosition().x - 0.2f, headTr->GetPosition().y - 1.3f, 5.0f));
+		mTr->SetPosition(Vector3(headTr->GetPosition().x , headTr->GetPosition().y - 1.f, 5.0f));
 
 		bodyAni = GetOwner()->GetComponent<Animator>();
 		switch (mBodyState)
@@ -110,7 +110,7 @@ namespace ya
 
 	void BodyScript::OnCollisionEnter(Collider2D* collider)
 	{
-		if (mBodyState == BodyState::JUMP&& direction == 0)
+		if (mBodyState == BodyState::JUMP && direction == 0)
 		{
 			bodyAni->Play(L"BodyIdle", true);
 			mBodyState = BodyState::IDLE;
@@ -129,7 +129,6 @@ namespace ya
 			bodyAni->Play(L"def", true);
 			mBodyState = BodyState::DEATH;
 		}
-
 
 	}
 

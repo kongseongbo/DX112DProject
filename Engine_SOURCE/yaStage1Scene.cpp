@@ -109,8 +109,8 @@ namespace ya
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 			mapcolliderObj->SetName(L"CollMap");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-			mapcolliderTr->SetPosition(Vector3(79.0f, 0.0f, 1.0f));
-			mapcolliderTr->SetRotation(Vector3(0.0f,0.0f, 5.0f));
+			mapcolliderTr->SetPosition(Vector3(-84.0f, -4.0f, 1.0f));
+			mapcolliderTr->SetRotation(Vector3(0.0f,0.0f, 10.0f));
 			mapcolliderTr->SetScale(Vector3(10.0f, 1.0f, 1.0f));
 			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 			
@@ -120,21 +120,52 @@ namespace ya
 			//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		}
 
-		// Map Rect Collider
+		// Map Line Collider
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 			mapcolliderObj->SetName(L"CollMap");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-			mapcolliderTr->SetPosition(Vector3(1.0f, -5.0f, 1.0f));
-			//mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 5.0f));
-			mapcolliderTr->SetScale(Vector3(180.0f, 1.5f, 1.0f));
+			mapcolliderTr->SetPosition(Vector3(-74.f, -4.1f, 1.0f));
+			mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, -10.0f));
+			mapcolliderTr->SetScale(Vector3(10.0f, 1.0f, 1.0f));
 			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
-			mapCollider->SetType(eColliderType::Rect);
-			mapCollider->SetCenter(Vector2(0.0f, -0.0f));
+			mapCollider->SetType(eColliderType::Line);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
 			//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		}
+
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mapcolliderObj->SetName(L"CollMap");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(-64.f, -4.5f, 1.0f));
+			mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 5.0f));
+			mapcolliderTr->SetScale(Vector3(10.0f, 1.0f, 1.0f));
+			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Line);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+			//mapCollider->SetSize(Vector2(5.f, 0.1f));
+		}
+
+		// Map Rect Collider
+		//{
+		//	GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+		//	mapcolliderObj->SetName(L"CollMap");
+		//	Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+		//	mapcolliderTr->SetPosition(Vector3(15.0f, -5.0f, 1.0f));
+		//	//mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 5.0f));
+		//	mapcolliderTr->SetScale(Vector3(180.0f, 1.5f, 1.0f));
+		//	//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+
+		//	Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+		//	mapCollider->SetType(eColliderType::Rect);
+		//	mapCollider->SetCenter(Vector2(0.0f, -0.0f));
+		//	//mapCollider->SetSize(Vector2(5.f, 0.1f));
+		//}
 
 		// Monster »ý¼º Collider
 		{
@@ -162,12 +193,10 @@ namespace ya
 		
 		//Player Head
 		{
-			//+DirectX::XMFLOAT3{ x = -79.6583176 y = -2.75406957 z = 1.00000000 }	DirectX::XMFLOAT3
-
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
-			headTr->SetPosition(Vector3(-79.0f, 3.0f, 5.0f));
+			headTr->SetPosition(Vector3(-80.0f, 3.0f, 5.0f));
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
@@ -177,7 +206,8 @@ namespace ya
 
 			Collider2D* collider = headObj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
-			collider->SetCenter(Vector2(-0.7f, -0.7f));
+			//collider->SetPos(Vector3(headTr->GetPosition()));
+			//collider->SetCenter(Vector2(-0.7f, -1.0f));
 			collider->SetSize(Vector2(0.1f, 0.2f));
 
 			SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
@@ -187,10 +217,11 @@ namespace ya
 			object::DontDestroyOnLoad(headObj);
 		
 		//Player Body
+
 			bodyObj = object::Instantiate<Body>(eLayerType::Body, this);
 			bodyObj->SetName(L"Body");
 			Transform* bodyTr = bodyObj->GetComponent<Transform>();
-			bodyTr->SetPosition(Vector3(headTr->GetPosition().x - 0.2f, headTr->GetPosition().y - 1.3f, 5.0f));
+			bodyTr->SetPosition(Vector3(headTr->GetPosition().x, headTr->GetPosition().y - 1.f, 5.0f));
 			bodyTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			bodyObj->AddComponent<Animator>();
 			BodyScript* bodyScript = bodyObj->AddComponent<BodyScript>();
@@ -198,8 +229,7 @@ namespace ya
 
 			Collider2D* bodyCollider = bodyObj->AddComponent<Collider2D>();
 			bodyCollider->SetType(eColliderType::Rect);
-			bodyCollider->SetCenter(Vector2(-0.5f, -1.0f));
-			bodyCollider->SetSize(Vector2(0.1f, 0.05f));
+			bodyCollider->SetSize(Vector2(0.1f, 0.07f));
 
 			SpriteRenderer* bodyMr = bodyObj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");

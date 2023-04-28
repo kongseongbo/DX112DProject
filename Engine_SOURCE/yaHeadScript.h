@@ -89,6 +89,9 @@ namespace ya
 		int direction;
 		float mTime;
 
+		float mDiagonal;
+		bool mLine;
+
 		/*ObjectPool< Bullet, 50 > mBullets;
 		Bullet* a;*/
 	};
