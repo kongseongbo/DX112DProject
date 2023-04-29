@@ -275,13 +275,11 @@ namespace ya
 		heliObj->AddComponent<HelicopterScript>();
 
 		
-
-
 		// MachineGunItem
 		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
 		machineGun->SetName(L"machineGun");
 		Transform* machineGunTr = machineGun->GetComponent<Transform>();
-		machineGunTr->SetPosition(Vector3(-5.0f, -4.0f, 2.0f));
+		machineGunTr->SetPosition(Vector3(-75.0f, -2.0f, 2.0f));
 		machineGunTr->SetScale(Vector3(10.0f, 10.0f,1.0f));
 		MachineGunScript* machineGunScript = machineGun->AddComponent<MachineGunScript>();
 

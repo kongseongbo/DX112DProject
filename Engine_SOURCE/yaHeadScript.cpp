@@ -14,7 +14,6 @@ namespace ya
 {
 	//HeadScript::GunState HeadScript::mGunState = eGunState::GUN;
 
-
 	HeadScript::HeadScript()
 		: Script()
 		, mBullet(nullptr)
@@ -48,74 +47,67 @@ namespace ya
 			mHeadAni->Create(L"HeadIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 32.0f), Vector2(0.05f,-0.08f), 4, 0.3f);
 			mHeadAni->Create(L"LHeadIdle", texture, Vector2(0.0f, 32.0f), Vector2(40.0f, 32.0f), Vector2(-0.05f, -0.08f), 4, 0.3f);
 
-			texture = Resources::Load<Texture>(L"MoveLeftU", L"Character\\Marco\\LMoveU.png");
-			mHeadAni->Create(L"MoveLeftU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(-0.001f, 0.0f), 12, 0.15f);
-
-
-			texture = Resources::Load<Texture>(L"MoveRightU", L"Character\\Marco\\MoveU.png");
-			mHeadAni->Create(L"MoveRightU", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 34.0f), Vector2::Zero, 12, 0.15f);
-
+			texture = Resources::Load<Texture>(L"MoveU", L"Character\\Marco\\MoveU.png");
+			mHeadAni->Create(L"MoveRightU", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 30.0f), Vector2(0.01f, -0.08f), 12, 0.15f);
+			mHeadAni->Create(L"MoveLeftU", texture, Vector2(0.0f, 30.0f), Vector2(35.0f, 30.0f), Vector2(-0.01f, -0.08f), 12, 0.15f);
 
 			texture = Resources::Load<Texture>(L"PistolAttackU", L"Character\\Marco\\PistolAttackU.png");
-			mHeadAni->Create(L"PistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2::Zero, 10, 0.05f);
-			mHeadAni->Create(L"JumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(0.0f, 0.0f), 10, 0.05f);
-			mHeadAni->Create(L"JumpMoveAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 34.0f), Vector2(0.007f,-0.2f), 10, 0.05f);
+			mHeadAni->Create(L"PistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 30.0f), Vector2(0.03f, -0.08f), 10, 0.05f);
+			mHeadAni->Create(L"JumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 30.0f), Vector2(0.03f, -0.08f), 10, 0.05f);
+			mHeadAni->Create(L"JumpMoveAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 30.0f), Vector2(0.03f, -0.08f), 10, 0.05f);
 
-			texture = Resources::Load<Texture>(L"LPistolAttackU", L"Character\\Marco\\LPistolAttackU.png");
-			mHeadAni->Create(L"LPistolAttackU", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2::Zero, 10, 0.05f);
-			mHeadAni->Create(L"LJumpAttack", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2(0.0f, 0.0f), 10, 0.05f);
-			mHeadAni->Create(L"LJumpMoveAttack", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 34.0f), Vector2(-0.005f, -0.2f), 10, 0.05f);
+			mHeadAni->Create(L"LPistolAttackU", texture, Vector2(0.0f, 30.0f), Vector2(60.0f, 30.0f), Vector2(-0.03f, -0.08f), 10, 0.05f);
+			mHeadAni->Create(L"LJumpAttack", texture, Vector2(0.0f, 30.0f), Vector2(60.0f, 30.0f), Vector2(-0.03f, -0.07f), 10, 0.05f);
+			mHeadAni->Create(L"LJumpMoveAttack", texture, Vector2(0.0f, 30.0f), Vector2(60.0f, 30.0f), Vector2(-0.03f, -0.07f), 10, 0.05f);
 
 			texture = Resources::Load<Texture>(L"LookTop", L"Character\\Marco\\LookTop.png");
-			mHeadAni->Create(L"LookTop", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 33.5f), Vector2::Zero, 2, 0.1f);
-			mHeadAni->Create(L"LookTop2", texture, Vector2(0.0f, 33.6f), Vector2(50.0f, 33.5f), Vector2::Zero, 4, 0.1f);
+			mHeadAni->Create(L"LookTop", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 33.5f), Vector2(0.04f, -0.12f), 2, 0.1f);
+			mHeadAni->Create(L"LookTop2", texture, Vector2(0.0f, 33.6f), Vector2(50.0f, 33.5f), Vector2(0.038f, -0.12f), 4, 0.1f);
 
 			texture = Resources::Load<Texture>(L"LLookTop", L"Character\\Marco\\LLookTop.png");
-			mHeadAni->Create(L"LLookTop", texture, Vector2(0.0f, 0.0f), Vector2(75.0f, 33.5f), Vector2::Zero, 2, 0.1f);
-			mHeadAni->Create(L"LLookTop2", texture, Vector2(0.0f, 33.6f), Vector2(75.0f, 33.5f), Vector2::Zero, 4, 0.1f);
+			mHeadAni->Create(L"LLookTop", texture, Vector2(0.0f, 0.0f), Vector2(75.0f, 33.5f), Vector2(0.04f, -0.12f), 2, 0.1f);
+			mHeadAni->Create(L"LLookTop2", texture, Vector2(0.0f, 33.6f), Vector2(75.0f, 33.5f), Vector2(0.038f, -0.12f), 4, 0.1f);
 
 			texture = Resources::Load<Texture>(L"AttackTop", L"Character\\Marco\\AttackTop.png");
-			mHeadAni->Create(L"AttackTop", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 140.0f), Vector2::Zero, 10, 0.1f);
-
-			texture = Resources::Load<Texture>(L"LAttackTop", L"Character\\Marco\\LAttackTop.png");
-			mHeadAni->Create(L"LAttackTop", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 140.0f), Vector2::Zero, 10, 0.1f);
+			mHeadAni->Create(L"AttackTop", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 69.0f), Vector2(0.015f, -0.18f), 10, 0.1f);
+			mHeadAni->Create(L"LAttackTop", texture, Vector2(0.0f, 69.0f), Vector2(40.0f, 69.0f), Vector2(-0.015f, -0.18f), 10, 0.1f);
 
 			texture = Resources::Load<Texture>(L"Down", L"Character\\Marco\\Down.png");
-			mHeadAni->Create(L"DownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 3, 0.1f);
-			mHeadAni->Create(L"DownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 4, 0.3f);
-			mHeadAni->Create(L"DownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.07f), 7, 0.07f);
+			mHeadAni->Create(L"DownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(0.03f, 0.0f), 3, 0.1f);
+			mHeadAni->Create(L"DownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(0.03f, 0.0f), 4, 0.3f);
+			mHeadAni->Create(L"DownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2(0.03f, 0.01f), 7, 0.07f);
 
 			texture = Resources::Load<Texture>(L"LeftDown", L"Character\\Marco\\LeftDown.png");
-			mHeadAni->Create(L"LDownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(-0.01f, 0.07f), 3, 0.1f);
-			mHeadAni->Create(L"LDownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(-0.01f, 0.07f), 4, 0.3f);
-			mHeadAni->Create(L"LDownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2(-0.01f, 0.07f), 7, 0.07f);
+			mHeadAni->Create(L"LDownMotion", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.0f), 3, 0.1f);
+			mHeadAni->Create(L"LDownIdle", texture, Vector2(0.0f, 45.0f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.0f), 4, 0.3f);
+			mHeadAni->Create(L"LDownMove", texture, Vector2(0.0f, 90.f), Vector2(50.0f, 45.0f), Vector2(0.01f, 0.01f), 7, 0.07f);
 
 			texture = Resources::Load<Texture>(L"StiDownAttack", L"Character\\Marco\\StiDownAttack.png");
-			mHeadAni->Create(L"StiDownAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 31.0f), Vector2(0.02f, 0.55f), 10, 0.1f);
+			mHeadAni->Create(L"StiDownAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 31.0f), Vector2(0.03f, 0.25f), 10, 0.1f);
 
 			texture = Resources::Load<Texture>(L"LStiDownAttack", L"Character\\Marco\\LStiDownAttack.png");
-			mHeadAni->Create(L"LStiDownAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 31.0f), Vector2(-0.04f, 0.55f), 10, 0.1f);
+			mHeadAni->Create(L"LStiDownAttack", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 31.0f), Vector2(-0.03f, 0.22f), 10, 0.1f);
 
 			texture = Resources::Load<Texture>(L"Jump", L"Character\\Marco\\JumpU.png");
-			mHeadAni->Create(L"Jump", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 32.0f), Vector2(-0.04f, 0.05f), 6, 0.1f);
-			mHeadAni->Create(L"LJump", texture, Vector2(0.0f, 32.0f), Vector2(35.0f, 32.0f), Vector2(-0.04f, 0.05f), 6, 0.1f);
+			mHeadAni->Create(L"Jump", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 32.0f), Vector2(0.01f, -0.15f), 6, 0.1f);
+			mHeadAni->Create(L"LJump", texture, Vector2(0.0f, 32.0f), Vector2(35.0f, 32.0f), Vector2(0.01f, -0.14f), 6, 0.1f);
 
 			texture = Resources::Load<Texture>(L"JumpMoveU", L"Character\\Marco\\JumpMoveU.png");
-			mHeadAni->Create(L"JumpMoveU", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 40.0f), Vector2(-0.04f, 0.03f), 6, 0.1f);
-			mHeadAni->Create(L"LJumpMoveU", texture, Vector2(0.0f, 40.0f), Vector2(35.0f, 40.0f), Vector2(-0.05f, 0.03f), 6, 0.1f);
+			mHeadAni->Create(L"JumpMoveU", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 40.0f), Vector2(0.0f, 0.0f), 6, 0.15f);
+			mHeadAni->Create(L"LJumpMoveU", texture, Vector2(0.0f, 40.0f), Vector2(35.0f, 40.0f), Vector2(0.0f, 0.0f), 6, 0.15f);
 			
 			texture = Resources::Load<Texture>(L"KnifeAttackU", L"Character\\Marco\\KnifeAttackU.png");
 			mHeadAni->Create(L"KnifeAttackU", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 58.0f), Vector2(-0.02f, -0.03f), 6, 0.1f);
 
 			texture = Resources::Load<Texture>(L"GrenadeAttackU", L"Character\\Marco\\GrenadeAttackU.png");
-			mHeadAni->Create(L"GrenadeAttackU", texture, Vector2(0.0f, 0.0f), Vector2(39.5f, 38.0f), Vector2(-0.005f, 0.05f), 6, 0.1f);
-			mHeadAni->Create(L"LGrenadeAttackU", texture, Vector2(0.0f, 38.0f), Vector2(39.5f, 38.0f), Vector2(-0.08f, 0.1f), 6, 0.1f);
+			mHeadAni->Create(L"GrenadeAttackU", texture, Vector2(0.0f, 0.0f), Vector2(39.5f, 38.0f), Vector2(0.03f, -0.06f), 6, 0.1f);
+			mHeadAni->Create(L"LGrenadeAttackU", texture, Vector2(0.0f, 38.0f), Vector2(39.5f, 38.0f), Vector2(-0.035f, -0.02f), 6, 0.1f);
 
-			mHeadAni->Create(L"GrenadeJumpAttackU", texture, Vector2(0.0f, 0.0f), Vector2(39.5f, 38.0f), Vector2(-0.005f, 0.1f), 6, 0.1f);
-			mHeadAni->Create(L"LGrenadeJumpAttackU", texture, Vector2(0.0f, 38.0f), Vector2(39.5f, 38.0f), Vector2(-0.08f, 0.13f), 6, 0.1f);
+			mHeadAni->Create(L"GrenadeJumpAttackU", texture, Vector2(0.0f, 0.0f), Vector2(39.5f, 38.0f), Vector2(0.025f, -0.08f), 6, 0.1f);
+			mHeadAni->Create(L"LGrenadeJumpAttackU", texture, Vector2(0.0f, 38.0f), Vector2(39.5f, 38.0f), Vector2(-0.04f, -0.04f), 6, 0.1f);
 
-			mHeadAni->Create(L"GrenadeJumpMoveAttackU", texture, Vector2(0.0f, 0.0f), Vector2(39.5f, 38.0f), Vector2(-0.005f, 0.f), 6, 0.1f);
-			mHeadAni->Create(L"LGrenadeJumpMoveAttackU", texture, Vector2(0.0f, 38.0f), Vector2(39.5f, 38.0f), Vector2(-0.08f, 0.f), 6, 0.1f);
+			mHeadAni->Create(L"GrenadeJumpMoveAttackU", texture, Vector2(0.0f, 0.0f), Vector2(39.5f, 38.0f), Vector2(0.025f, -0.08f), 6, 0.1f);
+			mHeadAni->Create(L"LGrenadeJumpMoveAttackU", texture, Vector2(0.0f, 38.0f), Vector2(39.5f, 38.0f), Vector2(-0.04f, -0.04f), 6, 0.1f);
 
 			texture = Resources::Load<Texture>(L"Death", L"Character\\Marco\\Death.png");
 			mHeadAni->Create(L"Death", texture, Vector2(0.0f, 0.0f), Vector2(45.0f, 46.0f), Vector2(-0.008f, 0.18f), 19, 0.1f);
@@ -407,20 +399,6 @@ namespace ya
 		{
 			if (rigidbody->GetGround() == false)
 			{
-				if (Input::GetKey(eKeyCode::RIGHT))
-				{
-					if (mGunState == eGunState::GUN)
-						mHeadAni->Play(L"JumpMoveU", false);
-					if (mGunState == eGunState::MACHINEGUN)
-						mHeadAni->Play(L"RightMoveJump", false);
-				}
-				else
-				{
-					if (mGunState == eGunState::GUN)
-						mHeadAni->Play(L"Jump", false);
-					if (mGunState == eGunState::MACHINEGUN)
-						mHeadAni->Play(L"RightJump", false);
-				}
 				mHeadState = HeadState::JUMPMOVE;
 			}
 			else
@@ -437,21 +415,6 @@ namespace ya
 		{
 			if (rigidbody->GetGround() == false)
 			{
-				if (Input::GetKey(eKeyCode::LEFT))
-				{
-
-					if (mGunState == eGunState::GUN)
-						mHeadAni->Play(L"LJumpMoveU", false);
-					if (mGunState == eGunState::MACHINEGUN)
-						mHeadAni->Play(L"LeftMoveJump", false);
-				}
-				else
-				{
-					if (mGunState == eGunState::GUN)
-						mHeadAni->Play(L"LJump", false);
-					if (mGunState == eGunState::MACHINEGUN)
-						mHeadAni->Play(L"LeftJump", false);
-				}
 				mHeadState = HeadState::JUMPMOVE;
 			}
 			else

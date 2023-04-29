@@ -37,19 +37,17 @@ namespace ya
 			texture = Resources::Load<Texture>(L"Lbodyidle", L"Character\\Marco\\LIdleD.png");
 			bodyAni->Create(L"LBodyIdle", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 18.0f), Vector2(0.1f, -0.05f), 1, 0.3f);
 
-			texture = Resources::Load<Texture>(L"MoveLeftD", L"Character\\Marco\\LMoveD.png");
-			bodyAni->Create(L"MoveLeftD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
-
-			texture = Resources::Load<Texture>(L"MoveRightD", L"Character\\Marco\\MoveD.png");
-			bodyAni->Create(L"MoveRightD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 28.0f), Vector2::Zero, 12, 0.15f);
+			texture = Resources::Load<Texture>(L"MoveD", L"Character\\Marco\\MoveD.png");
+			bodyAni->Create(L"MoveRightD", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 22.0f), Vector2(-0.01f, 0.0f), 12, 0.15f);
+			bodyAni->Create(L"MoveLeftD", texture, Vector2(0.0f, 22.0f), Vector2(60.0f, 22.0f), Vector2(0.01f, 0.0f), 12, 0.15f);
 
 			texture = Resources::Load<Texture>(L"JumpD", L"Character\\Marco\\JumpD.png");
-			bodyAni->Create(L"JumpD", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 30.0f), Vector2(-0.01f, 0.19f), 6, 0.1f);
-			bodyAni->Create(L"LJumpD", texture, Vector2(0.0f, 30.0f), Vector2(30.0f, 30.0f), Vector2(-0.028f, 0.19f), 6, 0.1f);
+			bodyAni->Create(L"JumpD", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 30.0f), Vector2(0.02f, 0.05f), 6, 0.1f);
+			bodyAni->Create(L"LJumpD", texture, Vector2(0.0f, 30.0f), Vector2(30.0f, 30.0f), Vector2(0.015f, 0.06f), 6, 0.1f);
 
 			texture = Resources::Load<Texture>(L"JumpMoveD", L"Character\\Marco\\JumpMoveD.png");
-			bodyAni->Create(L"JumpMoveD", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 24.0f), Vector2(-0.04f, 0.0f), 6, 0.1f);
-			bodyAni->Create(L"LJumpMoveD", texture, Vector2(0.0f, 24.0f), Vector2(40.0f, 24.0f), Vector2(-0.01f, 0.0f), 6, 0.1f);
+			bodyAni->Create(L"JumpMoveD", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 24.0f), Vector2(-0.03f, 0.055f), 6, 0.15f);
+			bodyAni->Create(L"LJumpMoveD", texture, Vector2(0.0f, 24.0f), Vector2(40.0f, 24.0f), Vector2(0.03f, 0.055f), 6, 0.15f);
 
 			// 투명이미지
 			texture = Resources::Load<Texture>(L"def", L"Character\\Marco\\def.png");
