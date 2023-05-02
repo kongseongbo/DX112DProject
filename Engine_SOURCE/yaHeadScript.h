@@ -90,7 +90,7 @@ namespace ya
 		float mTime;
 
 		float mDiagonal;
-		bool mLine;
+		bool mbLine;
 
 		/*ObjectPool< Bullet, 50 > mBullets;
 		Bullet* a;*/

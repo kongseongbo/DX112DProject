@@ -29,6 +29,8 @@ namespace ya
 	}
 	void MapScript::OnCollisionEnter(Collider2D* collider)
 	{
+
+
 		// Arabian Object
 		{
 			Arabian* arabianObj = new Arabian();

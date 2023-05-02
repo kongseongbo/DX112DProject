@@ -104,12 +104,12 @@ namespace ya
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
 
-		// Map Line Collider
+#pragma region MAP GROUND COLLIDER
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 			mapcolliderObj->SetName(L"CollMap");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-			mapcolliderTr->SetPosition(Vector3(-84.0f, -4.0f, 1.0f));
+			mapcolliderTr->SetPosition(Vector3(-83.0f, -4.1f, 1.0f));
 			mapcolliderTr->SetRotation(Vector3(0.0f,0.0f, 10.0f));
 			mapcolliderTr->SetScale(Vector3(10.0f, 1.0f, 1.0f));
 			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
@@ -119,8 +119,6 @@ namespace ya
 			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
 			//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		}
-
-		// Map Line Collider
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 			mapcolliderObj->SetName(L"CollMap");
@@ -135,7 +133,6 @@ namespace ya
 			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
 			//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		}
-
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 			mapcolliderObj->SetName(L"CollMap");
@@ -150,22 +147,48 @@ namespace ya
 			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
 			//mapCollider->SetSize(Vector2(5.f, 0.1f));
 		}
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mapcolliderObj->SetName(L"CollMap");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(-54.f, -5.0f, 1.0f));
+			mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, -11.0f));
+			mapcolliderTr->SetScale(Vector3(10.0f, 1.0f, 1.0f));
+			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 
-		// Map Rect Collider
-		//{
-		//	GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
-		//	mapcolliderObj->SetName(L"CollMap");
-		//	Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-		//	mapcolliderTr->SetPosition(Vector3(15.0f, -5.0f, 1.0f));
-		//	//mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 5.0f));
-		//	mapcolliderTr->SetScale(Vector3(180.0f, 1.5f, 1.0f));
-		//	//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Line);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+			//mapCollider->SetSize(Vector2(5.f, 0.1f));
+		}
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mapcolliderObj->SetName(L"CollMap");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(22.0f, -5.8f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(145.0f, 1.5f, 1.0f));
+			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 
-		//	Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
-		//	mapCollider->SetType(eColliderType::Rect);
-		//	mapCollider->SetCenter(Vector2(0.0f, -0.0f));
-		//	//mapCollider->SetSize(Vector2(5.f, 0.1f));
-		//}
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, -0.0f));
+			//mapCollider->SetSize(Vector2(5.f, 0.1f));
+		}
+#pragma endregion
+
+		{
+
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::MapWall, this);
+			//mapcolliderObj->SetName(L"CollMap");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(-89.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 180.0f));
+			mapcolliderTr->SetScale(Vector3(1.0f, 20.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+		}
 
 		// Monster »ý¼º Collider
 		{
@@ -190,7 +213,7 @@ namespace ya
 		mosqueArtillery1Tr->SetScale(Vector3(25.0f, 8.5f, 1.0f));
 		mosqueArtilleryObj->AddComponent<MosqueArtilleryScript>();
 
-		
+#pragma region PLAYER
 		//Player Head
 		{
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
@@ -249,20 +272,8 @@ namespace ya
 			ParachuteScript* script = parachute->AddComponent<ParachuteScript>();
 			script->SetPlayer(headObj);
 		}
+#pragma endregion
 
-		// Monster Object
-		//Monster* monsterObj = object::Instantiate<Monster>(eLayerType::Monster, this);
-		//monsterObj->SetName(L"Monster");
-		//Transform* monsterTr = monsterObj->GetComponent<Transform>();
-		//monsterTr->SetPosition(Vector3(3.0f, -3.0f, 5.0f));
-		////tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-		//Collider2D* monsterCollider = monsterObj->AddComponent<Collider2D>();
-		//monsterCollider->SetType(eColliderType::Rect);
-
-		//SpriteRenderer* monsterMr = monsterObj->AddComponent<SpriteRenderer>();
-		//std::shared_ptr<Material> monsterMateiral = Resources::Find<Material>(L"RectMaterial");
-		//monsterMr->SetMaterial(monsterMateiral);
-		//monsterMr->SetMesh(mesh);
 
 		// Helicopter Object
 		Helicopter* heliObj = object::Instantiate<Helicopter>(eLayerType::Monster, this);
@@ -329,17 +340,21 @@ namespace ya
 			obj->AddComponent<ParticleSystem>();
 		}*/
 
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MachineGunItem, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Monster, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Monster, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
-
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Monster, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::MonsterAttack, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Monster, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::MapWall, eLayerType::Camera, true);
 
 		Scene::Initalize();
 	}

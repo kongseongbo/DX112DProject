@@ -41,8 +41,8 @@ namespace ya
 		Transform* playerTr = mPlayer->GetComponent<Transform>();
 		
 		Vector3 pos = playerTr->GetPosition();
-		pos.y += 0.5f;
-		pos.x -= 1.3f;
+		pos.y += 1.2f;
+		pos.x -= 0.5f;
 		tr->SetPosition(pos);
 
 		Rigidbody* playerRigid = mPlayer->GetComponent<Rigidbody>();
