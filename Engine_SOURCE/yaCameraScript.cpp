@@ -4,6 +4,8 @@
 #include "yaTime.h"
 #include "yaSceneManager.h"
 #include "yaScene.h"
+#include "yaCollider2D.h"
+
 namespace ya
 {
 	CameraScript::CameraScript()
@@ -17,6 +19,10 @@ namespace ya
 
 	void CameraScript::Initalize()
 	{
+		
+
+		
+
 	}
 
 	void CameraScript::Update()

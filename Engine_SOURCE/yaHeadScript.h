@@ -74,6 +74,8 @@ namespace ya
 		eGunState GetGunState() { return mGunState; }
 		void SetGunState(eGunState state) { mGunState = state; }
 
+		void SetStop(int i) { mStop = i; }
+
 	private:
 		Bullet* mBullet;
 		Bullet* mBullets[5];
@@ -91,6 +93,8 @@ namespace ya
 
 		float mDiagonal;
 		bool mbLine;
+
+		int mStop;
 
 		/*ObjectPool< Bullet, 50 > mBullets;
 		Bullet* a;*/

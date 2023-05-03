@@ -20,6 +20,7 @@ namespace ya::enums
 		Grid,
 		FadeIn,
 		Map,
+		MapLine,
 		MapWall,
 		Bullet,
 		Monster,

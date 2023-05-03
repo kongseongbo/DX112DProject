@@ -9,7 +9,6 @@
 #include "yaBulletScript.h"
 #include "yaBombScript.h"
 
-
 namespace ya
 {
 	//HeadScript::GunState HeadScript::mGunState = eGunState::GUN;
@@ -26,6 +25,7 @@ namespace ya
 		, mBody(nullptr)
 		, mDiagonal(0.0f)
 		, mbLine(false)
+		, mStop(0)
 		//, a(nullptr)
 	{
 		
@@ -241,7 +241,7 @@ namespace ya
 
 	void HeadScript::OnCollisionEnter(Collider2D* collider)
 	{
-		if (collider->GetColliderType() == eColliderType::Line || collider->GetColliderType() == eColliderType::Rect)
+		if (collider->GetColliderType() == eColliderType::Line || collider->GetOwner()->GetName() == L"RectCollMap")
 		{
 			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
@@ -252,6 +252,7 @@ namespace ya
 			velocity.y = 30.0f;
 			rigidbody->SetGround(true);
 			rigidbody->SetVelocity(velocity);
+
 			if (mHeadState == HeadState::JUMP && direction == 1)
 			{
 				if (mGunState == eGunState::GUN)
@@ -299,8 +300,6 @@ namespace ya
 			mHeadAni->Play(L"Death", false);
 			mHeadState = HeadState::DEATH;
 		}
-
-		
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)
@@ -312,29 +311,18 @@ namespace ya
 			mDiagonal = z / 10;
 			mbLine = true;
 		}
-		else if (collider->GetColliderType() == eColliderType::Rect)
+		else if (collider->GetOwner()->GetName() == L"RectCollMap")
 		{
 			mDiagonal = 0.0f;
 		}
-		else 
-			mbLine = false;
+		/*else
+			mbLine = false;*/
 	}
 
 	void HeadScript::OnCollisionExit(Collider2D* collider)
 	{
-		
-		
 		/*if (collider->GetColliderType() == eColliderType::Line)
 			mbLine = false;*/
-
-		if (mbLine == false)
-		{
-			Rigidbody* rigidbody = GetOwner()->GetComponent<Rigidbody>();
-			rigidbody->SetGround(false);
-
-		}
-		
-
 	}
 
 	void HeadScript::Start()
@@ -795,7 +783,7 @@ namespace ya
 			mHeadState = HeadState::UPMOVE;
 		}
 	
-		if (direction == 0)
+		if (direction == 0 && mStop != -1)
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos -= mTr->Right() * 6.f * Time::DeltaTime();
@@ -804,7 +792,7 @@ namespace ya
 			//pos.x -= 6.0f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 		}
-		else if (direction == 1)
+		else if (direction == 1 && mStop != 1)
 		{
 			Vector3 pos = mTr->GetPosition();
 			pos += mTr->Right() * 6.f * Time::DeltaTime();

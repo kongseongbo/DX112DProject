@@ -540,7 +540,7 @@ namespace ya::renderer
 		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
 #pragma endregion
 #pragma region UI
-		std::shared_ptr <Texture> uiTexture = Resources::Find<Texture>(L"HPBarTexture");
+		std::shared_ptr <Texture> uiTexture = Resources::Find<Texture>(L"DefaultSprite");
 		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
 		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
