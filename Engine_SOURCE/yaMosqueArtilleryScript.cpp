@@ -6,7 +6,7 @@
 #include "yaObject.h"
 #include "yaSceneManager.h"
 #include "yaInput.h"
-
+#include "yaAnimator.h"
 
 
 namespace ya
@@ -25,8 +25,6 @@ namespace ya
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		heliSr->SetMaterial(heliMaterial);
 		heliSr->SetMesh(mesh);
-
-
 	}
 	void MosqueArtilleryScript::Update()
 	{

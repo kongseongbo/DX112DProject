@@ -5,10 +5,13 @@
 #include "yaObject.h"
 #include "yaInput.h"
 #include "yaHeadScript.h"
+#include "yaStage1Scene.h"
+
 namespace ya
 {
 	MapScript::MapScript()
 		: Script()
+		, mbPlayerCamera(true)
 
 	{
 	}
@@ -29,8 +32,7 @@ namespace ya
 	}
 	void MapScript::OnCollisionEnter(Collider2D* collider)
 	{
-		// Arabian Object
-
+		// Arabian Object »ý¼º
 		if (GetOwner()->GetName() == L"NewMonster")
 		{
 			{
@@ -59,11 +61,18 @@ namespace ya
 			headScr->SetStop(-1);
 		}
 
+		if (collider->GetOwner()->GetName() == L"Head" && GetOwner()->GetName() == L"MapRight")
+		{
+			HeadScript* headScr = collider->GetOwner()->GetScript<HeadScript>();
+			headScr->SetStop(1);
+		}
+
 	}
 	void MapScript::OnCollisionStay(Collider2D* collider)
 	{
 		if (collider->GetOwner()->GetName() == L"Head" && GetOwner()->GetName() == L"CollMap")
 		{
+			mbPlayerCamera = true;
 			if(Input::GetKey(eKeyCode::RIGHT))
 			{ 
 				Transform* playerTr = collider->GetOwner()->GetComponent<Transform>();
@@ -74,7 +83,7 @@ namespace ya
 	}
 	void MapScript::OnCollisionExit(Collider2D* collider)
 	{
-		if (collider->GetOwner()->GetName() == L"Head" && GetOwner()->GetName() == L"MapLeft")
+		if (collider->GetOwner()->GetName() == L"Head" && GetOwner()->GetName() == L"MapLeft" || collider->GetOwner()->GetName() == L"Head" && GetOwner()->GetName() == L"MapRight")
 		{
 			HeadScript* headScr = collider->GetOwner()->GetScript<HeadScript>();
 			headScr->SetStop(0);

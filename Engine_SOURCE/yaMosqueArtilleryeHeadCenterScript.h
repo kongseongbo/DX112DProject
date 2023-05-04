@@ -1,15 +1,14 @@
+
 #pragma once
 #include "yaScript.h"
-#include "yaArabian.h"
-
 
 namespace ya
 {
-	class MapScript : public Script
+	class MosqueArtilleryeHeadCenterScript : public Script
 	{
 	public:
-		MapScript();
-		virtual ~MapScript();
+		MosqueArtilleryeHeadCenterScript();
+		virtual ~MosqueArtilleryeHeadCenterScript();
 
 		virtual void Initalize();
 		virtual void Update();
@@ -23,10 +22,6 @@ namespace ya
 		virtual void OnTriggerEnter(Collider2D* collider);
 		virtual void OnTriggerStay(Collider2D* collider);
 		virtual void OnTriggerExit(Collider2D* collider);
-
-		bool GetPlayerCamera() { return mbPlayerCamera; }
-		void SetPlayerCamera(bool a) { mbPlayerCamera = a; }
 	private:
-		bool mbPlayerCamera;
 	};
 }

@@ -2,8 +2,10 @@
 #include "yaScene.h"
 #include "yaPlayer.h"
 #include "yaBody.h"
+#include "yaMapScript.h"
 namespace ya
 {
+
 	class Stage1Scene : public Scene
 	{
 	public:
@@ -18,11 +20,19 @@ namespace ya
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
+		
 	private:
 		GameObject* mCameraObj;
 		Player* headObj;
 		Body* bodyObj;
+		MapScript* mapScript;
+
+		Transform* mMosqueArtilleryleftTr;
+		Transform* mMosqueArtilleryrightTr;
+		Transform* mMosqueArtillerycenterTr;
+
 
 		float mTime;
+		float mZoom;
 	};
 }

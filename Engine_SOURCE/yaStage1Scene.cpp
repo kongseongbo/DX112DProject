@@ -32,7 +32,9 @@
 #include "yaTime.h"
 #include "yaParachute.h"
 #include "yaParachuteScript.h"
-
+#include "yaMosqueArtilleryeHeadLeftScript.h"
+#include "yaMosqueArtilleryeHeadCenterScript.h"
+#include "yaMosqueArtilleryeHeadRightScript.h"
 
 namespace ya
 {
@@ -42,6 +44,8 @@ namespace ya
 		, headObj(nullptr)
 		, bodyObj(nullptr)
 		, mTime(0.0f)
+		, mZoom(50.0f)
+		//, mbCameraPos(false)
 	{
 
 	}
@@ -79,6 +83,7 @@ namespace ya
 		// Main Camera
 		{
 			mCameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
+			mCameraObj->SetName(L"MainCamera");
 			Camera* cameraComp = mCameraObj->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			CameraScript* cameraScript = mCameraObj->AddComponent<CameraScript>();
@@ -184,7 +189,8 @@ namespace ya
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
-			headTr->SetPosition(Vector3(-80.0f, 3.0f, 5.0f));
+			//headTr->SetPosition(Vector3(-75.0f, 3.0f, 5.0f));
+			headTr->SetPosition(Vector3(42.0f, 3.0f, 5.0f)); //47
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
@@ -239,21 +245,21 @@ namespace ya
 		}
 #pragma endregion
 
-
+#pragma region Map Collider
+		// 캐릭터 이동시 같이 따라가는 coll
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::MapWall, this);
 			mapcolliderObj->SetName(L"CollMap");
 			Transform* headTr = headObj->GetComponent<Transform>();
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-			mapcolliderTr->SetPosition(headTr->GetPosition());
+			mapcolliderTr->SetPosition(Vector3(headTr->GetPosition().x, headTr->GetPosition().y - 2.5f, headTr->GetPosition().z));
 			mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 180.0f));
 			mapcolliderTr->SetScale(Vector3(1.0f, 10.0f, 1.0f));
-			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
-
+			mapScript = mapcolliderObj->AddComponent<MapScript>();
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 			mapCollider->SetType(eColliderType::Rect);
 		}
-
+		// 맵왼쪽끝 벽
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::MapWall, this);
 			mapcolliderObj->SetName(L"MapLeft");
@@ -267,7 +273,20 @@ namespace ya
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 			mapCollider->SetType(eColliderType::Rect);
 		}
+		// 맵오른쪽끝 벽
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::MapWall, this);
+			mapcolliderObj->SetName(L"MapRight");
+			Transform* headTr = headObj->GetComponent<Transform>();
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(91.0f, 1.0f, 1.0f));
+			mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 180.0f));
+			mapcolliderTr->SetScale(Vector3(1.0f, 10.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+		}
 		// Monster 생성 Collider
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
@@ -282,15 +301,42 @@ namespace ya
 			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
 			//mapCollider->SetSize(Vector2(1.f, 1.f));
 		}
+#pragma endregion
 
-		// 중간보스
+#pragma region 중간보스 MosqueArtillery
+		// Left
+		GameObject* mosqueArtilleryLeftObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+		mosqueArtilleryLeftObj->SetName(L"MosqueArtilleryLeft");
+		mMosqueArtilleryleftTr = mosqueArtilleryLeftObj->GetComponent<Transform>();
+		mMosqueArtilleryleftTr->SetPosition(Vector3(45.4f, 4.f, 10.0f));
+		mMosqueArtilleryleftTr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+		mosqueArtilleryLeftObj->AddComponent<MosqueArtilleryeHeadLeftScript>();
+
+		// Center
+		GameObject* mosqueArtilleryCenterObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+		mosqueArtilleryCenterObj->SetName(L"MosqueArtilleryCenter");
+		mMosqueArtillerycenterTr = mosqueArtilleryCenterObj->GetComponent<Transform>();
+		mMosqueArtillerycenterTr->SetPosition(Vector3(51.6f, 4.f, 10.0f));
+		mMosqueArtillerycenterTr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+		mosqueArtilleryCenterObj->AddComponent<MosqueArtilleryeHeadCenterScript>();
+
+		// Right
+		GameObject* mosqueArtilleryRightObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+		mosqueArtilleryRightObj->SetName(L"MosqueArtilleryRight");
+		mMosqueArtilleryrightTr = mosqueArtilleryRightObj->GetComponent<Transform>();
+		mMosqueArtilleryrightTr->SetPosition(Vector3(57.8f, 4.f, 10.0f));
+		mMosqueArtilleryrightTr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+		mosqueArtilleryRightObj->AddComponent<MosqueArtilleryeHeadRightScript>();
+
+		// Base
 		GameObject* mosqueArtilleryObj = object::Instantiate<GameObject>(eLayerType::Map, this);
-		mosqueArtilleryObj->SetName(L"MosqueArtillery");
-		Transform* mosqueArtillery1Tr = mosqueArtilleryObj->GetComponent<Transform>();
-		mosqueArtillery1Tr->SetPosition(Vector3(49.0f, -0.5f, 10.0f));
-		mosqueArtillery1Tr->SetScale(Vector3(25.0f, 8.5f, 1.0f));
+		mosqueArtilleryObj->SetName(L"MosqueArtilleryBase");
+		Transform* baseTr = mosqueArtilleryObj->GetComponent<Transform>();
+		baseTr->SetPosition(Vector3(49.0f, -0.5f, 10.0f));
+		baseTr->SetScale(Vector3(25.0f, 8.5f, 1.0f));
 		mosqueArtilleryObj->AddComponent<MosqueArtilleryScript>();
-
+#pragma endregion
+		
 		// Helicopter Object
 		Helicopter* heliObj = object::Instantiate<Helicopter>(eLayerType::Monster, this);
 		heliObj->SetName(L"Helicopter");
@@ -301,12 +347,11 @@ namespace ya
 
 		heliObj->AddComponent<HelicopterScript>();
 
-		
 		// MachineGunItem
 		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
 		machineGun->SetName(L"machineGun");
 		Transform* machineGunTr = machineGun->GetComponent<Transform>();
-		machineGunTr->SetPosition(Vector3(-75.0f, -2.0f, 2.0f));
+		machineGunTr->SetPosition(Vector3(-65.0f, -2.0f, 2.0f));
 		machineGunTr->SetScale(Vector3(10.0f, 10.0f,1.0f));
 		MachineGunScript* machineGunScript = machineGun->AddComponent<MachineGunScript>();
 
@@ -380,22 +425,53 @@ namespace ya
 	{
 		CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
 		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
+		Camera* camera = mCameraObj->GetComponent<Camera>();
+		
+		
+		
+
+		Vector3 pos = {};
+		
 		if (headObj->GetState() == GameObject::Active)
 		{
 			Transform* headTr = headObj->GetComponent<Transform>();
 			Vector3 headPos = headTr->GetPosition();
 
-			if (cameraTr->GetPosition().x < -85.0f)
-				cameraTr->SetPosition(Vector3(cameraTr->GetPosition().x, cameraTr->GetPosition().y, headPos.z));
+			if (mapScript->GetPlayerCamera())
+				pos = headPos;
+			else
+				pos = cameraTr->GetPosition();
+
+			if (cameraTr->GetPosition().x < -78.0f)
+			{
+				//pos = cameraTr->GetPosition();
+				mapScript->SetPlayerCamera(false);
+				cameraTr->SetPosition(Vector3(pos.x, 1.2f , 5.0f));
+			}
+
+			
+			if (cameraTr->GetPosition().x >= 50.5f)
+			{
+				mZoom -= 5.0f * Time::DeltaTime();
+				if (mZoom >= 40.0f)
+				{
+					camera->SetRatio(mZoom);
+					cameraTr->SetPosition(Vector3(cameraTr->GetPosition().x, 1.2f, 5.0f));
+
+					mMosqueArtilleryleftTr->SetPosition(Vector3(mMosqueArtilleryleftTr->GetPosition().x - (0.25f * Time::DeltaTime()), mMosqueArtilleryleftTr->GetPosition().y + (0.5f * Time::DeltaTime()), mMosqueArtilleryleftTr->GetPosition().z));
+					mMosqueArtillerycenterTr->SetPosition(Vector3(mMosqueArtillerycenterTr->GetPosition().x /*+ (0.3f * Time::DeltaTime())*/, mMosqueArtillerycenterTr->GetPosition().y + (0.5f * Time::DeltaTime()), mMosqueArtillerycenterTr->GetPosition().z));
+					mMosqueArtilleryrightTr->SetPosition(Vector3(mMosqueArtilleryrightTr->GetPosition().x + (0.3f * Time::DeltaTime()), mMosqueArtilleryrightTr->GetPosition().y + ( 0.5f * Time::DeltaTime()), mMosqueArtilleryrightTr->GetPosition().z));
+				}
+			}
 			else
 			{
-				cameraTr->SetPosition(Vector3(headPos.x, headPos.y + 3.0f, headPos.z));
+				
+				//pos = headPos;
+				cameraTr->SetPosition(Vector3(pos.x, 1.2f, 5.0f));
 				//cameraTr->SetPosition(Vector3(headPos.x, cameraTr->GetPosition().y, headPos.z));
 			}
-			
 		}
 
-		
 		if (headObj->GetState() == GameObject::Paused)
 		{
 			mTime += 2.0f * Time::DeltaTime();

@@ -37,6 +37,7 @@ namespace ya
 		void SetProjectionType(eProjectionType type) { mType = type; }
 
 		float GetScale() { return mScale; }
+		void SetRatio(float ratio) { mRatio = ratio; }
 
 		Matrix& GetViewMatrix() { return mView; }
 		Matrix& GetProjectionMatrix() { return mProjection; }
@@ -61,6 +62,7 @@ namespace ya
 		float mNear;
 		float mFar;
 		float mScale;
+		float mRatio;
 
 		std::bitset<(UINT)eLayerType::End> mLayerMasks;
 		std::vector<GameObject*> mOpaqueGameObjects;

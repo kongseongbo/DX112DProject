@@ -169,6 +169,18 @@
     <Filter Include="Component\Script\Player\Parachute">
       <UniqueIdentifier>{3fb333f8-2bf4-4f8e-b027-965177a5eb2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\MosqueArtillery\Base">
+      <UniqueIdentifier>{8521c178-a229-4dd8-b6cf-ec07094fc403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\MosqueArtillery\HeadLeft">
+      <UniqueIdentifier>{f3dfc218-8c6b-431a-bb67-deb5c6751d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\MosqueArtillery\HeadCenter">
+      <UniqueIdentifier>{c339b5d7-4de2-4ef9-9eba-b9629e554c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\MosqueArtillery\HeadRight">
+      <UniqueIdentifier>{9dd6fd50-8be7-46af-8d72-562c153b2410}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -354,12 +366,6 @@
     <ClCompile Include="yaFadeInOutScript.cpp">
       <Filter>Component\Script\FadeInOut</Filter>
     </ClCompile>
-    <ClCompile Include="yaMosqueArtillery.cpp">
-      <Filter>Component\Script\MosqueArtillery</Filter>
-    </ClCompile>
-    <ClCompile Include="yaMosqueArtilleryScript.cpp">
-      <Filter>Component\Script\MosqueArtillery</Filter>
-    </ClCompile>
     <ClCompile Include="yaArabian.cpp">
       <Filter>Component\Script\Arabian</Filter>
     </ClCompile>
@@ -377,6 +383,30 @@
     </ClCompile>
     <ClCompile Include="yaParachuteScript.cpp">
       <Filter>Component\Script\Player\Parachute</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtillery.cpp">
+      <Filter>Component\Script\MosqueArtillery\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryScript.cpp">
+      <Filter>Component\Script\MosqueArtillery\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryeHeadCenter.cpp">
+      <Filter>Component\Script\MosqueArtillery\HeadCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryeHeadCenterScript.cpp">
+      <Filter>Component\Script\MosqueArtillery\HeadCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryeHeadLeft.cpp">
+      <Filter>Component\Script\MosqueArtillery\HeadLeft</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryeHeadLeftScript.cpp">
+      <Filter>Component\Script\MosqueArtillery\HeadLeft</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryeHeadRight.cpp">
+      <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryeHeadRightScript.cpp">
+      <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -578,12 +608,6 @@
     <ClInclude Include="yaFadeInOutScript.h">
       <Filter>Component\Script\FadeInOut</Filter>
     </ClInclude>
-    <ClInclude Include="yaMosqueArtilleryScript.h">
-      <Filter>Component\Script\MosqueArtillery</Filter>
-    </ClInclude>
-    <ClInclude Include="yaMosqueArtillery.h">
-      <Filter>Component\Script\MosqueArtillery</Filter>
-    </ClInclude>
     <ClInclude Include="yaArabian.h">
       <Filter>Component\Script\Arabian</Filter>
     </ClInclude>
@@ -601,6 +625,30 @@
     </ClInclude>
     <ClInclude Include="yaParachute.h">
       <Filter>Component\Script\Player\Parachute</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtillery.h">
+      <Filter>Component\Script\MosqueArtillery\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryScript.h">
+      <Filter>Component\Script\MosqueArtillery\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryeHeadCenter.h">
+      <Filter>Component\Script\MosqueArtillery\HeadCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryeHeadCenterScript.h">
+      <Filter>Component\Script\MosqueArtillery\HeadCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryeHeadLeft.h">
+      <Filter>Component\Script\MosqueArtillery\HeadLeft</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryeHeadLeftScript.h">
+      <Filter>Component\Script\MosqueArtillery\HeadLeft</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryeHeadRight.h">
+      <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryeHeadRightScript.h">
+      <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

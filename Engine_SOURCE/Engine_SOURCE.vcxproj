@@ -175,6 +175,12 @@
     <ClInclude Include="yaMachineGunScript.h" />
     <ClInclude Include="yaMapScript.h" />
     <ClInclude Include="yaMosqueArtillery.h" />
+    <ClInclude Include="yaMosqueArtilleryeHeadCenter.h" />
+    <ClInclude Include="yaMosqueArtilleryeHeadCenterScript.h" />
+    <ClInclude Include="yaMosqueArtilleryeHeadLeft.h" />
+    <ClInclude Include="yaMosqueArtilleryeHeadLeftScript.h" />
+    <ClInclude Include="yaMosqueArtilleryeHeadRight.h" />
+    <ClInclude Include="yaMosqueArtilleryeHeadRightScript.h" />
     <ClInclude Include="yaMosqueArtilleryScript.h" />
     <ClInclude Include="yaObjectPool.h" />
     <ClInclude Include="yaPaintShader.h" />
@@ -250,6 +256,12 @@
     <ClCompile Include="yaMachineGunScript.cpp" />
     <ClCompile Include="yaMapScript.cpp" />
     <ClCompile Include="yaMosqueArtillery.cpp" />
+    <ClCompile Include="yaMosqueArtilleryeHeadCenter.cpp" />
+    <ClCompile Include="yaMosqueArtilleryeHeadCenterScript.cpp" />
+    <ClCompile Include="yaMosqueArtilleryeHeadLeft.cpp" />
+    <ClCompile Include="yaMosqueArtilleryeHeadLeftScript.cpp" />
+    <ClCompile Include="yaMosqueArtilleryeHeadRight.cpp" />
+    <ClCompile Include="yaMosqueArtilleryeHeadRightScript.cpp" />
     <ClCompile Include="yaMosqueArtilleryScript.cpp" />
     <ClCompile Include="yaObjectPool.cpp" />
     <ClCompile Include="yaPaintShader.cpp" />

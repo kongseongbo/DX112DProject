@@ -23,6 +23,7 @@ namespace ya
 		, mNear(1.0f)
 		, mFar(1000.0f)
 		, mScale(1.0f)
+		, mRatio(50.0f)
 	{
 		EnableLayerMasks();
 	}
@@ -105,7 +106,7 @@ namespace ya
 		}
 		else
 		{
-			mProjection = Matrix::CreateOrthographicLH(width / 50.0f, height / 50.0f, mNear, mFar);
+			mProjection = Matrix::CreateOrthographicLH(width / mRatio, height / mRatio, mNear, mFar);
 		}
 	}
 
