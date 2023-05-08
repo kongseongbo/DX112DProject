@@ -13,6 +13,7 @@ namespace ya
 {
 	MosqueArtilleryeHeadRightScript::MosqueArtilleryeHeadRightScript()
 		: Script()
+		, mbStartAni(false)
 	{
 	}
 	MosqueArtilleryeHeadRightScript::~MosqueArtilleryeHeadRightScript()
@@ -20,14 +21,18 @@ namespace ya
 	}
 	void MosqueArtilleryeHeadRightScript::Initalize()
 	{
-		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"mosqueArtilleryRightMaterial");
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		sr->SetMaterial(material);
-		sr->SetMesh(mesh);
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		//std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MosqueArtilleryMoon", L"MosqueArtillery\\MosqueArtilleryeHeadCenterOpen.png");
+		//ani->Create(L"MosqueArtilleryeHeadCenterOpen", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, 0.0f), 16, 0.2f);
+
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MosqueArtilleryeHeadRight", L"MosqueArtillery\\MosqueArtilleryeHeadRight.png");
+		ani->Create(L"MosqueArtilleryeHeadRight", texture, Vector2(0.0f, 0.0f), Vector2(88.0f, 139.0f), Vector2(0.0f, 0.0f), 1, 0.2f);
+
+		ani->Play(L"MosqueArtilleryeHeadRight", false);
 	}
 	void MosqueArtilleryeHeadRightScript::Update()
 	{
+	
 	}
 	void MosqueArtilleryeHeadRightScript::FixedUpdate()
 	{

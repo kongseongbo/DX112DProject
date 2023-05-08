@@ -21,6 +21,11 @@ namespace ya
 		virtual void OnTriggerEnter(Collider2D* collider);
 		virtual void OnTriggerStay(Collider2D* collider);
 		virtual void OnTriggerExit(Collider2D* collider);
+
+		void SetStartAni(bool start) { mbStartAni = start; }
+
 	private:
+		bool mbStartAni;
+
 	};
 }

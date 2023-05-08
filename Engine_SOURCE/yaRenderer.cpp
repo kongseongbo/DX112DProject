@@ -516,6 +516,8 @@ namespace ya::renderer
 		Resources::Load<Texture>(L"MosqueArtilleryLeft", L"MosqueArtillery\\MosqueArtilleryeHeadLeft.png");
 		Resources::Load<Texture>(L"MosqueArtilleryCenter", L"MosqueArtillery\\MosqueArtilleryeHeadCenter.png");
 		Resources::Load<Texture>(L"MosqueArtilleryRight", L"MosqueArtillery\\MosqueArtilleryeHeadRight.png");
+
+		Resources::Load<Texture>(L"MosqueArtilleryCenterOpen", L"MosqueArtillery\\MosqueArtilleryeHeadCenterOpen.png");
 #pragma endregion
 #pragma region DYNAMIC TEXTURE
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
@@ -700,6 +702,15 @@ namespace ya::renderer
 		mosqueArtilleryCenterMaterial->SetShader(mosqueArtilleryCenterShader);
 		mosqueArtilleryCenterMaterial->SetTexture(eTextureSlot::T0, mosqueArtilleryCenterTexture);
 		Resources::Insert<Material>(L"mosqueArtilleryCenterMaterial", mosqueArtilleryCenterMaterial);
+
+		mosqueArtilleryCenterTexture = Resources::Find<Texture>(L"MosqueArtilleryCenterOpen");
+		mosqueArtilleryCenterShader = Resources::Find<Shader>(L"RectShader");
+		mosqueArtilleryCenterMaterial = std::make_shared<Material>();
+		mosqueArtilleryCenterMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		mosqueArtilleryCenterMaterial->SetShader(mosqueArtilleryCenterShader);
+		mosqueArtilleryCenterMaterial->SetTexture(eTextureSlot::T0, mosqueArtilleryCenterTexture);
+		Resources::Insert<Material>(L"mosqueArtilleryCenterOpenMaterial", mosqueArtilleryCenterMaterial);
+
 
 		// MosqueArtilleryRight
 		std::shared_ptr <Texture> mosqueArtilleryRightTexture = Resources::Find<Texture>(L"MosqueArtilleryRight");

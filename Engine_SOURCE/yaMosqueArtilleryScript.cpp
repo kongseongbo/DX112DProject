@@ -20,14 +20,18 @@ namespace ya
 	}
 	void MosqueArtilleryScript::Initalize()
 	{
+
 		SpriteRenderer* heliSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> heliMaterial = Resources::Find<Material>(L"mosqueArtilleryBaseMaterial");
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		heliSr->SetMaterial(heliMaterial);
 		heliSr->SetMesh(mesh);
+
+
 	}
 	void MosqueArtilleryScript::Update()
 	{
+
 	}
 	void MosqueArtilleryScript::FixedUpdate()
 	{

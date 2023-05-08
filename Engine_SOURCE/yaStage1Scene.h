@@ -3,6 +3,10 @@
 #include "yaPlayer.h"
 #include "yaBody.h"
 #include "yaMapScript.h"
+#include "yaMosqueArtilleryeHeadLeftScript.h"
+#include "yaMosqueArtilleryeHeadCenterScript.h"
+#include "yaMosqueArtilleryeHeadRightScript.h"
+
 namespace ya
 {
 
@@ -19,7 +23,6 @@ namespace ya
 
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
-
 		
 	private:
 		GameObject* mCameraObj;
@@ -31,6 +34,9 @@ namespace ya
 		Transform* mMosqueArtilleryrightTr;
 		Transform* mMosqueArtillerycenterTr;
 
+		MosqueArtilleryeHeadLeftScript* mMosqueArtilleryeHeadLeftScript;
+		MosqueArtilleryeHeadCenterScript* mMosqueArtilleryeHeadCenterScript;
+		MosqueArtilleryeHeadRightScript* mMosqueArtilleryeHeadRightScript;
 
 		float mTime;
 		float mZoom;

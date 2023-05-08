@@ -12,6 +12,8 @@ namespace ya
 {
 	MosqueArtilleryeHeadCenterScript::MosqueArtilleryeHeadCenterScript()
 		: Script()
+		, mbStartAni(false)
+		, stack(0)
 	{
 	}
 	MosqueArtilleryeHeadCenterScript::~MosqueArtilleryeHeadCenterScript()
@@ -19,14 +21,26 @@ namespace ya
 	}
 	void MosqueArtilleryeHeadCenterScript::Initalize()
 	{
-		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"mosqueArtilleryCenterMaterial");
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		sr->SetMaterial(material);
-		sr->SetMesh(mesh);
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MosqueArtilleryeHeadCenter", L"MosqueArtillery\\MosqueArtilleryeHeadCenter.png");
+		ani->Create(L"MosqueArtilleryeHeadCenter", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 138.0f), Vector2(0.0f, 0.0f), 1, 0.2f);
+		
+		texture = Resources::Load<Texture>(L"MosqueArtilleryMoon", L"MosqueArtillery\\MosqueArtilleryeHeadCenterOpen.png");
+		ani->Create(L"MosqueArtilleryeHeadCenterOpen", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 148.0f), Vector2(0.0f,-0.035f), 16, 0.2f);
+
+		ani->Play(L"MosqueArtilleryeHeadCenter", false);
 	}
 	void MosqueArtilleryeHeadCenterScript::Update()
 	{
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		SpriteRenderer* sr = GetOwner()->GetComponent<SpriteRenderer>();
+
+		if (mbStartAni && stack == 0)
+		{
+			ani->Play(L"MosqueArtilleryeHeadCenterOpen", false);
+			stack++;
+		}
 	}
 	void MosqueArtilleryeHeadCenterScript::FixedUpdate()
 	{

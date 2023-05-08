@@ -32,9 +32,7 @@
 #include "yaTime.h"
 #include "yaParachute.h"
 #include "yaParachuteScript.h"
-#include "yaMosqueArtilleryeHeadLeftScript.h"
-#include "yaMosqueArtilleryeHeadCenterScript.h"
-#include "yaMosqueArtilleryeHeadRightScript.h"
+#include "yaMosqueArtilleryeHeadCenter.h"
 
 namespace ya
 {
@@ -305,29 +303,60 @@ namespace ya
 
 #pragma region 중간보스 MosqueArtillery
 		// Left
-		GameObject* mosqueArtilleryLeftObj = object::Instantiate<GameObject>(eLayerType::Map, this);
-		mosqueArtilleryLeftObj->SetName(L"MosqueArtilleryLeft");
-		mMosqueArtilleryleftTr = mosqueArtilleryLeftObj->GetComponent<Transform>();
-		mMosqueArtilleryleftTr->SetPosition(Vector3(45.4f, 4.f, 10.0f));
-		mMosqueArtilleryleftTr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
-		mosqueArtilleryLeftObj->AddComponent<MosqueArtilleryeHeadLeftScript>();
+		{
+			GameObject* mosqueArtilleryLeftObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mosqueArtilleryLeftObj->SetName(L"MosqueArtilleryLeft");
+			mMosqueArtilleryleftTr = mosqueArtilleryLeftObj->GetComponent<Transform>();
+			mMosqueArtilleryleftTr->SetPosition(Vector3(45.4f, 4.f, 10.0f));
+			mMosqueArtilleryleftTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			mosqueArtilleryLeftObj->AddComponent<Animator>();
 
+			mMosqueArtilleryeHeadLeftScript = mosqueArtilleryLeftObj->AddComponent<MosqueArtilleryeHeadLeftScript>();
+		
+			SpriteRenderer* sr = mosqueArtilleryLeftObj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			sr->SetMaterial(material);
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMesh(mesh);
+		}
 		// Center
-		GameObject* mosqueArtilleryCenterObj = object::Instantiate<GameObject>(eLayerType::Map, this);
-		mosqueArtilleryCenterObj->SetName(L"MosqueArtilleryCenter");
-		mMosqueArtillerycenterTr = mosqueArtilleryCenterObj->GetComponent<Transform>();
-		mMosqueArtillerycenterTr->SetPosition(Vector3(51.6f, 4.f, 10.0f));
-		mMosqueArtillerycenterTr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
-		mosqueArtilleryCenterObj->AddComponent<MosqueArtilleryeHeadCenterScript>();
+		{
+			GameObject* mosqueArtilleryCenterObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mosqueArtilleryCenterObj->SetName(L"MosqueArtilleryCenter");
+			mMosqueArtillerycenterTr = mosqueArtilleryCenterObj->GetComponent<Transform>();
+			mMosqueArtillerycenterTr->SetPosition(Vector3(51.6f, 4.f, 10.0f));
+			mMosqueArtillerycenterTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			mosqueArtilleryCenterObj->AddComponent<Animator>();
+			
+			/*Collider2D* coll = mosqueArtilleryCenterObj->AddComponent<Collider2D>();
+			coll->SetType(eColliderType::Rect);
+			coll->SetSize(Vector2(1.f, 1.f));*/
 
+			mMosqueArtilleryeHeadCenterScript = mosqueArtilleryCenterObj->AddComponent<MosqueArtilleryeHeadCenterScript>();
+
+			SpriteRenderer* sr = mosqueArtilleryCenterObj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			sr->SetMaterial(material);
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMesh(mesh);
+		}
 		// Right
-		GameObject* mosqueArtilleryRightObj = object::Instantiate<GameObject>(eLayerType::Map, this);
-		mosqueArtilleryRightObj->SetName(L"MosqueArtilleryRight");
-		mMosqueArtilleryrightTr = mosqueArtilleryRightObj->GetComponent<Transform>();
-		mMosqueArtilleryrightTr->SetPosition(Vector3(57.8f, 4.f, 10.0f));
-		mMosqueArtilleryrightTr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
-		mosqueArtilleryRightObj->AddComponent<MosqueArtilleryeHeadRightScript>();
+		{
+			GameObject* mosqueArtilleryRightObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mosqueArtilleryRightObj->SetName(L"MosqueArtilleryRight");
+			mMosqueArtilleryrightTr = mosqueArtilleryRightObj->GetComponent<Transform>();
+			mMosqueArtilleryrightTr->SetPosition(Vector3(57.8f, 4.f, 10.0f));
+			mMosqueArtilleryrightTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			mosqueArtilleryRightObj->AddComponent<Animator>();
 
+			mMosqueArtilleryeHeadRightScript = mosqueArtilleryRightObj->AddComponent<MosqueArtilleryeHeadRightScript>();
+
+			SpriteRenderer* sr = mosqueArtilleryRightObj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			sr->SetMaterial(material);
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMesh(mesh);
+		}
 		// Base
 		GameObject* mosqueArtilleryObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 		mosqueArtilleryObj->SetName(L"MosqueArtilleryBase");
@@ -426,9 +455,6 @@ namespace ya
 		CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
 		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
 		Camera* camera = mCameraObj->GetComponent<Camera>();
-		
-		
-		
 
 		Vector3 pos = {};
 		
@@ -458,14 +484,27 @@ namespace ya
 					camera->SetRatio(mZoom);
 					cameraTr->SetPosition(Vector3(cameraTr->GetPosition().x, 1.2f, 5.0f));
 
-					mMosqueArtilleryleftTr->SetPosition(Vector3(mMosqueArtilleryleftTr->GetPosition().x - (0.25f * Time::DeltaTime()), mMosqueArtilleryleftTr->GetPosition().y + (0.5f * Time::DeltaTime()), mMosqueArtilleryleftTr->GetPosition().z));
-					mMosqueArtillerycenterTr->SetPosition(Vector3(mMosqueArtillerycenterTr->GetPosition().x /*+ (0.3f * Time::DeltaTime())*/, mMosqueArtillerycenterTr->GetPosition().y + (0.5f * Time::DeltaTime()), mMosqueArtillerycenterTr->GetPosition().z));
-					mMosqueArtilleryrightTr->SetPosition(Vector3(mMosqueArtilleryrightTr->GetPosition().x + (0.3f * Time::DeltaTime()), mMosqueArtilleryrightTr->GetPosition().y + ( 0.5f * Time::DeltaTime()), mMosqueArtilleryrightTr->GetPosition().z));
+					mMosqueArtilleryleftTr->SetPosition(Vector3(mMosqueArtilleryleftTr->GetPosition().x - (0.15f * Time::DeltaTime())
+						, mMosqueArtilleryleftTr->GetPosition().y + (0.5f * Time::DeltaTime())
+						, mMosqueArtilleryleftTr->GetPosition().z));
+
+					mMosqueArtillerycenterTr->SetPosition(Vector3(mMosqueArtillerycenterTr->GetPosition().x 
+						, mMosqueArtillerycenterTr->GetPosition().y + (0.5f * Time::DeltaTime())
+						, mMosqueArtillerycenterTr->GetPosition().z));
+
+					mMosqueArtilleryrightTr->SetPosition(Vector3(mMosqueArtilleryrightTr->GetPosition().x + (0.15f * Time::DeltaTime())
+						, mMosqueArtilleryrightTr->GetPosition().y + ( 0.5f * Time::DeltaTime())
+						, mMosqueArtilleryrightTr->GetPosition().z));
+				}
+				else
+				{
+					mMosqueArtilleryeHeadLeftScript->SetStartAni(true);
+					mMosqueArtilleryeHeadCenterScript->SetStartAni(true);
+					mMosqueArtilleryeHeadRightScript->SetStartAni(true);
 				}
 			}
 			else
 			{
-				
 				//pos = headPos;
 				cameraTr->SetPosition(Vector3(pos.x, 1.2f, 5.0f));
 				//cameraTr->SetPosition(Vector3(headPos.x, cameraTr->GetPosition().y, headPos.z));
