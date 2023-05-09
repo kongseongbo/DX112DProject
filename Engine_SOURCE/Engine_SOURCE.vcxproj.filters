@@ -181,6 +181,9 @@
     <Filter Include="Component\Script\MosqueArtillery\HeadRight">
       <UniqueIdentifier>{9dd6fd50-8be7-46af-8d72-562c153b2410}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\MosqueArtillery\Bullet">
+      <UniqueIdentifier>{9be6e9a5-68e0-4cff-9899-68c285a95e78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -407,6 +410,12 @@
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryeHeadRightScript.cpp">
       <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryBullet.cpp">
+      <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryBulletScript.cpp">
+      <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -649,6 +658,12 @@
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryeHeadRightScript.h">
       <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryBullet.h">
+      <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryBulletScript.h">
+      <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

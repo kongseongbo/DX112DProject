@@ -7,6 +7,9 @@
 #include "yaSceneManager.h"
 #include "yaInput.h"
 #include "yaAnimator.h"
+#include "yaMosqueArtilleryBullet.h"
+#include "yaMosqueArtilleryBulletScript.h"
+
 
 namespace ya
 {
@@ -14,6 +17,8 @@ namespace ya
 		: Script()
 		, mbStartAni(false)
 		, stack(0)
+		, eState(State::NONE)
+		, mTime(0.0f)
 	{
 	}
 	MosqueArtilleryeHeadCenterScript::~MosqueArtilleryeHeadCenterScript()
@@ -25,22 +30,47 @@ namespace ya
 		
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MosqueArtilleryeHeadCenter", L"MosqueArtillery\\MosqueArtilleryeHeadCenter.png");
 		ani->Create(L"MosqueArtilleryeHeadCenter", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 138.0f), Vector2(0.0f, 0.0f), 1, 0.2f);
-		
+
 		texture = Resources::Load<Texture>(L"MosqueArtilleryMoon", L"MosqueArtillery\\MosqueArtilleryeHeadCenterOpen.png");
-		ani->Create(L"MosqueArtilleryeHeadCenterOpen", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 148.0f), Vector2(0.0f,-0.035f), 16, 0.2f);
+		ani->Create(L"MosqueArtilleryeHeadCenterOpen", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 148.0f), Vector2(0.0f,-0.02f), 16, 0.2f);
+
+		texture = Resources::Load<Texture>(L"CenterCurtain", L"MosqueArtillery\\MosqueArtilleryeHeadCenterOpen.png");
+		ani->Create(L"CenterCurtain", texture, Vector2(0.0f, 148.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, -0.02f), 12, 0.2f);
+
+		texture = Resources::Load<Texture>(L"CenterAttack", L"MosqueArtillery\\MosqueArtilleryeHeadCenterOpen.png");
+		ani->Create(L"CenterAttack", texture, Vector2(0.0f, 296.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, -0.02f), 5, 0.2f);
 
 		ani->Play(L"MosqueArtilleryeHeadCenter", false);
+
+
+		ani->GetCompleteEvent(L"MosqueArtilleryeHeadCenterOpen") = std::bind(&MosqueArtilleryeHeadCenterScript::NewBoss, this);
 	}
 	void MosqueArtilleryeHeadCenterScript::Update()
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
-		SpriteRenderer* sr = GetOwner()->GetComponent<SpriteRenderer>();
 
 		if (mbStartAni && stack == 0)
 		{
 			ani->Play(L"MosqueArtilleryeHeadCenterOpen", false);
+			
 			stack++;
 		}
+
+		switch (eState)
+		{
+		case ya::MosqueArtilleryeHeadCenterScript::State::IDLE:
+			Idle();
+			break;
+		case ya::MosqueArtilleryeHeadCenterScript::State::ATTCK:
+			Attack();
+			break;
+		case ya::MosqueArtilleryeHeadCenterScript::State::DIE:
+			Die();
+			break;
+		default:
+			break;
+		}
+
 	}
 	void MosqueArtilleryeHeadCenterScript::FixedUpdate()
 	{
@@ -57,13 +87,35 @@ namespace ya
 	void MosqueArtilleryeHeadCenterScript::OnCollisionExit(Collider2D* collider)
 	{
 	}
-	void MosqueArtilleryeHeadCenterScript::OnTriggerEnter(Collider2D* collider)
+
+	void MosqueArtilleryeHeadCenterScript::NewBoss()
+	{
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		ani->Play(L"CenterCurtain", false);
+		eState = State::IDLE;
+	}
+	void MosqueArtilleryeHeadCenterScript::Idle()
+	{
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		mTime += 1.5f * Time::DeltaTime();
+		if (mTime > 4.0f)
+		{
+			MosqueArtilleryBullet* bullet = new MosqueArtilleryBullet();
+			MosqueArtilleryBulletScript* script = bullet->AddComponent<MosqueArtilleryBulletScript>();
+			script->SetPos(pos);
+			ani->Play(L"CenterAttack", false);
+			eState = State::ATTCK;
+
+		}
+
+	}
+	void MosqueArtilleryeHeadCenterScript::Attack()
 	{
 	}
-	void MosqueArtilleryeHeadCenterScript::OnTriggerStay(Collider2D* collider)
-	{
-	}
-	void MosqueArtilleryeHeadCenterScript::OnTriggerExit(Collider2D* collider)
+	void MosqueArtilleryeHeadCenterScript::Die()
 	{
 	}
 }

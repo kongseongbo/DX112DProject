@@ -175,6 +175,8 @@
     <ClInclude Include="yaMachineGunScript.h" />
     <ClInclude Include="yaMapScript.h" />
     <ClInclude Include="yaMosqueArtillery.h" />
+    <ClInclude Include="yaMosqueArtilleryBullet.h" />
+    <ClInclude Include="yaMosqueArtilleryBulletScript.h" />
     <ClInclude Include="yaMosqueArtilleryeHeadCenter.h" />
     <ClInclude Include="yaMosqueArtilleryeHeadCenterScript.h" />
     <ClInclude Include="yaMosqueArtilleryeHeadLeft.h" />
@@ -256,6 +258,8 @@
     <ClCompile Include="yaMachineGunScript.cpp" />
     <ClCompile Include="yaMapScript.cpp" />
     <ClCompile Include="yaMosqueArtillery.cpp" />
+    <ClCompile Include="yaMosqueArtilleryBullet.cpp" />
+    <ClCompile Include="yaMosqueArtilleryBulletScript.cpp" />
     <ClCompile Include="yaMosqueArtilleryeHeadCenter.cpp" />
     <ClCompile Include="yaMosqueArtilleryeHeadCenterScript.cpp" />
     <ClCompile Include="yaMosqueArtilleryeHeadLeft.cpp" />

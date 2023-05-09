@@ -25,7 +25,10 @@ namespace ya
 
 		void SetStartAni(bool start) { mbStartAni = start; }
 
+		void NewBoss();
+
 	private:
+		int stack;
 		bool mbStartAni;
 
 
