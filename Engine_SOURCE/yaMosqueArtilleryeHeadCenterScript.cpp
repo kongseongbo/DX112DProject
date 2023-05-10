@@ -27,7 +27,6 @@ namespace ya
 	void MosqueArtilleryeHeadCenterScript::Initalize()
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
-		
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MosqueArtilleryeHeadCenter", L"MosqueArtillery\\MosqueArtilleryeHeadCenter.png");
 		ani->Create(L"MosqueArtilleryeHeadCenter", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 138.0f), Vector2(0.0f, 0.0f), 1, 0.2f);
 
@@ -97,15 +96,12 @@ namespace ya
 	void MosqueArtilleryeHeadCenterScript::Idle()
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector3 pos = tr->GetPosition();
+		
 
 		mTime += 1.5f * Time::DeltaTime();
 		if (mTime > 4.0f)
 		{
-			MosqueArtilleryBullet* bullet = new MosqueArtilleryBullet();
-			MosqueArtilleryBulletScript* script = bullet->AddComponent<MosqueArtilleryBulletScript>();
-			script->SetPos(pos);
+			
 			ani->Play(L"CenterAttack", false);
 			eState = State::ATTCK;
 
@@ -114,6 +110,18 @@ namespace ya
 	}
 	void MosqueArtilleryeHeadCenterScript::Attack()
 	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		MosqueArtilleryBullet* bullet = new MosqueArtilleryBullet();
+		MosqueArtilleryBulletScript* script = bullet->AddComponent<MosqueArtilleryBulletScript>();
+		script->SetTarget(mPlayer->GetComponent<Transform>()->GetPosition());
+		Transform* bulletTr = bullet->GetComponent<Transform>();
+		bulletTr->SetPosition(Vector3(tr->GetPosition().x, tr->GetPosition().y ,tr->GetPosition().z - 1.0f));
+		
+
+		mTime = 0.0f;
+		eState = State::IDLE;
 	}
 	void MosqueArtilleryeHeadCenterScript::Die()
 	{

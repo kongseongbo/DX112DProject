@@ -23,12 +23,13 @@ namespace ya
 		Scene* playScene = SceneManager::GetActiveScene();
 		playScene->AddGameObject(GetOwner(), eLayerType::MonsterAttack);
 
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 
 		Light* lightComp = GetOwner()->AddComponent<Light>();
 		lightComp->SetType(eLightType::Point);
 		lightComp->SetRadius(2.5f);
 		lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-
 
 		Collider2D* coll = GetOwner()->AddComponent<Collider2D>();
 		coll->SetType(eColliderType::Rect);
@@ -36,14 +37,21 @@ namespace ya
 		coll->SetSize(Vector2(0.1f, 0.1f));
 
 		Animator* ani = GetOwner()->AddComponent<Animator>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"BassBullet", L"Bullet\\BassBullet.png");
-		ani->Create(L"BassBullet", texture, Vector2(0.0f, 0.0f), Vector2(18.0f, 18.0f), Vector2::Zero, 1, 0.3f);
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Bullet", L"MosqueArtillery\\Bullet.png");
+		ani->Create(L"MosqueBullet", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 60.0f), Vector2::Zero, 3, 0.1f);
 	
-		ani->Play(L"BassBullet", true);
+		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
+		sr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+		sr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+
+		ani->Play(L"MosqueBullet", true);
+
 	}
 	void MosqueArtilleryBulletScript::Update()
 	{
-		
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		//ani->Play(L"MosqueBullet", true);
+		Attack(mTargetPos);
 	}
 	void MosqueArtilleryBulletScript::FixedUpdate()
 	{
@@ -53,6 +61,7 @@ namespace ya
 	}
 	void MosqueArtilleryBulletScript::OnCollisionEnter(Collider2D* collider)
 	{
+		GetOwner()->Death();
 	}
 	void MosqueArtilleryBulletScript::OnCollisionStay(Collider2D* collider)
 	{
@@ -62,10 +71,57 @@ namespace ya
 	}
 	void MosqueArtilleryBulletScript::Attack(Vector3 pos)
 	{
+		mTime += 2.0f * Time::DeltaTime();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		//Vector3 pos = tr->GetPosition();
+		Vector3 trPos = tr->GetPosition();
+		
+		//trPos -= tr->Up() * 10.f * Time::DeltaTime();
+		
+		//tr->SetPosition(trPos);
 
-		pos -= tr->Up() * 10.f * Time::DeltaTime();
-		tr->SetPosition(pos);
+		float amplitude = 30.0f; // amplitude of the sine wave
+		float frequency = 1.0f; // frequency of the sine wave
+
+		float dx = mTargetPos.x - trPos.x;
+		float dy = mTargetPos.y - trPos.y;
+		float distance = std::sqrt(dx * dx + dy * dy);
+
+		if (distance > 0.1f)
+		{
+			dx /= distance;
+			dy /= distance;
+
+			
+
+			if (mTime > 1.0f)
+			{
+				std::random_device rd;
+				std::mt19937 eng(rd());
+				std::uniform_real_distribution<> distr(0, 3);
+
+				if (distr(eng) >= 2)
+				{
+					tr->SetRotation(Vector3(0.0f, 0.0f, 90.0f));
+					mTime = 0.0f;
+				}
+
+				if (distr(eng) < 2 && distr(eng) > 1)
+				{
+					tr->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+					mTime = 0.0f;
+				}
+
+				if (distr(eng) <= 1)
+				{
+					tr->SetRotation(Vector3(0.0f, 0.0f, 280.0f));
+					mTime = 0.0f;
+				}
+			}
+			trPos += tr->Right() * dx * 2.0f * Time::DeltaTime();
+			trPos += tr->Up() * dy * 2.0f * Time::DeltaTime();
+
+			// update object position
+			tr->SetPosition(trPos);
+		}
 	}
 }

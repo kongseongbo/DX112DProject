@@ -333,6 +333,7 @@ namespace ya
 			coll->SetSize(Vector2(1.f, 1.f));*/
 
 			mMosqueArtilleryeHeadCenterScript = mosqueArtilleryCenterObj->AddComponent<MosqueArtilleryeHeadCenterScript>();
+			mMosqueArtilleryeHeadCenterScript->SetTarget(headObj);
 
 			SpriteRenderer* sr = mosqueArtilleryCenterObj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
@@ -445,7 +446,7 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::MonsterAttack, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Monster, true);
-
+		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::MonsterAttack, true);
 
 		Scene::Initalize();
 	}

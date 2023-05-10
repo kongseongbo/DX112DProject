@@ -1385,8 +1385,6 @@ namespace ya
 	}
 	void HeadScript::NewMachineGun(Vector3 pos, int direction, bool up)
 	{
-
-
 		for (size_t i = 0; i < 5; i++)
 		{
 			mBullets[i] = new Bullet();

@@ -1,7 +1,7 @@
 
 #pragma once
 #include "yaScript.h"
-
+#include "yaPlayer.h"
 namespace ya
 {
 	class MosqueArtilleryeHeadCenterScript : public Script
@@ -40,7 +40,11 @@ namespace ya
 
 		void SetStartAni(bool start) { mbStartAni = start; }
 
+		void SetTarget(Player* player) { mPlayer = player; }
+
 	private:
+		Player* mPlayer;
+
 		bool mbStartAni;
 		int stack;
 		float mTime;

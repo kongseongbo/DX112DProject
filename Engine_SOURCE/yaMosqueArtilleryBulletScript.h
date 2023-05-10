@@ -31,7 +31,7 @@ namespace ya
 
 		void Attack(Vector3 pos);
 
-		void SetPos(Vector3 pos) { mPos = pos; }
+		void SetTarget(Vector3 pos) { mTargetPos = pos; }
 
 	private:
 		int mDirection;
@@ -39,6 +39,7 @@ namespace ya
 		float mSpeed;
 		float mTime;
 
-		Vector3 mPos;
+		Vector3 mTargetPos;
+
 	};
 }
