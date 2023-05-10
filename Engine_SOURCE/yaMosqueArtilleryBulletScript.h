@@ -24,6 +24,8 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider) {};
 		virtual void OnTriggerExit(Collider2D* collider) {};
 
+		void DeadBullet();
+
 		void SetDirection(int direction) { mDirection = direction; }
 		void SetState(bool state) { mStateUp = state; }
 

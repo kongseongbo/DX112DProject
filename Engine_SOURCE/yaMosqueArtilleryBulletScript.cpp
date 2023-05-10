@@ -39,12 +39,17 @@ namespace ya
 		Animator* ani = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Bullet", L"MosqueArtillery\\Bullet.png");
 		ani->Create(L"MosqueBullet", texture, Vector2(0.0f, 0.0f), Vector2(30.0f, 60.0f), Vector2::Zero, 3, 0.1f);
+
+		texture = Resources::Load<Texture>(L"BulletBomb", L"MosqueArtillery\\BulletBomb.png");
+		ani->Create(L"BulletBomb", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 38.0f), Vector2::Zero, 15, 0.1f);
 	
 		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
 		sr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
 		sr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 
 		ani->Play(L"MosqueBullet", true);
+
+		ani->GetCompleteEvent(L"BulletBomb") = std::bind(&MosqueArtilleryBulletScript::DeadBullet, this);
 
 	}
 	void MosqueArtilleryBulletScript::Update()
@@ -61,13 +66,19 @@ namespace ya
 	}
 	void MosqueArtilleryBulletScript::OnCollisionEnter(Collider2D* collider)
 	{
-		GetOwner()->Death();
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		ani->Play(L"BulletBomb", false);
+		
 	}
 	void MosqueArtilleryBulletScript::OnCollisionStay(Collider2D* collider)
 	{
 	}
 	void MosqueArtilleryBulletScript::OnCollisionExit(Collider2D* collider)
 	{
+	}
+	void MosqueArtilleryBulletScript::DeadBullet()
+	{
+		GetOwner()->Death();
 	}
 	void MosqueArtilleryBulletScript::Attack(Vector3 pos)
 	{
