@@ -7,7 +7,8 @@
 #include "yaSceneManager.h"
 #include "yaInput.h"
 #include "yaAnimator.h"
-
+#include "yaMosqueArtilleryBullet.h"
+#include "yaMosqueArtilleryBulletScript.h"
 
 
 namespace ya
@@ -16,6 +17,9 @@ namespace ya
 		: Script()
 		, mbStartAni(false)
 		, stack(0)
+		, mHp(5)
+		, eState(State::NONE)
+		, mTime(0.0f)
 	{
 	}
 	MosqueArtilleryeHeadLeftScript::~MosqueArtilleryeHeadLeftScript()
@@ -31,7 +35,10 @@ namespace ya
 		texture = Resources::Load<Texture>(L"MosqueArtilleryeHeadLeftOpen", L"MosqueArtillery\\MosqueArtilleryeHeadLeftOpen.png");
 		ani->Create(L"MosqueArtilleryeHeadLeftOpen", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, -0.02f), 16, 0.2f);
 		ani->Create(L"LeftCurtain", texture, Vector2(0.0f, 148.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, -0.02f), 12, 0.2f);
-		ani->Create(L"LeftAttack", texture, Vector2(0.0f, 148.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, -0.02f), 12, 0.2f);
+		ani->Create(L"LeftAttack", texture, Vector2(0.0f, 296.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, -0.02f), 5, 0.2f);
+
+		texture = Resources::Load<Texture>(L"MosqueArtilleryDestroy", L"MosqueArtillery\\MosqueArtilleryDestroy.png");
+		ani->Create(L"LeftDestroy", texture, Vector2(0.0f, 0.0f), Vector2(148.0f, 114.0f), Vector2(0.1f, 0.0f), 1, 0.2f);
 
 		ani->GetCompleteEvent(L"MosqueArtilleryeHeadLeftOpen") = std::bind(&MosqueArtilleryeHeadLeftScript::NewBoss, this);
 
@@ -47,6 +54,21 @@ namespace ya
 
 			stack++;
 		}
+
+		switch (eState)
+		{
+		case ya::MosqueArtilleryeHeadLeftScript::State::IDLE:
+			Idle();
+			break;
+		case ya::MosqueArtilleryeHeadLeftScript::State::ATTCK:
+			Attack();
+			break;
+		case ya::MosqueArtilleryeHeadLeftScript::State::DIE:
+			Die();
+			break;
+		default:
+			break;
+		}
 	}
 	void MosqueArtilleryeHeadLeftScript::FixedUpdate()
 	{
@@ -56,6 +78,14 @@ namespace ya
 	}
 	void MosqueArtilleryeHeadLeftScript::OnCollisionEnter(Collider2D* collider)
 	{
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+
+		mHp--;
+		if (mHp <= 0)
+		{
+			ani->Play(L"LeftDestroy", false);
+			GetOwner()->Pause();
+		}
 	}
 	void MosqueArtilleryeHeadLeftScript::OnCollisionStay(Collider2D* collider)
 	{
@@ -63,18 +93,46 @@ namespace ya
 	void MosqueArtilleryeHeadLeftScript::OnCollisionExit(Collider2D* collider)
 	{
 	}
-	void MosqueArtilleryeHeadLeftScript::OnTriggerEnter(Collider2D* collider)
-	{
-	}
-	void MosqueArtilleryeHeadLeftScript::OnTriggerStay(Collider2D* collider)
-	{
-	}
-	void MosqueArtilleryeHeadLeftScript::OnTriggerExit(Collider2D* collider)
-	{
-	}
+
 	void MosqueArtilleryeHeadLeftScript::NewBoss()
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"LeftCurtain", false);
+		eState = State::IDLE;
+	}
+
+
+	void MosqueArtilleryeHeadLeftScript::Idle()
+	{
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+
+
+		mTime += 1.5f * Time::DeltaTime();
+		if (mTime > 3.0f)
+		{
+
+			ani->Play(L"LeftAttack", false);
+			eState = State::ATTCK;
+
+		}
+
+	}
+	void MosqueArtilleryeHeadLeftScript::Attack()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		MosqueArtilleryBullet* bullet = new MosqueArtilleryBullet();
+		MosqueArtilleryBulletScript* script = bullet->AddComponent<MosqueArtilleryBulletScript>();
+		script->SetTarget(mPlayer->GetComponent<Transform>()->GetPosition());
+		Transform* bulletTr = bullet->GetComponent<Transform>();
+		bulletTr->SetPosition(Vector3(tr->GetPosition().x, tr->GetPosition().y, tr->GetPosition().z - 1.0f));
+
+
+		mTime = 0.0f;
+		eState = State::IDLE;
+	}
+	void MosqueArtilleryeHeadLeftScript::Die()
+	{
 	}
 }

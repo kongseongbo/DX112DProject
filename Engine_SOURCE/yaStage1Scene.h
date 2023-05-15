@@ -34,6 +34,11 @@ namespace ya
 		Transform* mMosqueArtilleryrightTr;
 		Transform* mMosqueArtillerycenterTr;
 
+		GameObject* mosqueArtilleryLeftObj;
+		GameObject* mosqueArtilleryCenterObj;
+		GameObject* mosqueArtilleryRightObj;
+
+
 		MosqueArtilleryeHeadLeftScript* mMosqueArtilleryeHeadLeftScript;
 		MosqueArtilleryeHeadCenterScript* mMosqueArtilleryeHeadCenterScript;
 		MosqueArtilleryeHeadRightScript* mMosqueArtilleryeHeadRightScript;

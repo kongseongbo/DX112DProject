@@ -17,6 +17,7 @@ namespace ya
 		: Script()
 		, mbStartAni(false)
 		, stack(0)
+		, mHp(5)
 		, eState(State::NONE)
 		, mTime(0.0f)
 	{
@@ -38,6 +39,11 @@ namespace ya
 
 		texture = Resources::Load<Texture>(L"CenterAttack", L"MosqueArtillery\\MosqueArtilleryeHeadCenterOpen.png");
 		ani->Create(L"CenterAttack", texture, Vector2(0.0f, 296.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, -0.02f), 5, 0.2f);
+
+		texture = Resources::Load<Texture>(L"MosqueArtilleryDestroy", L"MosqueArtillery\\MosqueArtilleryDestroy.png");
+		//ani->Create(L"RightDestroy", texture, Vector2(0.0f, 0.0f), Vector2(148.0f, 112.0f), Vector2(0.0f, -0.02f), 1, 0.2f);
+		ani->Create(L"CenterDestroy", texture, Vector2(0.0f, 112.0f), Vector2(148.0f, 224.0f), Vector2(0.0f, 0.15f), 1, 0.2f);
+		//ani->Create(L"LeftDestroy", texture, Vector2(0.0f, 224.0f), Vector2(148.0f, 335.0f), Vector2(0.0f, -0.02f), 1, 0.2f);
 
 		ani->Play(L"MosqueArtilleryeHeadCenter", false);
 
@@ -79,6 +85,15 @@ namespace ya
 	}
 	void MosqueArtilleryeHeadCenterScript::OnCollisionEnter(Collider2D* collider)
 	{
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+
+		mHp--;
+		if (mHp <= 0)
+		{
+			ani->Play(L"CenterDestroy", false);
+			GetOwner()->Pause();
+		}
+
 	}
 	void MosqueArtilleryeHeadCenterScript::OnCollisionStay(Collider2D* collider)
 	{

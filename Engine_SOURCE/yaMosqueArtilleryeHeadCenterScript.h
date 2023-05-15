@@ -46,6 +46,7 @@ namespace ya
 		Player* mPlayer;
 
 		bool mbStartAni;
+		int mHp;
 		int stack;
 		float mTime;
 	};
