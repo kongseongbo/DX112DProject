@@ -18,11 +18,12 @@ namespace ya
 
 	ArabianScript::ArabianScript()
 		: Script()
-		, mArabianAni(nullptr)
+		, mAni(nullptr)
 		, mTr(nullptr)
 		, mTime(0.0f)
 		, direction(-1)
 		, index(0)
+		, mArabianState(ArabianState::NEW)
 	{
 		
 	}
@@ -32,37 +33,34 @@ namespace ya
 	}
 	void ArabianScript::Initalize()
 	{
-		mArabianState = ArabianState::NEW;
-
+		mTr = GetOwner()->GetComponent<Transform>();
+	
 		Collider2D* arabianColl = GetOwner()->AddComponent<Collider2D>();
 		arabianColl->SetType(eColliderType::Rect);
 		arabianColl->SetCenter(Vector2(0.0f, 0.0f));
 		arabianColl->SetSize(Vector2(0.2f, 0.2f));
 
-		//GetOwner()->AddComponent<Rigidbody>();
-		mTr = GetOwner()->GetComponent<Transform>();
-
-		mArabianAni = GetOwner()->AddComponent<Animator>();
+		mAni = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"ArabianIdle", L"Arabian\\Idle.png");
-		mArabianAni->Create(L"LeftIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 55.0f), Vector2::Zero, 6, 0.25f);
+		mAni->Create(L"LeftIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 55.0f), Vector2::Zero, 6, 0.25f);
 		
 		texture = Resources::Load<Texture>(L"ArabianMove", L"Arabian\\Move.png");
-		mArabianAni->Create(L"LeftMove", texture, Vector2(0.0f, 0.0f), Vector2(54.0f, 52.0f), Vector2(0.05f, 0.0f), 12, 0.1f);
+		mAni->Create(L"LeftMove", texture, Vector2(0.0f, 0.0f), Vector2(54.0f, 52.0f), Vector2(0.05f, 0.0f), 12, 0.1f);
 
 		texture = Resources::Load<Texture>(L"ArabianAttack", L"Arabian\\Attack.png");
-		mArabianAni->Create(L"LeftAttack", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 65.0f), Vector2::Zero, 8, 0.1f);
+		mAni->Create(L"LeftAttack", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 65.0f), Vector2::Zero, 8, 0.1f);
 
 		texture = Resources::Load<Texture>(L"ArabianDeath", L"Arabian\\Death.png");
-		mArabianAni->Create(L"LeftDeath", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 50.0f), Vector2::Zero, 11, 0.1f);
+		mAni->Create(L"LeftDeath", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 50.0f), Vector2::Zero, 11, 0.1f);
 		
 		texture = Resources::Load<Texture>(L"BombDeath", L"Arabian\\BombDeath.png");
-		mArabianAni->Create(L"BombDeath", texture, Vector2(0.0f, 0.0f), Vector2(80.0f, 60.0f), Vector2::Zero, 13, 0.1f);
+		mAni->Create(L"BombDeath", texture, Vector2(0.0f, 0.0f), Vector2(80.0f, 60.0f), Vector2::Zero, 13, 0.1f);
 
 		texture = Resources::Load<Texture>(L"ArabianAttack2", L"Arabian\\Attack2.png");
-		mArabianAni->Create(L"LeftKnifeAttack2", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 60.0f), Vector2(0.0f, -0.05), 19, 0.1f);
+		mAni->Create(L"LeftKnifeAttack2", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 60.0f), Vector2(0.0f, -0.05), 19, 0.1f);
 
 		texture = Resources::Load<Texture>(L"S", L"Arabian\\S.png");
-		mArabianAni->Create(L"S", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 55.0f), Vector2(0.01f, 0.0f), 4, 0.3f);
+		mAni->Create(L"S", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 55.0f), Vector2(0.01f, 0.0f), 4, 0.3f);
 
 		SpriteRenderer* arabianSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> arabianMaterial = Resources::Find<Material>(L"SpriteMaterial");
@@ -70,11 +68,11 @@ namespace ya
 		arabianSr->SetMaterial(arabianMaterial);
 		arabianSr->SetMesh(mesh);
 
-		mArabianAni->GetCompleteEvent(L"LeftAttack") = std::bind(&ArabianScript::Attack, this);
-		mArabianAni->GetCompleteEvent(L"LeftKnifeAttack2") = std::bind(&ArabianScript::Attack, this);
+		mAni->GetCompleteEvent(L"LeftAttack") = std::bind(&ArabianScript::Attack, this);
+		mAni->GetCompleteEvent(L"LeftKnifeAttack2") = std::bind(&ArabianScript::Attack, this);
 		//mArabianAni->GetEvent(L"LeftKnifeAttack2", 4) = std::bind(&ArabianScript::AttackKnife, this);
 
-		mArabianAni->Play(L"LeftMove", true);
+		mAni->Play(L"LeftMove", true);
 	}
 	void ArabianScript::Update()
 	{
@@ -111,20 +109,20 @@ namespace ya
 	{
 		if (collider->GetOwner()->GetName() == L"Head")
 		{
-			mArabianAni->Play(L"LeftAttack", false);
+			mAni->Play(L"LeftAttack", false);
 			//mArabianState = ArabianState::ATTACK;
 		}
 
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
 		{
-			mArabianAni->Play(L"LeftDeath", false);
+			mAni->Play(L"LeftDeath", false);
 			mArabianState = ArabianState::DEATH;
 			mTime = 0.0f;
 		}
 
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Bomb)
 		{
-			mArabianAni->Play(L"BombDeath", false);
+			mAni->Play(L"BombDeath", false);
 			mArabianState = ArabianState::DEATH;
 			mTime = 0.0f;
 		}
@@ -153,7 +151,7 @@ namespace ya
 		mTime += Time::DeltaTime();
 		if (mTime > 0.5f)
 		{
-			mArabianAni->Play(L"LeftIdle", true);
+			mAni->Play(L"LeftIdle", true);
 			mArabianState = ArabianState::IDLE;
 			mTime = 0.0f;
 		}
@@ -176,7 +174,7 @@ namespace ya
 
 		if (a == 1)
 		{
-			mArabianAni->Play(L"LeftKnifeAttack2", false);
+			mAni->Play(L"LeftKnifeAttack2", false);
 			AttackKnife();
 		}
 
@@ -184,14 +182,14 @@ namespace ya
 		{
 			mTime = 0.0f;
 			direction = 1;
-			mArabianAni->Play(L"S", true);
+			mAni->Play(L"S", true);
 			mArabianState = ArabianState::MOVE;
 		}
 		if (a == 3)
 		{
 			mTime = 0.0f;
 			direction = 0;
-			mArabianAni->Play(L"S", true);
+			mAni->Play(L"S", true);
 			mArabianState = ArabianState::MOVE;
 		}
 	}
@@ -208,7 +206,7 @@ namespace ya
 
 			if (mTime > 1.0f)
 			{
-				mArabianAni->Play(L"LeftIdle", true);
+				mAni->Play(L"LeftIdle", true);
 				mArabianState = ArabianState::IDLE;
 				mTime = 0.0f;
 			}
@@ -222,7 +220,7 @@ namespace ya
 
 			if (mTime > 1.0f)
 			{
-				mArabianAni->Play(L"LeftIdle", true);
+				mAni->Play(L"LeftIdle", true);
 				mArabianState = ArabianState::IDLE;
 				mTime = 0.0f;
 
@@ -231,7 +229,7 @@ namespace ya
 	}
 	void ArabianScript::Attack()
 	{
-		mArabianAni->Play(L"LeftIdle", true);
+		mAni->Play(L"LeftIdle", true);
 		mArabianState = ArabianState::IDLE;
 	}
 	void ArabianScript::Death()

@@ -1,38 +1,45 @@
 #include "yaStage1Scene.h"
+#include "yaGridScript.h"
 #include "yaTransform.h"
 #include "yaMeshRenderer.h"
 #include "yaRenderer.h"
 #include "yaResources.h"
 #include "yaTexture.h"
-#include "yaPlayerScript.h"
 #include "yaCamera.h"
 #include "yaCameraScript.h"
 #include "yaSpriteRenderer.h"
-#include "yaGridScript.h"
-#include "yaObject.h"
 #include "yaInput.h"
-#include "yaFadeInOutScript.h"
+#include "yaTime.h"
+#include "yaObject.h"
 #include "yaCollider2D.h"
-#include "yaMonster.h"
 #include "yaCollisionManager.h"
-#include "yaLight.h"
 #include "yaRigidbody.h"
 #include "yaPaintShader.h"
+
 #include "yaMapScript.h"
+
+#include "yaPlayerScript.h"
 #include "yaHeadScript.h"
 #include "yaBodyScript.h"
-#include "yaParticleSystem.h"
 #include "yaMachineGunScript.h"
 #include "yaMachineGun.h"
+
+#include "yaLight.h"
+#include "yaParticleSystem.h"
+#include "yaParachute.h"
+#include "yaParachuteScript.h"
+
+
+#include "yaMonster.h"
+#include "yaArabian.h"
+#include "yaArabianScript.h"
 #include "yaHelicopter.h"
 #include "yaHelicopterScript.h"
 #include "yaMosqueArtilleryScript.h"
-#include "yaArabian.h"
-#include "yaArabianScript.h"
-#include "yaTime.h"
-#include "yaParachute.h"
-#include "yaParachuteScript.h"
 #include "yaMosqueArtilleryeHeadCenter.h"
+#include "yaCamelArabianScript.h"
+
+#include "yaFadeInOutScript.h"
 
 namespace ya
 {
@@ -63,21 +70,21 @@ namespace ya
 
 		// Light
 		{
-			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, this);
+			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Camera, this);
 			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
 			Light* lightComp = directionalLight->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 		{
-			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, this);
+			/*GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, this);
 			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
 			Light* lightComp = directionalLight->AddComponent<Light>();
 			lightComp->SetType(eLightType::Point);
 			lightComp->SetRadius(5.0f);
-			lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+			lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));*/
 		}
-
+#pragma region CAMERA
 		// Main Camera
 		{
 			mCameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
@@ -86,16 +93,18 @@ namespace ya
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			CameraScript* cameraScript = mCameraObj->AddComponent<CameraScript>();
 			mainCamera = cameraComp;
-
-			
-			
+		}
+		// UI Camera	
+		{
 			GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 			Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
 			cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 			cameraUIComp->DisableLayerMasks();
 			cameraUIComp->TurnLayerMask(eLayerType::UI, true);
 		}
-		
+#pragma endregion
+
+#pragma region MAP
 		// Map
 		GameObject* mapObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 		mapObj->SetName(L"Mission1Map");
@@ -108,6 +117,7 @@ namespace ya
 		std::shared_ptr<Material> mapMaterial = Resources::Find<Material>(L"MapMaterial");
 		mapMr->SetMaterial(mapMaterial);
 		mapMr->SetMesh(mesh);
+#pragma endregion
 
 #pragma region MAP GROUND COLLIDER
 		{
@@ -188,7 +198,7 @@ namespace ya
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
 			//headTr->SetPosition(Vector3(-75.0f, 3.0f, 5.0f));
-			headTr->SetPosition(Vector3(42.0f, 3.0f, 5.0f)); //47
+			headTr->SetPosition(Vector3(-15.0f, 3.0f, 5.0f)); //47
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
@@ -377,15 +387,31 @@ namespace ya
 		mosqueArtilleryObj->AddComponent<MosqueArtilleryScript>();
 #pragma endregion
 		
-		// Helicopter Object
-		Helicopter* heliObj = object::Instantiate<Helicopter>(eLayerType::Monster, this);
-		heliObj->SetName(L"Helicopter");
-		Transform* heliTr = heliObj->GetComponent<Transform>();
-		heliTr->SetPosition(Vector3(3.0f, 5.0f, 5.0f));
-		heliTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-		//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+#pragma region HELICOPTER
+		{
+			Helicopter* heliObj = object::Instantiate<Helicopter>(eLayerType::Monster, this);
+			heliObj->SetName(L"Helicopter");
+			Transform* heliTr = heliObj->GetComponent<Transform>();
+			heliTr->SetPosition(Vector3(3.0f, 5.0f, 5.0f));
+			heliTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 
-		heliObj->AddComponent<HelicopterScript>();
+			heliObj->AddComponent<HelicopterScript>();
+		}
+#pragma endregion
+
+#pragma region CAMELARABIAN
+		{
+			GameObject* CamelArabian = object::Instantiate<GameObject>(eLayerType::Monster, this);
+			CamelArabian->SetName(L"CamelArabian");
+			Transform* tr = CamelArabian->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-10.0f, -2.0f, 5.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CamelArabian->AddComponent<CamelArabianScript>();
+		}
+#pragma endregion
+
 
 		// MachineGunItem
 		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
@@ -409,36 +435,36 @@ namespace ya
 		machineGunSr->SetMesh(mesh);
 		machineGunAni->Play(L"MachineGunItem", true);
 
-		// HPBAR
-		GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI, this);
-		hpBar->SetName(L"HPBAR");
-		Transform* hpBarTR = hpBar->GetComponent<Transform>();
-		hpBarTR->SetPosition(Vector3(-5.0f, 3.0f, 6.0f));
-		hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+		//// HPBAR
+		//GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI, this);
+		//hpBar->SetName(L"HPBAR");
+		//Transform* hpBarTR = hpBar->GetComponent<Transform>();
+		//hpBarTR->SetPosition(Vector3(-5.0f, 3.0f, 6.0f));
+		//hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
-		SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> hpspriteMaterial = Resources::Find<Material>(L"UIMaterial");
-		hpsr->SetMesh(hpmesh);
-		hpsr->SetMaterial(hpspriteMaterial);
+		//SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
+		//std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
+		//std::shared_ptr<Material> hpspriteMaterial = Resources::Find<Material>(L"UIMaterial");
+		//hpsr->SetMesh(hpmesh);
+		//hpsr->SetMaterial(hpspriteMaterial);
 
-		// FadeInOut
-		GameObject* fadeObject = object::Instantiate<GameObject>(eLayerType::FadeIn, this);
-		Transform* fadeTr = fadeObject->GetComponent<Transform>();
-		fadeTr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
-		SpriteRenderer* fadeMr = fadeObject->AddComponent<SpriteRenderer>();
-		fadeMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
-		fadeObject->AddComponent<FadeInOutScript>();
+		//// FadeInOut
+		//GameObject* fadeObject = object::Instantiate<GameObject>(eLayerType::FadeIn, this);
+		//Transform* fadeTr = fadeObject->GetComponent<Transform>();
+		//fadeTr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
+		//SpriteRenderer* fadeMr = fadeObject->AddComponent<SpriteRenderer>();
+		//fadeMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//fadeMr->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
+		//fadeObject->AddComponent<FadeInOutScript>();
 
-		//Particle
-		/*{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
-			obj->SetName(L"PARTICLE");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
-			obj->AddComponent<ParticleSystem>();
-		}*/
+		////Particle
+		//{
+		//	GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
+		//	obj->SetName(L"PARTICLE");
+		//	Transform* tr = obj->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
+		//	obj->AddComponent<ParticleSystem>();
+		//}
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MapLine, true);
@@ -496,9 +522,10 @@ namespace ya
 			{
 				if (mosqueArtilleryLeftObj->GetState() == GameObject::Paused && mosqueArtilleryCenterObj->GetState() == GameObject::Paused && mosqueArtilleryRightObj->GetState() == GameObject::Paused)
 				{
-					//mapScript->SetPlayerCamera(true);
+					mapScript->SetPlayerCamera(true);
 					pos = headPos;
-					cameraTr->SetPosition(Vector3(cameraTr->GetPosition().x, 1.2f, 5.0f));
+					cameraTr->SetPosition(Vector3(pos.x, 1.2f, 5.0f));
+					camera->SetRatio(50.0f);
 				}
 				else
 				{
@@ -530,12 +557,8 @@ namespace ya
 			}
 			else
 			{
-				//pos = headPos;
 				cameraTr->SetPosition(Vector3(pos.x, 1.2f, 5.0f));
-				//cameraTr->SetPosition(Vector3(headPos.x, cameraTr->GetPosition().y, headPos.z));
 			}
-
-			
 		}
 
 

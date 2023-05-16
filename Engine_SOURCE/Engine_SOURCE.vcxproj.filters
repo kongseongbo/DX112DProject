@@ -184,6 +184,9 @@
     <Filter Include="Component\Script\MosqueArtillery\Bullet">
       <UniqueIdentifier>{9be6e9a5-68e0-4cff-9899-68c285a95e78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\CamelArabian">
+      <UniqueIdentifier>{ccd7b712-1de7-475b-86d4-8f1c89ace250}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -416,6 +419,9 @@
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryBulletScript.cpp">
       <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCamelArabianScript.cpp">
+      <Filter>Component\Script\CamelArabian</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -664,6 +670,9 @@
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryBulletScript.h">
       <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCamelArabianScript.h">
+      <Filter>Component\Script\CamelArabian</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
