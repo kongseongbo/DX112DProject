@@ -5,6 +5,9 @@
 #include "yaMesh.h"
 #include "yaObject.h"
 #include "yaInput.h"
+#include "yaSceneManager.h"
+#include "yaScene.h"
+#include "yaDeathScript.h"
 
 
 namespace ya
@@ -12,6 +15,7 @@ namespace ya
 	CamelArabianScript::CamelArabianScript()
 		: Script()
 		, eCamelArabianState(CamelArabianState::NEW)
+		, obj (nullptr)
 		, mTr(nullptr)
 		, mTime(0.0f)
 		, direction(0)
@@ -43,6 +47,12 @@ namespace ya
 		texture = Resources::Load<Texture>(L"Attack", L"CamelArabian\\Attack.png");
 		ani->Create(L"Attack", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 100.0f), Vector2::Zero, 10, 0.1f);
 
+		texture = Resources::Load<Texture>(L"DownAttack", L"CamelArabian\\DownAttack.png");
+		ani->Create(L"DownAttack", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 100.0f), Vector2::Zero, 13, 0.15f);
+
+		texture = Resources::Load<Texture>(L"DeathRun", L"CamelArabian\\DeathRun.png");
+		ani->Create(L"DeathRun", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 100.0f), Vector2::Zero, 12, 0.15f);
+
 		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -56,6 +66,9 @@ namespace ya
 	}
 	void CamelArabianScript::Update()
 	{
+
+		
+
 		switch (eCamelArabianState)
 		{
 		case ya::CamelArabianScript::CamelArabianState::NEW:
@@ -73,8 +86,8 @@ namespace ya
 		case ya::CamelArabianScript::CamelArabianState::DOWNATTACK:
 			DownAttack();
 			break;
-		case ya::CamelArabianScript::CamelArabianState::DEATH:
-			Death();
+		case ya::CamelArabianScript::CamelArabianState::DIE:
+			Die();
 			break;
 		default:
 			break;
@@ -106,37 +119,93 @@ namespace ya
 		eCamelArabianState = CamelArabianState::IDLE;
 		mTime += 2.0f * Time::DeltaTime();
 
+		std::random_device rd;
+		std::mt19937 eng(rd());
+		std::uniform_real_distribution<> distr(0, 4);
+
+		int a = 0;
+
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"Idle", true);
 
-		if (mTime > 3.0f)
+		if (mTime > 1.0f)
 		{
+			direction = distr(eng);
 			ani->Play(L"Move", true);
 			eCamelArabianState = CamelArabianState::MOVE;
 			mTime = 0.0f;
 		}
 
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			ani->Play(L"DeathRun", true);
+			eCamelArabianState = CamelArabianState::DIE;
+		}
+
 	}
 	void CamelArabianScript::Move()
 	{
-		mTr->SetPosition(Vector3(mTr->GetPosition().x - Time::DeltaTime(), mTr->GetPosition().y, mTr->GetPosition().z));
-
-		mTime += 2.0f * Time::DeltaTime();
+		//mTr->SetPosition(Vector3(mTr->GetPosition().x - Time::DeltaTime(), mTr->GetPosition().y, mTr->GetPosition().z));
 		Animator* ani = GetOwner()->GetComponent<Animator>();
-		if (mTime > 3.0f)
+
+			mTime += 2.0f * Time::DeltaTime();
+		if (direction == 0 || direction == 1)
 		{
-			ani->Play(L"Attack", true);
+			Vector3 pos = mTr->GetPosition();
+			if(direction == 0)
+				pos.x -= 2.0f * Time::DeltaTime();
+			if(direction == 1)
+				pos.x += 2.0f * Time::DeltaTime();
+			mTr->SetPosition(pos);
+
+			if (mTime > 2.0f)
+			{
+				ani->Play(L"Idle", true);
+				eCamelArabianState = CamelArabianState::IDLE;
+				mTime = 0.0f;
+			}
+		}
+
+		if (direction == 2 )
+		{
+			ani->Play(L"Attack", false);
 			eCamelArabianState = CamelArabianState::ATTACK;
 			mTime = 0.0f;
 		}
+
+		if (direction == 3)
+		{
+			ani->Play(L"DownAttack", false);
+			eCamelArabianState = CamelArabianState::ATTACK;
+			mTime = 0.0f;
+		}
+
 	}
 	void CamelArabianScript::Attack()
 	{
+		mTime += 2.0f * Time::DeltaTime();
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		if (mTime > 1.0f)
+		{
+			ani->Play(L"Idle", true);
+			eCamelArabianState = CamelArabianState::IDLE;
+			mTime = 0.0f;
+		}
 	}
 	void CamelArabianScript::DownAttack()
 	{
 	}
-	void CamelArabianScript::Death()
+	void CamelArabianScript::Die()
 	{
+		if (obj == nullptr)
+		{
+			obj = new CamelArabianDeathObj();
+			DeathScript* scr = obj->AddComponent<DeathScript>();
+			Transform* objTr = scr->GetOwner()->GetComponent<Transform>();
+			objTr->SetPosition(mTr->GetPosition());
+			objTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+		}
+		mTr->SetPosition(Vector3(mTr->GetPosition().x - (10.0f * Time::DeltaTime()), mTr->GetPosition().y, mTr->GetPosition().z));
+		
 	}
 }

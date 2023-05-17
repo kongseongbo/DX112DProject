@@ -1,7 +1,7 @@
 #pragma once
 #include "yaScript.h"
 #include "yaAnimator.h"
-
+#include "yaCamelArabianDeathObj.h"
 
 namespace ya
 {
@@ -16,7 +16,7 @@ namespace ya
 			MOVE,
 			ATTACK,
 			DOWNATTACK,
-			DEATH,
+			DIE,
 		};
 		CamelArabianState eCamelArabianState;
 
@@ -41,11 +41,13 @@ namespace ya
 		void Move();
 		void Attack();
 		void DownAttack();
-		void Death();
+		void Die();
 
 		void SetIndex(int a) { index = a; }
 
 	private:
+		CamelArabianDeathObj* obj;
+
 		Transform* mTr;
 		float mTime;
 

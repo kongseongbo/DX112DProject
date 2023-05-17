@@ -187,6 +187,9 @@
     <Filter Include="Component\Script\CamelArabian">
       <UniqueIdentifier>{ccd7b712-1de7-475b-86d4-8f1c89ace250}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\CamelArabian\DeathObj">
+      <UniqueIdentifier>{1f3297e7-54c7-4d5c-a5de-44ab72320437}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -422,6 +425,12 @@
     </ClCompile>
     <ClCompile Include="yaCamelArabianScript.cpp">
       <Filter>Component\Script\CamelArabian</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDeathScript.cpp">
+      <Filter>Component\Script\CamelArabian</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCamelArabianDeathObj.cpp">
+      <Filter>Component\Script\CamelArabian\DeathObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -673,6 +682,12 @@
     </ClInclude>
     <ClInclude Include="yaCamelArabianScript.h">
       <Filter>Component\Script\CamelArabian</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDeathScript.h">
+      <Filter>Component\Script\CamelArabian</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCamelArabianDeathObj.h">
+      <Filter>Component\Script\CamelArabian\DeathObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
