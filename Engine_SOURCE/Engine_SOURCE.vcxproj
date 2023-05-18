@@ -155,7 +155,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="yaCamelArabianDeathObj.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="yaArabian.h" />
     <ClInclude Include="yaArabianKnife.h" />
@@ -167,6 +166,7 @@
     <ClInclude Include="yaBombScript.h" />
     <ClInclude Include="yaBullet.h" />
     <ClInclude Include="yaBulletScript.h" />
+    <ClInclude Include="yaCamelArabianBulletScript.h" />
     <ClInclude Include="yaCamelArabianScript.h" />
     <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaDeathScript.h" />
@@ -242,7 +242,6 @@
     <ClInclude Include="yaTransform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="yaCamelArabianDeathObj.cpp" />
     <ClCompile Include="yaArabian.cpp" />
     <ClCompile Include="yaArabianKnife.cpp" />
     <ClCompile Include="yaArabianKnifeScript.cpp" />
@@ -253,6 +252,7 @@
     <ClCompile Include="yaBombScript.cpp" />
     <ClCompile Include="yaBullet.cpp" />
     <ClCompile Include="yaBulletScript.cpp" />
+    <ClCompile Include="yaCamelArabianBulletScript.cpp" />
     <ClCompile Include="yaCamelArabianScript.cpp" />
     <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaDeathScript.cpp" />

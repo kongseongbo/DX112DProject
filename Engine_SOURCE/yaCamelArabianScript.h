@@ -1,7 +1,7 @@
 #pragma once
 #include "yaScript.h"
 #include "yaAnimator.h"
-#include "yaCamelArabianDeathObj.h"
+
 
 namespace ya
 {
@@ -43,15 +43,20 @@ namespace ya
 		void DownAttack();
 		void Die();
 
+		void CreateBullet();
+
 		void SetIndex(int a) { index = a; }
 
 	private:
-		CamelArabianDeathObj* obj;
+		GameObject* obj;
+		GameObject* mBullet;
 
 		Transform* mTr;
 		float mTime;
 
 		int direction;
 		int index;
+
+		bool mbBullet;
 	};
 }

@@ -486,6 +486,8 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::MonsterAttack, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::MiddleBoss, true);
 
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Map, true);
+
 
 		Scene::Initalize();
 	}

@@ -40,8 +40,8 @@ namespace ya
 
 			return mIndex;
 		}
-
-		return -1;
+		
+		return mIndex;
 	}
 
 	void Animation::FixedUpdate()

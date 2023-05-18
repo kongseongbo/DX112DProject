@@ -51,7 +51,7 @@ namespace ya
 		UINT spriteIndex = mActiveAnimation->Update();
 		if (spriteIndex != -1 && events->mEvents[spriteIndex].mEvent)
 			events->mEvents[spriteIndex].mEvent();
-
+		
 		mActiveAnimation->Update();
 	}
 	void Animator::FixedUpdate()
@@ -167,7 +167,7 @@ namespace ya
 	std::function<void()>& Animator::GetEvent(const std::wstring& name, UINT index)
 	{
 		Events* events = FindEvents(name);
-
+		
 		return events->mEvents[index].mEvent;
 	}
 }
