@@ -13,6 +13,7 @@ namespace ya
 {
 	DeathScript::DeathScript()
 		: Script()
+		, mTime(0.0f)
 	{
 	}
 	DeathScript::~DeathScript()
@@ -21,11 +22,10 @@ namespace ya
 	void DeathScript::Initalize()
 	{
 		Scene* playScene = SceneManager::GetActiveScene();
-		playScene->AddGameObject(GetOwner(), eLayerType::Monster);
+		playScene->AddGameObject(GetOwner(), eLayerType::Obj);
 
 		Collider2D* arabianColl = GetOwner()->AddComponent<Collider2D>();
 		arabianColl->SetType(eColliderType::Rect);
-		//arabianColl->SetCenter(Vector2(0.0f, 0.0f));
 		arabianColl->SetSize(Vector2(0.1f, 0.2f));
 
 		Rigidbody* rigid = GetOwner()->AddComponent<Rigidbody>();
@@ -45,6 +45,9 @@ namespace ya
 	}
 	void DeathScript::Update()
 	{
+		mTime += 2.0f * Time::DeltaTime();
+		if (mTime > 6.0f)
+			GetOwner()->Death();
 	}
 	void DeathScript::FixedUpdate()
 	{
@@ -59,6 +62,5 @@ namespace ya
 			Rigidbody* rigid = GetOwner()->GetComponent<Rigidbody>();
 			rigid->SetGround(true);
 		}
-		
 	}
 }

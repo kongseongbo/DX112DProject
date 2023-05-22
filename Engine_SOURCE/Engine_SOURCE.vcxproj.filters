@@ -103,9 +103,6 @@
     <Filter Include="Component\Script\Player">
       <UniqueIdentifier>{5c845604-1588-43e9-b6b5-c3d054968741}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Monster">
-      <UniqueIdentifier>{b03a0529-4c1b-483e-ac02-82542e97d9a5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Script\CharacterSelect">
       <UniqueIdentifier>{e447bd11-a99f-4e9f-939e-d63af0f2bc44}</UniqueIdentifier>
     </Filter>
@@ -139,12 +136,6 @@
     <Filter Include="Component\Shader">
       <UniqueIdentifier>{2ef2a40d-089b-4268-8761-c5294316cd90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Helicopter">
-      <UniqueIdentifier>{9f12889e-aa34-43f3-b812-0ed2fd113ebb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Script\MosqueArtillery">
-      <UniqueIdentifier>{b7468644-d590-4697-be69-6771a3aae82a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Script\Camera">
       <UniqueIdentifier>{33b49647-a7fd-4754-9270-59ae03c8e409}</UniqueIdentifier>
     </Filter>
@@ -154,14 +145,8 @@
     <Filter Include="Component\Script\FadeInOut">
       <UniqueIdentifier>{2338aeba-4404-4353-ae9f-86321019a749}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Arabian">
-      <UniqueIdentifier>{af48efa5-f7c4-401f-bc49-229141716f26}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Script\Player\Bomb">
       <UniqueIdentifier>{15caf18c-4441-4530-a55c-8d08e8a16fea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Script\Arabian\Knife">
-      <UniqueIdentifier>{d4e8e302-32a2-4649-94d8-0a0dc5dba5eb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Script\Player\Bullet">
       <UniqueIdentifier>{cf5d5b92-0309-4d29-b244-f4059f86744f}</UniqueIdentifier>
@@ -169,23 +154,53 @@
     <Filter Include="Component\Script\Player\Parachute">
       <UniqueIdentifier>{3fb333f8-2bf4-4f8e-b027-965177a5eb2a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\MosqueArtillery\Base">
+    <Filter Include="Component\Script\Enemy">
+      <UniqueIdentifier>{1fffa478-6444-455a-b00a-86c9f369283f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Arabian">
+      <UniqueIdentifier>{af48efa5-f7c4-401f-bc49-229141716f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Arabian\Knife">
+      <UniqueIdentifier>{d4e8e302-32a2-4649-94d8-0a0dc5dba5eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Helicopter">
+      <UniqueIdentifier>{9f12889e-aa34-43f3-b812-0ed2fd113ebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Monster">
+      <UniqueIdentifier>{b03a0529-4c1b-483e-ac02-82542e97d9a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\MosqueArtillery">
+      <UniqueIdentifier>{b7468644-d590-4697-be69-6771a3aae82a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\MosqueArtillery\Base">
       <UniqueIdentifier>{8521c178-a229-4dd8-b6cf-ec07094fc403}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\MosqueArtillery\HeadLeft">
+    <Filter Include="Component\Script\Enemy\MosqueArtillery\HeadLeft">
       <UniqueIdentifier>{f3dfc218-8c6b-431a-bb67-deb5c6751d93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\MosqueArtillery\HeadCenter">
+    <Filter Include="Component\Script\Enemy\MosqueArtillery\HeadCenter">
       <UniqueIdentifier>{c339b5d7-4de2-4ef9-9eba-b9629e554c80}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\MosqueArtillery\HeadRight">
+    <Filter Include="Component\Script\Enemy\MosqueArtillery\HeadRight">
       <UniqueIdentifier>{9dd6fd50-8be7-46af-8d72-562c153b2410}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\MosqueArtillery\Bullet">
+    <Filter Include="Component\Script\Enemy\MosqueArtillery\Bullet">
       <UniqueIdentifier>{9be6e9a5-68e0-4cff-9899-68c285a95e78}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\CamelArabian">
+    <Filter Include="Component\Script\Enemy\Bradley">
+      <UniqueIdentifier>{e3ee1415-9f33-4fcd-8f3f-adda837c1c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\CamelArabian">
       <UniqueIdentifier>{ccd7b712-1de7-475b-86d4-8f1c89ace250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\CamelArabian\Bullet">
+      <UniqueIdentifier>{93d216cb-972d-446f-bcc4-7d24132d8680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Bradley\Bullet">
+      <UniqueIdentifier>{98d649f4-36fe-4e8e-ac05-d71ec31a1456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Bradley\Bullet\Obj">
+      <UniqueIdentifier>{ef5b399a-651f-4248-9b4b-371687560805}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -289,7 +304,7 @@
       <Filter>Scene\Stage1</Filter>
     </ClCompile>
     <ClCompile Include="yaMonster.cpp">
-      <Filter>Component\Script\Monster</Filter>
+      <Filter>Component\Script\Enemy\Monster</Filter>
     </ClCompile>
     <ClCompile Include="yaCharacterSelect.cpp">
       <Filter>Component\Script\CharacterSelect</Filter>
@@ -358,10 +373,10 @@
       <Filter>Component\Script\Player\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="yaHelicopter.cpp">
-      <Filter>Component\Script\Helicopter</Filter>
+      <Filter>Component\Script\Enemy\Helicopter</Filter>
     </ClCompile>
     <ClCompile Include="yaHelicopterScript.cpp">
-      <Filter>Component\Script\Helicopter</Filter>
+      <Filter>Component\Script\Enemy\Helicopter</Filter>
     </ClCompile>
     <ClCompile Include="yaScript.cpp">
       <Filter>Component\Script\Base</Filter>
@@ -373,16 +388,16 @@
       <Filter>Component\Script\FadeInOut</Filter>
     </ClCompile>
     <ClCompile Include="yaArabian.cpp">
-      <Filter>Component\Script\Arabian</Filter>
+      <Filter>Component\Script\Enemy\Arabian</Filter>
     </ClCompile>
     <ClCompile Include="yaArabianScript.cpp">
-      <Filter>Component\Script\Arabian</Filter>
+      <Filter>Component\Script\Enemy\Arabian</Filter>
     </ClCompile>
     <ClCompile Include="yaArabianKnife.cpp">
-      <Filter>Component\Script\Arabian\Knife</Filter>
+      <Filter>Component\Script\Enemy\Arabian\Knife</Filter>
     </ClCompile>
     <ClCompile Include="yaArabianKnifeScript.cpp">
-      <Filter>Component\Script\Arabian\Knife</Filter>
+      <Filter>Component\Script\Enemy\Arabian\Knife</Filter>
     </ClCompile>
     <ClCompile Include="yaParachute.cpp">
       <Filter>Component\Script\Player\Parachute</Filter>
@@ -391,43 +406,64 @@
       <Filter>Component\Script\Player\Parachute</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtillery.cpp">
-      <Filter>Component\Script\MosqueArtillery\Base</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\Base</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryScript.cpp">
-      <Filter>Component\Script\MosqueArtillery\Base</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\Base</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryeHeadCenter.cpp">
-      <Filter>Component\Script\MosqueArtillery\HeadCenter</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadCenter</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryeHeadCenterScript.cpp">
-      <Filter>Component\Script\MosqueArtillery\HeadCenter</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadCenter</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryeHeadLeft.cpp">
-      <Filter>Component\Script\MosqueArtillery\HeadLeft</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadLeft</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryeHeadLeftScript.cpp">
-      <Filter>Component\Script\MosqueArtillery\HeadLeft</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadLeft</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryeHeadRight.cpp">
-      <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadRight</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryeHeadRightScript.cpp">
-      <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadRight</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryBullet.cpp">
-      <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="yaMosqueArtilleryBulletScript.cpp">
-      <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="yaCamelArabianScript.cpp">
-      <Filter>Component\Script\CamelArabian</Filter>
+      <Filter>Component\Script\Enemy\CamelArabian</Filter>
     </ClCompile>
     <ClCompile Include="yaDeathScript.cpp">
-      <Filter>Component\Script\CamelArabian</Filter>
+      <Filter>Component\Script\Enemy\CamelArabian</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBradleyScript.cpp">
+      <Filter>Component\Script\Enemy\Bradley</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBradley.cpp">
+      <Filter>Component\Script\Enemy\Bradley</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCamelArabian.cpp">
+      <Filter>Component\Script\Enemy\CamelArabian</Filter>
     </ClCompile>
     <ClCompile Include="yaCamelArabianBulletScript.cpp">
-      <Filter>Component\Script\CamelArabian</Filter>
+      <Filter>Component\Script\Enemy\CamelArabian\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBradleyBulletScript.cpp">
+      <Filter>Component\Script\Enemy\Bradley\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBradleyBulletEffectScript.cpp">
+      <Filter>Component\Script\Enemy\Bradley\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBradleyBulletEffect.cpp">
+      <Filter>Component\Script\Enemy\Bradley\Bullet\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBradleyBullet.cpp">
+      <Filter>Component\Script\Enemy\Bradley\Bullet\Obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -546,7 +582,7 @@
       <Filter>Scene\Stage1</Filter>
     </ClInclude>
     <ClInclude Include="yaMonster.h">
-      <Filter>Component\Script\Monster</Filter>
+      <Filter>Component\Script\Enemy\Monster</Filter>
     </ClInclude>
     <ClInclude Include="yaCharacterSelect.h">
       <Filter>Component\Script\CharacterSelect</Filter>
@@ -615,10 +651,10 @@
       <Filter>Component\Script\Player\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="yaHelicopterScript.h">
-      <Filter>Component\Script\Helicopter</Filter>
+      <Filter>Component\Script\Enemy\Helicopter</Filter>
     </ClInclude>
     <ClInclude Include="yaHelicopter.h">
-      <Filter>Component\Script\Helicopter</Filter>
+      <Filter>Component\Script\Enemy\Helicopter</Filter>
     </ClInclude>
     <ClInclude Include="yaScript.h">
       <Filter>Component\Script\Base</Filter>
@@ -630,16 +666,16 @@
       <Filter>Component\Script\FadeInOut</Filter>
     </ClInclude>
     <ClInclude Include="yaArabian.h">
-      <Filter>Component\Script\Arabian</Filter>
+      <Filter>Component\Script\Enemy\Arabian</Filter>
     </ClInclude>
     <ClInclude Include="yaArabianScript.h">
-      <Filter>Component\Script\Arabian</Filter>
+      <Filter>Component\Script\Enemy\Arabian</Filter>
     </ClInclude>
     <ClInclude Include="yaArabianKnife.h">
-      <Filter>Component\Script\Arabian\Knife</Filter>
+      <Filter>Component\Script\Enemy\Arabian\Knife</Filter>
     </ClInclude>
     <ClInclude Include="yaArabianKnifeScript.h">
-      <Filter>Component\Script\Arabian\Knife</Filter>
+      <Filter>Component\Script\Enemy\Arabian\Knife</Filter>
     </ClInclude>
     <ClInclude Include="yaParachuteScript.h">
       <Filter>Component\Script\Player\Parachute</Filter>
@@ -648,43 +684,64 @@
       <Filter>Component\Script\Player\Parachute</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtillery.h">
-      <Filter>Component\Script\MosqueArtillery\Base</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\Base</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryScript.h">
-      <Filter>Component\Script\MosqueArtillery\Base</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\Base</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryeHeadCenter.h">
-      <Filter>Component\Script\MosqueArtillery\HeadCenter</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadCenter</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryeHeadCenterScript.h">
-      <Filter>Component\Script\MosqueArtillery\HeadCenter</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadCenter</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryeHeadLeft.h">
-      <Filter>Component\Script\MosqueArtillery\HeadLeft</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadLeft</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryeHeadLeftScript.h">
-      <Filter>Component\Script\MosqueArtillery\HeadLeft</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadLeft</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryeHeadRight.h">
-      <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadRight</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryeHeadRightScript.h">
-      <Filter>Component\Script\MosqueArtillery\HeadRight</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadRight</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryBullet.h">
-      <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="yaMosqueArtilleryBulletScript.h">
-      <Filter>Component\Script\MosqueArtillery\Bullet</Filter>
+      <Filter>Component\Script\Enemy\MosqueArtillery\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="yaCamelArabianScript.h">
-      <Filter>Component\Script\CamelArabian</Filter>
+      <Filter>Component\Script\Enemy\CamelArabian</Filter>
     </ClInclude>
     <ClInclude Include="yaDeathScript.h">
-      <Filter>Component\Script\CamelArabian</Filter>
+      <Filter>Component\Script\Enemy\CamelArabian</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBradleyScript.h">
+      <Filter>Component\Script\Enemy\Bradley</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBradley.h">
+      <Filter>Component\Script\Enemy\Bradley</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCamelArabian.h">
+      <Filter>Component\Script\Enemy\CamelArabian</Filter>
     </ClInclude>
     <ClInclude Include="yaCamelArabianBulletScript.h">
-      <Filter>Component\Script\CamelArabian</Filter>
+      <Filter>Component\Script\Enemy\CamelArabian\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBradleyBulletScript.h">
+      <Filter>Component\Script\Enemy\Bradley\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBradleyBulletEffectScript.h">
+      <Filter>Component\Script\Enemy\Bradley\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBradleyBulletEffect.h">
+      <Filter>Component\Script\Enemy\Bradley\Bullet\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBradleyBullet.h">
+      <Filter>Component\Script\Enemy\Bradley\Bullet\Obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

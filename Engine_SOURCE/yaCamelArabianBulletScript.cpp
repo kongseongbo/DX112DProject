@@ -8,6 +8,7 @@
 #include "yaSceneManager.h"
 #include "yaScene.h"
 #include "yaAnimator.h"
+#include "yaCollider2D.h"
 
 namespace ya
 {
@@ -27,6 +28,10 @@ namespace ya
 		Animator* ani = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"CamelArabianBullet", L"Bullet\\BassBullet.png");
 		ani->Create(L"CamelArabianBullet", texture, Vector2(0.0f, 0.0f), Vector2(18.0f, 18.0f), Vector2::Zero, 1, 0.3f);
+
+		Collider2D* coll = GetOwner()->AddComponent<Collider2D>();
+		coll->SetType(eColliderType::Rect);
+		coll->SetSize(Vector2(0.1f, 0.1f));
 
 		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");

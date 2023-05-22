@@ -23,5 +23,7 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider) {};
 		virtual void OnTriggerExit(Collider2D* collider) {};
 	private:
+		float mTime;
+
 	};
 }

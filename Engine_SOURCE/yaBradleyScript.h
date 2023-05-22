@@ -1,27 +1,25 @@
 #pragma once
 #include "yaScript.h"
-#include "yaAnimator.h"
-
+#include "yaBradleyBullet.h"
 
 namespace ya
 {
-	class CamelArabianScript : public Script
+	class BradleyScript : public Script
 	{
 	public:
-		enum class CamelArabianState
+		enum class BradleyState
 		{
 			NONE,
-			NEW,
 			IDLE,
 			MOVE,
 			ATTACK,
 			DOWNATTACK,
 			DIE,
 		};
-		CamelArabianState eCamelArabianState;
+		BradleyState eBradleyState;
 
-		CamelArabianScript();
-		virtual ~CamelArabianScript();
+		BradleyScript();
+		virtual ~BradleyScript();
 
 		virtual void Initalize();
 		virtual void Update();
@@ -36,7 +34,6 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider) {};
 		virtual void OnTriggerExit(Collider2D* collider) {};
 
-		void New();
 		void Idle();
 		void Move();
 		void Attack();
@@ -45,11 +42,8 @@ namespace ya
 
 		void CreateBullet();
 
-		void SetIndex(int a) { index = a; }
-
 	private:
-		GameObject* mBullet;
-
+		BradleyBullet* mBullet;
 		Transform* mTr;
 		float mTime;
 

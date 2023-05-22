@@ -457,6 +457,9 @@ namespace ya
 
 	void HeadScript::Idle()
 	{
+		Collider2D* coll = GetOwner()->GetComponent<Collider2D>();
+		if (coll->GetSize() == Vector2(0.1f, 0.1f));
+			coll->SetSize(Vector2(0.1f, 0.2f));
 		
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
@@ -691,6 +694,10 @@ namespace ya
 
 	void HeadScript::Move()
 	{
+		Collider2D* coll = GetOwner()->GetComponent<Collider2D>();
+		if (coll->GetSize() == Vector2(0.1f, 0.1f));
+			coll->SetSize(Vector2(0.1f, 0.2f));
+
 		if (Input::GetKeyUp(eKeyCode::RIGHT))
 		{
 			if (mGunState == eGunState::GUN)
@@ -1179,6 +1186,10 @@ namespace ya
 
 	void HeadScript::SitDown()
 	{
+		Collider2D* coll = GetOwner()->GetComponent<Collider2D>();
+		coll->SetSize(Vector2(0.1f, 0.1f));
+
+
 		if (Input::GetKeyUp(eKeyCode::DOWN) && direction == 1)
 		{
 			if (mGunState == eGunState::GUN)

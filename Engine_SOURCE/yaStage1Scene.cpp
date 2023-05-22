@@ -38,6 +38,9 @@
 #include "yaMosqueArtilleryScript.h"
 #include "yaMosqueArtilleryeHeadCenter.h"
 #include "yaCamelArabianScript.h"
+#include "yaBradleyScript.h"
+#include "yaBradley.h"
+#include "yaCamelArabian.h"
 
 #include "yaFadeInOutScript.h"
 
@@ -198,7 +201,7 @@ namespace ya
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
 			//headTr->SetPosition(Vector3(-75.0f, 3.0f, 5.0f));
-			headTr->SetPosition(Vector3(-15.0f, 3.0f, 5.0f)); //47
+			headTr->SetPosition(Vector3(-5.0f, 3.0f, 5.0f)); //47
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
@@ -402,13 +405,38 @@ namespace ya
 
 #pragma region CAMELARABIAN
 		{
-			GameObject* CamelArabian = object::Instantiate<GameObject>(eLayerType::Monster, this);
-			CamelArabian->SetName(L"CamelArabian");
-			Transform* tr = CamelArabian->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-10.0f, -2.0f, 5.0f));
+			CamelArabian* camelArabian = object::Instantiate<CamelArabian>(eLayerType::Monster, this);
+			camelArabian->SetName(L"CamelArabian");
+			Transform* tr = camelArabian->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-15.0f, -2.0f, 5.0f));
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			camelArabian->AddComponent<Animator>();
+			camelArabian->AddComponent<Collider2D>();
+			camelArabian->AddComponent<CamelArabianScript>();
 
-			CamelArabian->AddComponent<CamelArabianScript>();
+			SpriteRenderer* sr = camelArabian->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(matateiral);
+			sr->SetMesh(mesh);
+		}
+#pragma endregion
+#pragma region BRADLEY
+		{
+			Bradley* bradley = object::Instantiate<Bradley>(eLayerType::Monster, this);
+			bradley->SetName(L"Bradley");
+			Transform* tr = bradley->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, -2.0f, 5.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			bradley->AddComponent<Animator>();
+			bradley->AddComponent<Collider2D>();
+			bradley->AddComponent<BradleyScript>();
+
+			SpriteRenderer* sr = bradley->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(matateiral);
+			sr->SetMesh(mesh);
 		}
 #pragma endregion
 
@@ -487,6 +515,10 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::MiddleBoss, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Map, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Obj, eLayerType::Map, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::MonsterAttack, eLayerType::Map, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::MonsterAttack, eLayerType::MapLine, true);
 
 
 		Scene::Initalize();
