@@ -201,7 +201,7 @@ namespace ya
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
 			//headTr->SetPosition(Vector3(-75.0f, 3.0f, 5.0f));
-			headTr->SetPosition(Vector3(-5.0f, 3.0f, 5.0f)); //47
+			headTr->SetPosition(Vector3(-10.0f, 3.0f, 5.0f)); //47
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
@@ -429,8 +429,8 @@ namespace ya
 			tr->SetPosition(Vector3(0.0f, -2.0f, 5.0f));
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 			bradley->AddComponent<Animator>();
-			bradley->AddComponent<Collider2D>();
-			bradley->AddComponent<BradleyScript>();
+			BradleyScript* bradleyScript = bradley->AddComponent<BradleyScript>();
+			bradleyScript->SetPlayer(headObj);
 
 			SpriteRenderer* sr = bradley->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");

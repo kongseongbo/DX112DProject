@@ -17,6 +17,7 @@ namespace ya
 		: Script()
 		, mTime(0.0f)
 		, mRot(0.0f)
+		, mInitRot(0.0f)
 	{
 	}
 	BradleyBulletScript::~BradleyBulletScript()
@@ -47,7 +48,11 @@ namespace ya
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Attack(tr->GetPosition(), mTime, 0.2);
+
+		if(mInitRot == -70.0f)
+			HowitzerAttack(tr->GetPosition(), mTime, 0.2);
+		if (mInitRot == 0.0f)
+			NormalAttack(tr->GetPosition(), mTime, 0.2);
 	}
 	void BradleyBulletScript::FixedUpdate()
 	{
@@ -65,7 +70,7 @@ namespace ya
 	void BradleyBulletScript::OnCollisionExit(Collider2D* collider)
 	{
 	}
-	void BradleyBulletScript::Attack(Vector3 position, float time, float attackTime)
+	void BradleyBulletScript::HowitzerAttack(Vector3 position, float time, float attackTime)
 	{
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -73,13 +78,25 @@ namespace ya
 		Vector3 rot = tr->GetRotation();
 
 
-		mRot = rot.z += 90.0f * Time::DeltaTime();
-		pos -= tr->Right() * 10.f * Time::DeltaTime();
+	
+		mRot = rot.z += 85.f * Time::DeltaTime();
+		pos -= tr->Right() * 8.f * Time::DeltaTime();
 
-		if (mRot < 85.0f)
+		if (mRot < 70.0f)
 			tr->SetRotation(Vector3(rot.x, rot.y, mRot));
 
 		tr->SetPosition(pos);
 		
+	}
+	void BradleyBulletScript::NormalAttack(Vector3 position, float time, float attackTime)
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		Vector3 rot = tr->GetRotation();
+
+		mRot = rot.z += 5.f * Time::DeltaTime();
+		pos -= tr->Right() * 8.f * Time::DeltaTime();
+		tr->SetRotation(Vector3(rot.x, rot.y, mRot));
+		tr->SetPosition(pos);
 	}
 }

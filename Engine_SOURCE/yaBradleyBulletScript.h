@@ -23,10 +23,15 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider) {};
 		virtual void OnTriggerExit(Collider2D* collider) {};
 
-		void Attack(Vector3 position, float time, float attackTime);
+		void HowitzerAttack(Vector3 position, float time, float attackTime);
+		void NormalAttack(Vector3 position, float time, float attackTime);
+			
 
+		void SetRot(float rot) { mInitRot = rot; }
 	private:
 		float mTime;
 		float mRot;
+		float mInitRot;
+
 	};
 }

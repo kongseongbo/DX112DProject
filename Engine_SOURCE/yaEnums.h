@@ -25,6 +25,7 @@ namespace ya::enums
 		MapWall,
 		Bullet,
 		Obj,
+		Effect,
 		MonsterAttack,
 		Monster,
 		Body,
@@ -33,7 +34,6 @@ namespace ya::enums
 		MachineGunItem,
 		Animator,
 		Collider,
-		Effect,
 
 		Particle,
 		UI,

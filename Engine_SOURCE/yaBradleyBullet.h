@@ -1,9 +1,9 @@
 #pragma once
 #include "yaGameObject.h"
-
+#include "yaBradley.h"
 namespace ya
 {
-	class BradleyBullet : public GameObject
+	class BradleyBullet : public Bradley
 	{
 	public:
 		BradleyBullet();

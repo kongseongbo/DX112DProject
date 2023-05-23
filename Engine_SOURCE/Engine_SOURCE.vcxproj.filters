@@ -196,11 +196,23 @@
     <Filter Include="Component\Script\Enemy\CamelArabian\Bullet">
       <UniqueIdentifier>{93d216cb-972d-446f-bcc4-7d24132d8680}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Enemy\Bradley\Bullet">
-      <UniqueIdentifier>{98d649f4-36fe-4e8e-ac05-d71ec31a1456}</UniqueIdentifier>
+    <Filter Include="Component\Script\Enemy\CamelArabian\Obj">
+      <UniqueIdentifier>{ddf37f5b-1553-41ce-b288-7d32af0f1056}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Enemy\Bradley\Bullet\Obj">
+    <Filter Include="Component\Script\Enemy\CamelArabian\Script">
+      <UniqueIdentifier>{f90f25b9-8eb0-4cf2-8d40-00451468d54d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Helicopter\Script">
+      <UniqueIdentifier>{89f0448b-32c4-440e-a071-782447ca716f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Helicopter\Obj">
+      <UniqueIdentifier>{3bd28fd5-d40d-41f5-bacf-a26f284ad119}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Bradley\Obj">
       <UniqueIdentifier>{ef5b399a-651f-4248-9b4b-371687560805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Enemy\Bradley\Script">
+      <UniqueIdentifier>{98d649f4-36fe-4e8e-ac05-d71ec31a1456}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -372,12 +384,6 @@
     <ClCompile Include="yaBombScript.cpp">
       <Filter>Component\Script\Player\Bomb</Filter>
     </ClCompile>
-    <ClCompile Include="yaHelicopter.cpp">
-      <Filter>Component\Script\Enemy\Helicopter</Filter>
-    </ClCompile>
-    <ClCompile Include="yaHelicopterScript.cpp">
-      <Filter>Component\Script\Enemy\Helicopter</Filter>
-    </ClCompile>
     <ClCompile Include="yaScript.cpp">
       <Filter>Component\Script\Base</Filter>
     </ClCompile>
@@ -435,35 +441,41 @@
     <ClCompile Include="yaMosqueArtilleryBulletScript.cpp">
       <Filter>Component\Script\Enemy\MosqueArtillery\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="yaCamelArabianScript.cpp">
-      <Filter>Component\Script\Enemy\CamelArabian</Filter>
-    </ClCompile>
-    <ClCompile Include="yaDeathScript.cpp">
-      <Filter>Component\Script\Enemy\CamelArabian</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBradleyScript.cpp">
-      <Filter>Component\Script\Enemy\Bradley</Filter>
-    </ClCompile>
-    <ClCompile Include="yaBradley.cpp">
-      <Filter>Component\Script\Enemy\Bradley</Filter>
-    </ClCompile>
-    <ClCompile Include="yaCamelArabian.cpp">
-      <Filter>Component\Script\Enemy\CamelArabian</Filter>
-    </ClCompile>
     <ClCompile Include="yaCamelArabianBulletScript.cpp">
       <Filter>Component\Script\Enemy\CamelArabian\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="yaBradleyBulletScript.cpp">
-      <Filter>Component\Script\Enemy\Bradley\Bullet</Filter>
+      <Filter>Component\Script\Enemy\Bradley\Script</Filter>
     </ClCompile>
     <ClCompile Include="yaBradleyBulletEffectScript.cpp">
-      <Filter>Component\Script\Enemy\Bradley\Bullet</Filter>
+      <Filter>Component\Script\Enemy\Bradley\Script</Filter>
     </ClCompile>
     <ClCompile Include="yaBradleyBulletEffect.cpp">
-      <Filter>Component\Script\Enemy\Bradley\Bullet\Obj</Filter>
+      <Filter>Component\Script\Enemy\Bradley\Obj</Filter>
     </ClCompile>
     <ClCompile Include="yaBradleyBullet.cpp">
-      <Filter>Component\Script\Enemy\Bradley\Bullet\Obj</Filter>
+      <Filter>Component\Script\Enemy\Bradley\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCamelArabian.cpp">
+      <Filter>Component\Script\Enemy\CamelArabian\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCamelArabianScript.cpp">
+      <Filter>Component\Script\Enemy\CamelArabian\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDeathScript.cpp">
+      <Filter>Component\Script\Enemy\CamelArabian\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHelicopter.cpp">
+      <Filter>Component\Script\Enemy\Helicopter\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="yaHelicopterScript.cpp">
+      <Filter>Component\Script\Enemy\Helicopter\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBradleyScript.cpp">
+      <Filter>Component\Script\Enemy\Bradley\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBradley.cpp">
+      <Filter>Component\Script\Enemy\Bradley\Obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -650,12 +662,6 @@
     <ClInclude Include="yaBombScript.h">
       <Filter>Component\Script\Player\Bomb</Filter>
     </ClInclude>
-    <ClInclude Include="yaHelicopterScript.h">
-      <Filter>Component\Script\Enemy\Helicopter</Filter>
-    </ClInclude>
-    <ClInclude Include="yaHelicopter.h">
-      <Filter>Component\Script\Enemy\Helicopter</Filter>
-    </ClInclude>
     <ClInclude Include="yaScript.h">
       <Filter>Component\Script\Base</Filter>
     </ClInclude>
@@ -713,35 +719,41 @@
     <ClInclude Include="yaMosqueArtilleryBulletScript.h">
       <Filter>Component\Script\Enemy\MosqueArtillery\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="yaCamelArabianScript.h">
-      <Filter>Component\Script\Enemy\CamelArabian</Filter>
-    </ClInclude>
-    <ClInclude Include="yaDeathScript.h">
-      <Filter>Component\Script\Enemy\CamelArabian</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBradleyScript.h">
-      <Filter>Component\Script\Enemy\Bradley</Filter>
-    </ClInclude>
-    <ClInclude Include="yaBradley.h">
-      <Filter>Component\Script\Enemy\Bradley</Filter>
-    </ClInclude>
-    <ClInclude Include="yaCamelArabian.h">
-      <Filter>Component\Script\Enemy\CamelArabian</Filter>
-    </ClInclude>
     <ClInclude Include="yaCamelArabianBulletScript.h">
       <Filter>Component\Script\Enemy\CamelArabian\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="yaBradleyBulletScript.h">
-      <Filter>Component\Script\Enemy\Bradley\Bullet</Filter>
+      <Filter>Component\Script\Enemy\Bradley\Script</Filter>
     </ClInclude>
     <ClInclude Include="yaBradleyBulletEffectScript.h">
-      <Filter>Component\Script\Enemy\Bradley\Bullet</Filter>
+      <Filter>Component\Script\Enemy\Bradley\Script</Filter>
     </ClInclude>
     <ClInclude Include="yaBradleyBulletEffect.h">
-      <Filter>Component\Script\Enemy\Bradley\Bullet\Obj</Filter>
+      <Filter>Component\Script\Enemy\Bradley\Obj</Filter>
     </ClInclude>
     <ClInclude Include="yaBradleyBullet.h">
-      <Filter>Component\Script\Enemy\Bradley\Bullet\Obj</Filter>
+      <Filter>Component\Script\Enemy\Bradley\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCamelArabian.h">
+      <Filter>Component\Script\Enemy\CamelArabian\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDeathScript.h">
+      <Filter>Component\Script\Enemy\CamelArabian\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCamelArabianScript.h">
+      <Filter>Component\Script\Enemy\CamelArabian\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHelicopter.h">
+      <Filter>Component\Script\Enemy\Helicopter\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHelicopterScript.h">
+      <Filter>Component\Script\Enemy\Helicopter\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBradleyScript.h">
+      <Filter>Component\Script\Enemy\Bradley\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBradley.h">
+      <Filter>Component\Script\Enemy\Bradley\Obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
