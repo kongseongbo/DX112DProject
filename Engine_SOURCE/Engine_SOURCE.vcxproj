@@ -177,6 +177,7 @@
     <ClInclude Include="yaCamelArabianScript.h" />
     <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaDeathScript.h" />
+    <ClInclude Include="yaEngineEffectScript.h" />
     <ClInclude Include="yaHeadScript.h" />
     <ClInclude Include="yaHelicopter.h" />
     <ClInclude Include="yaHelicopterScript.h" />
@@ -244,6 +245,8 @@
     <ClInclude Include="yaShader.h" />
     <ClInclude Include="yaSpriteRenderer.h" />
     <ClInclude Include="yaTexture.h" />
+    <ClInclude Include="yaTheKeesi.h" />
+    <ClInclude Include="yaTheKeesiScript.h" />
     <ClInclude Include="yaTime.h" />
     <ClInclude Include="yaTitleScene.h" />
     <ClInclude Include="yaTransform.h" />
@@ -270,6 +273,7 @@
     <ClCompile Include="yaCamelArabianScript.cpp" />
     <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaDeathScript.cpp" />
+    <ClCompile Include="yaEngineEffectScript.cpp" />
     <ClCompile Include="yaHeadScript.cpp" />
     <ClCompile Include="yaHelicopter.cpp" />
     <ClCompile Include="yaHelicopterScript.cpp" />
@@ -333,6 +337,8 @@
     <ClCompile Include="yaShader.cpp" />
     <ClCompile Include="yaSpriteRenderer.cpp" />
     <ClCompile Include="yaTexture.cpp" />
+    <ClCompile Include="yaTheKeesi.cpp" />
+    <ClCompile Include="yaTheKeesiScript.cpp" />
     <ClCompile Include="yaTime.cpp" />
     <ClCompile Include="yaTitleScene.cpp" />
     <ClCompile Include="yaTransform.cpp" />

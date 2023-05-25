@@ -8,9 +8,9 @@
 #include "yaSceneManager.h"
 #include "yaCollider2D.h"
 #include "yaScene.h"
+#include "yaAnimator.h"
 #include "yaBradleyBulletScript.h"
 #include "yaBradleyBulletEffectScript.h"
-#include "yaAnimator.h"
 #include "yaBradleyBulletEffect.h"
 #include "yaRigidbody.h"
 

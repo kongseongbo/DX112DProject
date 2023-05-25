@@ -105,6 +105,7 @@ namespace ya
 	}
 	void BulletScript::OnCollisionEnter(Collider2D* collider)
 	{
+		GetOwner()->Death();
 	}
 	void BulletScript::OnCollisionStay(Collider2D* collider)
 	{

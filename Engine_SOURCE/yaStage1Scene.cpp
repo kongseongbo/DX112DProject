@@ -41,6 +41,9 @@
 #include "yaBradleyScript.h"
 #include "yaBradley.h"
 #include "yaCamelArabian.h"
+#include "yaTheKeesi.h"
+#include "yaTheKeesiScript.h"
+#include "yaEngineEffectScript.h"
 
 #include "yaFadeInOutScript.h"
 
@@ -195,15 +198,13 @@ namespace ya
 #pragma endregion
 
 #pragma region PLAYER
-		//Player Head
 		{
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
 			//headTr->SetPosition(Vector3(-75.0f, 3.0f, 5.0f));
-			headTr->SetPosition(Vector3(-10.0f, 3.0f, 5.0f)); //47
+			headTr->SetPosition(Vector3(3.0f, 3.0f, 5.0f)); //47
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
-			//headTr->SetRotation(Vector3(0.0f, -180.0f, 0.0f));
 			headObj->AddComponent<Animator>();
 			Rigidbody* playerGirigid = headObj->AddComponent<Rigidbody>();
 			playerGirigid->SetGravity(Vector2(0.0f, 102.0f));
@@ -211,8 +212,6 @@ namespace ya
 
 			Collider2D* collider = headObj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
-			//collider->SetPos(Vector3(headTr->GetPosition()));
-			//collider->SetCenter(Vector2(-0.7f, -1.0f));
 			collider->SetSize(Vector2(0.1f, 0.2f));
 
 			SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
@@ -439,7 +438,49 @@ namespace ya
 			sr->SetMesh(mesh);
 		}
 #pragma endregion
+#pragma region THEKEESI
+		{
+			TheKeesi* thekeesi = object::Instantiate<TheKeesi>(eLayerType::Monster, this);
+			thekeesi->SetName(L"TheKeesi");
+			Transform* tr = thekeesi->GetComponent<Transform>();
+			tr->SetPosition(Vector3(15.0f, 5.0f, 5.0f));
+			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			//thekeesi->AddComponent<Animator>();
+			TheKeesiScript* thekeesiScript = thekeesi->AddComponent<TheKeesiScript>();
+			thekeesiScript->SetPlayer(headObj);
 
+			SpriteRenderer* sr = thekeesi->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(matateiral);
+			sr->SetMesh(mesh);
+
+			GameObject* lefteffect = object::Instantiate<GameObject>(eLayerType::Monster, this);
+			lefteffect->SetName(L"leftengineeffect");
+			Transform* leftTr = lefteffect->GetComponent<Transform>();
+			leftTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+
+			EngineEffectScript* effectScript = lefteffect->AddComponent<EngineEffectScript>();
+			effectScript->SetParent(tr);
+
+			SpriteRenderer* leftSr = lefteffect->AddComponent<SpriteRenderer>();
+			leftSr->SetMaterial(matateiral);
+			leftSr->SetMesh(mesh);
+
+			GameObject* righteffect = object::Instantiate<GameObject>(eLayerType::Monster, this);
+			righteffect->SetName(L"rightengineeffect");
+			Transform* rightTr = righteffect->GetComponent<Transform>();
+			rightTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+			rightTr->SetRotation(Vector3(1.0f, 180.0f, 1.0f));
+			EngineEffectScript* righteffectScript = righteffect->AddComponent<EngineEffectScript>();
+			righteffectScript->SetParent(tr);
+
+			SpriteRenderer* rightSr = righteffect->AddComponent<SpriteRenderer>();
+			rightSr->SetMaterial(matateiral);
+			rightSr->SetMesh(mesh);
+
+		}
+#pragma endregion
 
 		// MachineGunItem
 		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
