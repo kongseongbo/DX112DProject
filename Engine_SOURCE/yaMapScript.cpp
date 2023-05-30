@@ -35,24 +35,9 @@ namespace ya
 		// Arabian Object »ý¼º
 		if (GetOwner()->GetName() == L"NewMonster")
 		{
-			{
-				Arabian* arabianObj = new Arabian();
-				Scene* scene = SceneManager::GetActiveScene();
-				scene->AddGameObject(arabianObj, eLayerType::Monster);
-				Transform* arabianTr = arabianObj->GetComponent<Transform>();
-				arabianTr->SetPosition(Vector3(10.0f, -3.4f, 5.0f));
-				arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-				ArabianScript* script = arabianObj->AddComponent<ArabianScript>();
-			}
-			{
-				Arabian* arabianObj = new Arabian();
-				Scene* scene = SceneManager::GetActiveScene();
-				scene->AddGameObject(arabianObj, eLayerType::Monster);
-				Transform* arabianTr = arabianObj->GetComponent<Transform>();
-				arabianTr->SetPosition(Vector3(15.0f, -3.4f, 5.0f));
-				arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-				ArabianScript* script = arabianObj->AddComponent<ArabianScript>();
-			}
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			CreatMonster(pos);
 		}
 
 		if (collider->GetOwner()->GetName() == L"Head" && GetOwner()->GetName() == L"MapLeft")
@@ -89,13 +74,25 @@ namespace ya
 			headScr->SetStop(0);
 		}
 	}
-	void MapScript::OnTriggerEnter(Collider2D* collider)
+	void MapScript::CreatMonster(Vector3 position)
 	{
-	}
-	void MapScript::OnTriggerStay(Collider2D* collider)
-	{
-	}
-	void MapScript::OnTriggerExit(Collider2D* collider)
-	{
+		{
+			Arabian* arabianObj = new Arabian();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(arabianObj, eLayerType::Monster);
+			Transform* arabianTr = arabianObj->GetComponent<Transform>();
+			arabianTr->SetPosition(Vector3(position.x + 10.0f, -3.4f, 5.0f));
+			arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			ArabianScript* script = arabianObj->AddComponent<ArabianScript>();
+		}
+		{
+			Arabian* arabianObj = new Arabian();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(arabianObj, eLayerType::Monster);
+			Transform* arabianTr = arabianObj->GetComponent<Transform>();
+			arabianTr->SetPosition(Vector3(position.x + 15.0f, -3.4f, 5.0f));
+			arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			ArabianScript* script = arabianObj->AddComponent<ArabianScript>();
+		}
 	}
 }

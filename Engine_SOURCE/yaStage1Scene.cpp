@@ -17,6 +17,7 @@
 #include "yaPaintShader.h"
 
 #include "yaMapScript.h"
+#include "yaMapWallScript.h"
 
 #include "yaPlayerScript.h"
 #include "yaHeadScript.h"
@@ -38,8 +39,6 @@
 #include "yaMosqueArtilleryScript.h"
 #include "yaMosqueArtilleryeHeadCenter.h"
 #include "yaCamelArabianScript.h"
-#include "yaBradleyScript.h"
-#include "yaBradley.h"
 #include "yaCamelArabian.h"
 #include "yaTheKeesi.h"
 #include "yaTheKeesiScript.h"
@@ -52,6 +51,7 @@ namespace ya
 	Stage1Scene::Stage1Scene()
 		: Scene(eSceneType::Stage1)
 		, mCameraObj(nullptr)
+		, wallObj(nullptr)
 		, headObj(nullptr)
 		, bodyObj(nullptr)
 		, mTime(0.0f)
@@ -111,18 +111,19 @@ namespace ya
 #pragma endregion
 
 #pragma region MAP
-		// Map
-		GameObject* mapObj = object::Instantiate<GameObject>(eLayerType::Map, this);
-		mapObj->SetName(L"Mission1Map");
-		Transform* map1Tr = mapObj->GetComponent<Transform>();
-		map1Tr->SetPosition(Vector3(1.0f, 1.0f, 10.0f));
-		map1Tr->SetScale(Vector3(180.0f, 18.0f, 1.0f));
-		
-		SpriteRenderer* mapMr = mapObj->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> mapMaterial = Resources::Find<Material>(L"MapMaterial");
-		mapMr->SetMaterial(mapMaterial);
-		mapMr->SetMesh(mesh);
+		{
+			GameObject* mapObj = object::Instantiate<GameObject>(eLayerType::Map, this);
+			mapObj->SetName(L"Mission1Map");
+			Transform* map1Tr = mapObj->GetComponent<Transform>();
+			map1Tr->SetPosition(Vector3(1.0f, 1.0f, 10.0f));
+			map1Tr->SetScale(Vector3(180.0f, 18.0f, 1.0f));
+
+			SpriteRenderer* mapMr = mapObj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> mapMaterial = Resources::Find<Material>(L"MapMaterial");
+			mapMr->SetMaterial(mapMaterial);
+			mapMr->SetMesh(mesh);
+		}
 #pragma endregion
 
 #pragma region MAP GROUND COLLIDER
@@ -186,8 +187,8 @@ namespace ya
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Map, this);
 			mapcolliderObj->SetName(L"RectCollMap");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-			mapcolliderTr->SetPosition(Vector3(22.0f, -5.8f, 1.0f));
-			mapcolliderTr->SetScale(Vector3(145.0f, 1.5f, 1.0f));
+			mapcolliderTr->SetPosition(Vector3(55.0f, -5.8f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(250.0f, 1.5f, 1.0f));
 			//MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
@@ -216,6 +217,7 @@ namespace ya
 
 			SpriteRenderer* headMr = headObj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> headMateiral = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			headMr->SetMaterial(headMateiral);
 			headMr->SetMesh(mesh);
 			object::DontDestroyOnLoad(headObj);
@@ -255,6 +257,28 @@ namespace ya
 		}
 #pragma endregion
 
+#pragma region 1에서 1.2 넘어가는 벽오브젝트
+		{
+			wallObj = object::Instantiate<GameObject>(eLayerType::Obj, this);
+			wallObj->SetName(L"Wall");
+			Transform* tr = wallObj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(88.0f, -2.0f, 9.0f));
+			tr->SetScale(Vector3(13.0f, 13.0f, 1.0f));
+			MapWallScript* scr = wallObj->AddComponent<MapWallScript>();
+			scr->SetPlayerObj(headObj);
+
+			Collider2D* coll = wallObj->AddComponent<Collider2D>();
+			coll->SetType(eColliderType::Rect);
+			coll->SetSize(Vector2(0.2f, 0.2f));
+
+			SpriteRenderer* mr = wallObj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			mr->SetMaterial(material);
+			mr->SetMesh(mesh);
+		}
+#pragma endregion
+
 #pragma region Map Collider
 		// 캐릭터 이동시 같이 따라가는 coll
 		{
@@ -289,7 +313,7 @@ namespace ya
 			mapcolliderObj->SetName(L"MapRight");
 			Transform* headTr = headObj->GetComponent<Transform>();
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-			mapcolliderTr->SetPosition(Vector3(91.0f, 1.0f, 1.0f));
+			mapcolliderTr->SetPosition(Vector3(174.0f, 1.0f, 1.0f));
 			mapcolliderTr->SetRotation(Vector3(0.0f, 0.0f, 180.0f));
 			mapcolliderTr->SetScale(Vector3(1.0f, 10.0f, 1.0f));
 			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
@@ -302,8 +326,21 @@ namespace ya
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
 			mapcolliderObj->SetName(L"NewMonster");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-			mapcolliderTr->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
-			mapcolliderTr->SetScale(Vector3(1.0f, 20.0f, 1.0f));
+			mapcolliderTr->SetPosition(Vector3(-55.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+			//mapCollider->SetSize(Vector2(1.f, 1.f));
+		}
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+			mapcolliderObj->SetName(L"NewMonster");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(-40.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
 			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
@@ -420,24 +457,9 @@ namespace ya
 			sr->SetMesh(mesh);
 		}
 #pragma endregion
-#pragma region BRADLEY
-		{
-			Bradley* bradley = object::Instantiate<Bradley>(eLayerType::Monster, this);
-			bradley->SetName(L"Bradley");
-			Transform* tr = bradley->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.0f, -2.0f, 5.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-			bradley->AddComponent<Animator>();
-			BradleyScript* bradleyScript = bradley->AddComponent<BradleyScript>();
-			bradleyScript->SetPlayer(headObj);
 
-			SpriteRenderer* sr = bradley->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			sr->SetMaterial(matateiral);
-			sr->SetMesh(mesh);
-		}
-#pragma endregion
+
+
 #pragma region THEKEESI
 		{
 			TheKeesi* thekeesi = object::Instantiate<TheKeesi>(eLayerType::Monster, this);
@@ -483,26 +505,30 @@ namespace ya
 #pragma endregion
 
 		// MachineGunItem
-		MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
-		machineGun->SetName(L"machineGun");
-		Transform* machineGunTr = machineGun->GetComponent<Transform>();
-		machineGunTr->SetPosition(Vector3(-65.0f, -2.0f, 2.0f));
-		machineGunTr->SetScale(Vector3(10.0f, 10.0f,1.0f));
-		MachineGunScript* machineGunScript = machineGun->AddComponent<MachineGunScript>();
+		{
+			MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
+			machineGun->SetName(L"machineGun");
+			Transform* machineGunTr = machineGun->GetComponent<Transform>();
+			machineGunTr->SetPosition(Vector3(5.0f, -2.0f, 2.0f));
+			machineGunTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+			MachineGunScript* machineGunScript = machineGun->AddComponent<MachineGunScript>();
 
-		Collider2D* machineGunCollider = machineGun->AddComponent<Collider2D>();
-		machineGunCollider->SetType(eColliderType::Rect);
-		machineGunCollider->SetSize(Vector2(0.1f, 0.1f));
+			Collider2D* machineGunCollider = machineGun->AddComponent<Collider2D>();
+			machineGunCollider->SetType(eColliderType::Rect);
+			machineGunCollider->SetSize(Vector2(0.1f, 0.1f));
 
-		Animator* machineGunAni = machineGun->AddComponent<Animator>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MachineGunItem", L"Bullet\\MachineGunItem.png");
-		machineGunAni->Create(L"MachineGunItem", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 22.0f), Vector2::Zero, 2, 0.3f);
+			Animator* machineGunAni = machineGun->AddComponent<Animator>();
+			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MachineGunItem", L"Bullet\\MachineGunItem.png");
+			machineGunAni->Create(L"MachineGunItem", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 22.0f), Vector2::Zero, 2, 0.3f);
 
-		SpriteRenderer* machineGunSr = machineGun->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> machineGunMateiral = Resources::Find<Material>(L"SpriteMaterial");
-		machineGunSr->SetMaterial(machineGunMateiral);
-		machineGunSr->SetMesh(mesh);
-		machineGunAni->Play(L"MachineGunItem", true);
+			SpriteRenderer* machineGunSr = machineGun->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> machineGunMateiral = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			machineGunSr->SetMaterial(machineGunMateiral);
+			machineGunSr->SetMesh(mesh);
+			machineGunAni->Play(L"MachineGunItem", true);
+		}
+
 
 		//// HPBAR
 		//GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI, this);
@@ -554,6 +580,7 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::MonsterAttack, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::MiddleBoss, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Obj, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Obj, eLayerType::Map, true);
@@ -570,8 +597,12 @@ namespace ya
 		CameraScript* cameraScript = mCameraObj->GetComponent<CameraScript>();
 		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
 		Camera* camera = mCameraObj->GetComponent<Camera>();
-
 		Vector3 pos = {};
+
+		if (wallObj->GetState() == GameObject::Dead)
+		{
+			int a = 0;
+		}
 		
 		if (headObj->GetState() == GameObject::Active)
 		{

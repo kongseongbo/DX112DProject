@@ -510,6 +510,7 @@ namespace ya::renderer
 
 		// Map
 		Resources::Load<Texture>(L"Mission1", L"Map\\Mission1.png");
+		Resources::Load<Texture>(L"Mission2", L"Map\\Mission2.png");
 		Resources::Load<Texture>(L"MosqueArtilleryBase", L"MosqueArtillery\\Base.png");
 
 		// MosqueArtilleryHead
@@ -668,14 +669,24 @@ namespace ya::renderer
 		Resources::Insert<Material>(L"eri3Material", eri3Material);
                   	
 		// Map
-		std::shared_ptr <Texture> mapTexture = Resources::Find<Texture>(L"Mission1");
-		std::shared_ptr<Shader> mapShader = Resources::Find<Shader>(L"RectShader");
-		std::shared_ptr<Material> mapMaterial = std::make_shared<Material>();
-		mapMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		mapMaterial->SetShader(mapShader);
-		mapMaterial->SetTexture(eTextureSlot::T0, mapTexture);
-		Resources::Insert<Material>(L"MapMaterial", mapMaterial);
-
+		{
+			std::shared_ptr <Texture> mapTexture = Resources::Find<Texture>(L"Mission1");
+			std::shared_ptr<Shader> mapShader = Resources::Find<Shader>(L"RectShader");
+			std::shared_ptr<Material> mapMaterial = std::make_shared<Material>();
+			mapMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			mapMaterial->SetShader(mapShader);
+			mapMaterial->SetTexture(eTextureSlot::T0, mapTexture);
+			Resources::Insert<Material>(L"MapMaterial", mapMaterial);
+		}
+		{
+			std::shared_ptr <Texture> map2Texture = Resources::Find<Texture>(L"Mission2");
+			std::shared_ptr<Shader> map2Shader = Resources::Find<Shader>(L"RectShader");
+			std::shared_ptr<Material> map2Material = std::make_shared<Material>();
+			map2Material->SetRenderingMode(eRenderingMode::Transparent);
+			map2Material->SetShader(map2Shader);
+			map2Material->SetTexture(eTextureSlot::T0, map2Texture);
+			Resources::Insert<Material>(L"MapMaterial2", map2Material);
+		}
 		// MosqueArtilleryBase
 		std::shared_ptr <Texture> mosqueArtilleryBaseTexture = Resources::Find<Texture>(L"MosqueArtilleryBase");
 		std::shared_ptr<Shader> mosqueArtilleryBaseShader = Resources::Find<Shader>(L"RectShader");

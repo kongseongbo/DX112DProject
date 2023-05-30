@@ -26,6 +26,7 @@ namespace ya
 		
 	private:
 		GameObject* mCameraObj;
+		GameObject* wallObj;
 		Player* headObj;
 		Body* bodyObj;
 		MapScript* mapScript;
