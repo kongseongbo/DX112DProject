@@ -9,6 +9,7 @@
 #include "yaHeadScript.h"
 #include "yaInput.h"
 #include "yaLight.h"
+#include "yaParticleSystem.h"
 
 namespace ya
 {
@@ -94,7 +95,7 @@ namespace ya
 			Attack(mTime, 0.25);
 		}
 
-		if (mTime > 5.0f)
+		if (mTime > 2.0f)
 			GetOwner()->Death();
 	}
 	void BulletScript::FixedUpdate()
@@ -105,6 +106,18 @@ namespace ya
 	}
 	void BulletScript::OnCollisionEnter(Collider2D* collider)
 	{
+		Transform* bulletTr = GetOwner()->GetComponent<Transform>();
+
+		Scene* playScene = SceneManager::GetActiveScene();
+
+		GameObject* obj = new GameObject();
+		playScene->AddGameObject(obj, eLayerType::Particle);
+
+		Transform* tr = obj->GetComponent<Transform>();
+		tr->SetPosition(Vector3(bulletTr->GetPosition().x, bulletTr->GetPosition().y, 1.0f));
+		obj->AddComponent<ParticleSystem>();
+
+
 		//GetOwner()->Death();
 	}
 	void BulletScript::OnCollisionStay(Collider2D* collider)

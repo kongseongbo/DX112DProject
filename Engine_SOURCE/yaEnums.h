@@ -7,9 +7,7 @@ namespace ya::enums
 		Tilte,
 		CharacterSelect,
 		Stage1,
-		Stage1Boss,
 		Stage2,
-		Stage2Boss,
 		End,
 	};
 
@@ -20,10 +18,11 @@ namespace ya::enums
 		Grid,
 		FadeIn,
 		Map,
+		Particle,
 		MapLine,
+		Bullet,
 		MiddleBoss,
 		MapWall,
-		Bullet,
 		Obj,
 		Effect,
 		MonsterAttack,
@@ -35,7 +34,6 @@ namespace ya::enums
 		Animator,
 		Collider,
 
-		Particle,
 		UI,
 		End = 26,
 	};

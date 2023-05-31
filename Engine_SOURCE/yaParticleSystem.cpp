@@ -13,15 +13,15 @@ namespace ya
 	ParticleSystem::ParticleSystem()
 		: BaseRenderer(eComponentType::ParticleSystem)
 		, mMaxParticles(100)
-		, mStartSize(Vector4(50.0f, 50.0f, 1.0f, 1.0f))
+		, mStartSize(Vector4(0.5f, 0.5f, 1.0f, 1.0f))
 		, mStartColor(Vector4(1.0f, 0.2f, 0.2f, 1.0f))
-		, mStartLifeTime(3.0f)
+		, mStartLifeTime(0.3f)
 		, mFrequency(1.0f)
 		, mTime(0.0f)
 		, mCBData{}
 		, mSimulationSpace(eSimulationSpace::World)
-		, mRadius(500.0f)
-		, mStartSpeed(200.0f)
+		, mRadius(0.5f)
+		, mStartSpeed(5.0f)
 		, mElapsedTime(0.0f)
 
 	{
@@ -51,17 +51,19 @@ namespace ya
 		std::shared_ptr<Texture> tex = Resources::Find<Texture>(L"CartoonSmoke");
 		material->SetTexture(eTextureSlot::T0, tex);
 
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+
 		Particle particles[100] = {};
-		Vector4 startPos = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+		Vector4 startPos = Vector4(0.0f,0.0f,0.0f, 0.0f);
 		for (size_t i = 0; i < mMaxParticles; i++)
 		{
-			particles[i].position = Vector4(0.0f, 0.0f, 20.0f, 1.0f);
+			particles[i].position = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 			particles[i].active = 0;
 			particles[i].direction =
 				Vector4(cosf((float)i * (XM_2PI / (float)mMaxParticles))
 					, sin((float)i * (XM_2PI / (float)mMaxParticles)), 0.0f, 1.0f);
 
-			particles[i].speed = 100.0f;
+			particles[i].speed = 50.0f;
 		}
 
 		mBuffer = new StructedBuffer();
@@ -78,7 +80,7 @@ namespace ya
 	void ParticleSystem::FixedUpdate()
 	{
 		//파티클 생성 시간
-		float aliveTime = 1.0f / mFrequency;
+		float aliveTime = 0.1f / mFrequency;
 		//누적시간
 		mTime += Time::DeltaTime();
 		if (aliveTime < mTime)

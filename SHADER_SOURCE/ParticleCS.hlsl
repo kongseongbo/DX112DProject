@@ -53,7 +53,7 @@ void main(uint3 DTid : SV_DispatchThreadID)
             //// radius 원형 범위로 스폰
             float fTheta = Random.xy * 3.141592f * 2.0f;
             ParticleBuffer[DTid.x].position.xy = float2 (cos(fTheta), sin(fTheta)) * Random.y * radius;
-            ParticleBuffer[DTid.x].position.z = 100.0f;
+            ParticleBuffer[DTid.x].position.z = 0.0f;
 
             ParticleBuffer[DTid.x].direction.xy
                 = normalize(float2(ParticleBuffer[DTid.x].position.xy));

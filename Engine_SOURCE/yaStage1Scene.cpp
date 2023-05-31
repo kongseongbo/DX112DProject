@@ -458,8 +458,6 @@ namespace ya
 		}
 #pragma endregion
 
-
-
 #pragma region THEKEESI
 		{
 			TheKeesi* thekeesi = object::Instantiate<TheKeesi>(eLayerType::Monster, this);
