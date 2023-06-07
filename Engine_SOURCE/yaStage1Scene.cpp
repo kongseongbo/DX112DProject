@@ -478,7 +478,7 @@ namespace ya
 			GameObject* lefteffect = object::Instantiate<GameObject>(eLayerType::Monster, this);
 			lefteffect->SetName(L"leftengineeffect");
 			Transform* leftTr = lefteffect->GetComponent<Transform>();
-			leftTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+			leftTr->SetScale(Vector3(10.0f, 10.0f, 4.9f));
 
 			EngineEffectScript* effectScript = lefteffect->AddComponent<EngineEffectScript>();
 			effectScript->SetParent(tr);
@@ -490,7 +490,7 @@ namespace ya
 			GameObject* righteffect = object::Instantiate<GameObject>(eLayerType::Monster, this);
 			righteffect->SetName(L"rightengineeffect");
 			Transform* rightTr = righteffect->GetComponent<Transform>();
-			rightTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+			rightTr->SetScale(Vector3(10.0f, 10.0f, 4.9f));
 			rightTr->SetRotation(Vector3(1.0f, 180.0f, 1.0f));
 			EngineEffectScript* righteffectScript = righteffect->AddComponent<EngineEffectScript>();
 			righteffectScript->SetParent(tr);

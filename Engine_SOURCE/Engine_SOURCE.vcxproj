@@ -178,6 +178,7 @@
     <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaDeathScript.h" />
     <ClInclude Include="yaEngineEffectScript.h" />
+    <ClInclude Include="yaFlamestrikeScript.h" />
     <ClInclude Include="yaHeadScript.h" />
     <ClInclude Include="yaHelicopter.h" />
     <ClInclude Include="yaHelicopterScript.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaDeathScript.cpp" />
     <ClCompile Include="yaEngineEffectScript.cpp" />
+    <ClCompile Include="yaFlamestrikeScript.cpp" />
     <ClCompile Include="yaHeadScript.cpp" />
     <ClCompile Include="yaHelicopter.cpp" />
     <ClCompile Include="yaHelicopterScript.cpp" />

@@ -31,7 +31,7 @@ namespace ya
 		Collider2D* coll = GetOwner()->AddComponent<Collider2D>();
 		coll->SetName(L"TheKeesi");
 		coll->SetType(eColliderType::Rect);
-		coll->SetSize(Vector2(1.0f, 0.3f));
+		coll->SetSize(Vector2(1.0f, 0.5f));
 
 		Animator* ani = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"TheKeesi", L"TheKeesi\\TheKeesi.png");
@@ -83,9 +83,20 @@ namespace ya
 	}
 	void TheKeesiScript::Attack()
 	{
+
+
 	}
 	void TheKeesiScript::Attack2()
 	{
+		GameObject* leftObj= new GameObject();
+		Scene* scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(leftObj, eLayerType::MonsterAttack);
+		
+		Transform* tr = leftObj->GetComponent<Transform>();
+		tr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y, mTr->GetPosition().z));
+		tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+
+		leftObj->AddComponent<Animator>();
 	}
 	void TheKeesiScript::Die()
 	{

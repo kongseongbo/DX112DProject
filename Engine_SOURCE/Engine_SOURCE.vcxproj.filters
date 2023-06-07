@@ -498,6 +498,9 @@
     <ClCompile Include="yaMapWallScript.cpp">
       <Filter>Component\Script\Map</Filter>
     </ClCompile>
+    <ClCompile Include="yaFlamestrikeScript.cpp">
+      <Filter>Component\Script\Enemy\TheKeesi\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -787,6 +790,9 @@
     </ClInclude>
     <ClInclude Include="yaMapWallScript.h">
       <Filter>Component\Script\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFlamestrikeScript.h">
+      <Filter>Component\Script\Enemy\TheKeesi\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

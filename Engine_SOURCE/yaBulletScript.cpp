@@ -115,10 +115,11 @@ namespace ya
 
 		Transform* tr = obj->GetComponent<Transform>();
 		tr->SetPosition(Vector3(bulletTr->GetPosition().x, bulletTr->GetPosition().y, 1.0f));
+		//tr->SetRotation(Vector3(1.0f, 1.0f, -90.0f));
 		obj->AddComponent<ParticleSystem>();
 
 
-		//GetOwner()->Death();
+		GetOwner()->Death();
 	}
 	void BulletScript::OnCollisionStay(Collider2D* collider)
 	{
