@@ -1,6 +1,5 @@
 #pragma once
 #include "yaScript.h"
-//#include "yaTheKeesi.h"
 
 namespace ya
 {
@@ -15,7 +14,7 @@ namespace ya
 		virtual void FixedUpdate();
 		virtual void Render();
 
-		virtual void OnCollisionEnter(Collider2D* collider);
+		virtual void OnCollisionEnter(Collider2D* collider) override;
 		virtual void OnCollisionStay(Collider2D* collider);
 		virtual void OnCollisionExit(Collider2D* collider);
 

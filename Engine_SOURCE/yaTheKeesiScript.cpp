@@ -7,7 +7,8 @@
 #include "yaCollider2D.h"
 #include "yaScene.h"
 #include "yaAnimator.h"
-
+#include "yaFlamestrikeScript.h"
+#include "yaEngineEffectScript.h"
 
 namespace ya
 {
@@ -67,7 +68,7 @@ namespace ya
 	}
 	void TheKeesiScript::OnCollisionEnter(Collider2D* collider)
 	{
-		int a = 0;
+
 	}
 	void TheKeesiScript::OnCollisionStay(Collider2D* collider)
 	{
@@ -88,15 +89,15 @@ namespace ya
 	}
 	void TheKeesiScript::Attack2()
 	{
-		GameObject* leftObj= new GameObject();
+		// Flamestrike
+		/*GameObject* leftObj= new GameObject();
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(leftObj, eLayerType::MonsterAttack);
 		
 		Transform* tr = leftObj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y, mTr->GetPosition().z));
-		tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
-
-		leftObj->AddComponent<Animator>();
+		tr->SetPosition(Vector3(mTr->GetPosition().x - 4.7f, mTr->GetPosition().y - 6.2f, mTr->GetPosition().z));
+		tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+		leftObj->AddComponent<FlamestrikeScript>();*/
 	}
 	void TheKeesiScript::Die()
 	{

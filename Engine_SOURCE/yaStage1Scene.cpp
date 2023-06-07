@@ -465,7 +465,7 @@ namespace ya
 			Transform* tr = thekeesi->GetComponent<Transform>();
 			tr->SetPosition(Vector3(15.0f, 5.0f, 5.0f));
 			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
-			//thekeesi->AddComponent<Animator>();
+
 			TheKeesiScript* thekeesiScript = thekeesi->AddComponent<TheKeesiScript>();
 			thekeesiScript->SetPlayer(headObj);
 

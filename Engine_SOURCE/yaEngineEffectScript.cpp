@@ -23,11 +23,15 @@ namespace ya
 	{
 		mTr = GetOwner()->GetComponent<Transform>();
 
-		Animator* childAni = GetOwner()->AddComponent<Animator>();
+		Animator* ani = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"EngineEffect", L"TheKeesi\\EngineEffect.png");
-		childAni->Create(L"EngineEffect", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 45.0f), Vector2::Zero, 4, 0.15f);
+		ani->Create(L"EngineEffect", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 45.0f), Vector2::Zero, 4, 0.15f);
 
-		childAni->Play(L"EngineEffect", true);
+		texture = Resources::Load<Texture>(L"Flame", L"TheKeesi\\Flame.png");
+		ani->Create(L"CreateFlame", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 170.0f), Vector2::Zero, 12, 0.2f);
+
+
+		ani->Play(L"EngineEffect", true);
 	}
 	void EngineEffectScript::Update()
 	{
@@ -45,6 +49,11 @@ namespace ya
 	}
 	void EngineEffectScript::OnCollisionEnter(Collider2D* collider)
 	{
+		Animator* ani =	GetOwner()->GetComponent<Animator>();
+		if (GetOwner()->GetName() == L"leftengineeffect")
+			ani->Play(L"CreateFlame", false);
+		if (GetOwner()->GetName() == L"rightengineeffect")
+			ani->Play(L"CreateFlame", false);
 	}
 	void EngineEffectScript::OnCollisionStay(Collider2D* collider)
 	{

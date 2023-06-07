@@ -2,7 +2,7 @@
 #include "yaScript.h"
 #include "yaBradleyBullet.h"
 #include "yaPlayer.h"
-
+#include "yaEngineEffectScript.h"
 
 namespace ya
 {
