@@ -14,7 +14,7 @@ namespace ya
 		virtual void FixedUpdate();
 		virtual void Render();
 
-		virtual void OnCollisionEnter(Collider2D* collider) override;
+		virtual void OnCollisionEnter(Collider2D* collider);
 		virtual void OnCollisionStay(Collider2D* collider);
 		virtual void OnCollisionExit(Collider2D* collider);
 
@@ -22,15 +22,19 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider) {};
 		virtual void OnTriggerExit(Collider2D* collider) {};
 
+		void End();
+		void CreateGroundEffect();
+
 		void SetParent(Transform* tr) { mParentTr = tr; }
+		void SetAttack(bool flame) { mbFlame = flame; }
 
 	private:
 		Transform* mTr;
 		Transform* mParentTr;
-		
-		//float mTime;
 
-		//int direction;
-		//int index;
+		GameObject* RightEffect;
+		
+		bool mbFlame;
+		bool mbPrev;
 	};
 }

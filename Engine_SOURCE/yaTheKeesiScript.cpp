@@ -5,10 +5,9 @@
 #include "yaInput.h"
 #include "yaSceneManager.h"
 #include "yaCollider2D.h"
-#include "yaScene.h"
 #include "yaAnimator.h"
 #include "yaFlamestrikeScript.h"
-#include "yaEngineEffectScript.h"
+
 
 namespace ya
 {
@@ -37,9 +36,7 @@ namespace ya
 		Animator* ani = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"TheKeesi", L"TheKeesi\\TheKeesi.png");
 		ani->Create(L"TheKeesiIdle", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 4, 0.1f);
-		
 		ani->Play(L"TheKeesiIdle", true);
-		
 	}
 	void TheKeesiScript::Update()
 	{
@@ -68,7 +65,11 @@ namespace ya
 	}
 	void TheKeesiScript::OnCollisionEnter(Collider2D* collider)
 	{
-
+	/*	EngineEffectScript* leftScr = mLeftEf->GetComponent<EngineEffectScript>();
+		leftScr->SetAttack(true);*/
+	
+		mLeftScript->SetAttack(true);
+		mRightScript->SetAttack(true);
 	}
 	void TheKeesiScript::OnCollisionStay(Collider2D* collider)
 	{

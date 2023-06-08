@@ -45,6 +45,9 @@ namespace ya
 		void End();
 
 		void SetPlayer(Player* player) { mPlayer = player; }
+
+		void SetRightEffect(EngineEffectScript* obj) { mRightScript = obj; }
+		void SetLeftEffect(EngineEffectScript* obj) { mLeftScript = obj; }
 	private:
 		Player* mPlayer;
 		Transform* playerTr;
@@ -54,7 +57,10 @@ namespace ya
 
 		bool mbMove;
 
-		//int direction;
-		//int index;
+		GameObject* mRightEf;
+		GameObject* mLeftEf;
+
+		EngineEffectScript* mRightScript;
+		EngineEffectScript* mLeftScript;
 	};
 }

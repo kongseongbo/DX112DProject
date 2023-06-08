@@ -19,15 +19,9 @@ namespace ya
 	void FlamestrikeScript::Initalize()
 	{
 
-	/*	Animator* ani = GetOwner()->AddComponent<Animator>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Flame", L"TheKeesi\\Flame.png");
-		ani->Create(L"CreateFlame", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 170.0f), Vector2::Zero, 12, 0.2f);
-
-		texture = Resources::Load<Texture>(L"Flame2", L"TheKeesi\\Flame2.png");
-
-		Collider2D* coll = GetOwner()->AddComponent<Collider2D>();
-		coll->SetType(eColliderType::Rect);
-		coll->SetSize(Vector2(0.1f, 0.2f));
+		Animator* ani = GetOwner()->AddComponent<Animator>();
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"groundeffect", L"TheKeesi\\groundeffect.png");
+		ani->Create(L"groundeffect", texture, Vector2(910.0f, 0.0f), Vector2(70.0f, 36.0f), Vector2::Zero, 7, 0.2f);
 
 		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -35,10 +29,11 @@ namespace ya
 		sr->SetMaterial(matateiral);
 		sr->SetMesh(mesh);
 
-		ani->Play(L"CreateFlame", false);*/
+		ani->Play(L"groundeffect", true);
 	}
 	void FlamestrikeScript::Update()
 	{
+		int a = 0;
 	}
 	void FlamestrikeScript::FixedUpdate()
 	{

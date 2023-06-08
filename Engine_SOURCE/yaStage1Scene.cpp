@@ -499,6 +499,8 @@ namespace ya
 			rightSr->SetMaterial(matateiral);
 			rightSr->SetMesh(mesh);
 
+			thekeesiScript->SetLeftEffect(effectScript);
+			thekeesiScript->SetRightEffect(righteffectScript);
 		}
 #pragma endregion
 
