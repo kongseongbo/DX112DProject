@@ -19,6 +19,7 @@ namespace ya
 		, mTime(0.0f)
 		, mStateUp(false)
 		, mSpeed(0.0f)
+		, mbCrash(false)
 	{
 
 	}
@@ -49,6 +50,9 @@ namespace ya
 		texture = Resources::Load<Texture>(L"MachineGunBullet", L"Bullet\\MachineGunBullet.png");
 		bulletAni->Create(L"MachineGunBullet", texture, Vector2(0.0f, 0.0f), Vector2(32.0f, 7.0f), Vector2::Zero, 1, 0.3f);
 
+		texture = Resources::Load<Texture>(L"Effect", L"Bullet\\Effect.png");
+		bulletAni->Create(L"Effect", texture, Vector2(0.0f, 0.0f), Vector2(17.0f, 16.0f), Vector2::Zero, 10, 0.1f);
+
 		SpriteRenderer* bulletSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -63,39 +67,47 @@ namespace ya
 		
 		mTime += 1.5f * Time::DeltaTime();
 
-		if (GetOwner()->GetName() == L"bullet")
+		if (mbCrash == false)
 		{
-			bulletAni->Play(L"BassBullet", true);
-			Attack(mTime, 0.0);
+			if (GetOwner()->GetName() == L"bullet")
+			{
+				bulletAni->Play(L"BassBullet", true);
+				Attack(mTime, 0.0);
+			}
+
+			if (GetOwner()->GetName() == L"bullet0")
+			{
+				bulletAni->Play(L"MachineGunBullet", true);
+				Attack(mTime, 0.0);
+			}
+			if (GetOwner()->GetName() == L"bullet1")
+			{
+				bulletAni->Play(L"MachineGunBullet", true);
+				Attack(mTime, 0.1);
+			}
+			if (GetOwner()->GetName() == L"bullet2")
+			{
+				bulletAni->Play(L"MachineGunBullet", true);
+				Attack(mTime, 0.15);
+			}
+			if (GetOwner()->GetName() == L"bullet3")
+			{
+				bulletAni->Play(L"MachineGunBullet", true);
+				Attack(mTime, 0.2);
+			}
+			if (GetOwner()->GetName() == L"bullet4")
+			{
+				bulletAni->Play(L"MachineGunBullet", true);
+				Attack(mTime, 0.25);
+			}
+		}
+		else
+		{
+			if (mTime > 1.0f)
+				GetOwner()->Death();
 		}
 
-		if (GetOwner()->GetName() == L"bullet0")
-		{
-			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.0);
-		}
-		if (GetOwner()->GetName() == L"bullet1")
-		{
-			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.1);
-		}
-		if (GetOwner()->GetName() == L"bullet2")
-		{
-			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.15);
-		}
-		if (GetOwner()->GetName() == L"bullet3")
-		{
-			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.2);
-		}
-		if (GetOwner()->GetName() == L"bullet4")
-		{
-			bulletAni->Play(L"MachineGunBullet", true);
-			Attack(mTime, 0.25);
-		}
-
-		if (mTime > 2.0f)
+		if (mTime > 1.5f)
 			GetOwner()->Death();
 	}
 	void BulletScript::FixedUpdate()
@@ -106,20 +118,14 @@ namespace ya
 	}
 	void BulletScript::OnCollisionEnter(Collider2D* collider)
 	{
-		Transform* bulletTr = GetOwner()->GetComponent<Transform>();
+		if (collider->GetOwner()->GetLayerType() == eLayerType::Delete)
+			return;
 
-		Scene* playScene = SceneManager::GetActiveScene();
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+		ani->Play(L"Effect", false);
+		mbCrash = true;
 
-		GameObject* obj = new GameObject();
-		playScene->AddGameObject(obj, eLayerType::Particle);
-
-		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(bulletTr->GetPosition().x, bulletTr->GetPosition().y, 1.0f));
-		//tr->SetRotation(Vector3(1.0f, 1.0f, -90.0f));
-		obj->AddComponent<ParticleSystem>();
-
-
-		GetOwner()->Death();
+		//GetOwner()->Death();
 	}
 	void BulletScript::OnCollisionStay(Collider2D* collider)
 	{

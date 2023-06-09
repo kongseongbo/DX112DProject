@@ -17,6 +17,7 @@ namespace ya
 		, mTr(nullptr)
 		, mParentTr(nullptr)
 		, RightEffect(nullptr)
+		, LeftEffect(nullptr)
 		, mbFlame(false)
 		, mbPrev(false)
 	{
@@ -64,6 +65,13 @@ namespace ya
 			{
 				mTr->SetPosition(Vector3(mParentTr->GetPosition().x - 4.6f, mParentTr->GetPosition().y - 6.1f, mParentTr->GetPosition().z - 1.0f));
 				mTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+				if (LeftEffect != nullptr)
+				{
+					Transform* tr = LeftEffect->GetComponent<Transform>();
+					tr->SetPosition(Vector3(mTr->GetPosition().x - 0.55f, mTr->GetPosition().y - 4.3f, mTr->GetPosition().z - 1.0f));
+					tr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
+				}
 			}
 
 			if (GetOwner()->GetName() == L"rightengineeffect")
@@ -71,17 +79,16 @@ namespace ya
 				mTr->SetPosition(Vector3(mParentTr->GetPosition().x + 4.5f, mParentTr->GetPosition().y - 6.1f, mParentTr->GetPosition().z - 1.0f));
 				mTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 
+				
+
 				if (RightEffect != nullptr)
 				{
 					Transform* tr = RightEffect->GetComponent<Transform>();
-					tr->SetPosition(Vector3(mTr->GetPosition().x + 0.3f, mTr->GetPosition().y - 4.5f, mTr->GetPosition().z - 1.0f));
+					tr->SetPosition(Vector3(mTr->GetPosition().x + 0.3f, mTr->GetPosition().y - 4.3f, mTr->GetPosition().z - 1.0f));
 					tr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
 				}
 			}
 		}
-
-		
-
 	}
 	void EngineEffectScript::FixedUpdate()
 	{
@@ -91,6 +98,7 @@ namespace ya
 	}
 	void EngineEffectScript::OnCollisionEnter(Collider2D* collider)
 	{
+		int a = 0;
 	}
 	void EngineEffectScript::OnCollisionStay(Collider2D* collider)
 	{
@@ -103,25 +111,27 @@ namespace ya
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"AttackFlame", true);
 
+		Collider2D* coll = GetOwner()->AddComponent<Collider2D>();
+		coll->SetType(eColliderType::Rect);
+		coll->SetSize(Vector2(0.1f, 0.5f));
+
+		GetOwner()->SetLayerType(eLayerType::Monster);
 		CreateGroundEffect();
 	}
 	void EngineEffectScript::CreateGroundEffect()
 	{
-		Scene* playScene = SceneManager::GetActiveScene();
 		if (GetOwner()->GetName() == L"rightengineeffect")
 		{
-			RightEffect = new GameObject();
-			playScene->AddGameObject(RightEffect, eLayerType::Effect);
 			RightEffect->AddComponent<FlamestrikeScript>();
-
 			Transform* tr = RightEffect->GetComponent<Transform>();
-			//tr->SetPosition(Vector3(mTr->GetPosition().x, mTr->GetPosition().y - 6.0f, 1.0f));
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 		}
-		/*SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		sr->SetMaterial(matateiral);
-		sr->SetMesh(mesh);*/
+
+		if (GetOwner()->GetName() == L"leftengineeffect")
+		{
+			LeftEffect->AddComponent<FlamestrikeScript>();
+			Transform* tr = LeftEffect->GetComponent<Transform>();
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+		}
 	}
 }

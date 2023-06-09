@@ -67,20 +67,19 @@ namespace ya
 		void NewBomb(Vector3 pos, float speed, int direction);
 
 		void SetBody(Body* body) { mBody = body; }
-
 		HeadState GetHeadState() { return mHeadState; }
 		void SetHeadState(HeadState state) { mHeadState = state; }
-
+		
 		eGunState GetGunState() { return mGunState; }
 		void SetGunState(eGunState state) { mGunState = state; }
 
 		void SetStop(int i) { mStop = i; }
 
+
 	private:
 		Bullet* mBullet;
 		Bullet* mBullets[5];
 		Bomb* mBomb;
-
 		Body* mBody;
 
 		Transform* mTr;

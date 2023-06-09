@@ -28,11 +28,15 @@ namespace ya
 		void SetParent(Transform* tr) { mParentTr = tr; }
 		void SetAttack(bool flame) { mbFlame = flame; }
 
+		void SetRightGroundEffect(GameObject* obj) { RightEffect = obj; }
+		void SetLeftGroundEffect(GameObject* obj) { LeftEffect = obj; }
+
 	private:
 		Transform* mTr;
 		Transform* mParentTr;
 
 		GameObject* RightEffect;
+		GameObject* LeftEffect;
 		
 		bool mbFlame;
 		bool mbPrev;

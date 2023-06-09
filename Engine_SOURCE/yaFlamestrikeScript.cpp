@@ -18,7 +18,6 @@ namespace ya
 	}
 	void FlamestrikeScript::Initalize()
 	{
-
 		Animator* ani = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"groundeffect", L"TheKeesi\\groundeffect.png");
 		ani->Create(L"groundeffect", texture, Vector2(910.0f, 0.0f), Vector2(70.0f, 36.0f), Vector2::Zero, 7, 0.2f);
@@ -33,7 +32,7 @@ namespace ya
 	}
 	void FlamestrikeScript::Update()
 	{
-		int a = 0;
+
 	}
 	void FlamestrikeScript::FixedUpdate()
 	{

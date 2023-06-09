@@ -66,6 +66,9 @@ namespace ya
 	}
 	void MosqueArtilleryBulletScript::OnCollisionEnter(Collider2D* collider)
 	{
+		if(collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
+			GetOwner()->SetLayerType(eLayerType::Delete);
+
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"BulletBomb", false);
 		

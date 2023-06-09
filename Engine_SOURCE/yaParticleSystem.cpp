@@ -75,6 +75,7 @@ namespace ya
 
 	void ParticleSystem::Update()
 	{
+
 	}
 
 	void ParticleSystem::FixedUpdate()

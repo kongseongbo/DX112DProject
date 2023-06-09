@@ -19,6 +19,10 @@ namespace ya
 		, mTr(nullptr)
 		, mTime(0.0f)
 		, mbMove(false)
+		, mRightEf(nullptr)
+		, mLeftEf(nullptr)
+		, mRightScript(nullptr)
+		, mLeftScript(nullptr)
 	{
 	}
 	TheKeesiScript::~TheKeesiScript()
@@ -65,9 +69,6 @@ namespace ya
 	}
 	void TheKeesiScript::OnCollisionEnter(Collider2D* collider)
 	{
-	/*	EngineEffectScript* leftScr = mLeftEf->GetComponent<EngineEffectScript>();
-		leftScr->SetAttack(true);*/
-	
 		mLeftScript->SetAttack(true);
 		mRightScript->SetAttack(true);
 	}

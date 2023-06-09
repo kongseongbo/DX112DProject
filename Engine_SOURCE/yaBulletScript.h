@@ -36,5 +36,6 @@ namespace ya
 		bool mStateUp;
 		float mSpeed;
 		float mTime;
+		bool mbCrash;
 	};
 }

@@ -300,6 +300,8 @@ namespace ya
 			mHeadAni->Play(L"Death", false);
 			mHeadState = HeadState::DEATH;
 		}
+
+		eLayerType type = collider->GetOwner()->GetLayerType();
 	}
 
 	void HeadScript::OnCollisionStay(Collider2D* collider)

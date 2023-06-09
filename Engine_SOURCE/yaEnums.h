@@ -34,6 +34,7 @@ namespace ya::enums
 		Animator,
 		Collider,
 
+		Delete,
 		UI,
 		End = 26,
 	};

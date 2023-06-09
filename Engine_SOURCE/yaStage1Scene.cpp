@@ -54,11 +54,20 @@ namespace ya
 		, wallObj(nullptr)
 		, headObj(nullptr)
 		, bodyObj(nullptr)
+		, mapScript(nullptr)
+		, mMosqueArtilleryleftTr(nullptr)
+		, mMosqueArtilleryrightTr(nullptr)
+		, mMosqueArtillerycenterTr(nullptr)
+		, mosqueArtilleryLeftObj(nullptr)
+		, mosqueArtilleryCenterObj(nullptr)
+		, mosqueArtilleryRightObj(nullptr)
+		, mMosqueArtilleryeHeadLeftScript(nullptr)
+		, mMosqueArtilleryeHeadCenterScript(nullptr)
+		, mMosqueArtilleryeHeadRightScript(nullptr)
 		, mTime(0.0f)
 		, mZoom(50.0f)
 		//, mbCameraPos(false)
 	{
-
 	}
 
 	Stage1Scene::~Stage1Scene()
@@ -200,6 +209,7 @@ namespace ya
 
 #pragma region PLAYER
 		{
+
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
@@ -350,7 +360,7 @@ namespace ya
 		}
 #pragma endregion
 
-#pragma region 중간보스 MosqueArtillery
+#pragma region MosqueArtillery
 		// Left
 		{
 			mosqueArtilleryLeftObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
@@ -475,31 +485,38 @@ namespace ya
 			sr->SetMaterial(matateiral);
 			sr->SetMesh(mesh);
 
+			GameObject* leftgroundeffect = object::Instantiate<GameObject>(eLayerType::Animator, this);
+			//
 			GameObject* lefteffect = object::Instantiate<GameObject>(eLayerType::Monster, this);
 			lefteffect->SetName(L"leftengineeffect");
 			Transform* leftTr = lefteffect->GetComponent<Transform>();
 			leftTr->SetScale(Vector3(10.0f, 10.0f, 4.9f));
 
-			EngineEffectScript* effectScript = lefteffect->AddComponent<EngineEffectScript>();
-			effectScript->SetParent(tr);
+			EngineEffectScript* lefteffectScript = lefteffect->AddComponent<EngineEffectScript>();
+			lefteffectScript->SetParent(tr);
+			lefteffectScript->SetLeftGroundEffect(leftgroundeffect);
 
 			SpriteRenderer* leftSr = lefteffect->AddComponent<SpriteRenderer>();
 			leftSr->SetMaterial(matateiral);
 			leftSr->SetMesh(mesh);
 
+			
+			GameObject* rightgroundeffect = object::Instantiate<GameObject>(eLayerType::Animator, this);
+			//
 			GameObject* righteffect = object::Instantiate<GameObject>(eLayerType::Monster, this);
 			righteffect->SetName(L"rightengineeffect");
+
 			Transform* rightTr = righteffect->GetComponent<Transform>();
 			rightTr->SetScale(Vector3(10.0f, 10.0f, 4.9f));
 			rightTr->SetRotation(Vector3(1.0f, 180.0f, 1.0f));
 			EngineEffectScript* righteffectScript = righteffect->AddComponent<EngineEffectScript>();
 			righteffectScript->SetParent(tr);
-
+			righteffectScript->SetRightGroundEffect(rightgroundeffect);
 			SpriteRenderer* rightSr = righteffect->AddComponent<SpriteRenderer>();
 			rightSr->SetMaterial(matateiral);
 			rightSr->SetMesh(mesh);
 
-			thekeesiScript->SetLeftEffect(effectScript);
+			thekeesiScript->SetLeftEffect(lefteffectScript);
 			thekeesiScript->SetRightEffect(righteffectScript);
 		}
 #pragma endregion
