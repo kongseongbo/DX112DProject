@@ -81,6 +81,48 @@ namespace ya
 			sr->SetMaterial(material);
 			sr->SetMesh(mesh);
 		}
+#pragma region LeftTent
+		{
+			GameObject* obj = new GameObject();
+			scene->AddGameObject(obj, eLayerType::Map);
+			Transform* map1Tr = obj->GetComponent<Transform>();
+			map1Tr->SetPosition(Vector3(151.75f, 2.0f, 8.0f));
+			map1Tr->SetScale(Vector3(14.0f, 13.0f, 1.0f));
+
+			Animator* ani = obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"LeftTent", L"Map\\LeftTent.png");
+			ani->Create(L"LeftTent", texture, Vector2(0.0f, 0.0f), Vector2(180.0f, 45.0f), Vector2::Zero, 4, 0.1f);
+
+			SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(material);
+			sr->SetMesh(mesh);
+
+			ani->Play(L"LeftTent", true);
+		}
+#pragma endregion
+#pragma region RightTent
+		{
+			GameObject* obj = new GameObject();
+			scene->AddGameObject(obj, eLayerType::Map);
+			Transform* map1Tr = obj->GetComponent<Transform>();
+			map1Tr->SetPosition(Vector3(170.5f, 2.0f, 8.0f));
+			map1Tr->SetScale(Vector3(14.0f, 13.0f, 1.0f));
+
+			Animator* ani = obj->AddComponent<Animator>();
+			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"RightTent", L"Map\\RightTent.png");
+			ani->Create(L"RightTent", texture, Vector2(360.0f, 60.0f), Vector2(90.0f, 60.0f), Vector2::Zero, 3, 0.1f);
+
+			SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(material);
+			sr->SetMesh(mesh);
+
+			ani->Play(L"RightTent", true);
+		}
+#pragma endregion
 #pragma region BRADLEY
 		{
 			Bradley* bradley = new Bradley();

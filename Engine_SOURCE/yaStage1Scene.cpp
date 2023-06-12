@@ -473,7 +473,7 @@ namespace ya
 			TheKeesi* thekeesi = object::Instantiate<TheKeesi>(eLayerType::Monster, this);
 			thekeesi->SetName(L"TheKeesi");
 			Transform* tr = thekeesi->GetComponent<Transform>();
-			tr->SetPosition(Vector3(15.0f, 5.0f, 5.0f));
+			tr->SetPosition(Vector3(165.0f, 4.0f, 5.0f));
 			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 
 			TheKeesiScript* thekeesiScript = thekeesi->AddComponent<TheKeesiScript>();
@@ -509,9 +509,11 @@ namespace ya
 			Transform* rightTr = righteffect->GetComponent<Transform>();
 			rightTr->SetScale(Vector3(10.0f, 10.0f, 4.9f));
 			rightTr->SetRotation(Vector3(1.0f, 180.0f, 1.0f));
+
 			EngineEffectScript* righteffectScript = righteffect->AddComponent<EngineEffectScript>();
 			righteffectScript->SetParent(tr);
 			righteffectScript->SetRightGroundEffect(rightgroundeffect);
+
 			SpriteRenderer* rightSr = righteffect->AddComponent<SpriteRenderer>();
 			rightSr->SetMaterial(matateiral);
 			rightSr->SetMesh(mesh);
@@ -615,11 +617,6 @@ namespace ya
 		Transform* cameraTr = mCameraObj->GetComponent<Transform>();
 		Camera* camera = mCameraObj->GetComponent<Camera>();
 		Vector3 pos = {};
-
-		if (wallObj->GetState() == GameObject::Dead)
-		{
-			int a = 0;
-		}
 		
 		if (headObj->GetState() == GameObject::Active)
 		{
@@ -631,11 +628,8 @@ namespace ya
 			else
 				pos = cameraTr->GetPosition();
 
-			
-
 			if (cameraTr->GetPosition().x < -78.0f)
 			{
-				//pos = cameraTr->GetPosition();
 				mapScript->SetPlayerCamera(false);
 				cameraTr->SetPosition(Vector3(pos.x, 1.2f , 5.0f));
 			}

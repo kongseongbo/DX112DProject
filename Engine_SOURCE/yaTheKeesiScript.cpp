@@ -7,7 +7,7 @@
 #include "yaCollider2D.h"
 #include "yaAnimator.h"
 #include "yaFlamestrikeScript.h"
-
+#include "yaBossArabianScript.h"
 
 namespace ya
 {
@@ -23,6 +23,7 @@ namespace ya
 		, mLeftEf(nullptr)
 		, mRightScript(nullptr)
 		, mLeftScript(nullptr)
+		, mArabian(nullptr)
 	{
 	}
 	TheKeesiScript::~TheKeesiScript()
@@ -44,13 +45,15 @@ namespace ya
 	}
 	void TheKeesiScript::Update()
 	{
+
 		float y = mTr->GetPosition().y;
 
-		if (y >= 6.0f)
+		if (y >= 5.0f)
 		{
 			mbMove = true;
+
 		}
-		if(y <= 5.0f)
+		if(y <= 4.0f)
 		{
 			mbMove = false;
 		}
@@ -60,6 +63,13 @@ namespace ya
 			y -= 0.5f * Time::DeltaTime();
 
 		mTr->SetPosition(Vector3(mTr->GetPosition().x, y, mTr->GetPosition().z));
+
+		mTime += 2.0f * Time::DeltaTime(); 
+		if (mTime > 5.0f)
+		{
+			CreatMonster(mTr->GetPosition());
+			mTime = 0.0f;
+		}
 	}
 	void TheKeesiScript::FixedUpdate()
 	{
@@ -87,24 +97,26 @@ namespace ya
 	void TheKeesiScript::Attack()
 	{
 
-
 	}
 	void TheKeesiScript::Attack2()
 	{
-		// Flamestrike
-		/*GameObject* leftObj= new GameObject();
-		Scene* scene = SceneManager::GetActiveScene();
-		scene->AddGameObject(leftObj, eLayerType::MonsterAttack);
-		
-		Transform* tr = leftObj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(mTr->GetPosition().x - 4.7f, mTr->GetPosition().y - 6.2f, mTr->GetPosition().z));
-		tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-		leftObj->AddComponent<FlamestrikeScript>();*/
+
 	}
 	void TheKeesiScript::Die()
 	{
 	}
 	void TheKeesiScript::End()
 	{
+	}
+
+	void TheKeesiScript::CreatMonster(Vector3 position)
+	{
+		{
+			GameObject* arabian = object::Instantiate<GameObject>(eLayerType::Monster);
+			Transform* arabianTr = arabian->GetComponent<Transform>();
+			arabianTr->SetPosition(Vector3(position.x , -3.0f, 4.0f));
+			arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			BossArabianScript* script = arabian->AddComponent<BossArabianScript>();
+		}
 	}
 }

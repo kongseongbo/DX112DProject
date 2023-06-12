@@ -164,6 +164,7 @@
     <ClInclude Include="yaBodyScript.h" />
     <ClInclude Include="yaBomb.h" />
     <ClInclude Include="yaBombScript.h" />
+    <ClInclude Include="yaBossArabianScript.h" />
     <ClInclude Include="yaBradley.h" />
     <ClInclude Include="yaBradleyBullet.h" />
     <ClInclude Include="yaBradleyBulletEffect.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="yaBodyScript.cpp" />
     <ClCompile Include="yaBomb.cpp" />
     <ClCompile Include="yaBombScript.cpp" />
+    <ClCompile Include="yaBossArabianScript.cpp" />
     <ClCompile Include="yaBradley.cpp" />
     <ClCompile Include="yaBradleyBullet.cpp" />
     <ClCompile Include="yaBradleyBulletEffect.cpp" />

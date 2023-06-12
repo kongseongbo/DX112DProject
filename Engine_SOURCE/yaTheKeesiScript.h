@@ -3,6 +3,8 @@
 #include "yaBradleyBullet.h"
 #include "yaPlayer.h"
 #include "yaEngineEffectScript.h"
+#include "yaArabian.h"
+
 
 namespace ya
 {
@@ -44,6 +46,8 @@ namespace ya
 
 		void End();
 
+		void CreatMonster(Vector3 position);
+
 		void SetPlayer(Player* player) { mPlayer = player; }
 
 		void SetRightEffect(EngineEffectScript* obj) { mRightScript = obj; }
@@ -62,5 +66,7 @@ namespace ya
 
 		EngineEffectScript* mRightScript;
 		EngineEffectScript* mLeftScript;
+
+		Arabian* mArabian;
 	};
 }
