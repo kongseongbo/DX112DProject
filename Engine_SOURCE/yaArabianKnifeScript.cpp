@@ -15,6 +15,7 @@ namespace ya
 	ArabianKnifeScript::ArabianKnifeScript()
 		: Script()
 		, mTime(0.0f)
+		, stack(0)
 	{
 	}
 	ArabianKnifeScript::~ArabianKnifeScript()

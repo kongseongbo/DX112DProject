@@ -3,15 +3,15 @@
 namespace ya
 {
 	Arabian::Arabian()
+		: GameObject()
 	{
 	}
 	Arabian::~Arabian()
 	{ 
-		int a = 0;
 	}
 	void Arabian::Initalize()
 	{
-		SetName(L"Arabian1");
+		//SetName(L"Arabian");
 		GameObject::Initalize();
 	}
 	void Arabian::Update()

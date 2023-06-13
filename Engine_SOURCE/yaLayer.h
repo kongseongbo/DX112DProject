@@ -16,12 +16,14 @@ namespace ya
 		virtual void Destroy();
 
 		void AddGameObject(GameObject* gameObject);
+		void CreateGameObject(GameObject* gameObject);
 		const std::vector<GameObject*>& GetGameObjects() { return mGameObjects; }
 		std::vector<GameObject*> GetDontDestroyGameObjects();
 
 
 	private:
 		std::vector<GameObject*> mGameObjects;
+		std::vector<GameObject*> mCreateGameObjects;
 	};
 
 	typedef const std::vector<GameObject*>& GameObjects;

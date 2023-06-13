@@ -21,6 +21,19 @@ namespace ya::object
 	}
 
 	template <typename T>
+	static T* CreateGameObject(enums::eLayerType type)
+	{
+		T* gameObj = new T();
+		Scene* scene = SceneManager::GetActiveScene();
+		Layer& layer = scene->GetLayer(type);
+		layer.CreateGameObject(gameObj);
+		gameObj->Initalize();
+
+
+		return gameObj;
+	}
+
+	template <typename T>
 	static T* Instantiate(enums::eLayerType type, Scene* scene)
 	{
 		T* gameObj = new T();

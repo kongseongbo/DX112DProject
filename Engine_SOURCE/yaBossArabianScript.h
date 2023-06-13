@@ -17,7 +17,7 @@ namespace ya
 			UPATTACK,
 			DEATH,
 		};
-		BossArabianState mArabianState;
+		BossArabianState mBossArabianState;
 
 		BossArabianScript();
 		virtual ~BossArabianScript();

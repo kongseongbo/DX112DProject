@@ -28,6 +28,17 @@ namespace ya
 
 	void Layer::Update()
 	{
+		for (GameObject* obj : mCreateGameObjects)
+		{
+			if (obj == nullptr)
+				continue;
+			if (obj->GetState() != GameObject::eState::Active)
+				continue;
+
+			mGameObjects.push_back(obj);
+			mCreateGameObjects.clear();
+		}
+
 		for (GameObject* obj : mGameObjects)
 		{
 			if (obj == nullptr)
@@ -109,6 +120,14 @@ namespace ya
 			return;
 
 		mGameObjects.push_back(gameObject);
+	}
+
+	void Layer::CreateGameObject(GameObject* gameObject)
+	{
+		if (gameObject == nullptr)
+			return;
+
+		mCreateGameObjects.push_back(gameObject);
 	}
 	std::vector<GameObject*> Layer::GetDontDestroyGameObjects()
 	{

@@ -23,7 +23,7 @@ namespace ya
 		, mLeftEf(nullptr)
 		, mRightScript(nullptr)
 		, mLeftScript(nullptr)
-		, mArabian(nullptr)
+		, mIndex(0)
 	{
 	}
 	TheKeesiScript::~TheKeesiScript()
@@ -48,12 +48,12 @@ namespace ya
 
 		float y = mTr->GetPosition().y;
 
-		if (y >= 5.0f)
+		if (y >= 4.0f)
 		{
 			mbMove = true;
 
 		}
-		if(y <= 4.0f)
+		if(y <= 3.5f)
 		{
 			mbMove = false;
 		}
@@ -65,8 +65,9 @@ namespace ya
 		mTr->SetPosition(Vector3(mTr->GetPosition().x, y, mTr->GetPosition().z));
 
 		mTime += 2.0f * Time::DeltaTime(); 
-		if (mTime > 5.0f)
+		if (mTime > 10.0f)
 		{
+			//if(mIndex == 0)
 			CreatMonster(mTr->GetPosition());
 			mTime = 0.0f;
 		}
@@ -111,12 +112,14 @@ namespace ya
 
 	void TheKeesiScript::CreatMonster(Vector3 position)
 	{
-		{
-			GameObject* arabian = object::Instantiate<GameObject>(eLayerType::Monster);
-			Transform* arabianTr = arabian->GetComponent<Transform>();
-			arabianTr->SetPosition(Vector3(position.x , -3.0f, 4.0f));
-			arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-			BossArabianScript* script = arabian->AddComponent<BossArabianScript>();
-		}
+
+		Arabian* arabian = object::CreateGameObject<Arabian>(eLayerType::Monster);
+		Transform* arabianTr = arabian->GetComponent<Transform>();
+		arabianTr->SetPosition(Vector3(position.x, -3.0f, 4.0f));
+		arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+		BossArabianScript* script = arabian->AddComponent<BossArabianScript>();
+		
+		mIndex++;
 	}
 }

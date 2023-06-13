@@ -46,8 +46,6 @@ namespace ya
 		void SetIndex(int a) { index = a; }
 
 	private:
-		//std::vector<Arabian*> mArabian;
-
 		Animator* mAni;
 		Transform* mTr;
 		float mTime;

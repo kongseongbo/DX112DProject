@@ -119,7 +119,6 @@ namespace ya
 		eState mState;
 		eLayerType mType;
 		bool mbDontDestroy;
-		//Scene* mScene;
 	};
 }
 

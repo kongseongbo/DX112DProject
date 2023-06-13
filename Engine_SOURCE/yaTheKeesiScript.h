@@ -53,13 +53,10 @@ namespace ya
 		void SetRightEffect(EngineEffectScript* obj) { mRightScript = obj; }
 		void SetLeftEffect(EngineEffectScript* obj) { mLeftScript = obj; }
 	private:
+		Transform* mTr;
+		
 		Player* mPlayer;
 		Transform* playerTr;
-
-		Transform* mTr;
-		float mTime;
-
-		bool mbMove;
 
 		GameObject* mRightEf;
 		GameObject* mLeftEf;
@@ -67,6 +64,8 @@ namespace ya
 		EngineEffectScript* mRightScript;
 		EngineEffectScript* mLeftScript;
 
-		Arabian* mArabian;
+		bool mbMove;
+		int mIndex;
+		float mTime;
 	};
 }
