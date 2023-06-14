@@ -504,6 +504,9 @@
     <ClCompile Include="yaBossArabianScript.cpp">
       <Filter>Component\Script\Enemy\TheKeesi\Script</Filter>
     </ClCompile>
+    <ClCompile Include="yaTentScript.cpp">
+      <Filter>Component\Script\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -799,6 +802,9 @@
     </ClInclude>
     <ClInclude Include="yaBossArabianScript.h">
       <Filter>Component\Script\Enemy\TheKeesi\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaTentScript.h">
+      <Filter>Component\Script\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

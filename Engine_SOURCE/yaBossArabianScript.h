@@ -11,6 +11,7 @@ namespace ya
 		{
 			NONE,
 			NEW,
+			JUMP,
 			IDLE,
 			MOVE,
 			ATTACK,
@@ -36,6 +37,7 @@ namespace ya
 		virtual void OnTriggerExit(Collider2D* collider) {};
 
 		void New();
+		void Jump();
 		void Idle();
 		void Move();
 		void Attack();
@@ -52,5 +54,7 @@ namespace ya
 
 		int direction;
 		int index;
+
+		bool ox;
 	};
 }

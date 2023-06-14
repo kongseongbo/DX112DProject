@@ -13,7 +13,7 @@ namespace ya
 {
 	TheKeesiScript::TheKeesiScript()
 		: Script()
-		, eTheKeesiState(TheKeesiState::IDLE)
+		, mTheKeesiState(TheKeesiState::IDLE)
 		, mPlayer(nullptr)
 		, playerTr(nullptr)
 		, mTr(nullptr)
@@ -24,6 +24,7 @@ namespace ya
 		, mRightScript(nullptr)
 		, mLeftScript(nullptr)
 		, mIndex(0)
+		, mStack(0)
 	{
 	}
 	TheKeesiScript::~TheKeesiScript()
@@ -41,36 +42,39 @@ namespace ya
 		Animator* ani = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"TheKeesi", L"TheKeesi\\TheKeesi.png");
 		ani->Create(L"TheKeesiIdle", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 4, 0.1f);
+
+
+		texture = Resources::Load<Texture>(L"TheKeesi2", L"TheKeesi\\TheKeesi2.png");
+		ani->Create(L"TheKeesi2Idle", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 4, 0.1f);
+
+		texture = Resources::Load<Texture>(L"TheKeesi3", L"TheKeesi\\TheKeesi3.png");
+		ani->Create(L"TheKeesi3Idle", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 4, 0.1f);
+
 		ani->Play(L"TheKeesiIdle", true);
 	}
 	void TheKeesiScript::Update()
 	{
-
-		float y = mTr->GetPosition().y;
-
-		if (y >= 4.0f)
+		switch (mTheKeesiState)
 		{
-			mbMove = true;
-
+		case ya::TheKeesiScript::TheKeesiState::IDLE:
+			Idle();
+			break;
+		case ya::TheKeesiScript::TheKeesiState::MOVE:
+			Move();
+			break;
+		case ya::TheKeesiScript::TheKeesiState::MOVE2:
+			Move2();
+			break;
+		case ya::TheKeesiScript::TheKeesiState::ATTACK:
+			Attack();
+			break;
+		case ya::TheKeesiScript::TheKeesiState::DIE:
+			Die();
+			break;
+		default:
+			break;
 		}
-		if(y <= 3.5f)
-		{
-			mbMove = false;
-		}
-		if(!mbMove)
-			y += 0.5f * Time::DeltaTime();
-		if(mbMove)
-			y -= 0.5f * Time::DeltaTime();
 
-		mTr->SetPosition(Vector3(mTr->GetPosition().x, y, mTr->GetPosition().z));
-
-		mTime += 2.0f * Time::DeltaTime(); 
-		if (mTime > 10.0f)
-		{
-			//if(mIndex == 0)
-			CreatMonster(mTr->GetPosition());
-			mTime = 0.0f;
-		}
 	}
 	void TheKeesiScript::FixedUpdate()
 	{
@@ -80,8 +84,19 @@ namespace ya
 	}
 	void TheKeesiScript::OnCollisionEnter(Collider2D* collider)
 	{
-		mLeftScript->SetAttack(true);
-		mRightScript->SetAttack(true);
+		if (collider->GetOwner()->GetName() == L"Tent")
+			return;
+
+		mStack++;
+		if (mStack > 30)
+		{
+			mLeftScript->SetAttack(true);
+			mRightScript->SetAttack(true);
+			mbMove = false;
+			Animator* ani = GetOwner()->GetComponent<Animator>();
+			ani->Play(L"TheKeesi2Idle", true);
+			mTheKeesiState = TheKeesiState::MOVE;
+		}
 	}
 	void TheKeesiScript::OnCollisionStay(Collider2D* collider)
 	{
@@ -91,13 +106,88 @@ namespace ya
 	}
 	void TheKeesiScript::Idle()
 	{
+		float y = mTr->GetPosition().y;
+
+		if (y >= 4.0f)
+		{
+			mbMove = true;
+
+		}
+		if (y <= 3.5f)
+		{
+			mbMove = false;
+		}
+		if (!mbMove)
+			y += 0.5f * Time::DeltaTime();
+		if (mbMove)
+			y -= 0.5f * Time::DeltaTime();
+
+		mTr->SetPosition(Vector3(mTr->GetPosition().x, y, mTr->GetPosition().z));
+
+		mTime += 2.0f * Time::DeltaTime();
+		if (mTime > 30.0f)
+		{
+			mTheKeesiState = TheKeesiState::ATTACK;
+		}
 	}
 	void TheKeesiScript::Move()
 	{
+		if (mStack > 50)
+		{
+			Animator* ani = GetOwner()->GetComponent<Animator>();
+			ani->Play(L"TheKeesi3Idle", true);
+			mTheKeesiState = TheKeesiState::MOVE2;
+		}
+
+		float x = mTr->GetPosition().x;
+
+		if (x >= 165.0f)
+		{
+			mbMove = true;
+
+		}
+		if (x <= 163.0f)
+		{
+			mbMove = false;
+		}
+		if (!mbMove)
+			x += 2.0f * Time::DeltaTime();
+		if (mbMove)
+			x -= 2.0f * Time::DeltaTime();
+
+		mTr->SetPosition(Vector3(x, mTr->GetPosition().y, mTr->GetPosition().z));
+		
+	}
+	void TheKeesiScript::Move2()
+	{
+		if (mStack > 70)
+		{
+			mTheKeesiState = TheKeesiState::DIE;
+		}
+
+		float x = mTr->GetPosition().x;
+
+		if (x >= 165.0f)
+		{
+			mbMove = true;
+
+		}
+		if (x <= 163.0f)
+		{
+			mbMove = false;
+		}
+		if (!mbMove)
+			x += 2.0f * Time::DeltaTime();
+		if (mbMove)
+			x -= 2.0f * Time::DeltaTime();
+
+		mTr->SetPosition(Vector3(x, mTr->GetPosition().y, mTr->GetPosition().z));
 	}
 	void TheKeesiScript::Attack()
 	{
-
+		CreatMonster(mTr->GetPosition());
+		mTime = 0.0f;
+		mTheKeesiState = TheKeesiState::IDLE;
 	}
 	void TheKeesiScript::Attack2()
 	{
@@ -112,14 +202,11 @@ namespace ya
 
 	void TheKeesiScript::CreatMonster(Vector3 position)
 	{
-
 		Arabian* arabian = object::CreateGameObject<Arabian>(eLayerType::Monster);
 		Transform* arabianTr = arabian->GetComponent<Transform>();
-		arabianTr->SetPosition(Vector3(position.x, -3.0f, 4.0f));
+		arabianTr->SetPosition(Vector3(position.x, 5.8f, 4.0f));
 		arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 
 		BossArabianScript* script = arabian->AddComponent<BossArabianScript>();
-		
-		mIndex++;
 	}
 }

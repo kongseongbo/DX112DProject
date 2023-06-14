@@ -10,7 +10,7 @@
 
 #include "yaBradleyScript.h"
 #include "yaBradley.h"
-
+#include "yaTentScript.h"
 namespace ya
 {
 	MapWallScript::MapWallScript()
@@ -30,14 +30,13 @@ namespace ya
 		ani->Create(L"DestroyWall", texture, Vector2(0.0f, 0.0f), Vector2(100.0f, 151.0f), Vector2::Zero, 3, 0.2f);
 		ani->Play(L"Wall", false);
 
-
 		ani->GetCompleteEvent(L"DestroyWall") = std::bind(&MapWallScript::Destroy, this);
 	}
 	void MapWallScript::Update()
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 
-		if (mStack == 8)
+		if (mStack == 7)
 			ani->Play(L"DestroyWall", false);
 
 	}
@@ -53,6 +52,11 @@ namespace ya
 		{
 			mStack++;
 			
+		}
+
+		if(collider->GetOwner()->GetLayerType() == eLayerType::Bomb && GetOwner()->GetName() == L"Wall")
+		{
+			mStack++;
 		}
 	}
 	void MapWallScript::OnCollisionStay(Collider2D* collider)
@@ -105,22 +109,23 @@ namespace ya
 #pragma region RightTent
 		{
 			GameObject* obj = new GameObject();
+			obj->SetName(L"Tent");
 			scene->AddGameObject(obj, eLayerType::Map);
 			Transform* map1Tr = obj->GetComponent<Transform>();
 			map1Tr->SetPosition(Vector3(170.5f, 2.0f, 8.0f));
 			map1Tr->SetScale(Vector3(14.0f, 13.0f, 1.0f));
 
-			Animator* ani = obj->AddComponent<Animator>();
-			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"RightTent", L"Map\\RightTent.png");
-			ani->Create(L"RightTent", texture, Vector2(360.0f, 60.0f), Vector2(90.0f, 60.0f), Vector2::Zero, 3, 0.1f);
+			obj->AddComponent<Animator>();
+			Collider2D* coll =obj->AddComponent<Collider2D>();
+			coll->SetType(eColliderType::Rect);
+			coll->SetSize(Vector2(0.1, 0.15));
+			obj->AddComponent<TentScript>();
 
 			SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			sr->SetMaterial(material);
 			sr->SetMesh(mesh);
-
-			ani->Play(L"RightTent", true);
 		}
 #pragma endregion
 #pragma region BRADLEY

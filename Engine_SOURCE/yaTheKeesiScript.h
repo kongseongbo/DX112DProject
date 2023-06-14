@@ -16,11 +16,12 @@ namespace ya
 			NONE,
 			IDLE,
 			MOVE,
+			MOVE2,
 			ATTACK,
 			ATTACK2,
 			DIE,
 		};
-		TheKeesiState eTheKeesiState;
+		TheKeesiState mTheKeesiState;
 
 		TheKeesiScript();
 		virtual ~TheKeesiScript();
@@ -40,6 +41,7 @@ namespace ya
 
 		void Idle();
 		void Move();
+		void Move2();
 		void Attack();
 		void Attack2();
 		void Die();
@@ -66,6 +68,7 @@ namespace ya
 
 		bool mbMove;
 		int mIndex;
+		int mStack;
 		float mTime;
 	};
 }

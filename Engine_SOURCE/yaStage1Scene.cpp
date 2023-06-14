@@ -473,7 +473,7 @@ namespace ya
 			TheKeesi* thekeesi = object::Instantiate<TheKeesi>(eLayerType::Monster, this);
 			thekeesi->SetName(L"TheKeesi");
 			Transform* tr = thekeesi->GetComponent<Transform>();
-			tr->SetPosition(Vector3(165.0f, 4.0f, 5.0f));
+			tr->SetPosition(Vector3(164.0f, 4.0f, 5.0f));
 			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 
 			TheKeesiScript* thekeesiScript = thekeesi->AddComponent<TheKeesiScript>();
@@ -591,6 +591,7 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::MiddleBoss, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Obj, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Body, eLayerType::MapLine, true);
@@ -602,6 +603,8 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Bullet, eLayerType::Obj, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Map, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::MapLine, true);
+
 		CollisionManager::CollisionLayerCheck(eLayerType::Obj, eLayerType::Map, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::MonsterAttack, eLayerType::Map, true);

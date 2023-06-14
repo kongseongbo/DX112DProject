@@ -247,6 +247,7 @@
     <ClInclude Include="yaScript.h" />
     <ClInclude Include="yaShader.h" />
     <ClInclude Include="yaSpriteRenderer.h" />
+    <ClInclude Include="yaTentScript.h" />
     <ClInclude Include="yaTexture.h" />
     <ClInclude Include="yaTheKeesi.h" />
     <ClInclude Include="yaTheKeesiScript.h" />
@@ -342,6 +343,7 @@
     <ClCompile Include="yaScript.cpp" />
     <ClCompile Include="yaShader.cpp" />
     <ClCompile Include="yaSpriteRenderer.cpp" />
+    <ClCompile Include="yaTentScript.cpp" />
     <ClCompile Include="yaTexture.cpp" />
     <ClCompile Include="yaTheKeesi.cpp" />
     <ClCompile Include="yaTheKeesiScript.cpp" />
