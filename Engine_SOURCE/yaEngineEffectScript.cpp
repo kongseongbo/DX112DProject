@@ -9,6 +9,7 @@
 #include "yaSpriteRenderer.h"
 
 #include "yaFlamestrikeScript.h"
+#include "yaTheKeesiScript.h"
 
 namespace ya
 {
@@ -89,6 +90,14 @@ namespace ya
 				}
 			}
 		}
+
+		TheKeesiScript* scr = mParentTr->GetOwner()->GetScript<TheKeesiScript>();
+			
+		if ((UINT)scr->GetBossState() == 6)
+		{
+			GetOwner()->Death();
+		}
+
 	}
 	void EngineEffectScript::FixedUpdate()
 	{

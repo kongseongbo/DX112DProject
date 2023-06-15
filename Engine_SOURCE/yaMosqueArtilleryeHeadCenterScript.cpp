@@ -15,10 +15,11 @@ namespace ya
 {
 	MosqueArtilleryeHeadCenterScript::MosqueArtilleryeHeadCenterScript()
 		: Script()
+		, eState(State::NONE)
+		, mPlayer(nullptr)
 		, mbStartAni(false)
 		, stack(0)
-		, mHp(5)
-		, eState(State::NONE)
+		, mHp(10)
 		, mTime(0.0f)
 	{
 	}
@@ -27,6 +28,10 @@ namespace ya
 	}
 	void MosqueArtilleryeHeadCenterScript::Initalize()
 	{
+		Collider2D* coll = GetOwner()->AddComponent<Collider2D>();
+		coll->SetType(eColliderType::Rect);
+		coll->SetSize(Vector2(0.25f, 0.01f));
+
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MosqueArtilleryeHeadCenter", L"MosqueArtillery\\MosqueArtilleryeHeadCenter.png");
 		ani->Create(L"MosqueArtilleryeHeadCenter", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 138.0f), Vector2(0.0f, 0.0f), 1, 0.2f);

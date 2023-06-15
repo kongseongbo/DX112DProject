@@ -176,6 +176,7 @@
     <ClInclude Include="yaCamelArabian.h" />
     <ClInclude Include="yaCamelArabianBulletScript.h" />
     <ClInclude Include="yaCamelArabianScript.h" />
+    <ClInclude Include="yaCompleteScript.h" />
     <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaDeathScript.h" />
     <ClInclude Include="yaEngineEffectScript.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="yaMapWallScript.h" />
     <ClInclude Include="yaMosqueArtillery.h" />
     <ClInclude Include="yaMosqueArtilleryBullet.h" />
+    <ClInclude Include="yaMosqueArtilleryBulletEffectScript.h" />
     <ClInclude Include="yaMosqueArtilleryBulletScript.h" />
     <ClInclude Include="yaMosqueArtilleryeHeadCenter.h" />
     <ClInclude Include="yaMosqueArtilleryeHeadCenterScript.h" />
@@ -276,6 +278,7 @@
     <ClCompile Include="yaCamelArabian.cpp" />
     <ClCompile Include="yaCamelArabianBulletScript.cpp" />
     <ClCompile Include="yaCamelArabianScript.cpp" />
+    <ClCompile Include="yaCompleteScript.cpp" />
     <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaDeathScript.cpp" />
     <ClCompile Include="yaEngineEffectScript.cpp" />
@@ -290,6 +293,7 @@
     <ClCompile Include="yaMapWallScript.cpp" />
     <ClCompile Include="yaMosqueArtillery.cpp" />
     <ClCompile Include="yaMosqueArtilleryBullet.cpp" />
+    <ClCompile Include="yaMosqueArtilleryBulletEffectScript.cpp" />
     <ClCompile Include="yaMosqueArtilleryBulletScript.cpp" />
     <ClCompile Include="yaMosqueArtilleryeHeadCenter.cpp" />
     <ClCompile Include="yaMosqueArtilleryeHeadCenterScript.cpp" />

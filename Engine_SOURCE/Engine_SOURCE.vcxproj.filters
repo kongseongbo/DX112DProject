@@ -223,6 +223,9 @@
     <Filter Include="Component\Script\Enemy\TheKeesi\Script">
       <UniqueIdentifier>{7d020ac3-cf3b-473a-89cf-690fb3d17d01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Complete">
+      <UniqueIdentifier>{8dbd7135-909b-4aeb-835d-c90b47759f1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -506,6 +509,12 @@
     </ClCompile>
     <ClCompile Include="yaTentScript.cpp">
       <Filter>Component\Script\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMosqueArtilleryBulletEffectScript.cpp">
+      <Filter>Component\Script\Enemy\MosqueArtillery\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCompleteScript.cpp">
+      <Filter>Component\Script\Complete</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -805,6 +814,12 @@
     </ClInclude>
     <ClInclude Include="yaTentScript.h">
       <Filter>Component\Script\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMosqueArtilleryBulletEffectScript.h">
+      <Filter>Component\Script\Enemy\MosqueArtillery\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCompleteScript.h">
+      <Filter>Component\Script\Complete</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

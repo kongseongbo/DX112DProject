@@ -101,14 +101,14 @@ namespace ya
 		}
 #pragma region CAMERA
 		// Main Camera
-		{
+		
 			mCameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 			mCameraObj->SetName(L"MainCamera");
 			Camera* cameraComp = mCameraObj->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			CameraScript* cameraScript = mCameraObj->AddComponent<CameraScript>();
 			mainCamera = cameraComp;
-		}
+		
 		// UI Camera	
 		{
 			GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
@@ -370,10 +370,6 @@ namespace ya
 			mMosqueArtilleryleftTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			mosqueArtilleryLeftObj->AddComponent<Animator>();
 
-			Collider2D* coll = mosqueArtilleryLeftObj->AddComponent<Collider2D>();
-			coll->SetType(eColliderType::Rect);
-			coll->SetSize(Vector2(0.25f, 0.1f));
-
 			mMosqueArtilleryeHeadLeftScript = mosqueArtilleryLeftObj->AddComponent<MosqueArtilleryeHeadLeftScript>();
 			mMosqueArtilleryeHeadLeftScript->SetTarget(headObj);
 
@@ -391,10 +387,6 @@ namespace ya
 			mMosqueArtillerycenterTr->SetPosition(Vector3(51.6f, 4.f, 10.0f));
 			mMosqueArtillerycenterTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			mosqueArtilleryCenterObj->AddComponent<Animator>();
-			
-			Collider2D* coll = mosqueArtilleryCenterObj->AddComponent<Collider2D>();
-			coll->SetType(eColliderType::Rect);
-			coll->SetSize(Vector2(0.25f, 0.1f));
 
 			mMosqueArtilleryeHeadCenterScript = mosqueArtilleryCenterObj->AddComponent<MosqueArtilleryeHeadCenterScript>();
 			mMosqueArtilleryeHeadCenterScript->SetTarget(headObj);
@@ -413,10 +405,6 @@ namespace ya
 			mMosqueArtilleryrightTr->SetPosition(Vector3(57.8f, 4.f, 10.0f));
 			mMosqueArtilleryrightTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			mosqueArtilleryRightObj->AddComponent<Animator>();
-
-			Collider2D* coll = mosqueArtilleryRightObj->AddComponent<Collider2D>();
-			coll->SetType(eColliderType::Rect);
-			coll->SetSize(Vector2(0.25f, 0.1f));
 
 			mMosqueArtilleryeHeadRightScript = mosqueArtilleryRightObj->AddComponent<MosqueArtilleryeHeadRightScript>();
 			mMosqueArtilleryeHeadRightScript->SetTarget(headObj);
@@ -478,7 +466,7 @@ namespace ya
 
 			TheKeesiScript* thekeesiScript = thekeesi->AddComponent<TheKeesiScript>();
 			thekeesiScript->SetPlayer(headObj);
-
+			thekeesiScript->SetCameraScript(cameraScript);
 			SpriteRenderer* sr = thekeesi->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");

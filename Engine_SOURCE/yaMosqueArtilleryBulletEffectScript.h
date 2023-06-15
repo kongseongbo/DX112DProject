@@ -5,11 +5,11 @@
 
 namespace ya
 {
-	class MosqueArtilleryBulletScript : public Script
+	class MosqueArtilleryBulletEffectScript : public Script
 	{
 	public:
-		MosqueArtilleryBulletScript();
-		virtual ~MosqueArtilleryBulletScript();
+		MosqueArtilleryBulletEffectScript();
+		virtual ~MosqueArtilleryBulletEffectScript();
 
 		virtual void Initalize();
 		virtual void Update();
@@ -24,25 +24,10 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider) {};
 		virtual void OnTriggerExit(Collider2D* collider) {};
 
-		void DeadBullet();
+		void End();
 
-		void SetDirection(int direction) { mDirection = direction; }
-		void SetState(bool state) { mStateUp = state; }
-
-		void SetSpeed(float speed) { mSpeed = speed; }
-
-		void Attack(Vector3 pos);
-
-		void SetTarget(Vector3 pos) { mTargetPos = pos; }
 
 	private:
-		Vector3 mTargetPos;
-
-		int mDirection;
-		bool mStateUp;
-		float mSpeed;
 		float mTime;
-
-
 	};
 }

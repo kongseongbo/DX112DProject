@@ -10,6 +10,9 @@ namespace ya
 {
 	CameraScript::CameraScript()
 		: Script()
+		, weakOn(false)
+		, strongOn(false)
+		, shaketime(0.0f)
 	{
 	}
 
@@ -55,9 +58,66 @@ namespace ya
 			pos += 100.0f * -tr->Up() * Time::DeltaTime();
 		}
 
+		if (weakOn)
+		{
+			pos = weakShake(pos);
+		}
+		if (strongOn)
+		{
+			pos = strongShake(pos);
+		}
+
+
 		tr->SetPosition(pos);
 	}
 	void CameraScript::Render()
 	{
+	}
+
+	Vector3 CameraScript::CameraWeakShakeeffect(Vector3 pos)
+	{
+		float shakeAmount = 0.05f; // Change this value to adjust the camera shake intensity
+		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
+		return pos += shakeOffset;
+
+	}
+
+	Vector3 CameraScript::CameraStrongShakeeffect(Vector3 pos)
+	{
+		float shakeAmount = 0.1f; // Change this value to adjust the camera shake intensity
+		Vector3 shakeOffset = Vector3(RandomRange(-shakeAmount, shakeAmount), RandomRange(-shakeAmount, shakeAmount), 0.0f);
+		return pos += shakeOffset;
+	}
+
+	Vector3 CameraScript::weakShake(Vector3 pos)
+	{
+		shaketime += Time::DeltaTime();
+		pos = CameraWeakShakeeffect(pos);
+
+		if (shaketime >= 0.2f)
+		{
+			weakOn = false;
+			shaketime = 0.f;
+			return pos;
+		}
+
+		return pos;
+
+	}
+
+	Vector3 CameraScript::strongShake(Vector3 pos)
+	{
+		shaketime += Time::DeltaTime();
+		pos = CameraStrongShakeeffect(pos);
+
+		if (shaketime >= 0.2f)//∏Ó√ ∞£ 
+		{
+			strongOn = false;
+			shaketime = 0.f;
+			return pos;
+		}
+
+		return pos;
+
 	}
 }

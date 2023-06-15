@@ -8,12 +8,20 @@
 #include "yaSceneManager.h"
 #include "yaLight.h"
 
+#include "yaMosqueArtilleryBulletEffectScript.h"
+
 
 namespace ya
 {
 	MosqueArtilleryBulletScript::MosqueArtilleryBulletScript()
 		: Script()
+		, mTargetPos{}
+		, mDirection(0)
+		, mSpeed(0.0f)
+		, mTime(0.0f)
+		, mStateUp(false)
 	{
+
 	}
 	MosqueArtilleryBulletScript::~MosqueArtilleryBulletScript()
 	{
@@ -55,7 +63,6 @@ namespace ya
 	void MosqueArtilleryBulletScript::Update()
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
-		//ani->Play(L"MosqueBullet", true);
 		Attack(mTargetPos);
 	}
 	void MosqueArtilleryBulletScript::FixedUpdate()
@@ -66,22 +73,26 @@ namespace ya
 	}
 	void MosqueArtilleryBulletScript::OnCollisionEnter(Collider2D* collider)
 	{
-		if(collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
-			GetOwner()->SetLayerType(eLayerType::Delete);
+		Transform* tr = GetOwner()->GetComponent<Transform>();
 
-		Animator* ani = GetOwner()->GetComponent<Animator>();
-		ani->Play(L"BulletBomb", false);
-		
+		GameObject* effectObj = object::Instantiate<GameObject>(eLayerType::Effect);
+		Transform* effectTr = effectObj->GetComponent<Transform>();
+		effectTr->SetPosition(Vector3(tr->GetPosition().x, tr->GetPosition().y, 1.0f));
+		effectTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+		effectObj->AddComponent<MosqueArtilleryBulletEffectScript>();
+
+		GetOwner()->Death();
 	}
 	void MosqueArtilleryBulletScript::OnCollisionStay(Collider2D* collider)
 	{
 	}
 	void MosqueArtilleryBulletScript::OnCollisionExit(Collider2D* collider)
 	{
+
 	}
 	void MosqueArtilleryBulletScript::DeadBullet()
 	{
-		GetOwner()->Death();
 	}
 	void MosqueArtilleryBulletScript::Attack(Vector3 pos)
 	{
@@ -131,8 +142,8 @@ namespace ya
 					mTime = 0.0f;
 				}
 			}
-			trPos += tr->Right() * dx * 2.0f * Time::DeltaTime();
-			trPos += tr->Up() * dy * 2.0f * Time::DeltaTime();
+			trPos += tr->Right() * dx * 3.0f * Time::DeltaTime();
+			trPos += tr->Up() * dy * 3.0f * Time::DeltaTime();
 
 			// update object position
 			tr->SetPosition(trPos);

@@ -121,11 +121,13 @@ namespace ya
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Delete)
 			return;
 
+		//GetOwner()->SetLayerType(eLayerType::Effect);
+
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"Effect", false);
 		mbCrash = true;
 
-		//GetOwner()->Death();
+		
 	}
 	void BulletScript::OnCollisionStay(Collider2D* collider)
 	{

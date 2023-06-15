@@ -4,7 +4,7 @@
 #include "yaPlayer.h"
 #include "yaEngineEffectScript.h"
 #include "yaArabian.h"
-
+#include "yaCameraScript.h"
 
 namespace ya
 {
@@ -49,11 +49,17 @@ namespace ya
 		void End();
 
 		void CreatMonster(Vector3 position);
+		void CreateMissionClear();
+
+		TheKeesiState GetBossState() { return mTheKeesiState; }
 
 		void SetPlayer(Player* player) { mPlayer = player; }
 
 		void SetRightEffect(EngineEffectScript* obj) { mRightScript = obj; }
 		void SetLeftEffect(EngineEffectScript* obj) { mLeftScript = obj; }
+
+		void SetCameraScript(CameraScript* script) { mCameraScript = script; }
+
 	private:
 		Transform* mTr;
 		
@@ -65,6 +71,8 @@ namespace ya
 
 		EngineEffectScript* mRightScript;
 		EngineEffectScript* mLeftScript;
+
+		CameraScript* mCameraScript;
 
 		bool mbMove;
 		int mIndex;

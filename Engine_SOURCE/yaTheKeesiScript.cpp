@@ -6,8 +6,11 @@
 #include "yaSceneManager.h"
 #include "yaCollider2D.h"
 #include "yaAnimator.h"
+
 #include "yaFlamestrikeScript.h"
 #include "yaBossArabianScript.h"
+#include "yaCompleteScript.h"
+
 
 namespace ya
 {
@@ -37,7 +40,7 @@ namespace ya
 		Collider2D* coll = GetOwner()->AddComponent<Collider2D>();
 		coll->SetName(L"TheKeesi");
 		coll->SetType(eColliderType::Rect);
-		coll->SetSize(Vector2(1.0f, 0.5f));
+		coll->SetSize(Vector2(1.0f, 0.3f));
 
 		Animator* ani = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"TheKeesi", L"TheKeesi\\TheKeesi.png");
@@ -48,8 +51,11 @@ namespace ya
 		ani->Create(L"TheKeesi2Idle", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 4, 0.1f);
 
 		texture = Resources::Load<Texture>(L"TheKeesi3", L"TheKeesi\\TheKeesi3.png");
-		ani->Create(L"TheKeesi3Idle", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 4, 0.1f);
-
+		ani->Create(L"TheKeesi3Idle", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 6, 0.1f);
+		
+		texture = Resources::Load<Texture>(L"TheKeesiDie", L"TheKeesi\\TheKeesiDie.png");
+		ani->Create(L"TheKeesiDie", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 1, 0.1f);
+	
 		ani->Play(L"TheKeesiIdle", true);
 	}
 	void TheKeesiScript::Update()
@@ -195,9 +201,49 @@ namespace ya
 	}
 	void TheKeesiScript::Die()
 	{
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+
+		mLeftScript->SetAttack(false);
+		mRightScript->SetAttack(false);
+
+		float y = mTr->GetPosition().y;
+
+		if (y <= -1.0f)
+		{
+			mbMove = true;
+			ani->Play(L"TheKeesiDie", false);
+			mTime += 2.0f * Time::DeltaTime();
+			mCameraScript->strongEffectOn();
+
+			if (mTime > 5.0f)
+			{
+				mCameraScript->strongEffectOff();
+				CreateMissionClear();
+			}
+		}
+		
+	
+		if (!mbMove)
+			y -= 0.5f * Time::DeltaTime();
+
+		mTr->SetPosition(Vector3(mTr->GetPosition().x, y, mTr->GetPosition().z));
+
+
 	}
 	void TheKeesiScript::End()
 	{
+
+	}
+
+	void TheKeesiScript::CreateMissionClear()
+	{
+		GameObject* obj = object::Instantiate<GameObject>(eLayerType::UI);
+		obj->SetName(L"M");
+		Transform* tr = obj->GetComponent<Transform>();
+		tr->SetPosition(Vector3(160.0f, 3.0f, 0.0f));
+		tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+		obj->AddComponent<CompleteScript>();
 	}
 
 	void TheKeesiScript::CreatMonster(Vector3 position)
