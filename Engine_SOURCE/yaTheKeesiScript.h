@@ -6,8 +6,10 @@
 #include "yaArabian.h"
 #include "yaCameraScript.h"
 
+
 namespace ya
 {
+	
 	class TheKeesiScript : public Script
 	{
 	public:
@@ -60,6 +62,7 @@ namespace ya
 
 		void SetCameraScript(CameraScript* script) { mCameraScript = script; }
 
+		bool GetComplete() { return mbComplete; }
 	private:
 		Transform* mTr;
 		
@@ -74,6 +77,8 @@ namespace ya
 
 		CameraScript* mCameraScript;
 
+
+		bool mbComplete;
 		bool mbMove;
 		int mIndex;
 		int mStack;

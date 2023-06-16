@@ -59,8 +59,8 @@ namespace ya
 		texture = Resources::Load<Texture>(L"ArabianAttack2", L"Arabian\\Attack2.png");
 		mAni->Create(L"KnifeAttack", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 60.0f), Vector2(0.0f, -0.05), 19, 0.1f);
 
-		texture = Resources::Load<Texture>(L"S", L"Arabian\\S.png");
-		mAni->Create(L"S", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 55.0f), Vector2(0.01f, 0.0f), 4, 0.3f);
+		texture = Resources::Load<Texture>(L"Moving", L"Arabian\\Moving.png");
+		mAni->Create(L"Moving", texture, Vector2(0.0f, 0.0f), Vector2(60.0f, 55.0f), Vector2(0.01f, 0.0f), 4, 0.3f);
 
 		SpriteRenderer* arabianSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> arabianMaterial = Resources::Find<Material>(L"SpriteMaterial");
@@ -224,14 +224,14 @@ namespace ya
 		{
 			mTime = 0.0f;
 			direction = 1;
-			mAni->Play(L"S", true);
+			mAni->Play(L"Moving", true);
 			mBossArabianState = BossArabianState::MOVE;
 		}
 		if (a == 3)
 		{
 			mTime = 0.0f;
 			direction = 0;
-			mAni->Play(L"S", true);
+			mAni->Play(L"Moving", true);
 			mBossArabianState = BossArabianState::MOVE;
 		}
 	}

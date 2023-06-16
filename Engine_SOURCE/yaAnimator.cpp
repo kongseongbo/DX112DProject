@@ -130,6 +130,11 @@ namespace ya
 			events->mStartEvent();
 	}
 
+	bool Animator::IsAnimationRunning(const std::wstring& name)
+	{
+		return (mActiveAnimation && mActiveAnimation->AnimationName() == name);
+	}
+
 	void Animator::Binds()
 	{
 		if (mActiveAnimation == nullptr)

@@ -110,7 +110,7 @@ namespace ya
 		shaketime += Time::DeltaTime();
 		pos = CameraStrongShakeeffect(pos);
 
-		if (shaketime >= 0.2f)//몇초간 
+		if (shaketime >= 0.5f)//몇초간 
 		{
 			strongOn = false;
 			shaketime = 0.f;

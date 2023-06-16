@@ -52,5 +52,6 @@ namespace ya
 
 		int direction;
 		int index;
+		int mStatck;
 	};
 }

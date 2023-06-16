@@ -9,7 +9,7 @@
 
 #include "yaFlamestrikeScript.h"
 #include "yaBossArabianScript.h"
-#include "yaCompleteScript.h"
+
 
 
 namespace ya
@@ -21,11 +21,13 @@ namespace ya
 		, playerTr(nullptr)
 		, mTr(nullptr)
 		, mTime(0.0f)
-		, mbMove(false)
 		, mRightEf(nullptr)
 		, mLeftEf(nullptr)
 		, mRightScript(nullptr)
 		, mLeftScript(nullptr)
+		, mCameraScript(nullptr)
+		, mbMove(false)
+		, mbComplete(false)
 		, mIndex(0)
 		, mStack(0)
 	{
@@ -98,7 +100,7 @@ namespace ya
 		{
 			mLeftScript->SetAttack(true);
 			mRightScript->SetAttack(true);
-			mbMove = false;
+			//mbMove = false;
 			Animator* ani = GetOwner()->GetComponent<Animator>();
 			ani->Play(L"TheKeesi2Idle", true);
 			mTheKeesiState = TheKeesiState::MOVE;
@@ -168,6 +170,7 @@ namespace ya
 	{
 		if (mStack > 70)
 		{
+			mTime = 0.0f;
 			mTheKeesiState = TheKeesiState::DIE;
 		}
 
@@ -207,24 +210,21 @@ namespace ya
 		mRightScript->SetAttack(false);
 
 		float y = mTr->GetPosition().y;
-
-		if (y <= -1.0f)
+		if (!mbMove || mbMove)
 		{
-			mbMove = true;
-			ani->Play(L"TheKeesiDie", false);
-			mTime += 2.0f * Time::DeltaTime();
-			mCameraScript->strongEffectOn();
-
-			if (mTime > 5.0f)
+			if (y <= -1.0f)
 			{
-				mCameraScript->strongEffectOff();
-				CreateMissionClear();
+				ani->Play(L"TheKeesiDie", false);
+				mCameraScript->strongEffectOn();
+				mTime += 2.0f * Time::DeltaTime();
+				if (mTime > 3.0f)
+				{
+					CreateMissionClear();
+				}
 			}
+			else
+				y -= 0.5f * Time::DeltaTime();
 		}
-		
-	
-		if (!mbMove)
-			y -= 0.5f * Time::DeltaTime();
 
 		mTr->SetPosition(Vector3(mTr->GetPosition().x, y, mTr->GetPosition().z));
 
@@ -237,13 +237,7 @@ namespace ya
 
 	void TheKeesiScript::CreateMissionClear()
 	{
-		GameObject* obj = object::Instantiate<GameObject>(eLayerType::UI);
-		obj->SetName(L"M");
-		Transform* tr = obj->GetComponent<Transform>();
-		tr->SetPosition(Vector3(160.0f, 3.0f, 0.0f));
-		tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-		obj->AddComponent<CompleteScript>();
+		mbComplete = true;
 	}
 
 	void TheKeesiScript::CreatMonster(Vector3 position)

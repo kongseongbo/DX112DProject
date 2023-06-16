@@ -46,6 +46,7 @@ namespace ya
 		Animation* FindAnimation(const std::wstring& name);
 		Events* FindEvents(const std::wstring& name);
 		void Play(const std::wstring& name, bool loop = true);
+		bool IsAnimationRunning(const std::wstring& name);
 		void Binds();
 		void Clear();
 

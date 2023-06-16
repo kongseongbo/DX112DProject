@@ -571,7 +571,6 @@ namespace ya::renderer
 		Resources::Insert<Material>(L"DebugMaterial", debugMaterial);
 #pragma endregion
 #pragma region FADEINOUT
-		// FadeInOut
 		std::shared_ptr<Shader> fadeShader = Resources::Find<Shader>(L"FadeShader");
 		std::shared_ptr<Material> fadeMaterial = std::make_shared<Material>();
 		fadeMaterial->SetShader(fadeShader);

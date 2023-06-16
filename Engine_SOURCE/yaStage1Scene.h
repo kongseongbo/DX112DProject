@@ -6,6 +6,8 @@
 #include "yaMosqueArtilleryeHeadLeftScript.h"
 #include "yaMosqueArtilleryeHeadCenterScript.h"
 #include "yaMosqueArtilleryeHeadRightScript.h"
+#include "yaTheKeesiScript.h"
+
 
 namespace ya
 {
@@ -23,6 +25,8 @@ namespace ya
 
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
+
+		void MissionComplete();
 		
 	private:
 		GameObject* mCameraObj;
@@ -43,6 +47,8 @@ namespace ya
 		MosqueArtilleryeHeadLeftScript* mMosqueArtilleryeHeadLeftScript;
 		MosqueArtilleryeHeadCenterScript* mMosqueArtilleryeHeadCenterScript;
 		MosqueArtilleryeHeadRightScript* mMosqueArtilleryeHeadRightScript;
+
+		TheKeesiScript* mThekeesiScript;
 
 		float mTime;
 		float mZoom;

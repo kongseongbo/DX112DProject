@@ -25,6 +25,7 @@ namespace ya
 		, mTime(0.0f)
 		, direction(0)
 		, index(0)
+		, mStack(0)
 		, mbBullet(false)
 	{
 	}
@@ -99,11 +100,16 @@ namespace ya
 	void BradleyScript::OnCollisionEnter(Collider2D* collider)
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
-		if (eStanceState == StanceState::HOWITZER)
-			ani->Play(L"BradleyDeath", false);
-		if (eStanceState == StanceState::NORMAL)
-			ani->Play(L"BradleyDeath2", false);
-		eBradleyState = BradleyState::DIE;
+	
+		mStack++;
+		if (mStack == 47)
+		{
+			if (eStanceState == StanceState::HOWITZER)
+				ani->Play(L"BradleyDeath", false);
+			if (eStanceState == StanceState::NORMAL)
+				ani->Play(L"BradleyDeath2", false);
+			eBradleyState = BradleyState::DIE;
+		}
 	}
 	void BradleyScript::OnCollisionStay(Collider2D* collider)
 	{

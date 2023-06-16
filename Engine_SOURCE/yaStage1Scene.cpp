@@ -41,8 +41,8 @@
 #include "yaCamelArabianScript.h"
 #include "yaCamelArabian.h"
 #include "yaTheKeesi.h"
-#include "yaTheKeesiScript.h"
 #include "yaEngineEffectScript.h"
+#include "yaCompleteScript.h"
 
 #include "yaFadeInOutScript.h"
 
@@ -64,6 +64,7 @@ namespace ya
 		, mMosqueArtilleryeHeadLeftScript(nullptr)
 		, mMosqueArtilleryeHeadCenterScript(nullptr)
 		, mMosqueArtilleryeHeadRightScript(nullptr)
+		, mThekeesiScript(nullptr)
 		, mTime(0.0f)
 		, mZoom(50.0f)
 		//, mbCameraPos(false)
@@ -134,7 +135,6 @@ namespace ya
 			mapMr->SetMesh(mesh);
 		}
 #pragma endregion
-
 #pragma region MAP GROUND COLLIDER
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::MapLine, this);
@@ -433,7 +433,8 @@ namespace ya
 			heliTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 
-			heliObj->AddComponent<HelicopterScript>();
+			HelicopterScript* scr = heliObj->AddComponent<HelicopterScript>();
+			scr->SetPlayer(headObj);
 		}
 #pragma endregion
 
@@ -464,9 +465,9 @@ namespace ya
 			tr->SetPosition(Vector3(164.0f, 4.0f, 5.0f));
 			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 
-			TheKeesiScript* thekeesiScript = thekeesi->AddComponent<TheKeesiScript>();
-			thekeesiScript->SetPlayer(headObj);
-			thekeesiScript->SetCameraScript(cameraScript);
+			mThekeesiScript = thekeesi->AddComponent<TheKeesiScript>();
+			mThekeesiScript->SetPlayer(headObj);
+			mThekeesiScript->SetCameraScript(cameraScript);
 			SpriteRenderer* sr = thekeesi->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -506,11 +507,13 @@ namespace ya
 			rightSr->SetMaterial(matateiral);
 			rightSr->SetMesh(mesh);
 
-			thekeesiScript->SetLeftEffect(lefteffectScript);
-			thekeesiScript->SetRightEffect(righteffectScript);
+			mThekeesiScript->SetLeftEffect(lefteffectScript);
+			mThekeesiScript->SetRightEffect(righteffectScript);
 		}
 #pragma endregion
 
+		MissionComplete();
+		
 		// MachineGunItem
 		{
 			MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
@@ -718,6 +721,180 @@ namespace ya
 
 	}
 
+	void Stage1Scene::MissionComplete()
+	{
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"M");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(144.0f, 4.0f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"I");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(145.0f, 4.0f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"S");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(146.0f, 4.0f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"SS");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(147.0f, 4.0f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"II");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(148.0f, 4.0f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"O");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(149.0f, 4.0f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"N");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(150.0f, 4.0f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"one");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(151.0f, 4.0f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		//
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"C");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(144.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"OO");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(145.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"MM");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(146.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"P");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(147.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"L");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(148.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"E");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(149.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"T");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(150.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"EE");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(151.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
+			obj->SetName(L"WOW");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(152.0f, 2.5f, 1.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+
+			CompleteScript* scr = obj->AddComponent<CompleteScript>();
+			scr->SetKeesiScript(mThekeesiScript);
+		}
+	}
 }
 
 

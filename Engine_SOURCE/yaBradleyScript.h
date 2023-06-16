@@ -64,7 +64,7 @@ namespace ya
 
 		int direction;
 		int index;
-
+		int mStack;
 		bool mbBullet;
 	};
 }
