@@ -366,7 +366,7 @@ namespace ya
 			mosqueArtilleryLeftObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
 			mosqueArtilleryLeftObj->SetName(L"MosqueArtilleryLeft");
 			mMosqueArtilleryleftTr = mosqueArtilleryLeftObj->GetComponent<Transform>();
-			mMosqueArtilleryleftTr->SetPosition(Vector3(45.4f, 4.f, 10.0f));
+			mMosqueArtilleryleftTr->SetPosition(Vector3(45.4f, 4.f, 9.0f));
 			mMosqueArtilleryleftTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			mosqueArtilleryLeftObj->AddComponent<Animator>();
 
@@ -384,7 +384,7 @@ namespace ya
 			mosqueArtilleryCenterObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
 			mosqueArtilleryCenterObj->SetName(L"MosqueArtilleryCenter");
 			mMosqueArtillerycenterTr = mosqueArtilleryCenterObj->GetComponent<Transform>();
-			mMosqueArtillerycenterTr->SetPosition(Vector3(51.6f, 4.f, 10.0f));
+			mMosqueArtillerycenterTr->SetPosition(Vector3(51.6f, 4.f, 9.0f));
 			mMosqueArtillerycenterTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			mosqueArtilleryCenterObj->AddComponent<Animator>();
 
@@ -402,7 +402,7 @@ namespace ya
 			mosqueArtilleryRightObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
 			mosqueArtilleryRightObj->SetName(L"MosqueArtilleryRight");
 			mMosqueArtilleryrightTr = mosqueArtilleryRightObj->GetComponent<Transform>();
-			mMosqueArtilleryrightTr->SetPosition(Vector3(57.8f, 4.f, 10.0f));
+			mMosqueArtilleryrightTr->SetPosition(Vector3(57.8f, 4.f, 9.0f));
 			mMosqueArtilleryrightTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			mosqueArtilleryRightObj->AddComponent<Animator>();
 
@@ -431,7 +431,6 @@ namespace ya
 			Transform* heliTr = heliObj->GetComponent<Transform>();
 			heliTr->SetPosition(Vector3(3.0f, 5.0f, 5.0f));
 			heliTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 
 			HelicopterScript* scr = heliObj->AddComponent<HelicopterScript>();
 			scr->SetPlayer(headObj);

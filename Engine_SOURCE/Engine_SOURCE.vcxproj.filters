@@ -516,6 +516,9 @@
     <ClCompile Include="yaCompleteScript.cpp">
       <Filter>Component\Script\Complete</Filter>
     </ClCompile>
+    <ClCompile Include="yaHelicopterBulletScript.cpp">
+      <Filter>Component\Script\Enemy\Helicopter\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -820,6 +823,9 @@
     </ClInclude>
     <ClInclude Include="yaCompleteScript.h">
       <Filter>Component\Script\Complete</Filter>
+    </ClInclude>
+    <ClInclude Include="yaHelicopterBulletScript.h">
+      <Filter>Component\Script\Enemy\Helicopter\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

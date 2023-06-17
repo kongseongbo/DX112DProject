@@ -183,6 +183,7 @@
     <ClInclude Include="yaFlamestrikeScript.h" />
     <ClInclude Include="yaHeadScript.h" />
     <ClInclude Include="yaHelicopter.h" />
+    <ClInclude Include="yaHelicopterBulletScript.h" />
     <ClInclude Include="yaHelicopterScript.h" />
     <ClInclude Include="yaLight.h" />
     <ClInclude Include="yaMachineGun.h" />
@@ -285,6 +286,7 @@
     <ClCompile Include="yaFlamestrikeScript.cpp" />
     <ClCompile Include="yaHeadScript.cpp" />
     <ClCompile Include="yaHelicopter.cpp" />
+    <ClCompile Include="yaHelicopterBulletScript.cpp" />
     <ClCompile Include="yaHelicopterScript.cpp" />
     <ClCompile Include="yaLight.cpp" />
     <ClCompile Include="yaMachineGun.cpp" />

@@ -10,12 +10,16 @@
 #include "yaRigidbody.h"
 
 
+#include "yaHelicopterBulletScript.h"
+
 namespace ya
 {
 	HelicopterScript::HelicopterScript()
 		: Script()
+		, mTr(nullptr)
 		, mPlayer(nullptr)
 		, mRot(0.0f)
+		, mTime(0.0f)
 	{
 	}
 	HelicopterScript::~HelicopterScript()
@@ -23,15 +27,14 @@ namespace ya
 	}
 	void HelicopterScript::Initalize()
 	{
-		/*Scene* playScene = SceneManager::GetActiveScene();
-		playScene->AddGameObject(GetOwner(), eLayerType::Monster);*/
+		mTr = GetOwner()->GetComponent<Transform>();
+		//mTr->SetScale(Vector3(12.0f, 12.0f,1.0f));
+
 
 		Collider2D* heliColl = GetOwner()->AddComponent<Collider2D>();
 		heliColl->SetType(eColliderType::Rect);
 		heliColl->SetCenter(Vector2(0.0f, 0.0f));
 		heliColl->SetSize(Vector2(0.1f, 0.1f));
-
-		//GetOwner()->AddComponent<Rigidbody>();
 
 		Animator* heliAni = GetOwner()->AddComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"LeftIdle", L"Helicopter\\LeftIdle.png");
@@ -68,6 +71,8 @@ namespace ya
 	}
 	void HelicopterScript::Update()
 	{
+		mTime += 1.0f * Time::DeltaTime();
+
 		Animator* heliAni = GetOwner()->GetComponent<Animator>();
 
 		Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
@@ -117,6 +122,18 @@ namespace ya
 		{
 			if (!heliAni->IsAnimationRunning(L"Right54"))
 				heliAni->Play(L"Right54", true);
+		}
+
+		if (mTime > 5.0f)
+		{
+			GameObject* bullet = object::CreateGameObject<GameObject>(eLayerType::MonsterAttack);
+			Transform* tr = bullet->GetComponent<Transform>();
+			tr->SetPosition((Vector3(mTr->GetPosition().x, mTr->GetPosition().y, 9.0f)));
+			tr->SetScale(Vector3(8.0f, 8.0f, 1.0f));
+			HelicopterBulletScript* scr = bullet->AddComponent<HelicopterBulletScript>();
+			scr->SetPlayerPos(playerPos);
+			scr->SetRot(mRot);
+			mTime = 0.0f;
 		}
 
 		/*rot.y = mP2Mangle;

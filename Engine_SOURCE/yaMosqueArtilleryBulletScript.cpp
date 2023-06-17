@@ -99,13 +99,9 @@ namespace ya
 		mTime += 2.0f * Time::DeltaTime();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 trPos = tr->GetPosition();
-		
-		//trPos -= tr->Up() * 10.f * Time::DeltaTime();
-		
-		//tr->SetPosition(trPos);
 
-		float amplitude = 30.0f; // amplitude of the sine wave
-		float frequency = 1.0f; // frequency of the sine wave
+		float amplitude = 30.0f; 
+		float frequency = 1.0f; 
 
 		float dx = mTargetPos.x - trPos.x;
 		float dy = mTargetPos.y - trPos.y;

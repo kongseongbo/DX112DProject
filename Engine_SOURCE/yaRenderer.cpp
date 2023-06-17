@@ -183,7 +183,7 @@ namespace ya::renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		spriteShader->SetRSState(eRSType::SolidNone);
-		//spriteShader->SetDSState(eDSType::Less);
+		spriteShader->SetDSState(eDSType::NoWrite);
 		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
 #pragma endregion
 #pragma region UI SHADER
