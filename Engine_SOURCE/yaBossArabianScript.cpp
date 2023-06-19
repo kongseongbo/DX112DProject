@@ -38,14 +38,14 @@ namespace ya
 		mAni->Create(L"ArabianIdle", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 55.0f), Vector2::Zero, 6, 0.25f);
 
 		texture = Resources::Load<Texture>(L"ArabianJump", L"Arabian\\Jump.png");
-		mAni->Create(L"LeftArabianJump", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 50.0f), Vector2(0.05f, 0.0f), 9, 0.05f);
-		mAni->Create(L"RightArabianJump", texture, Vector2(0.0f, 50.0f), Vector2(50.0f, 50.0f), Vector2(0.05f, 0.0f), 9, 0.05f);
+		mAni->Create(L"LeftArabianJump", texture, Vector2(0.0f, 0.0f), Vector2(50.0f, 50.0f), Vector2(0.0f, 0.0f), 9, 0.05f);
+		mAni->Create(L"RightArabianJump", texture, Vector2(0.0f, 50.0f), Vector2(50.0f, 50.0f), Vector2(0.0f, 0.0f), 9, 0.05f);
 
 		texture = Resources::Load<Texture>(L"ArabianMove", L"Arabian\\Move.png");
-		mAni->Create(L"LeftMove", texture, Vector2(0.0f, 0.0f), Vector2(54.0f, 52.0f), Vector2(0.05f, 0.0f), 12, 0.1f);
+		mAni->Create(L"LeftMove", texture, Vector2(0.0f, 0.0f), Vector2(54.0f, 52.0f), Vector2(0.0f, 0.0f), 12, 0.1f);
 
 		texture = Resources::Load<Texture>(L"ArabianMove", L"Arabian\\Move.png");
-		mAni->Create(L"RightMove", texture, Vector2(0.0f, 52.0f), Vector2(54.0f, 52.0f), Vector2(0.05f, 0.0f), 12, 0.1f);
+		mAni->Create(L"RightMove", texture, Vector2(0.0f, 52.0f), Vector2(54.0f, 52.0f), Vector2(0.0f, 0.0f), 12, 0.1f);
 
 		texture = Resources::Load<Texture>(L"ArabianAttack", L"Arabian\\Attack.png");
 		mAni->Create(L"Attack", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 65.0f), Vector2::Zero, 8, 0.1f);
@@ -151,7 +151,7 @@ namespace ya
 
 		Vector3 pos = mTr->GetPosition();
 
-		if (mTime > 1.5f)
+		if (mTime > 2.0f)
 		{
 			mAni->Play(L"RightArabianJump", false);
 			mBossArabianState = BossArabianState::JUMP;
@@ -171,13 +171,13 @@ namespace ya
 		{
 			if (mTime > 0.5f)
 			{
-				pos.x -= 1.0f * Time::DeltaTime();
+				pos.x -= 3.0f * Time::DeltaTime();
 				pos.y -= 6.0f * Time::DeltaTime();
 				mTr->SetPosition(pos);
 			}
 			else
 			{
-				pos.x -= 2.0f * Time::DeltaTime();
+				pos.x -= 3.5f * Time::DeltaTime();
 				pos.y += 3.0f * Time::DeltaTime();
 				mTr->SetPosition(pos);
 			}
@@ -187,15 +187,15 @@ namespace ya
 			if (mTime > 2.5f)
 			{
 
-				pos.x += 3.0f * Time::DeltaTime();
-				pos.y -= 6.0f * Time::DeltaTime();
+				pos.x += 5.0f * Time::DeltaTime();
+				pos.y -= 4.0f * Time::DeltaTime();
 				mTr->SetPosition(pos);
 			}
 			else
 			{
 
-				pos.x += 3.0f * Time::DeltaTime();
-				pos.y += 4.0f * Time::DeltaTime();
+				pos.x += 5.5f * Time::DeltaTime();
+				pos.y += 5.0f * Time::DeltaTime();
 				mTr->SetPosition(pos);
 			}
 		}
@@ -208,7 +208,7 @@ namespace ya
 
 		int a = 0;
 		mTime += Time::DeltaTime();
-		if (mTime > 2.0f)
+		if (mTime > 1.5f)
 		{
 			a = distr(eng);
 			mTime = 0.0f;

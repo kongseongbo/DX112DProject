@@ -62,7 +62,8 @@ namespace ya
 	}
 	void ArabianKnifeScript::OnCollisionEnter(Collider2D* collider)
 	{
-		GetOwner()->Death();
+		if(!(collider->GetOwner()->GetName() == L"Tent"))
+			GetOwner()->Death();
 	}
 	void ArabianKnifeScript::OnCollisionStay(Collider2D* collider)
 	{

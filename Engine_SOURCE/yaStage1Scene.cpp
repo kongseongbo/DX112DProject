@@ -30,19 +30,11 @@
 #include "yaParachute.h"
 #include "yaParachuteScript.h"
 
-
 #include "yaMonster.h"
-#include "yaArabian.h"
-#include "yaArabianScript.h"
-#include "yaHelicopter.h"
-#include "yaHelicopterScript.h"
 #include "yaMosqueArtilleryScript.h"
-#include "yaMosqueArtilleryeHeadCenter.h"
-#include "yaCamelArabianScript.h"
-#include "yaCamelArabian.h"
-#include "yaTheKeesi.h"
-#include "yaEngineEffectScript.h"
-#include "yaCompleteScript.h"
+#include "yaCenterEffectScript.h"
+#include "yaLeftEffectScript.h"
+#include "yaRightEffectScript.h"
 
 #include "yaFadeInOutScript.h"
 
@@ -64,10 +56,8 @@ namespace ya
 		, mMosqueArtilleryeHeadLeftScript(nullptr)
 		, mMosqueArtilleryeHeadCenterScript(nullptr)
 		, mMosqueArtilleryeHeadRightScript(nullptr)
-		, mThekeesiScript(nullptr)
 		, mTime(0.0f)
 		, mZoom(50.0f)
-		//, mbCameraPos(false)
 	{
 	}
 
@@ -209,12 +199,11 @@ namespace ya
 
 #pragma region PLAYER
 		{
-
 			headObj = object::Instantiate<Player>(eLayerType::Player, this);
 			headObj->SetName(L"Head");
 			Transform* headTr = headObj->GetComponent<Transform>();
-			//headTr->SetPosition(Vector3(-75.0f, 3.0f, 5.0f));
-			headTr->SetPosition(Vector3(3.0f, 3.0f, 5.0f)); //47
+			headTr->SetPosition(Vector3(-75.0f, 3.0f, 5.0f));
+			//headTr->SetPosition(Vector3(3.0f, 3.0f, 5.0f)); //47
 			headTr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
 			headObj->AddComponent<Animator>();
 			Rigidbody* playerGirigid = headObj->AddComponent<Rigidbody>();
@@ -331,10 +320,12 @@ namespace ya
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 			mapCollider->SetType(eColliderType::Rect);
 		}
-		// Monster »ý¼º Collider
+#pragma endregion
+
+#pragma region Create Arabian Coll
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
-			mapcolliderObj->SetName(L"NewMonster");
+			mapcolliderObj->SetName(L"CreateArabian");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
 			mapcolliderTr->SetPosition(Vector3(-55.0f, 0.0f, 1.0f));
 			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
@@ -343,20 +334,73 @@ namespace ya
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 			mapCollider->SetType(eColliderType::Rect);
 			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
-			//mapCollider->SetSize(Vector2(1.f, 1.f));
 		}
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
-			mapcolliderObj->SetName(L"NewMonster");
+			mapcolliderObj->SetName(L"CreateArabian");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
-			mapcolliderTr->SetPosition(Vector3(-40.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetPosition(Vector3(-35.0f, 0.0f, 1.0f));
 			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
 			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
 
 			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
 			mapCollider->SetType(eColliderType::Rect);
 			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
-			//mapCollider->SetSize(Vector2(1.f, 1.f));
+		}
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+			mapcolliderObj->SetName(L"CreateArabian2");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(-8.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+		}
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+			mapcolliderObj->SetName(L"CreateArabian3");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(100.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+		}
+#pragma endregion
+
+#pragma region Create CamelArabian Coll
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+			mapcolliderObj->SetName(L"CreateCamelArabian");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(-25.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+		}
+#pragma endregion
+
+#pragma region Create Helicopter Coll
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+			mapcolliderObj->SetName(L"CreateHelicopter");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(125.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+			mapScript->SetPlayer(headObj);
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
 		}
 #pragma endregion
 
@@ -379,6 +423,23 @@ namespace ya
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			sr->SetMesh(mesh);
 		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(43.6f, 7.3f, 8.9f));
+			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			obj->AddComponent<Animator>();
+
+			LeftEffectScript* scr = obj->AddComponent<LeftEffectScript>();
+			scr->SetScript(mMosqueArtilleryeHeadLeftScript);
+
+			SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(material);
+			sr->SetMesh(mesh);
+		}
+
 		// Center
 		{
 			mosqueArtilleryCenterObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
@@ -397,6 +458,23 @@ namespace ya
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			sr->SetMesh(mesh);
 		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(50.1f, 7.3f, 8.9f));
+			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			obj->AddComponent<Animator>();
+
+			CenterEffectScript* scr = obj->AddComponent<CenterEffectScript>();
+			scr->SetScript(mMosqueArtilleryeHeadCenterScript);
+
+			SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(material);
+			sr->SetMesh(mesh);
+		}
+
 		// Right
 		{
 			mosqueArtilleryRightObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
@@ -415,6 +493,22 @@ namespace ya
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			sr->SetMesh(mesh);
 		}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(56.6f, 7.3f, 8.9f));
+			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
+			obj->AddComponent<Animator>();
+
+			RightEffectScript* scr = obj->AddComponent<RightEffectScript>();
+			scr->SetScript(mMosqueArtilleryeHeadRightScript);
+
+			SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(material);
+			sr->SetMesh(mesh);
+		}
 		// Base
 		GameObject* mosqueArtilleryObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
 		mosqueArtilleryObj->SetName(L"MosqueArtilleryBase");
@@ -423,122 +517,24 @@ namespace ya
 		baseTr->SetScale(Vector3(25.0f, 8.5f, 1.0f));
 		mosqueArtilleryObj->AddComponent<MosqueArtilleryScript>();
 #pragma endregion
+
+#pragma region Create Thekeesi Coll
+		{
+			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
+			mapcolliderObj->SetName(L"CreateThekeesi");
+			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
+			mapcolliderTr->SetPosition(Vector3(150.0f, 0.0f, 1.0f));
+			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
+			MapScript* mapScript = mapcolliderObj->AddComponent<MapScript>();
+			mapScript->SetPlayer(headObj);
+			mapScript->SetCamerarScript(cameraScript);
+
+			Collider2D* mapCollider = mapcolliderObj->AddComponent<Collider2D>();
+			mapCollider->SetType(eColliderType::Rect);
+			mapCollider->SetCenter(Vector2(0.0f, 0.0f));
+		}
+#pragma endregion
 		
-#pragma region HELICOPTER
-		{
-			Helicopter* heliObj = object::Instantiate<Helicopter>(eLayerType::Monster, this);
-			heliObj->SetName(L"Helicopter");
-			Transform* heliTr = heliObj->GetComponent<Transform>();
-			heliTr->SetPosition(Vector3(3.0f, 5.0f, 5.0f));
-			heliTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			HelicopterScript* scr = heliObj->AddComponent<HelicopterScript>();
-			scr->SetPlayer(headObj);
-		}
-#pragma endregion
-
-#pragma region CAMELARABIAN
-		{
-			CamelArabian* camelArabian = object::Instantiate<CamelArabian>(eLayerType::Monster, this);
-			camelArabian->SetName(L"CamelArabian");
-			Transform* tr = camelArabian->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-15.0f, -2.0f, 5.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-			camelArabian->AddComponent<Animator>();
-			camelArabian->AddComponent<Collider2D>();
-			camelArabian->AddComponent<CamelArabianScript>();
-
-			SpriteRenderer* sr = camelArabian->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			sr->SetMaterial(matateiral);
-			sr->SetMesh(mesh);
-		}
-#pragma endregion
-
-#pragma region THEKEESI
-		{
-			TheKeesi* thekeesi = object::Instantiate<TheKeesi>(eLayerType::Monster, this);
-			thekeesi->SetName(L"TheKeesi");
-			Transform* tr = thekeesi->GetComponent<Transform>();
-			tr->SetPosition(Vector3(164.0f, 4.0f, 5.0f));
-			tr->SetScale(Vector3(15.0f, 15.0f, 1.0f));
-
-			mThekeesiScript = thekeesi->AddComponent<TheKeesiScript>();
-			mThekeesiScript->SetPlayer(headObj);
-			mThekeesiScript->SetCameraScript(cameraScript);
-			SpriteRenderer* sr = thekeesi->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			sr->SetMaterial(matateiral);
-			sr->SetMesh(mesh);
-
-			GameObject* leftgroundeffect = object::Instantiate<GameObject>(eLayerType::Animator, this);
-			//
-			GameObject* lefteffect = object::Instantiate<GameObject>(eLayerType::Monster, this);
-			lefteffect->SetName(L"leftengineeffect");
-			Transform* leftTr = lefteffect->GetComponent<Transform>();
-			leftTr->SetScale(Vector3(10.0f, 10.0f, 4.9f));
-
-			EngineEffectScript* lefteffectScript = lefteffect->AddComponent<EngineEffectScript>();
-			lefteffectScript->SetParent(tr);
-			lefteffectScript->SetLeftGroundEffect(leftgroundeffect);
-
-			SpriteRenderer* leftSr = lefteffect->AddComponent<SpriteRenderer>();
-			leftSr->SetMaterial(matateiral);
-			leftSr->SetMesh(mesh);
-
-			
-			GameObject* rightgroundeffect = object::Instantiate<GameObject>(eLayerType::Animator, this);
-			//
-			GameObject* righteffect = object::Instantiate<GameObject>(eLayerType::Monster, this);
-			righteffect->SetName(L"rightengineeffect");
-
-			Transform* rightTr = righteffect->GetComponent<Transform>();
-			rightTr->SetScale(Vector3(10.0f, 10.0f, 4.9f));
-			rightTr->SetRotation(Vector3(1.0f, 180.0f, 1.0f));
-
-			EngineEffectScript* righteffectScript = righteffect->AddComponent<EngineEffectScript>();
-			righteffectScript->SetParent(tr);
-			righteffectScript->SetRightGroundEffect(rightgroundeffect);
-
-			SpriteRenderer* rightSr = righteffect->AddComponent<SpriteRenderer>();
-			rightSr->SetMaterial(matateiral);
-			rightSr->SetMesh(mesh);
-
-			mThekeesiScript->SetLeftEffect(lefteffectScript);
-			mThekeesiScript->SetRightEffect(righteffectScript);
-		}
-#pragma endregion
-
-		MissionComplete();
-		
-		// MachineGunItem
-		{
-			MachineGun* machineGun = object::Instantiate<MachineGun>(eLayerType::MachineGunItem, this);
-			machineGun->SetName(L"machineGun");
-			Transform* machineGunTr = machineGun->GetComponent<Transform>();
-			machineGunTr->SetPosition(Vector3(5.0f, -2.0f, 2.0f));
-			machineGunTr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
-			MachineGunScript* machineGunScript = machineGun->AddComponent<MachineGunScript>();
-
-			Collider2D* machineGunCollider = machineGun->AddComponent<Collider2D>();
-			machineGunCollider->SetType(eColliderType::Rect);
-			machineGunCollider->SetSize(Vector2(0.1f, 0.1f));
-
-			Animator* machineGunAni = machineGun->AddComponent<Animator>();
-			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MachineGunItem", L"Bullet\\MachineGunItem.png");
-			machineGunAni->Create(L"MachineGunItem", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 22.0f), Vector2::Zero, 2, 0.3f);
-
-			SpriteRenderer* machineGunSr = machineGun->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> machineGunMateiral = Resources::Find<Material>(L"SpriteMaterial");
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			machineGunSr->SetMaterial(machineGunMateiral);
-			machineGunSr->SetMesh(mesh);
-			machineGunAni->Play(L"MachineGunItem", true);
-		}
-
-
 		//// HPBAR
 		//GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI, this);
 		//hpBar->SetName(L"HPBAR");
@@ -577,6 +573,7 @@ namespace ya
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Collider, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MapWall, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Obj, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Map, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Bomb, eLayerType::Monster, true);
@@ -719,190 +716,8 @@ namespace ya
 	{
 
 	}
-
-	void Stage1Scene::MissionComplete()
-	{
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"M");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(144.0f, 4.0f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"I");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(145.0f, 4.0f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"S");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(146.0f, 4.0f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"SS");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(147.0f, 4.0f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"II");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(148.0f, 4.0f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"O");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(149.0f, 4.0f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"N");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(150.0f, 4.0f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"one");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(151.0f, 4.0f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		//
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"C");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(144.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"OO");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(145.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"MM");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(146.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"P");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(147.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"L");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(148.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"E");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(149.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"T");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(150.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"EE");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(151.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect, this);
-			obj->SetName(L"WOW");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(152.0f, 2.5f, 1.0f));
-			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-
-			CompleteScript* scr = obj->AddComponent<CompleteScript>();
-			scr->SetKeesiScript(mThekeesiScript);
-		}
-	}
 }
 
-
-
-/*Animator* animator = obj->AddComponent<Animator>();
-std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Character\\Marco\\IdleU.png");
-animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(35.0f, 36.0f), Vector2::Zero, 4, 0.3f);
-animator->Create(L"MoveDown", texture, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 8, 0.1f);
-animator->Play(L"HeadIdle", true);*/
 
 //SMILE RECT CHild
 /*GameObject* child = object::Instantiate<GameObject>(eLayerType::Player);

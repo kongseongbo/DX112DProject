@@ -142,15 +142,6 @@ namespace ya
 	void ArabianScript::OnCollisionExit(Collider2D* collider)
 	{
 	}
-	void ArabianScript::OnTriggerEnter(Collider2D* collider)
-	{
-	}
-	void ArabianScript::OnTriggerStay(Collider2D* collider)
-	{
-	}
-	void ArabianScript::OnTriggerExit(Collider2D* collider)
-	{
-	}
 	void ArabianScript::New()
 	{
 		Vector3 pos = mTr->GetPosition();
@@ -175,7 +166,7 @@ namespace ya
 
 		int a = 0;
 		mTime += Time::DeltaTime();
-		if (mTime > 2.0f)
+		if (mTime > 1.0f)
 		{
 			a = distr(eng);
 			mTime = 0.0f;
@@ -250,7 +241,7 @@ namespace ya
 		pos.x += 5.0f * Time::DeltaTime();
 		mTr->SetPosition(pos);
 
-		if (mTime > 0.5f)
+		if (mTime > 0.4f)
 			GetOwner()->Death();
 	}
 	void ArabianScript::AttackKnife()

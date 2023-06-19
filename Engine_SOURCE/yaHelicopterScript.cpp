@@ -16,10 +16,14 @@ namespace ya
 {
 	HelicopterScript::HelicopterScript()
 		: Script()
+		, mHeliState(HeliState::MOVE)
 		, mTr(nullptr)
 		, mPlayer(nullptr)
 		, mRot(0.0f)
 		, mTime(0.0f)
+		, mMoveTime(0.0f)
+		, mStack(0)
+		, ox(false)
 	{
 	}
 	HelicopterScript::~HelicopterScript()
@@ -28,12 +32,9 @@ namespace ya
 	void HelicopterScript::Initalize()
 	{
 		mTr = GetOwner()->GetComponent<Transform>();
-		//mTr->SetScale(Vector3(12.0f, 12.0f,1.0f));
-
 
 		Collider2D* heliColl = GetOwner()->AddComponent<Collider2D>();
 		heliColl->SetType(eColliderType::Rect);
-		heliColl->SetCenter(Vector2(0.0f, 0.0f));
 		heliColl->SetSize(Vector2(0.1f, 0.1f));
 
 		Animator* heliAni = GetOwner()->AddComponent<Animator>();
@@ -58,6 +59,8 @@ namespace ya
 		heliAni->Create(L"Right36", texture, Vector2(0.0f, 450.0f), Vector2(80.0f, 90.0f), Vector2(-0.01f, 0.0f), 6, 0.1f);
 		heliAni->Create(L"Right18", texture, Vector2(0.0f, 540.0f), Vector2(80.0f, 90.0f), Vector2(0.01f, 0.0f), 6, 0.1f);
 
+		texture = Resources::Load<Texture>(L"DeathEffect", L"Helicopter\\DeathEffect.png");
+		heliAni->Create(L"heliDeath", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 56.0f), Vector2(0.01f, 0.0f), 6, 0.2f);
 
 		SpriteRenderer* heliSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> heliMaterial = Resources::Find<Material>(L"SpriteMaterial");
@@ -67,12 +70,54 @@ namespace ya
 
 		heliAni->Play(L"Left0", true);
 
-		//heliAni->GetCompleteEvent(L"BombEffect") = std::bind(&HelicopterScript::End, this);
+		heliAni->GetCompleteEvent(L"heliDeath") = std::bind(&HelicopterScript::End, this);
 	}
 	void HelicopterScript::Update()
 	{
 		mTime += 1.0f * Time::DeltaTime();
+		mMoveTime += 1.0f * Time::DeltaTime();
 
+		switch (mHeliState)
+		{
+		case ya::HelicopterScript::HeliState::MOVE:
+			Move();
+			break;
+		case ya::HelicopterScript::HeliState::DIE:
+			Die();
+			break;
+		default:
+			break;
+		}
+	}
+	void HelicopterScript::FixedUpdate()
+	{
+	}
+	void HelicopterScript::Render()
+	{
+	}
+	void HelicopterScript::OnCollisionEnter(Collider2D* collider)
+	{
+		Animator* heliAni = GetOwner()->GetComponent<Animator>();
+
+		mStack++;
+		if (mStack == 23)
+		{
+			heliAni->Play(L"heliDeath", false);
+			mHeliState = HeliState::DIE;
+		}
+	}
+	void HelicopterScript::OnCollisionStay(Collider2D* collider)
+	{
+	}
+	void HelicopterScript::OnCollisionExit(Collider2D* collider)
+	{
+	}
+	void HelicopterScript::End()
+	{
+		GetOwner()->Death();
+	}
+	void HelicopterScript::Move()
+	{
 		Animator* heliAni = GetOwner()->GetComponent<Animator>();
 
 		Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
@@ -84,7 +129,7 @@ namespace ya
 
 		if (mRot <= 65.0f)
 		{
-			if(!heliAni->IsAnimationRunning(L"Left18"))
+			if (!heliAni->IsAnimationRunning(L"Left18"))
 				heliAni->Play(L"Left18", true);
 		}
 
@@ -118,13 +163,58 @@ namespace ya
 				heliAni->Play(L"Right36", true);
 		}
 
-		if (mRot >= 115.0f )
+		if (mRot >= 115.0f)
 		{
 			if (!heliAni->IsAnimationRunning(L"Right54"))
 				heliAni->Play(L"Right54", true);
 		}
 
-		if (mTime > 5.0f)
+		if (ox == true)
+		{
+			if (mMoveTime < 3.0f)
+			{
+
+				pos.x -= 3.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+			}
+			if (mMoveTime < 6.0f && mMoveTime > 3.0f)
+			{
+
+				pos.x += 3.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+			}
+
+			if (mMoveTime >= 6.0f)
+			{
+				mMoveTime = 0.0f;
+			}
+		}
+		else
+		{
+			if (mMoveTime < 3.0f)
+			{
+
+				pos.x += 3.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+			}
+			if (mMoveTime < 6.0f && mMoveTime > 3.0f)
+			{
+
+				pos.x -= 3.0f * Time::DeltaTime();
+				mTr->SetPosition(pos);
+
+			}
+
+			if (mMoveTime >= 6.0f)
+			{
+				mMoveTime = 0.0f;
+			}
+		}
+
+		if (mTime > 4.0f)
 		{
 			GameObject* bullet = object::CreateGameObject<GameObject>(eLayerType::MonsterAttack);
 			Transform* tr = bullet->GetComponent<Transform>();
@@ -135,30 +225,8 @@ namespace ya
 			scr->SetRot(mRot);
 			mTime = 0.0f;
 		}
-
-		/*rot.y = mP2Mangle;
-		GetOwner()->GetComponent<Transform>()->SetRotation(rot);*/
-
-		/*Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector3 pos = tr->GetPosition();
-
-		pos -= pos.Right * 5.0f * Time::DeltaTime();
-
-		tr->SetPosition(pos);*/
 	}
-	void HelicopterScript::FixedUpdate()
-	{
-	}
-	void HelicopterScript::Render()
-	{
-	}
-	void HelicopterScript::OnCollisionEnter(Collider2D* collider)
-	{
-	}
-	void HelicopterScript::OnCollisionStay(Collider2D* collider)
-	{
-	}
-	void HelicopterScript::OnCollisionExit(Collider2D* collider)
+	void HelicopterScript::Die()
 	{
 	}
 }

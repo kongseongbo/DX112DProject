@@ -176,6 +176,7 @@
     <ClInclude Include="yaCamelArabian.h" />
     <ClInclude Include="yaCamelArabianBulletScript.h" />
     <ClInclude Include="yaCamelArabianScript.h" />
+    <ClInclude Include="yaCenterEffectScript.h" />
     <ClInclude Include="yaCompleteScript.h" />
     <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaDeathScript.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="yaHelicopter.h" />
     <ClInclude Include="yaHelicopterBulletScript.h" />
     <ClInclude Include="yaHelicopterScript.h" />
+    <ClInclude Include="yaLeftEffectScript.h" />
     <ClInclude Include="yaLight.h" />
     <ClInclude Include="yaMachineGun.h" />
     <ClInclude Include="yaMachineGunScript.h" />
@@ -207,6 +209,8 @@
     <ClInclude Include="yaParachuteScript.h" />
     <ClInclude Include="yaParticleShader.h" />
     <ClInclude Include="yaParticleSystem.h" />
+    <ClInclude Include="yaPoroScript.h" />
+    <ClInclude Include="yaRightEffectScript.h" />
     <ClInclude Include="yaRigidbody.h" />
     <ClInclude Include="yaStructedBuffer.h" />
     <ClInclude Include="yaAnimation.h" />
@@ -279,6 +283,7 @@
     <ClCompile Include="yaCamelArabian.cpp" />
     <ClCompile Include="yaCamelArabianBulletScript.cpp" />
     <ClCompile Include="yaCamelArabianScript.cpp" />
+    <ClCompile Include="yaCenterEffectScript.cpp" />
     <ClCompile Include="yaCompleteScript.cpp" />
     <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaDeathScript.cpp" />
@@ -288,6 +293,7 @@
     <ClCompile Include="yaHelicopter.cpp" />
     <ClCompile Include="yaHelicopterBulletScript.cpp" />
     <ClCompile Include="yaHelicopterScript.cpp" />
+    <ClCompile Include="yaLeftEffectScript.cpp" />
     <ClCompile Include="yaLight.cpp" />
     <ClCompile Include="yaMachineGun.cpp" />
     <ClCompile Include="yaMachineGunScript.cpp" />
@@ -310,6 +316,8 @@
     <ClCompile Include="yaParachuteScript.cpp" />
     <ClCompile Include="yaParticleShader.cpp" />
     <ClCompile Include="yaParticleSystem.cpp" />
+    <ClCompile Include="yaPoroScript.cpp" />
+    <ClCompile Include="yaRightEffectScript.cpp" />
     <ClCompile Include="yaRigidbody.cpp" />
     <ClCompile Include="yaStructedBuffer.cpp" />
     <ClCompile Include="yaAnimation.cpp" />

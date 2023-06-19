@@ -13,6 +13,7 @@
 #include "yaTentScript.h"
 namespace ya
 {
+	
 	MapWallScript::MapWallScript()
 		: Script()
 		, mStack(0)
@@ -76,7 +77,7 @@ namespace ya
 			scene->AddGameObject(obj, eLayerType::Map);
 			obj->SetName(L"Mission2Map");
 			Transform* map1Tr = obj->GetComponent<Transform>();
-			map1Tr->SetPosition(Vector3(127.6f, 1.0f, 9.0f));
+			map1Tr->SetPosition(Vector3(127.6f, 1.0f, 10.0f));
 			map1Tr->SetScale(Vector3(92.0f, 18.0f, 1.0f));
 
 			SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
@@ -109,17 +110,25 @@ namespace ya
 #pragma region RightTent
 		{
 			GameObject* obj = new GameObject();
-			obj->SetName(L"Tent");
+			//obj->SetName(L"Tent");
 			scene->AddGameObject(obj, eLayerType::Map);
 			Transform* map1Tr = obj->GetComponent<Transform>();
 			map1Tr->SetPosition(Vector3(170.5f, 2.0f, 8.0f));
 			map1Tr->SetScale(Vector3(14.0f, 13.0f, 1.0f));
-
 			obj->AddComponent<Animator>();
-			Collider2D* coll =obj->AddComponent<Collider2D>();
-			coll->SetType(eColliderType::Rect);
-			coll->SetSize(Vector2(0.1, 0.15));
 			obj->AddComponent<TentScript>();
+
+			GameObject* obj2 = new GameObject();
+			obj2->SetName(L"Tent");
+			scene->AddGameObject(obj2, eLayerType::Map);
+			Transform* tr = obj2->GetComponent<Transform>();
+			tr->SetPosition(Vector3(172.5f, 1.7f, 8.0f));
+			tr->SetScale(Vector3(14.0f, 13.0f, 1.0f));
+
+			Collider2D* coll =obj2->AddComponent<Collider2D>();
+			coll->SetType(eColliderType::Rect);
+			coll->SetSize(Vector2(0.1f, 0.1f));
+			obj2->AddComponent<TentScript>();
 
 			SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");

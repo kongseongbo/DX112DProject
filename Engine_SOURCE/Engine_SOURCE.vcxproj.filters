@@ -226,6 +226,9 @@
     <Filter Include="Component\Script\Complete">
       <UniqueIdentifier>{8dbd7135-909b-4aeb-835d-c90b47759f1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script\Poro">
+      <UniqueIdentifier>{1dde2816-0274-4983-a33c-0a08b65a9076}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -344,9 +347,6 @@
     </ClCompile>
     <ClCompile Include="yaStructedBuffer.cpp">
       <Filter>Graphics\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="yaMapScript.cpp">
-      <Filter>Component\Script\Map</Filter>
     </ClCompile>
     <ClCompile Include="yaGraphicDevice_DX11.cpp">
       <Filter>Graphics\API</Filter>
@@ -518,6 +518,21 @@
     </ClCompile>
     <ClCompile Include="yaHelicopterBulletScript.cpp">
       <Filter>Component\Script\Enemy\Helicopter\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMapScript.cpp">
+      <Filter>Component\Script\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCenterEffectScript.cpp">
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLeftEffectScript.cpp">
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadLeft</Filter>
+    </ClCompile>
+    <ClCompile Include="yaRightEffectScript.cpp">
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadRight</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPoroScript.cpp">
+      <Filter>Component\Script\Poro</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -826,6 +841,18 @@
     </ClInclude>
     <ClInclude Include="yaHelicopterBulletScript.h">
       <Filter>Component\Script\Enemy\Helicopter\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCenterEffectScript.h">
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLeftEffectScript.h">
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadLeft</Filter>
+    </ClInclude>
+    <ClInclude Include="yaRightEffectScript.h">
+      <Filter>Component\Script\Enemy\MosqueArtillery\HeadRight</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPoroScript.h">
+      <Filter>Component\Script\Poro</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

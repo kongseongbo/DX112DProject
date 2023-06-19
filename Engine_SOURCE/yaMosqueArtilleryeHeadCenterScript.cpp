@@ -46,14 +46,16 @@ namespace ya
 		ani->Create(L"CenterAttack", texture, Vector2(0.0f, 296.0f), Vector2(100.0f, 148.0f), Vector2(0.0f, -0.02f), 5, 0.2f);
 
 		texture = Resources::Load<Texture>(L"MosqueArtilleryDestroy", L"MosqueArtillery\\MosqueArtilleryDestroy.png");
-		//ani->Create(L"RightDestroy", texture, Vector2(0.0f, 0.0f), Vector2(148.0f, 112.0f), Vector2(0.0f, -0.02f), 1, 0.2f);
 		ani->Create(L"CenterDestroy", texture, Vector2(0.0f, 112.0f), Vector2(148.0f, 224.0f), Vector2(0.0f, 0.15f), 1, 0.2f);
-		//ani->Create(L"LeftDestroy", texture, Vector2(0.0f, 224.0f), Vector2(148.0f, 335.0f), Vector2(0.0f, -0.02f), 1, 0.2f);
+
+		texture = Resources::Load<Texture>(L"MosqueArtilleryAttackEffect", L"MosqueArtillery\\Effect.png");
+		ani->Create(L"CenterAttackEffect", texture, Vector2(0.0f, 0.0f), Vector2(70.0f, 52.0f), Vector2(0.0f, 0.0f), 32, 0.2f);
 
 		ani->Play(L"MosqueArtilleryeHeadCenter", false);
 
 
 		ani->GetCompleteEvent(L"MosqueArtilleryeHeadCenterOpen") = std::bind(&MosqueArtilleryeHeadCenterScript::NewBoss, this);
+		//ani->GetCompleteEvent(L"CenterAttack") = std::bind(&MosqueArtilleryeHeadCenterScript::NewBoss, this);
 	}
 	void MosqueArtilleryeHeadCenterScript::Update()
 	{
@@ -130,6 +132,8 @@ namespace ya
 	}
 	void MosqueArtilleryeHeadCenterScript::Attack()
 	{
+		Animator* ani = GetOwner()->GetComponent<Animator>();
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
@@ -138,7 +142,6 @@ namespace ya
 		script->SetTarget(mPlayer->GetComponent<Transform>()->GetPosition());
 		Transform* bulletTr = bullet->GetComponent<Transform>();
 		bulletTr->SetPosition(Vector3(tr->GetPosition().x, tr->GetPosition().y ,tr->GetPosition().z - 1.0f));
-		
 
 		mTime = 0.0f;
 		eState = State::IDLE;

@@ -133,7 +133,7 @@ namespace ya
 		mTr->SetPosition(Vector3(mTr->GetPosition().x, y, mTr->GetPosition().z));
 
 		mTime += 2.0f * Time::DeltaTime();
-		if (mTime > 30.0f)
+		if (mTime > 5.0f)
 		{
 			mTheKeesiState = TheKeesiState::ATTACK;
 		}

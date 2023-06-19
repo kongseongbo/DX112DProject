@@ -1,21 +1,15 @@
 #pragma once
-class TentScript
-{
-};
-
-#pragma once
 #include "yaScript.h"
-#include "yaArabian.h"
+#include "yaMosqueArtilleryeHeadCenterScript.h"
 
 
 namespace ya
 {
-	static bool mbOnColl;
-	class TentScript : public Script
+	class CenterEffectScript : public Script
 	{
 	public:
-		TentScript();
-		virtual ~TentScript();
+		CenterEffectScript();
+		virtual ~CenterEffectScript();
 
 		virtual void Initalize();
 		virtual void Update();
@@ -30,11 +24,11 @@ namespace ya
 		virtual void OnTriggerStay(Collider2D* collider) {};
 		virtual void OnTriggerExit(Collider2D* collider) {};
 
-		void End();
-
-	
+		void SetScript(MosqueArtilleryeHeadCenterScript* script) { scr = script; }
 
 	private:
-
+		MosqueArtilleryeHeadCenterScript* scr;
+		Transform* mTr;
+		float mTime;
 	};
 }

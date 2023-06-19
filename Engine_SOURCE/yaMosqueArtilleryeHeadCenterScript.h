@@ -42,6 +42,8 @@ namespace ya
 
 		void SetTarget(Player* player) { mPlayer = player; }
 
+		State GetState() { return eState; }
+
 	private:
 		Player* mPlayer;
 

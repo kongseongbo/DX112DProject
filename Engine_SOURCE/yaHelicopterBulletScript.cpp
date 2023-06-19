@@ -39,8 +39,8 @@ namespace ya
 		coll->SetSize(Vector2(0.1f, 0.1f));
 
 		Animator* ani = GetOwner()->AddComponent<Animator>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"BassBullet", L"Bullet\\BassBullet.png");
-		ani->Create(L"BassBullet", texture, Vector2(0.0f, 0.0f), Vector2(18.0f, 18.0f), Vector2::Zero, 1, 0.3f);
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"HelicopterBullet", L"Helicopter\\Bullet.png");
+		ani->Create(L"HelicopterBullet", texture, Vector2(0.0f, 0.0f), Vector2(10.0f, 10.0f), Vector2::Zero, 2, 0.3f);
 
 		SpriteRenderer* heliSr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> heliMaterial = Resources::Find<Material>(L"SpriteMaterial");
@@ -48,10 +48,15 @@ namespace ya
 		heliSr->SetMaterial(heliMaterial);
 		heliSr->SetMesh(mesh);
 
-		ani->Play(L"BassBullet", false);
+		ani->Play(L"HelicopterBullet", true);
 	}
 	void HelicopterBulletScript::Update()
 	{
+		mTime += 2.0f * Time::DeltaTime();
+
+		if (mTime > 3.0f)
+			GetOwner()->Death();
+
 		pos = GetOwner()->GetComponent<Transform>()->GetPosition();
 		mTr->SetRotation(Vector3(1.0f, 1.0f, mRot));
 		pos -= mTr->Right() * 10.0f * Time::DeltaTime();

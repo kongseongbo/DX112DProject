@@ -31,9 +31,9 @@ namespace ya
 		virtual void OnCollisionStay(Collider2D* collider);
 		virtual void OnCollisionExit(Collider2D* collider);
 
-		virtual void OnTriggerEnter(Collider2D* collider);
-		virtual void OnTriggerStay(Collider2D* collider);
-		virtual void OnTriggerExit(Collider2D* collider);
+		virtual void OnTriggerEnter(Collider2D* collider) {};
+		virtual void OnTriggerStay(Collider2D* collider) {};
+		virtual void OnTriggerExit(Collider2D* collider) {};
 
 		void New();
 		void Idle();
