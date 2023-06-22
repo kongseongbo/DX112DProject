@@ -6,9 +6,11 @@
 #include "yaSceneManager.h"
 #include "yaCollider2D.h"
 #include "yaAnimator.h"
+#include "yaSpriteRenderer.h"
 
 #include "yaFlamestrikeScript.h"
 #include "yaBossArabianScript.h"
+#include "yaDeathEffect.h"
 
 
 
@@ -30,6 +32,11 @@ namespace ya
 		, mbComplete(false)
 		, mIndex(0)
 		, mStack(0)
+		, obj(nullptr)
+		, obj2(nullptr)
+		, obj3(nullptr)
+		, obj4(nullptr)
+		, mEffectTime(0.0f)
 	{
 	}
 	TheKeesiScript::~TheKeesiScript()
@@ -58,7 +65,7 @@ namespace ya
 		texture = Resources::Load<Texture>(L"TheKeesiDie", L"TheKeesi\\TheKeesiDie.png");
 		ani->Create(L"TheKeesiDie", texture, Vector2(0.0f, 0.0f), Vector2(202.0f, 93.0f), Vector2::Zero, 1, 0.1f);
 	
-		ani->Play(L"TheKeesiIdle", true);
+		ani->Play(L"TheKeesiIdle", true);		
 	}
 	void TheKeesiScript::Update()
 	{
@@ -219,11 +226,87 @@ namespace ya
 				mTime += 2.0f * Time::DeltaTime();
 				if (mTime > 3.0f)
 				{
+					obj->Death();
+					obj2->Death();
+					obj3->Death();
+					obj4->Death();
 					CreateMissionClear();
 				}
 			}
 			else
+			{
+				mEffectTime += 0.5 * Time::DeltaTime();
+				
+				if(obj == nullptr)
+				{
+					obj = object::Instantiate<GameObject>(eLayerType::Monster);
+					Transform* tr = obj->GetComponent<Transform>();
+					tr->SetPosition(Vector3(mTr->GetPosition().x - 1.0f, mTr->GetPosition().y - 1.0f, mTr->GetPosition().z - 1.0f));
+					tr->SetScale(Vector3(12.0f, 12.0f, 12.0f));
+					Animator* ani = obj->AddComponent<Animator>();
+					DeathEffect* effect = obj->AddComponent<DeathEffect>();
+
+					SpriteRenderer* sr = obj->AddComponent<SpriteRenderer>();
+					std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+					std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+					sr->SetMaterial(material);
+					sr->SetMesh(mesh);
+				}
+				if (mEffectTime > 1.8f)
+				{
+					if (obj2 == nullptr)
+					{
+						obj2 = object::Instantiate<GameObject>(eLayerType::Monster);
+						Transform* tr = obj2->GetComponent<Transform>();
+						tr->SetPosition(Vector3(mTr->GetPosition().x - 2.0f, mTr->GetPosition().y - 1.0f, mTr->GetPosition().z - 1.0f));
+						tr->SetScale(Vector3(12.0f, 12.0f, 12.0f));
+						Animator* ani = obj2->AddComponent<Animator>();
+						DeathEffect* effect = obj2->AddComponent<DeathEffect>();
+
+						SpriteRenderer* sr = obj2->AddComponent<SpriteRenderer>();
+						std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+						std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+						sr->SetMaterial(material);
+						sr->SetMesh(mesh);
+					}
+				}
+				if (mEffectTime > 0.4f)
+				{
+					if (obj3 == nullptr)
+					{
+						obj3 = object::Instantiate<GameObject>(eLayerType::Monster);
+						Transform* tr = obj3->GetComponent<Transform>();
+						tr->SetPosition(Vector3(mTr->GetPosition().x + 2.0f, mTr->GetPosition().y - 1.0f, mTr->GetPosition().z - 1.0f));
+						tr->SetScale(Vector3(12.0f, 12.0f, 12.0f));
+						Animator* ani = obj3->AddComponent<Animator>();
+						DeathEffect* effect = obj3->AddComponent<DeathEffect>();
+						SpriteRenderer* sr = obj3->AddComponent<SpriteRenderer>();
+						std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+						std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+						sr->SetMaterial(material);
+						sr->SetMesh(mesh);
+					}
+				}
+				if (mEffectTime > 1.3f)
+				{
+					if (obj4 == nullptr)
+					{
+						obj4 = object::Instantiate<GameObject>(eLayerType::Monster);
+						Transform* tr = obj4->GetComponent<Transform>();
+						tr->SetPosition(Vector3(mTr->GetPosition().x + 3.0f, mTr->GetPosition().y + 1.0f, mTr->GetPosition().z - 1.0f));
+						tr->SetScale(Vector3(12.0f, 12.0f, 12.0f));
+						Animator* ani = obj4->AddComponent<Animator>();
+						DeathEffect* effect = obj4->AddComponent<DeathEffect>();
+						SpriteRenderer* sr = obj4->AddComponent<SpriteRenderer>();
+						std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+						std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+						sr->SetMaterial(material);
+						sr->SetMesh(mesh);
+					}
+				}
 				y -= 0.5f * Time::DeltaTime();
+
+			}
 		}
 
 		mTr->SetPosition(Vector3(mTr->GetPosition().x, y, mTr->GetPosition().z));

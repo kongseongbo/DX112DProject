@@ -77,11 +77,16 @@ namespace ya
 
 		CameraScript* mCameraScript;
 
+		GameObject* obj;
+		GameObject* obj2;
+		GameObject* obj3;
+		GameObject* obj4;
 
 		bool mbComplete;
 		bool mbMove;
 		int mIndex;
 		int mStack;
 		float mTime;
+		float mEffectTime;
 	};
 }

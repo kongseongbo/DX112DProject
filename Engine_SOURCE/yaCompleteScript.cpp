@@ -3,6 +3,12 @@
 #include "yaResources.h"
 #include "yaObject.h"
 #include "yaTime.h"
+
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
 #include "yaTheKeesiScript.h"
 
 
@@ -72,14 +78,16 @@ namespace ya
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
 
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"missioncomplete", L"Sound\\missioncomplete.mp3");
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 	}
 	void CompleteScript::Update()
 	{		
-
 		if (mKeesiScript->GetComplete())
 		{
 			Complete(GetOwner()->GetName(), 0.0f);
-			//if(mTime)
 		}
 	}
 	void CompleteScript::FixedUpdate()
@@ -132,7 +140,11 @@ namespace ya
 			distance = 173.0f;
 
 		if (x < distance)
+		{
 			x += 10.0f * Time::DeltaTime();
+			AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+			aaa->Play();
+		}
 		mTr->SetPosition(Vector3(x, mTr->GetPosition().y, mTr->GetPosition().z));
 		
 	}

@@ -107,7 +107,6 @@ namespace ya
 	}
 	void EngineEffectScript::OnCollisionEnter(Collider2D* collider)
 	{
-		int a = 0;
 	}
 	void EngineEffectScript::OnCollisionStay(Collider2D* collider)
 	{
@@ -131,14 +130,14 @@ namespace ya
 	{
 		if (GetOwner()->GetName() == L"rightengineeffect")
 		{
-			RightEffect->AddComponent<FlamestrikeScript>();
+			FlamestrikeScript* flameScrR = RightEffect->AddComponent<FlamestrikeScript>();
 			Transform* tr = RightEffect->GetComponent<Transform>();
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 		}
 
 		if (GetOwner()->GetName() == L"leftengineeffect")
 		{
-			LeftEffect->AddComponent<FlamestrikeScript>();
+			FlamestrikeScript* flameScrL = LeftEffect->AddComponent<FlamestrikeScript>();
 			Transform* tr = LeftEffect->GetComponent<Transform>();
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 		}

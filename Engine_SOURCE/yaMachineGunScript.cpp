@@ -9,6 +9,12 @@
 #include "yaInput.h"
 
 
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
+
 namespace ya
 {
 	MachineGunScript::MachineGunScript()
@@ -20,26 +26,12 @@ namespace ya
 	}
 	void MachineGunScript::Initalize()
 	{
-		/*Scene* playScene = SceneManager::GetActiveScene();
-		playScene->AddGameObject(GetOwner(), eLayerType::MachineGunItem);*/
+		//GetOwner()->AddComponent<AudioListener>();
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
 
-		/*Collider2D* bulletColl = GetOwner()->AddComponent<Collider2D>();
-		bulletColl->SetType(eColliderType::Rect);
-		bulletColl->SetCenter(Vector2(0.0f, 0.0f));
-		bulletColl->SetSize(Vector2(1.f, 1.f));
-
-		Animator* bulletAni = GetOwner()->AddComponent<Animator>();
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"MachineGunItem", L"Bullet\\MachineGunItem.png");
-		bulletAni->Create(L"MachineGunItem", texture, Vector2(0.0f, 0.0f), Vector2(24.0f, 22.0f), Vector2::Zero, 2, 0.3f);
-
-		SpriteRenderer* bulletSr = GetOwner()->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> bodyMateiral = Resources::Find<Material>(L"SpriteMaterial");
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		bulletSr->SetMaterial(bodyMateiral);
-		bulletSr->SetMesh(mesh);
-
-		bulletAni->Play(L"MachineGunItem", true);*/
-
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"machinegun", L"Sound\\machinegun.mp3");
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 	}
 	void MachineGunScript::Update()
 	{
@@ -54,6 +46,9 @@ namespace ya
 	{
 		if (collider->GetOwner()->GetName() == L"Head")
 		{
+			AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+			aaa->Play();
+
 			HeadScript* scr = collider->GetOwner()->GetScript<HeadScript>();
 			scr->SetGunState(eGunState::MACHINEGUN);
 			GetOwner()->Death();

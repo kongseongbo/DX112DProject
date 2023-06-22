@@ -10,6 +10,10 @@
 #include "yaDeathScript.h"
 #include "yaCamelArabianBulletScript.h"
 
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -21,6 +25,7 @@ namespace ya
 		, mTime(0.0f)
 		, direction(0)
 		, index(0)
+		, mStack(0)
 		, mbBullet(false)
 	{
 	}
@@ -34,8 +39,7 @@ namespace ya
 
 		Collider2D* arabianColl = GetOwner()->GetComponent<Collider2D>();
 		arabianColl->SetType(eColliderType::Rect);
-		arabianColl->SetCenter(Vector2(0.0f, 0.0f));
-		arabianColl->SetSize(Vector2(0.2f, 0.2f));
+		arabianColl->SetSize(Vector2(0.2f, 0.3f));
 
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"CamelArabian", L"CamelArabian\\New.png");
@@ -61,6 +65,12 @@ namespace ya
 		ani->GetCompleteEvent(L"New") = std::bind(&CamelArabianScript::Idle, this);
 
 		ani->Play(L"New", false);
+
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"arabianscream", L"Sound\\arabianscream.mp3");
+
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 	}
 	void CamelArabianScript::Update()
 	{
@@ -97,22 +107,28 @@ namespace ya
 	}
 	void CamelArabianScript::OnCollisionEnter(Collider2D* collider)
 	{
+		AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Bullet || collider->GetOwner()->GetLayerType() == eLayerType::Bomb)
 		{
-			GameObject* obj = new GameObject();
-			obj->SetName(L"Ara");
-			Transform* objTr = obj->GetComponent<Transform>();
-			objTr->SetPosition(mTr->GetPosition());
-			objTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-			DeathScript* scr = obj->AddComponent<DeathScript>();
+			mStack++;
 
-			mTime = 0.0f;
-			Collider2D* arabianColl = GetOwner()->GetComponent<Collider2D>();
-			arabianColl->SetSize(Vector2(0.05f, 0.05f));
+			if (mStack == 12)
+			{
+				CreateDeathObj();
 
-			Animator* ani = GetOwner()->GetComponent<Animator>();
-			ani->Play(L"DeathRun", true);
-			eCamelArabianState = CamelArabianState::DIE;
+				GetOwner()->SetLayerType(eLayerType::MonsterAttack);
+
+				mTime = 0.0f;
+				Collider2D* arabianColl = GetOwner()->GetComponent<Collider2D>();
+				arabianColl->SetSize(Vector2(0.05f, 0.05f));
+
+				Animator* ani = GetOwner()->GetComponent<Animator>();
+				ani->Play(L"DeathRun", true);
+
+				aaa->Play();
+				eCamelArabianState = CamelArabianState::DIE;
+			}
 		}
 	}
 	void CamelArabianScript::OnCollisionStay(Collider2D* collider)
@@ -149,7 +165,6 @@ namespace ya
 	}
 	void CamelArabianScript::Move()
 	{
-		//mTr->SetPosition(Vector3(mTr->GetPosition().x - Time::DeltaTime(), mTr->GetPosition().y, mTr->GetPosition().z));
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 
 			mTime += 2.0f * Time::DeltaTime();
@@ -192,7 +207,6 @@ namespace ya
 	{
 		mTime += 2.0f * Time::DeltaTime();
 		Animator* ani = GetOwner()->GetComponent<Animator>();
-		//ani->Play(L"CamelArabianDeath", false);
 		
 		if (mTime > 1.0f)
 		{
@@ -205,7 +219,6 @@ namespace ya
 	{
 		mTime += 2.0f * Time::DeltaTime();
 		Animator* ani = GetOwner()->GetComponent<Animator>();
-		//ani->Play(L"CamelArabianDeath", false);
 
 		if (mTime > 2.5f)
 		{
@@ -235,5 +248,14 @@ namespace ya
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 			mbBullet = true;
 		}
+	}
+	void CamelArabianScript::CreateDeathObj()
+	{
+		GameObject* obj = new GameObject();
+		obj->SetName(L"Ara");
+		Transform* objTr = obj->GetComponent<Transform>();
+		objTr->SetPosition(mTr->GetPosition());
+		objTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+		DeathScript* scr = obj->AddComponent<DeathScript>();
 	}
 }

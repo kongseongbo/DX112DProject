@@ -229,6 +229,9 @@
     <Filter Include="Component\Script\Poro">
       <UniqueIdentifier>{1dde2816-0274-4983-a33c-0a08b65a9076}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Audio">
+      <UniqueIdentifier>{35d7070d-32ec-412c-8be3-2f8f4c9e1d66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="yaApplication.cpp">
@@ -533,6 +536,21 @@
     </ClCompile>
     <ClCompile Include="yaPoroScript.cpp">
       <Filter>Component\Script\Poro</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAudioClip.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAudioListener.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAudioSource.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="yaFmod.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDeathEffect.cpp">
+      <Filter>Component\Script\Enemy\TheKeesi\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -853,6 +871,21 @@
     </ClInclude>
     <ClInclude Include="yaPoroScript.h">
       <Filter>Component\Script\Poro</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAudioClip.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAudioListener.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="yaAudioSource.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="yaFmod.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDeathEffect.h">
+      <Filter>Component\Script\Enemy\TheKeesi\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

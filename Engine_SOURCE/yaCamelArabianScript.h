@@ -44,7 +44,7 @@ namespace ya
 		void Die();
 
 		void CreateBullet();
-
+		void CreateDeathObj();
 		void SetIndex(int a) { index = a; }
 
 	private:
@@ -55,6 +55,7 @@ namespace ya
 
 		int direction;
 		int index;
+		int mStack;
 
 		bool mbBullet;
 	};

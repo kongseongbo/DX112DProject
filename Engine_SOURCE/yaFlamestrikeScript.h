@@ -5,6 +5,7 @@
 
 namespace ya
 {
+
 	class FlamestrikeScript : public Script
 	{
 	public:
@@ -26,6 +27,7 @@ namespace ya
 
 	private:
 		Transform* mTr;
+
 		float mTime;
 	};
 }

@@ -15,6 +15,10 @@
 #include "yaCollider2D.h"
 #include "yaApplication.h"
 #include "yaLight.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
 
 extern ya::Application application;
 
@@ -40,9 +44,8 @@ namespace ya
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		//cameraObj->AddComponent<CameraScript>();
+		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
 
 		// Title
@@ -58,12 +61,23 @@ namespace ya
 		titleMr->SetMaterial(titleMaterial);
 		titleMr->SetMesh(mesh);
 
+		aaa = cameraObj->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"TitleSound", L"Sound\\Title.mp3");
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(true);
+		aaa->Play();
+
 		Scene::Initalize();
 	}
 	void TitleScene::Update()
 	{
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
+			aaa->Stop();
+			std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"SelectAudio", L"Sound\\TheMilitarySystem.mp3");
+			aaa->SetClip(myAudioClip);
+			aaa->SetLoop(true);
+			aaa->Play();
 			SceneManager::LoadScene(eSceneType::CharacterSelect);
 		}
 

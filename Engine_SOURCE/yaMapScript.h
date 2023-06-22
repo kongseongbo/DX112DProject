@@ -28,6 +28,7 @@ namespace ya
 		virtual void OnTriggerExit(Collider2D* collider) {};
 
 		void CreateArabian(Vector3 position);
+		void CreateArabian1(Vector3 position);
 		void CreateArabian2(Vector3 position);
 		void CreateArabian3(Vector3 position);
 		void CreateCamelArabian(Vector3 position);

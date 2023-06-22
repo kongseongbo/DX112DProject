@@ -52,6 +52,8 @@ namespace ya::enums
 		Animator,
 		Rigidbody,
 		ParticleSystem,
+		AudioListener,
+		AudioSource,
 		Light,
 		UI,
 		Script,
@@ -69,6 +71,7 @@ namespace ya::enums
 		MeshData,
 		GraphicShader,
 		ComputeShader,
+		AudioClip,
 		Script,
 		End,
 	};

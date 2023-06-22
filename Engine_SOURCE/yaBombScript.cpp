@@ -9,6 +9,10 @@
 #include "yaHeadScript.h"
 #include "yaInput.h"
 #include "yaRigidbody.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -50,6 +54,14 @@ namespace ya
 		bombAni->Play(L"Bomb", true);
 
 		bombAni->GetCompleteEvent(L"BombEffect") = std::bind(&BombScript::End, this);
+
+
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
+
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"Bomb", L"Sound\\Bomb.wav");
+
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 	}
 	void BombScript::Update()
 	{
@@ -95,6 +107,9 @@ namespace ya
 			tr->SetPosition(monTr->GetPosition());
 			bombAni->Play(L"BombEffect", false);
 			rigidbody->SetGround(true);
+
+			AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+			aaa->Play();
 		}
 		else
 		{
@@ -110,6 +125,9 @@ namespace ya
 				tr->SetRotation(rot);
 				bombAni->Play(L"BombEffect", false);
 				rigidbody->SetGround(true);
+
+				AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+				aaa->Play();
 			}
 			else
 			{

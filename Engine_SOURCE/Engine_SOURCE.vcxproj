@@ -132,6 +132,10 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Debug\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -153,6 +157,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmod.dll" "$(SolutionDir)\x64\Release\"
+copy "$(SolutionDir)FW1FontWrapper.dll" "$(SolutionDir)\x64\Release\"
+copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
@@ -160,6 +172,9 @@
     <ClInclude Include="yaArabianKnife.h" />
     <ClInclude Include="yaArabianKnifeScript.h" />
     <ClInclude Include="yaArabianScript.h" />
+    <ClInclude Include="yaAudioClip.h" />
+    <ClInclude Include="yaAudioListener.h" />
+    <ClInclude Include="yaAudioSource.h" />
     <ClInclude Include="yaBody.h" />
     <ClInclude Include="yaBodyScript.h" />
     <ClInclude Include="yaBomb.h" />
@@ -179,9 +194,11 @@
     <ClInclude Include="yaCenterEffectScript.h" />
     <ClInclude Include="yaCompleteScript.h" />
     <ClInclude Include="yaComputeShader.h" />
+    <ClInclude Include="yaDeathEffect.h" />
     <ClInclude Include="yaDeathScript.h" />
     <ClInclude Include="yaEngineEffectScript.h" />
     <ClInclude Include="yaFlamestrikeScript.h" />
+    <ClInclude Include="yaFmod.h" />
     <ClInclude Include="yaHeadScript.h" />
     <ClInclude Include="yaHelicopter.h" />
     <ClInclude Include="yaHelicopterBulletScript.h" />
@@ -267,6 +284,9 @@
     <ClCompile Include="yaArabianKnife.cpp" />
     <ClCompile Include="yaArabianKnifeScript.cpp" />
     <ClCompile Include="yaArabianScript.cpp" />
+    <ClCompile Include="yaAudioClip.cpp" />
+    <ClCompile Include="yaAudioListener.cpp" />
+    <ClCompile Include="yaAudioSource.cpp" />
     <ClCompile Include="yaBody.cpp" />
     <ClCompile Include="yaBodyScript.cpp" />
     <ClCompile Include="yaBomb.cpp" />
@@ -286,9 +306,11 @@
     <ClCompile Include="yaCenterEffectScript.cpp" />
     <ClCompile Include="yaCompleteScript.cpp" />
     <ClCompile Include="yaComputeShader.cpp" />
+    <ClCompile Include="yaDeathEffect.cpp" />
     <ClCompile Include="yaDeathScript.cpp" />
     <ClCompile Include="yaEngineEffectScript.cpp" />
     <ClCompile Include="yaFlamestrikeScript.cpp" />
+    <ClCompile Include="yaFmod.cpp" />
     <ClCompile Include="yaHeadScript.cpp" />
     <ClCompile Include="yaHelicopter.cpp" />
     <ClCompile Include="yaHelicopterBulletScript.cpp" />

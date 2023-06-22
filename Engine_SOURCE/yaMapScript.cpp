@@ -63,6 +63,12 @@ namespace ya
 			Vector3 pos = tr->GetPosition();
 			CreateArabian(pos);
 		}
+		if (GetOwner()->GetName() == L"CreateArabian1")
+		{
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			CreateArabian1(pos);
+		}
 		if (GetOwner()->GetName() == L"CreateArabian2")
 		{
 			Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -171,7 +177,27 @@ namespace ya
 		}
 
 	}
-
+	void MapScript::CreateArabian1(Vector3 position)
+	{
+		{
+			Arabian* arabianObj = new Arabian();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(arabianObj, eLayerType::Monster);
+			Transform* arabianTr = arabianObj->GetComponent<Transform>();
+			arabianTr->SetPosition(Vector3(position.x + 10.0f, -3.5f, 5.0f));
+			arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			ArabianScript* script = arabianObj->AddComponent<ArabianScript>();
+		}
+		{
+			Arabian* arabianObj = new Arabian();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(arabianObj, eLayerType::Monster);
+			Transform* arabianTr = arabianObj->GetComponent<Transform>();
+			arabianTr->SetPosition(Vector3(position.x + 15.0f, -3.5f, 5.0f));
+			arabianTr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			ArabianScript* script = arabianObj->AddComponent<ArabianScript>();
+		}
+	}
 	void MapScript::CreateArabian2(Vector3 position)
 	{
 		{
@@ -291,20 +317,36 @@ namespace ya
 
 	void MapScript::CreateCamelArabian(Vector3 position)
 	{
-		CamelArabian* camelArabian = object::Instantiate<CamelArabian>(eLayerType::Monster);
-		camelArabian->SetName(L"CamelArabian");
-		Transform* tr = camelArabian->GetComponent<Transform>();
-		tr->SetPosition(Vector3(-15.0f, -2.0f, 5.0f));
-		tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
-		camelArabian->AddComponent<Animator>();
-		camelArabian->AddComponent<Collider2D>();
-		camelArabian->AddComponent<CamelArabianScript>();
+		{
+			CamelArabian* camelArabian = object::Instantiate<CamelArabian>(eLayerType::Monster);
+			camelArabian->SetName(L"CamelArabian");
+			Transform* tr = camelArabian->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-15.0f, -2.0f, 5.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			camelArabian->AddComponent<Animator>();
+			camelArabian->AddComponent<Collider2D>();
+			camelArabian->AddComponent<CamelArabianScript>();
 
-		SpriteRenderer* sr = camelArabian->AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		sr->SetMaterial(matateiral);
-		sr->SetMesh(mesh);
+			SpriteRenderer* sr = camelArabian->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			sr->SetMaterial(matateiral);
+			sr->SetMesh(mesh);
+		}
+		{
+			GameObject* obj = new GameObject();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(obj, eLayerType::Obj);
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(position.x + 18.0f, -3.5f, 5.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			obj->AddComponent<Animator>();
+			Collider2D* coll = obj->AddComponent<Collider2D>();
+			coll->SetType(eColliderType::Rect);
+			coll->SetSize(Vector2(0.1f, 0.1f));
+
+			PoroScript* script = obj->AddComponent<PoroScript>();
+		}
 	}
 
 	void MapScript::CreateHelicopter(Vector3 position)
@@ -350,7 +392,7 @@ namespace ya
 		sr->SetMaterial(matateiral);
 		sr->SetMesh(mesh);
 
-		GameObject* leftgroundeffect = object::Instantiate<GameObject>(eLayerType::Animator);
+		GameObject* leftgroundeffect = object::Instantiate<GameObject>(eLayerType::Effect);
 		//
 		GameObject* lefteffect = object::Instantiate<GameObject>(eLayerType::Monster);
 		lefteffect->SetName(L"leftengineeffect");
@@ -366,7 +408,8 @@ namespace ya
 		leftSr->SetMesh(mesh);
 
 
-		GameObject* rightgroundeffect = object::Instantiate<GameObject>(eLayerType::Animator);
+		GameObject* rightgroundeffect = object::Instantiate<GameObject>(eLayerType::Effect);
+		
 		//
 		GameObject* righteffect = object::Instantiate<GameObject>(eLayerType::Monster);
 		righteffect->SetName(L"rightengineeffect");
@@ -391,6 +434,7 @@ namespace ya
 
 	void MapScript::MissionComplete()
 	{
+
 		{
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Effect);
 			obj->SetName(L"M");

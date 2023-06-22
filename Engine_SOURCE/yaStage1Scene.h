@@ -50,5 +50,7 @@ namespace ya
 
 		float mTime;
 		float mZoom;
+
+		bool mbAudioPlay;
 	};
 }

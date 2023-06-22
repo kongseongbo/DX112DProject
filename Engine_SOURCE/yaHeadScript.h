@@ -37,6 +37,7 @@ namespace ya
 
 		virtual void Initalize() override;
 		virtual void Update() override;
+		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
 		virtual void OnCollisionEnter(Collider2D* collider) override;
@@ -44,7 +45,6 @@ namespace ya
 		virtual void OnCollisionExit(Collider2D* collider) override;
 
 		void Start();
-		void Action();
 		void End();
 
 		void Idle();
@@ -69,12 +69,12 @@ namespace ya
 		void SetBody(Body* body) { mBody = body; }
 		HeadState GetHeadState() { return mHeadState; }
 		void SetHeadState(HeadState state) { mHeadState = state; }
-		
+
 		eGunState GetGunState() { return mGunState; }
 		void SetGunState(eGunState state) { mGunState = state; }
 
 		void SetStop(int i) { mStop = i; }
-
+		void SetComplete(bool complete){mbComplete = complete;}
 
 	private:
 		Bullet* mBullet;
@@ -94,6 +94,8 @@ namespace ya
 		bool mbLine;
 
 		int mStop;
+
+		bool mbComplete;
 
 		/*ObjectPool< Bullet, 50 > mBullets;
 		Bullet* a;*/

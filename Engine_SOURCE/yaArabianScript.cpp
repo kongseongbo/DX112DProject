@@ -7,6 +7,12 @@
 #include "yaSceneManager.h"
 #include "yaInput.h"
 #include "yaRigidbody.h"
+
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
 #include "yaArabianKnifeScript.h"
 #include "yaArabianKnife.h"
 
@@ -74,11 +80,16 @@ namespace ya
 		//mArabianAni->GetEvent(L"LeftKnifeAttack2", 4) = std::bind(&ArabianScript::AttackKnife, this);
 
 		mAni->Play(L"LeftMove", true);
+
+
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"arabianscream", L"Sound\\arabianscream.mp3");
+
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 	}
 	void ArabianScript::Update()
 	{
-		
-
 		switch (mArabianState)
 		{
 		case ya::ArabianScript::ArabianState::NEW:
@@ -111,14 +122,16 @@ namespace ya
 		if (collider->GetOwner()->GetName() == L"Head")
 		{
 			mAni->Play(L"LeftAttack", false);
-			//mArabianState = ArabianState::ATTACK;
 		}
 
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
 		{
+			AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+			
 			mStatck++;
 			if (mStatck == 2)
 			{
+				aaa->Play();
 				mAni->Play(L"LeftDeath", false);
 				mArabianState = ArabianState::DEATH;
 			}
@@ -127,12 +140,10 @@ namespace ya
 
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Bomb)
 		{
-			mStatck++;
-			if (mStatck == 2)
-			{
-				mAni->Play(L"BombDeath", false);
-				mArabianState = ArabianState::DEATH;
-			}
+	
+			mAni->Play(L"BombDeath", false);
+			mArabianState = ArabianState::DEATH;
+			
 			mTime = 0.0f;
 		}
 	}

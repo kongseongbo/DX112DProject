@@ -1,6 +1,7 @@
 #pragma once
 #include "yaScript.h"
 
+
 namespace ya
 {
 	class EngineEffectScript : public Script

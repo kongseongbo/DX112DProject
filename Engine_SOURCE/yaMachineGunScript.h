@@ -1,6 +1,6 @@
 #pragma once
 #include "yaScript.h"
-
+#include "yaAudioSource.h"
 
 namespace ya
 {

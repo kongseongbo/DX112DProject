@@ -16,6 +16,11 @@
 #include "yaRigidbody.h"
 #include "yaPaintShader.h"
 
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
 #include "yaMapScript.h"
 #include "yaMapWallScript.h"
 
@@ -58,6 +63,7 @@ namespace ya
 		, mMosqueArtilleryeHeadRightScript(nullptr)
 		, mTime(0.0f)
 		, mZoom(50.0f)
+		, mbAudioPlay(false)
 	{
 	}
 
@@ -337,7 +343,7 @@ namespace ya
 		}
 		{
 			GameObject* mapcolliderObj = object::Instantiate<GameObject>(eLayerType::Collider, this);
-			mapcolliderObj->SetName(L"CreateArabian");
+			mapcolliderObj->SetName(L"CreateArabian1");
 			Transform* mapcolliderTr = mapcolliderObj->GetComponent<Transform>();
 			mapcolliderTr->SetPosition(Vector3(-35.0f, 0.0f, 1.0f));
 			mapcolliderTr->SetScale(Vector3(0.5f, 20.0f, 1.0f));
@@ -535,6 +541,13 @@ namespace ya
 		}
 #pragma endregion
 		
+
+		AudioSource* aaa = mCameraObj->AddComponent<AudioSource>();
+
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"Mission1", L"Sound\\Mission1.mp3");
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(true);
+
 		//// HPBAR
 		//GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI, this);
 		//hpBar->SetName(L"HPBAR");
@@ -694,11 +707,20 @@ namespace ya
 			SceneManager::LoadScene(eSceneType::Tilte);
 		}
 
+		AudioSource* aaa = mCameraObj->GetComponent<AudioSource>();
+		if (!mbAudioPlay)
+		{
+			aaa->Play();
+			mbAudioPlay = true;
+		}
+
 		Scene::Update();
 	}
 
 	void Stage1Scene::FixedUpdate()
 	{
+
+		
 		Scene::FixedUpdate();
 	}
 

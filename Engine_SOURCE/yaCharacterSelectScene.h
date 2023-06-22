@@ -1,5 +1,6 @@
 #pragma once
 #include "yaScene.h"
+#include "yaAudioSource.h"
 
 namespace ya
 {
@@ -18,6 +19,7 @@ namespace ya
 		virtual void OnExit() override;
 
 	private:
-		
+		AudioSource* aaa;
+		bool mbAudioPlay;
 	};
 }

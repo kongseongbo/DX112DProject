@@ -14,12 +14,20 @@
 #include "yaApplication.h"
 #include "yaCharacterSelect.h"
 #include "yaLight.h"
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
+
 extern ya::Application application;
 
 namespace ya
 {
 	CharacterSelectScene::CharacterSelectScene()
 		: Scene(eSceneType::CharacterSelect)
+		, aaa(nullptr)
+		, mbAudioPlay(false)
 	{
 	}
 	CharacterSelectScene::~CharacterSelectScene()
@@ -39,7 +47,7 @@ namespace ya
 		cameraComp->TurnLayerMask(eLayerType::UI, true);
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
-
+		
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 
 		// Marco
@@ -120,15 +128,18 @@ namespace ya
 		p1Mr->SetMaterial(p1Material);
 		p1Mr->SetMesh(mesh);
 
+		aaa = cameraObj->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"SelectAudio", L"Sound\\TheMilitarySystem.mp3");
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(true);
 		
-
 		Scene::Initalize();
 	}
 	void CharacterSelectScene::Update()
 	{
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-
+			aaa->Stop();
 			SceneManager::LoadScene(eSceneType::Stage1);
 		}
 
@@ -136,6 +147,7 @@ namespace ya
 	}
 	void CharacterSelectScene::FixedUpdate()
 	{
+
 		Scene::FixedUpdate();
 	}
 	void CharacterSelectScene::Render()

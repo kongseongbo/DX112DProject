@@ -22,6 +22,10 @@ namespace ya
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"groundeffect", L"TheKeesi\\groundeffect.png");
 		ani->Create(L"groundeffect", texture, Vector2(910.0f, 0.0f), Vector2(70.0f, 36.0f), Vector2::Zero, 7, 0.2f);
 
+		texture = Resources::Load<Texture>(L"DeathEffect", L"Helicopter\\DeathEffect.png");
+		ani->Create(L"DeathEffect", texture, Vector2(0.0f, 0.0f), Vector2(90.0f, 56.0f), Vector2(0.01f, 0.0f), 6, 0.2f);
+		
+
 		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> matateiral = Resources::Find<Material>(L"SpriteMaterial");
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");

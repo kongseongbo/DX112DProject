@@ -5,8 +5,14 @@
 #include "yaObject.h"
 #include "yaTime.h"
 
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
 #include "yaMachineGun.h"
 #include "yaMachineGunScript.h"
+
 
 namespace ya
 {
@@ -53,6 +59,11 @@ namespace ya
 		ani->GetCompleteEvent(L"salute") = std::bind(&PoroScript::Death, this);
 
 		ani->Play(L"PoroIdle", true);
+
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"thankyou", L"Sound\\thankyou.mp3");
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 	}
 	void PoroScript::Update()
 	{
@@ -83,15 +94,14 @@ namespace ya
 	void PoroScript::OnCollisionEnter(Collider2D* collider)
 	{
 		Animator* ani = GetOwner()->GetComponent<Animator>();
+		AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
 		
 		if ((collider->GetOwner()->GetLayerType() == eLayerType::Player || collider->GetOwner()->GetName() == L"Head") && mStack == 1)
 		{
+			mStack++;
+			aaa->Play();
 			ani->Play(L"CreateItem", false);
 			mPoroState = PoroState::IDLE;
-
-
-
-			mStack++;
 		}
 		else
 		{

@@ -11,6 +11,11 @@
 #include "yaLight.h"
 #include "yaParticleSystem.h"
 
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
 namespace ya
 {
 	BulletScript::BulletScript()
@@ -59,6 +64,13 @@ namespace ya
 		bulletSr->SetMaterial(bodyMateiral);
 		bulletSr->SetMesh(mesh);
 
+
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
+
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"BulletOnColl", L"Sound\\BulletOnColl.wav");
+
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 		
 	}
 	void BulletScript::Update()
@@ -121,12 +133,12 @@ namespace ya
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Delete)
 			return;
 
-		//GetOwner()->SetLayerType(eLayerType::Effect);
-
 		Animator* ani = GetOwner()->GetComponent<Animator>();
 		ani->Play(L"Effect", false);
 		mbCrash = true;
 
+		AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+		aaa->Play();
 		
 	}
 	void BulletScript::OnCollisionStay(Collider2D* collider)

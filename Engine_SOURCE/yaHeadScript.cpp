@@ -6,6 +6,12 @@
 #include "yaPlayer.h"
 #include "yaRigidbody.h"
 #include "yaSceneManager.h"
+
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
 #include "yaBulletScript.h"
 #include "yaBombScript.h"
 
@@ -26,6 +32,7 @@ namespace ya
 		, mDiagonal(0.0f)
 		, mbLine(false)
 		, mStop(0)
+		, mbComplete(false)
 		//, a(nullptr)
 	{
 		
@@ -104,6 +111,9 @@ namespace ya
 			texture = Resources::Load<Texture>(L"NewMarco", L"Character\\Marco\\NewMarco.png");
 			mHeadAni->Create(L"NewMarco", texture, Vector2(0.0f, 0.0f), Vector2(40.0f, 244.0f), Vector2(-0.03f, -0.38f), 7, 0.2f);
 
+			texture = Resources::Load<Texture>(L"Clear", L"Character\\Marco\\Clear.png");
+			mHeadAni->Create(L"Clear", texture, Vector2(0.0f, 0.0f), Vector2(47.25, 47.0f), Vector2(0.0f, 0.0f), 4, 0.1f);
+
 			//MachineGun
 			texture = Resources::Load<Texture>(L"MachineIdle", L"Character\\MarcoMachineGun\\Idle.png");
 			mHeadAni->Create(L"RightIdle", texture, Vector2(0.0f, 0.0f), Vector2(47.5f, 36.0f), Vector2(0.06f, -0.06f), 4, 0.3f);
@@ -180,6 +190,12 @@ namespace ya
 			mHeadAni->GetCompleteEvent(L"RightDownAttack") = std::bind(&HeadScript::End, this);
 			mHeadAni->GetCompleteEvent(L"LeftDownAttack") = std::bind(&HeadScript::End, this);
 		}
+		GetOwner()->AddComponent<AudioListener>();
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
+
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"Gun", L"Sound\\Gun.wav");
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 	}
 
 	void HeadScript::Update()
@@ -233,6 +249,10 @@ namespace ya
 		/*if(time > 5.0f)
 			mBullets.deallocate(a);*/
 	
+	}
+
+	void HeadScript::FixedUpdate()
+	{
 	}
 
 	void HeadScript::Render()
@@ -317,14 +337,11 @@ namespace ya
 		{
 			mDiagonal = 0.0f;
 		}
-		/*else
-			mbLine = false;*/
 	}
 
 	void HeadScript::OnCollisionExit(Collider2D* collider)
 	{
-		/*if (collider->GetColliderType() == eColliderType::Line)
-			mbLine = false;*/
+
 	}
 
 	void HeadScript::Start()
@@ -335,11 +352,6 @@ namespace ya
 		mHeadAni->Play(L"HeadIdle", true);
 		mHeadState = HeadState::IDLE;
 
-		
-	}
-
-	void HeadScript::Action()
-	{
 		
 	}
 
@@ -463,6 +475,9 @@ namespace ya
 		if (coll->GetSize() == Vector2(0.1f, 0.1f));
 			coll->SetSize(Vector2(0.1f, 0.2f));
 		
+		if (mbComplete)
+			mHeadAni->Play(L"Clear", false);
+
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			if (mGunState == eGunState::GUN)
@@ -1395,6 +1410,13 @@ namespace ya
 		bulletTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 		bulletScript->SetDirection(direction);
 		bulletScript->SetState(up);
+
+		AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+	/*	std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"Gun", L"Sound\\Gun.wav");
+
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);*/
+		aaa->Play();
 	}
 	void HeadScript::NewMachineGun(Vector3 pos, int direction, bool up)
 	{
@@ -1430,10 +1452,6 @@ namespace ya
 			{
 				if (direction == 0)
 				{
-					
-					/*bulletTr->SetPosition(Vector3(pos.x - 2.0f, pos.y + distr(eng), pos.z));
-					bulletTr->SetRotation(Vector3(0.0f, 180.0f, -10.0f * (i + 4)));*/
-		
 					bulletTr->SetPosition(Vector3(pos.x - 2.0f, pos.y + distr(eng), pos.z));
 					bulletTr->SetRotation(Vector3(0.0f, 180.0f, 0.0f  ));
 
@@ -1447,6 +1465,13 @@ namespace ya
 			bulletScript->SetDirection(direction);
 			bulletScript->SetState(up);
 		}
+
+		AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"MachineGun", L"Sound\\MachineGun.wav");
+
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
+		aaa->Play();
 	}
 	void HeadScript::NewMachineGunUp(Vector3 pos, int direction)
 	{

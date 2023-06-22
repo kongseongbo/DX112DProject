@@ -6,6 +6,11 @@
 #include "yaCollider2D.h"
 #include "yaRigidbody.h"
 
+#include "yaAudioListener.h"
+#include "yaAudioClip.h"
+#include "yaFmod.h"
+#include "yaAudioSource.h"
+
 #include "yaArabianKnifeScript.h"
 #include "yaArabianKnife.h"
 
@@ -69,6 +74,12 @@ namespace ya
 		arabianSr->SetMesh(mesh);
 
 		mAni->Play(L"RightMove", true);
+
+		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
+		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"arabianscream", L"Sound\\arabianscream.mp3");
+
+		aaa->SetClip(myAudioClip);
+		aaa->SetLoop(false);
 	}
 	void BossArabianScript::Update()
 	{
@@ -104,6 +115,8 @@ namespace ya
 	}
 	void BossArabianScript::OnCollisionEnter(Collider2D* collider)
 	{
+		AudioSource* aaa = GetOwner()->GetComponent<AudioSource>();
+
 		if (collider->GetOwner()->GetName() == L"Tent")
 		{
 			mTime = 0.0f;
@@ -122,11 +135,11 @@ namespace ya
 		if (collider->GetOwner()->GetName() == L"Head")
 		{
 			mAni->Play(L"Attack", false);
-			//mArabianState = ArabianState::ATTACK;
 		}
 
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
 		{
+			aaa->Play();
 			mAni->Play(L"Death", false);
 			mBossArabianState = BossArabianState::DEATH;
 			mTime = 0.0f;
@@ -134,6 +147,7 @@ namespace ya
 
 		if (collider->GetOwner()->GetLayerType() == eLayerType::Bomb)
 		{
+			aaa->Play();
 			mAni->Play(L"BombDeath", false);
 			mBossArabianState = BossArabianState::DEATH;
 			mTime = 0.0f;

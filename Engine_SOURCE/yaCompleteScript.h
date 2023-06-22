@@ -3,7 +3,7 @@
 #include "yaComponent.h"
 #include "yaAnimator.h"
 #include "yaTheKeesiScript.h"
-
+#include "yaHeadScript.h"
 
 namespace ya
 {
