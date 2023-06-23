@@ -5,10 +5,14 @@
 #include "yaPlayer.h"
 #include "yaBody.h"
 
+
+#include "yaMosqueArtilleryScript.h"
 #include "yaMosqueArtilleryeHeadLeftScript.h"
 #include "yaMosqueArtilleryeHeadCenterScript.h"
 #include "yaMosqueArtilleryeHeadRightScript.h"
 
+#include "yaDoorScript.h"
+#include "yaLeftDoorScript.h"
 
 namespace ya
 {
@@ -30,6 +34,8 @@ namespace ya
 		
 	private:
 		GameObject* mCameraObj;
+		CameraScript* cameraScript;
+
 		GameObject* wallObj;
 		Player* headObj;
 		Body* bodyObj;
@@ -47,6 +53,11 @@ namespace ya
 		MosqueArtilleryeHeadLeftScript* mMosqueArtilleryeHeadLeftScript;
 		MosqueArtilleryeHeadCenterScript* mMosqueArtilleryeHeadCenterScript;
 		MosqueArtilleryeHeadRightScript* mMosqueArtilleryeHeadRightScript;
+
+		MosqueArtilleryScript* mMosqueBaseScript;
+
+		DoorScript* doorScript;
+		LeftDoorScript* leftdoorScript;
 
 		float mTime;
 		float mZoom;

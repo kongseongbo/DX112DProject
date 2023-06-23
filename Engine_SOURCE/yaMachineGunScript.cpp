@@ -26,7 +26,6 @@ namespace ya
 	}
 	void MachineGunScript::Initalize()
 	{
-		//GetOwner()->AddComponent<AudioListener>();
 		AudioSource* aaa = GetOwner()->AddComponent<AudioSource>();
 
 		std::shared_ptr<AudioClip> myAudioClip = Resources::Load<AudioClip>(L"machinegun", L"Sound\\machinegun.mp3");

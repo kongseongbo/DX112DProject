@@ -36,10 +36,11 @@
 #include "yaParachuteScript.h"
 
 #include "yaMonster.h"
-#include "yaMosqueArtilleryScript.h"
 #include "yaCenterEffectScript.h"
 #include "yaLeftEffectScript.h"
 #include "yaRightEffectScript.h"
+
+#include "yaGoUiScript.h"
 
 #include "yaFadeInOutScript.h"
 
@@ -64,6 +65,10 @@ namespace ya
 		, mTime(0.0f)
 		, mZoom(50.0f)
 		, mbAudioPlay(false)
+		, cameraScript(nullptr)
+		, doorScript(nullptr)
+		, mMosqueBaseScript(nullptr)
+		, leftdoorScript(nullptr)
 	{
 	}
 
@@ -103,7 +108,7 @@ namespace ya
 			mCameraObj->SetName(L"MainCamera");
 			Camera* cameraComp = mCameraObj->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			CameraScript* cameraScript = mCameraObj->AddComponent<CameraScript>();
+			cameraScript = mCameraObj->AddComponent<CameraScript>();
 			mainCamera = cameraComp;
 		
 		// UI Camera	
@@ -115,7 +120,21 @@ namespace ya
 			cameraUIComp->TurnLayerMask(eLayerType::UI, true);
 		}
 #pragma endregion
+		{
+			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI, this);
+			
+			Transform* hpBarTR = hpBar->GetComponent<Transform>();
+			hpBarTR->SetPosition(Vector3(10.0f, 2.0f, 4.0f));
+			hpBarTR->SetScale(Vector3(8.0f, 8.0f, 1.0f));
+			hpBar->AddComponent<Animator>();
+			hpBar->AddComponent<GoUiScript>();
 
+			SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> hpspriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
+			hpsr->SetMesh(hpmesh);
+			hpsr->SetMaterial(hpspriteMaterial);
+		}
 #pragma region MAP
 		{
 			GameObject* mapObj = object::Instantiate<GameObject>(eLayerType::Map, this);
@@ -516,12 +535,41 @@ namespace ya
 			sr->SetMesh(mesh);
 		}
 		// Base
-		GameObject* mosqueArtilleryObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
-		mosqueArtilleryObj->SetName(L"MosqueArtilleryBase");
-		Transform* baseTr = mosqueArtilleryObj->GetComponent<Transform>();
-		baseTr->SetPosition(Vector3(49.0f, -0.5f, 10.0f));
-		baseTr->SetScale(Vector3(25.0f, 8.5f, 1.0f));
-		mosqueArtilleryObj->AddComponent<MosqueArtilleryScript>();
+		{
+			GameObject* mosqueArtilleryObj = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
+			mosqueArtilleryObj->SetName(L"MosqueArtilleryBase");
+			Transform* baseTr = mosqueArtilleryObj->GetComponent<Transform>();
+			baseTr->SetPosition(Vector3(49.0f, -0.5f, 10.0f));
+			baseTr->SetScale(Vector3(25.0f, 8.5f, 1.0f));
+			mMosqueBaseScript = mosqueArtilleryObj->AddComponent<MosqueArtilleryScript>();
+		}
+		// door
+		{
+			GameObject* door = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
+			Transform* baseTr = door->GetComponent<Transform>();
+			baseTr->SetPosition(Vector3(56.6f, -2.5f, 9.0f));
+			baseTr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
+			door->AddComponent<Animator>();
+			doorScript = door->AddComponent<DoorScript>();
+			doorScript->SetLeft(mMosqueArtilleryeHeadLeftScript);
+			doorScript->SetCenter(mMosqueArtilleryeHeadCenterScript);
+			doorScript->SetRight(mMosqueArtilleryeHeadRightScript);
+			doorScript->SetCameraScrit(cameraScript);
+			doorScript->SetBase(mMosqueBaseScript);
+		}
+		// left door
+		{
+			GameObject* door = object::Instantiate<GameObject>(eLayerType::MiddleBoss, this);
+			Transform* baseTr = door->GetComponent<Transform>();
+			baseTr->SetPosition(Vector3(44.7f, -2.5f, 9.0f));
+			baseTr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
+			door->AddComponent<Animator>();
+			leftdoorScript = door->AddComponent<LeftDoorScript>();
+			leftdoorScript->SetLeft(mMosqueArtilleryeHeadLeftScript);
+			leftdoorScript->SetCenter(mMosqueArtilleryeHeadCenterScript);
+			leftdoorScript->SetRight(mMosqueArtilleryeHeadRightScript);
+			leftdoorScript->SetCameraScrit(cameraScript);
+		}
 #pragma endregion
 
 #pragma region Create Thekeesi Coll
@@ -640,7 +688,7 @@ namespace ya
 			
 			if (cameraTr->GetPosition().x >= 50.5f)
 			{
-				if (mosqueArtilleryLeftObj->GetState() == GameObject::Paused && mosqueArtilleryCenterObj->GetState() == GameObject::Paused && mosqueArtilleryRightObj->GetState() == GameObject::Paused)
+				if (doorScript->GetNext())
 				{
 					mapScript->SetPlayerCamera(true);
 					pos = headPos;

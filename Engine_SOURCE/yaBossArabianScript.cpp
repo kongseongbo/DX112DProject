@@ -136,21 +136,23 @@ namespace ya
 		{
 			mAni->Play(L"Attack", false);
 		}
-
-		if (collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
+		if (mBossArabianState != BossArabianState::NEW && mBossArabianState != BossArabianState::JUMP)
 		{
-			aaa->Play();
-			mAni->Play(L"Death", false);
-			mBossArabianState = BossArabianState::DEATH;
-			mTime = 0.0f;
-		}
+			if (collider->GetOwner()->GetLayerType() == eLayerType::Bullet)
+			{
+				aaa->Play();
+				mAni->Play(L"Death", false);
+				mBossArabianState = BossArabianState::DEATH;
+				mTime = 0.0f;
+			}
 
-		if (collider->GetOwner()->GetLayerType() == eLayerType::Bomb)
-		{
-			aaa->Play();
-			mAni->Play(L"BombDeath", false);
-			mBossArabianState = BossArabianState::DEATH;
-			mTime = 0.0f;
+			if (collider->GetOwner()->GetLayerType() == eLayerType::Bomb)
+			{
+				aaa->Play();
+				mAni->Play(L"BombDeath", false);
+				mBossArabianState = BossArabianState::DEATH;
+				mTime = 0.0f;
+			}
 		}
 	}
 	void BossArabianScript::OnCollisionStay(Collider2D* collider)
@@ -250,7 +252,7 @@ namespace ya
 		}
 	}
 
-	
+
 	void BossArabianScript::Move()
 	{
 		mTime += Time::DeltaTime();

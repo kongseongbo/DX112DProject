@@ -168,6 +168,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="yaArabian.h" />
     <ClInclude Include="yaArabianKnife.h" />
     <ClInclude Include="yaArabianKnifeScript.h" />
@@ -196,13 +197,16 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="yaComputeShader.h" />
     <ClInclude Include="yaDeathEffect.h" />
     <ClInclude Include="yaDeathScript.h" />
+    <ClInclude Include="yaDoorScript.h" />
     <ClInclude Include="yaEngineEffectScript.h" />
     <ClInclude Include="yaFlamestrikeScript.h" />
     <ClInclude Include="yaFmod.h" />
+    <ClInclude Include="yaGoUiScript.h" />
     <ClInclude Include="yaHeadScript.h" />
     <ClInclude Include="yaHelicopter.h" />
     <ClInclude Include="yaHelicopterBulletScript.h" />
     <ClInclude Include="yaHelicopterScript.h" />
+    <ClInclude Include="yaLeftDoorScript.h" />
     <ClInclude Include="yaLeftEffectScript.h" />
     <ClInclude Include="yaLight.h" />
     <ClInclude Include="yaMachineGun.h" />
@@ -308,13 +312,16 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="yaComputeShader.cpp" />
     <ClCompile Include="yaDeathEffect.cpp" />
     <ClCompile Include="yaDeathScript.cpp" />
+    <ClCompile Include="yaDoorScript.cpp" />
     <ClCompile Include="yaEngineEffectScript.cpp" />
     <ClCompile Include="yaFlamestrikeScript.cpp" />
     <ClCompile Include="yaFmod.cpp" />
+    <ClCompile Include="yaGoUiScript.cpp" />
     <ClCompile Include="yaHeadScript.cpp" />
     <ClCompile Include="yaHelicopter.cpp" />
     <ClCompile Include="yaHelicopterBulletScript.cpp" />
     <ClCompile Include="yaHelicopterScript.cpp" />
+    <ClCompile Include="yaLeftDoorScript.cpp" />
     <ClCompile Include="yaLeftEffectScript.cpp" />
     <ClCompile Include="yaLight.cpp" />
     <ClCompile Include="yaMachineGun.cpp" />
@@ -389,6 +396,9 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine_SOURCE.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

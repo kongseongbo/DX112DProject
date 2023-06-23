@@ -241,7 +241,7 @@ namespace ya
 				{
 					obj = object::Instantiate<GameObject>(eLayerType::Monster);
 					Transform* tr = obj->GetComponent<Transform>();
-					tr->SetPosition(Vector3(mTr->GetPosition().x - 1.0f, mTr->GetPosition().y - 1.0f, mTr->GetPosition().z - 1.0f));
+					tr->SetPosition(Vector3(mTr->GetPosition().x - 1.0f, mTr->GetPosition().y - 1.5f, mTr->GetPosition().z - 1.0f));
 					tr->SetScale(Vector3(12.0f, 12.0f, 12.0f));
 					Animator* ani = obj->AddComponent<Animator>();
 					DeathEffect* effect = obj->AddComponent<DeathEffect>();
@@ -258,7 +258,7 @@ namespace ya
 					{
 						obj2 = object::Instantiate<GameObject>(eLayerType::Monster);
 						Transform* tr = obj2->GetComponent<Transform>();
-						tr->SetPosition(Vector3(mTr->GetPosition().x - 2.0f, mTr->GetPosition().y - 1.0f, mTr->GetPosition().z - 1.0f));
+						tr->SetPosition(Vector3(mTr->GetPosition().x - 2.0f, mTr->GetPosition().y - 1.2f, mTr->GetPosition().z - 1.0f));
 						tr->SetScale(Vector3(12.0f, 12.0f, 12.0f));
 						Animator* ani = obj2->AddComponent<Animator>();
 						DeathEffect* effect = obj2->AddComponent<DeathEffect>();
@@ -276,7 +276,7 @@ namespace ya
 					{
 						obj3 = object::Instantiate<GameObject>(eLayerType::Monster);
 						Transform* tr = obj3->GetComponent<Transform>();
-						tr->SetPosition(Vector3(mTr->GetPosition().x + 2.0f, mTr->GetPosition().y - 1.0f, mTr->GetPosition().z - 1.0f));
+						tr->SetPosition(Vector3(mTr->GetPosition().x + 2.0f, mTr->GetPosition().y - 1.8f, mTr->GetPosition().z - 1.0f));
 						tr->SetScale(Vector3(12.0f, 12.0f, 12.0f));
 						Animator* ani = obj3->AddComponent<Animator>();
 						DeathEffect* effect = obj3->AddComponent<DeathEffect>();
@@ -293,7 +293,7 @@ namespace ya
 					{
 						obj4 = object::Instantiate<GameObject>(eLayerType::Monster);
 						Transform* tr = obj4->GetComponent<Transform>();
-						tr->SetPosition(Vector3(mTr->GetPosition().x + 3.0f, mTr->GetPosition().y + 1.0f, mTr->GetPosition().z - 1.0f));
+						tr->SetPosition(Vector3(mTr->GetPosition().x + 3.0f, mTr->GetPosition().y + 2.0f, mTr->GetPosition().z - 1.0f));
 						tr->SetScale(Vector3(12.0f, 12.0f, 12.0f));
 						Animator* ani = obj4->AddComponent<Animator>();
 						DeathEffect* effect = obj4->AddComponent<DeathEffect>();

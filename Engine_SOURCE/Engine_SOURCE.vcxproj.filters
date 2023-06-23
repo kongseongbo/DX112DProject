@@ -552,6 +552,13 @@
     <ClCompile Include="yaDeathEffect.cpp">
       <Filter>Component\Script\Enemy\TheKeesi\Script</Filter>
     </ClCompile>
+    <ClCompile Include="yaDoorScript.cpp">
+      <Filter>Component\Script\Enemy\MosqueArtillery\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLeftDoorScript.cpp">
+      <Filter>Component\Script\Enemy\MosqueArtillery\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGoUiScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -887,10 +894,21 @@
     <ClInclude Include="yaDeathEffect.h">
       <Filter>Component\Script\Enemy\TheKeesi\Script</Filter>
     </ClInclude>
+    <ClInclude Include="yaDoorScript.h">
+      <Filter>Component\Script\Enemy\MosqueArtillery\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLeftDoorScript.h">
+      <Filter>Component\Script\Enemy\MosqueArtillery\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="yaGoUiScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="yaMath.inl">
       <Filter>Common\Math</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine_SOURCE.rc" />
   </ItemGroup>
 </Project>

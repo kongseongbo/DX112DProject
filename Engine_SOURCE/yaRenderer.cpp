@@ -513,6 +513,7 @@ namespace ya::renderer
 		Resources::Load<Texture>(L"Mission1", L"Map\\Mission1.png");
 		Resources::Load<Texture>(L"Mission2", L"Map\\Mission2.png");
 		Resources::Load<Texture>(L"MosqueArtilleryBase", L"MosqueArtillery\\Base.png");
+		Resources::Load<Texture>(L"DestroyBase", L"MosqueArtillery\\DestroyBase.png");
 
 		// MosqueArtilleryHead
 		Resources::Load<Texture>(L"MosqueArtilleryLeft", L"MosqueArtillery\\MosqueArtilleryeHeadLeft.png");
@@ -688,14 +689,25 @@ namespace ya::renderer
 			Resources::Insert<Material>(L"MapMaterial2", map2Material);
 		}
 		// MosqueArtilleryBase
-		std::shared_ptr <Texture> mosqueArtilleryBaseTexture = Resources::Find<Texture>(L"MosqueArtilleryBase");
-		std::shared_ptr<Shader> mosqueArtilleryBaseShader = Resources::Find<Shader>(L"RectShader");
-		std::shared_ptr<Material> mosqueArtilleryBaseMaterial = std::make_shared<Material>();
-		mosqueArtilleryBaseMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		mosqueArtilleryBaseMaterial->SetShader(mosqueArtilleryBaseShader);
-		mosqueArtilleryBaseMaterial->SetTexture(eTextureSlot::T0, mosqueArtilleryBaseTexture);
-		Resources::Insert<Material>(L"mosqueArtilleryBaseMaterial", mosqueArtilleryBaseMaterial);
-
+		{
+			std::shared_ptr <Texture> mosqueArtilleryBaseTexture = Resources::Find<Texture>(L"MosqueArtilleryBase");
+			std::shared_ptr<Shader> mosqueArtilleryBaseShader = Resources::Find<Shader>(L"RectShader");
+			std::shared_ptr<Material> mosqueArtilleryBaseMaterial = std::make_shared<Material>();
+			mosqueArtilleryBaseMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			mosqueArtilleryBaseMaterial->SetShader(mosqueArtilleryBaseShader);
+			mosqueArtilleryBaseMaterial->SetTexture(eTextureSlot::T0, mosqueArtilleryBaseTexture);
+			Resources::Insert<Material>(L"mosqueArtilleryBaseMaterial", mosqueArtilleryBaseMaterial);
+		}
+		// MosqueArtilleryDestroyBase
+		{
+			std::shared_ptr <Texture> mosqueArtilleryBaseTexture = Resources::Find<Texture>(L"DestroyBase");
+			std::shared_ptr<Shader> mosqueArtilleryBaseShader = Resources::Find<Shader>(L"RectShader");
+			std::shared_ptr<Material> mosqueArtilleryBaseMaterial = std::make_shared<Material>();
+			mosqueArtilleryBaseMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			mosqueArtilleryBaseMaterial->SetShader(mosqueArtilleryBaseShader);
+			mosqueArtilleryBaseMaterial->SetTexture(eTextureSlot::T0, mosqueArtilleryBaseTexture);
+			Resources::Insert<Material>(L"mosqueArtilleryDestroyMaterial", mosqueArtilleryBaseMaterial);
+		}
 		// MosqueArtilleryLeft
 		std::shared_ptr <Texture> mosqueArtilleryLeftTexture = Resources::Find<Texture>(L"MosqueArtilleryLeft");
 		std::shared_ptr<Shader> mosqueArtilleryLeftShader = Resources::Find<Shader>(L"RectShader");

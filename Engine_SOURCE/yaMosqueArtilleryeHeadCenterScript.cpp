@@ -98,6 +98,7 @@ namespace ya
 		if (mHp <= 0)
 		{
 			ani->Play(L"CenterDestroy", false);
+			eState = State::DIE;
 			GetOwner()->Pause();
 		}
 

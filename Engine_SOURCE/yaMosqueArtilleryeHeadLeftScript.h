@@ -42,6 +42,7 @@ namespace ya
 		void SetStartAni(bool start) { mbStartAni = start; }
 
 		void SetTarget(Player* player) { mPlayer = player; }
+		State GetState() { return eState; }
 
 	private:
 		Player* mPlayer;

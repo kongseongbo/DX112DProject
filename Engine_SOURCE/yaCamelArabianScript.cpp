@@ -174,7 +174,7 @@ namespace ya
 			if(direction == 0)
 				pos.x -= 2.0f * Time::DeltaTime();
 			if(direction == 1)
-				pos.x += 2.0f * Time::DeltaTime();
+				pos.x += 0.5f * Time::DeltaTime();
 			mTr->SetPosition(pos);
 
 			if (mTime > 2.0f)

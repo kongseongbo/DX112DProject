@@ -21,6 +21,9 @@ namespace ya
 		virtual void OnTriggerEnter(Collider2D* collider);
 		virtual void OnTriggerStay(Collider2D* collider);
 		virtual void OnTriggerExit(Collider2D* collider);
+
+		void SetSpriteChange(bool change) { mbSpriteChange = change; }
 	private:
+		bool mbSpriteChange;
 	};
 }

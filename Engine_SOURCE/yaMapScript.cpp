@@ -7,6 +7,7 @@
 #include "yaResources.h"
 #include "yaTime.h"
 
+
 #include "yaHeadScript.h"
 
 #include "yaArabian.h"
@@ -321,7 +322,7 @@ namespace ya
 			CamelArabian* camelArabian = object::Instantiate<CamelArabian>(eLayerType::Monster);
 			camelArabian->SetName(L"CamelArabian");
 			Transform* tr = camelArabian->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-15.0f, -2.0f, 5.0f));
+			tr->SetPosition(Vector3(-12.0f, -2.0f, 5.0f));
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 			camelArabian->AddComponent<Animator>();
 			camelArabian->AddComponent<Collider2D>();
@@ -373,6 +374,21 @@ namespace ya
 			scr->SetPlayer(mPlayer);
 			scr->SetTime(1.3f);
 			scr->SetDirection(true);
+		}
+
+		{
+			GameObject* obj = new GameObject();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(obj, eLayerType::Obj);
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(position.x + 20.0f, -3.5f, 5.0f));
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
+			obj->AddComponent<Animator>();
+			Collider2D* coll = obj->AddComponent<Collider2D>();
+			coll->SetType(eColliderType::Rect);
+			coll->SetSize(Vector2(0.1f, 0.1f));
+
+			PoroScript* script = obj->AddComponent<PoroScript>();
 		}
 	}
 	void MapScript::CreateThekeesi(Vector3 position)

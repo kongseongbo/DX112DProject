@@ -13,6 +13,7 @@ namespace ya
 {
 	MosqueArtilleryScript::MosqueArtilleryScript()
 		: Script()
+		, mbSpriteChange(false)
 	{
 	}
 	MosqueArtilleryScript::~MosqueArtilleryScript()
@@ -21,17 +22,24 @@ namespace ya
 	void MosqueArtilleryScript::Initalize()
 	{
 
-		SpriteRenderer* heliSr = GetOwner()->AddComponent<SpriteRenderer>();
+		//mosqueArtilleryDestroyMaterial
+
+		SpriteRenderer* sr = GetOwner()->AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> heliMaterial = Resources::Find<Material>(L"mosqueArtilleryBaseMaterial");
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		heliSr->SetMaterial(heliMaterial);
-		heliSr->SetMesh(mesh);
+		sr->SetMaterial(heliMaterial);
+		sr->SetMesh(mesh);
 
 
 	}
 	void MosqueArtilleryScript::Update()
 	{
-
+		if (mbSpriteChange)
+		{
+			SpriteRenderer* sr = GetOwner()->GetComponent<SpriteRenderer>();
+			std::shared_ptr<Material> heliMaterial = Resources::Find<Material>(L"mosqueArtilleryDestroyMaterial");
+			sr->SetMaterial(heliMaterial);
+		}
 	}
 	void MosqueArtilleryScript::FixedUpdate()
 	{
